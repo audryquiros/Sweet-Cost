@@ -1,0 +1,118 @@
+.insumos-page {
+  min-height: 100vh;
+  padding: 40px;
+  background-color: #fff9f5;
+}
+
+.insumos-header {
+  max-width: 1100px;
+  margin: 0 auto 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 25px;
+}
+
+.insumos-header h1 {
+  margin: 0;
+  color: #352d3a;
+  font-size: 32px;
+}
+
+.insumos-header p {
+  max-width: 600px;
+  margin: 8px 0 0;
+
+  color: #776d7d;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.btn-agregar-insumo {
+  flex-shrink: 0;
+
+  padding: 12px 20px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #9b7ede;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-agregar-insumo:hover {
+  background-color: #6d4c8d;
+}
+
+.btn-agregar-insumo:active {
+  transform: scale(0.98);
+}
+
+.insumos-error {
+  max-width: 1100px;
+  margin: 0 auto 20px;
+
+  padding: 12px 15px;
+
+  border: 1px solid #e8baba;
+  border-radius: 8px;
+
+  background-color: #fff1f1;
+  color: #c95c5c;
+
+  font-size: 14px;
+}
+
+.insumos-lista {
+  max-width: 1100px;
+  margin: 40px auto 0;
+}
+
+.insumos-lista-header {
+  margin-bottom: 20px;
+}
+
+.insumos-lista-header h2 {
+  margin: 0;
+
+  color: #6d4c8d;
+  font-size: 22px;
+}
+
+.insumos-lista-header p {
+  margin: 5px 0 0;
+
+  color: #776d7d;
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .insumos-page {
+    padding: 25px 20px;
+  }
+
+  .insumos-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .btn-agregar-insumo {
+    width: 100%;
+  }
+
+  .insumos-header h1 {
+    font-size: 27px;
+  }
+}

@@ -1,0 +1,220 @@
+.recetas-page {
+  width: 100%;
+  min-height: calc(100vh - 70px);
+  padding: 35px;
+  background-color: #fff9f5;
+}
+
+.recetas-header {
+  max-width: 1500px;
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.recetas-header h1 {
+  margin: 0;
+  color: #352d3a;
+  font-size: 32px;
+}
+
+.recetas-header p {
+  margin: 8px 0 0;
+  color: #776d7d;
+  font-size: 14px;
+}
+
+.btn-agregar-receta {
+  padding: 12px 20px;
+  border: 1px solid #9b7ede;
+  border-radius: 8px;
+  background-color: #9b7ede;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-agregar-receta:hover {
+  background-color: #6d4c8d;
+}
+
+.btn-agregar-receta:active {
+  transform: scale(0.98);
+}
+
+.recetas-error {
+  max-width: 1500px;
+  margin: 0 auto 20px;
+  padding: 12px 15px;
+  border: 1px solid #e8baba;
+  border-radius: 8px;
+  background-color: #fff1f1;
+  color: #c95c5c;
+  font-size: 14px;
+}
+
+.recetas-aviso {
+  max-width: 1500px;
+  margin: 0 auto 25px;
+  padding: 16px 18px;
+  border: 1px solid #e3dce9;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.recetas-aviso strong {
+  color: #6d4c8d;
+  font-size: 14px;
+}
+
+.recetas-aviso p {
+  margin: 6px 0 0;
+  color: #776d7d;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   FORMULARIO + CONVERSOR
+   ========================================= */
+
+.recetas-form-layout {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto 55px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  align-items: start;
+  gap: 25px;
+}
+
+.recetas-conversor {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: sticky;
+  top: 20px;
+}
+
+.ingrediente-seleccionado {
+  padding: 14px;
+  border: 1px solid #e3dce9;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.ingrediente-seleccionado span {
+  display: block;
+  margin-bottom: 5px;
+  color: #776d7d;
+  font-size: 11px;
+}
+
+.ingrediente-seleccionado strong {
+  color: #6d4c8d;
+  font-size: 14px;
+}
+
+.ingrediente-seleccionado p {
+  margin: 6px 0 0;
+  color: #776d7d;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+/* =========================================
+   MENSAJE DE ÉXITO
+   ========================================= */
+
+.recetas-exito {
+  margin-bottom: 18px;
+  padding: 12px 15px;
+  border: 1px solid #b9d8c0;
+  border-radius: 8px;
+  background-color: #f1f8f2;
+  color: #6fa47a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================================
+   RECETAS REGISTRADAS
+   ========================================= */
+
+.recetas-lista {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  scroll-margin-top: 25px;
+}
+
+.recetas-lista-header {
+  margin-bottom: 22px;
+}
+
+.recetas-lista-header h2 {
+  margin: 0;
+  color: #352d3a;
+  font-size: 24px;
+}
+
+.recetas-lista-header p {
+  margin: 6px 0 0;
+  color: #776d7d;
+  font-size: 13px;
+}
+
+.recetas-cargando {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  text-align: center;
+  color: #776d7d;
+  font-size: 15px;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 950px) {
+  .recetas-form-layout {
+    grid-template-columns: 1fr;
+    margin-bottom: 45px;
+  }
+
+  .recetas-conversor {
+    position: static;
+  }
+}
+
+@media (max-width: 700px) {
+  .recetas-page {
+    padding: 25px 18px;
+  }
+
+  .recetas-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .btn-agregar-receta {
+    width: 100%;
+  }
+}
+
+@media (max-width: 450px) {
+  .recetas-page {
+    padding: 20px 12px;
+  }
+
+  .recetas-header h1 {
+    font-size: 27px;
+  }
+}

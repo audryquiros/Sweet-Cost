@@ -1,0 +1,30 @@
+.insumos-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(280px, 1fr)
+  );
+  gap: 20px;
+}
+
+.insumos-vacio {
+  padding: 55px 20px;
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px dashed #d8c8f2;
+  border-radius: 14px;
+}
+
+.insumos-vacio h3 {
+  margin: 0 0 8px;
+  color: #6d4c8d;
+  font-size: 18px;
+}
+
+.insumos-vacio p {
+  max-width: 420px;
+  margin: 0 auto;
+  color: #776d7d;
+  font-size: 14px;
+  line-height: 1.5;
+}

@@ -1,0 +1,152 @@
+.insumo-card {
+  padding: 22px;
+  background-color: #ffffff;
+  border: 1px solid #e3dce9;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(109, 76, 141, 0.07);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.insumo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(109, 76, 141, 0.11);
+}
+
+/* ENCABEZADO */
+
+.insumo-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.insumo-card h3 {
+  margin: 0;
+  color: #352d3a;
+  font-size: 18px;
+}
+
+.insumo-presentacion {
+  margin: 5px 0 0;
+  color: #776d7d;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.insumo-unidad {
+  padding: 5px 10px;
+  border-radius: 20px;
+  background-color: #d8c8f2;
+  color: #6d4c8d;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+/* INFORMACIÓN */
+
+.insumo-card-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  padding: 15px 0;
+  border-top: 1px solid #e3dce9;
+  border-bottom: 1px solid #e3dce9;
+}
+
+.insumo-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.insumo-info-item span {
+  color: #776d7d;
+  font-size: 12px;
+}
+
+.insumo-info-item strong {
+  color: #352d3a;
+  font-size: 15px;
+}
+
+/* COSTO UNITARIO */
+
+.insumo-costo {
+  grid-column: 1 / -1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  margin-top: 2px;
+  padding: 12px 14px;
+
+  border-radius: 9px;
+  background-color: #f6f1fb;
+}
+
+.insumo-costo span {
+  color: #776d7d;
+  font-size: 12px;
+}
+
+.insumo-costo strong {
+  color: #6d4c8d;
+  font-size: 18px;
+}
+
+/* BOTONES */
+
+.insumo-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.insumo-card-actions button {
+  flex: 1;
+  padding: 9px 12px;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.insumo-btn-editar {
+  border: 1px solid #9b7ede;
+  background-color: #ffffff;
+  color: #6d4c8d;
+}
+
+.insumo-btn-editar:hover {
+  background-color: #d8c8f2;
+}
+
+.insumo-btn-eliminar {
+  border: 1px solid #c95c5c;
+  background-color: #ffffff;
+  color: #c95c5c;
+}
+
+.insumo-btn-eliminar:hover {
+  background-color: #c95c5c;
+  color: #ffffff;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 450px) {
+  .insumo-card-info {
+    grid-template-columns: 1fr;
+  }
+}

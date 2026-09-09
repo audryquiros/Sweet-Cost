@@ -1,0 +1,51 @@
+{
+  "productos": [
+    {
+      "nombre": "Harina",
+      "marca": "Nacarina",
+      "tipo": "ingrediente",
+      "cantidad": 2500,
+      "unidad": "g",
+      "precio": 2000,
+      "id": "pTZdUzw7lEs"
+    },
+    {
+      "nombre": "Huevos",
+      "marca": "Lacko",
+      "tipo": "ingrediente",
+      "cantidad": 12,
+      "unidad": "unidad",
+      "precio": 1200,
+      "densidad": null,
+      "id": "lxb4plcizXA"
+    }
+  ],
+  "insumos": [
+    {
+      "nombre": "Caja para mini donas",
+      "presentacion": "Para 10 mini donas",
+      "cantidad": 10,
+      "unidad": "unidad",
+      "precio": 2000,
+      "id": "oO35om7aYmk"
+    }
+  ],
+  "recetas": [
+    {
+      "nombre": "Mini donas",
+      "descripcion": "Receta base de las mini donas",
+      "rendimiento": 60,
+      "unidadRendimiento": "unidad",
+      "ingredientes": [
+        {
+          "productoId": "pTZdUzw7lEs",
+          "cantidad": 127.2,
+          "unidad": "g"
+        }
+      ],
+      "id": "n-PPVNHZmc4"
+    }
+  ],
+  "cotizaciones": [],
+  "$schema": "./node_modules/json-server/schema.json"
+}

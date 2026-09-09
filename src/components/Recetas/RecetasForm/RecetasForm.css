@@ -1,0 +1,345 @@
+.recetas-form {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 28px;
+  background-color: #ffffff;
+  border: 1px solid #e3dce9;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(109, 76, 141, 0.08);
+}
+
+.recetas-form-header {
+  margin-bottom: 25px;
+}
+
+.recetas-form-header h2 {
+  margin: 0;
+  color: #352d3a;
+  font-size: 24px;
+}
+
+.recetas-form-header p {
+  max-width: 600px;
+  margin: 8px 0 0;
+  color: #776d7d;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.recetas-form form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.receta-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.receta-form-group label {
+  color: #352d3a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.receta-form-group input,
+.receta-form-group select {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid #e3dce9;
+  border-radius: 8px;
+  background-color: #fff9f5;
+  color: #352d3a;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.receta-form-group input:focus,
+.receta-form-group select:focus {
+  border-color: #9b7ede;
+  box-shadow: 0 0 0 3px rgba(155, 126, 222, 0.15);
+}
+
+.receta-form-group input::placeholder {
+  color: #a69eaa;
+}
+
+/* INGREDIENTES */
+
+.receta-ingredientes {
+  grid-column: 1 / -1;
+  margin-top: 10px;
+  padding-top: 25px;
+  border-top: 1px solid #e3dce9;
+}
+
+.receta-ingredientes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.receta-ingredientes-header h3 {
+  margin: 0;
+  color: #6d4c8d;
+  font-size: 20px;
+}
+
+.receta-ingredientes-header p {
+  margin: 5px 0 0;
+  color: #776d7d;
+  font-size: 13px;
+}
+
+.btn-agregar-ingrediente {
+  flex-shrink: 0;
+  padding: 10px 15px;
+  border: 1px solid #9b7ede;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #6d4c8d;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn-agregar-ingrediente:hover {
+  background-color: #d8c8f2;
+}
+
+.btn-agregar-ingrediente:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ingredientes-vacio {
+  padding: 25px 20px;
+  text-align: center;
+  border: 1px dashed #d8c8f2;
+  border-radius: 10px;
+  background-color: #fff9f5;
+}
+
+.ingredientes-vacio p {
+  margin: 0 0 5px;
+  color: #6d4c8d;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ingredientes-vacio span {
+  color: #776d7d;
+  font-size: 13px;
+}
+
+.ingredientes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ingrediente-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 0.8fr auto;
+  align-items: end;
+  gap: 12px;
+  padding: 15px;
+  border: 1px solid #e3dce9;
+  border-radius: 10px;
+  background-color: #fff9f5;
+}
+
+.ingrediente-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ingrediente-campo label {
+  color: #776d7d;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ingrediente-campo input,
+.ingrediente-campo select {
+  width: 100%;
+  padding: 10px 11px;
+  border: 1px solid #e3dce9;
+  border-radius: 7px;
+  background-color: #ffffff;
+  color: #352d3a;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+.ingrediente-campo input:focus,
+.ingrediente-campo select:focus {
+  border-color: #9b7ede;
+  box-shadow: 0 0 0 3px rgba(155, 126, 222, 0.12);
+}
+
+.ingrediente-campo input[readonly] {
+  background-color: #f3eef7;
+  color: #6d4c8d;
+  font-weight: 600;
+}
+
+.btn-eliminar-ingrediente {
+  height: 38px;
+  padding: 0 13px;
+  border: 1px solid #c95c5c;
+  border-radius: 7px;
+  background-color: #ffffff;
+  color: #c95c5c;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn-eliminar-ingrediente:hover {
+  background-color: #c95c5c;
+  color: #ffffff;
+}
+
+/* BOTONES DEL FORMULARIO */
+
+.recetas-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.recetas-form-actions button {
+  flex: 1;
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.receta-btn-cancelar {
+  border: 1px solid #e3dce9;
+  background-color: #ffffff;
+  color: #776d7d;
+}
+
+.receta-btn-cancelar:hover {
+  background-color: #f3eef7;
+}
+
+.receta-btn-guardar {
+  border: 1px solid #9b7ede;
+  background-color: #9b7ede;
+  color: #ffffff;
+}
+
+.receta-btn-guardar:hover {
+  background-color: #6d4c8d;
+}
+
+.recetas-form-actions button:active {
+  transform: scale(0.98);
+}
+
+.recetas-form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ERROR */
+
+.recetas-form-error {
+  margin-bottom: 18px;
+  padding: 11px 14px;
+  border: 1px solid #e8baba;
+  border-radius: 8px;
+  background-color: #fff1f1;
+  color: #c95c5c;
+  font-size: 14px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 750px) {
+  .recetas-form {
+    padding: 20px;
+  }
+
+  .recetas-form form {
+    grid-template-columns: 1fr;
+  }
+
+  .receta-ingredientes {
+    grid-column: auto;
+  }
+
+  .receta-ingredientes-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .btn-agregar-ingrediente {
+    width: 100%;
+  }
+
+  .ingrediente-item {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ingrediente-campo.producto {
+    grid-column: 1 / -1;
+  }
+
+  .btn-eliminar-ingrediente {
+    width: 100%;
+  }
+
+  .recetas-form-actions {
+    grid-column: auto;
+    flex-direction: column-reverse;
+  }
+
+  .recetas-form-actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 450px) {
+  .ingrediente-item {
+    grid-template-columns: 1fr;
+  }
+
+  .ingrediente-campo.producto {
+    grid-column: auto;
+  }
+
+  .btn-eliminar-ingrediente {
+    width: 100%;
+  }
+}

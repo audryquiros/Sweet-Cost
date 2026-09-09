@@ -1,0 +1,185 @@
+.producto-card {
+  padding: 22px;
+  background-color: #ffffff;
+  border: 1px solid #e3dce9;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(109, 76, 141, 0.07);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.producto-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(109, 76, 141, 0.11);
+}
+
+/* ENCABEZADO */
+
+.producto-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.producto-card h3 {
+  margin: 0;
+  color: #352d3a;
+  font-size: 18px;
+}
+
+.producto-marca {
+  margin: 5px 0 0;
+  color: #776d7d;
+  font-size: 13px;
+}
+
+.producto-tipo {
+  padding: 5px 10px;
+  border-radius: 20px;
+  background-color: #d8c8f2;
+  color: #6d4c8d;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.tipo-topping {
+  background-color: #f3dce1;
+  color: #8f5260;
+}
+
+.tipo-salsa {
+  background-color: #eadfdc;
+  color: #594044;
+}
+
+/* INFORMACIÓN */
+
+.producto-card-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  padding: 15px 0;
+  border-top: 1px solid #e3dce9;
+  border-bottom: 1px solid #e3dce9;
+}
+
+.producto-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.producto-info-item span {
+  color: #776d7d;
+  font-size: 12px;
+}
+
+.producto-info-item strong {
+  color: #352d3a;
+  font-size: 15px;
+}
+
+/* COSTO UNITARIO */
+
+.producto-costo {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 2px;
+  padding: 12px 14px;
+  border-radius: 9px;
+  background-color: #f6f1fb;
+}
+
+.producto-costo span {
+  color: #776d7d;
+  font-size: 12px;
+}
+
+.producto-costo strong {
+  color: #6d4c8d;
+  font-size: 18px;
+}
+
+/* BOTONES */
+
+.producto-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.producto-card-actions button {
+  flex: 1;
+  padding: 9px 12px;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn-editar {
+  border: 1px solid #9b7ede;
+  background-color: #ffffff;
+  color: #6d4c8d;
+}
+
+.btn-editar:hover {
+  background-color: #d8c8f2;
+}
+
+.btn-eliminar {
+  border: 1px solid #c95c5c;
+  background-color: #ffffff;
+  color: #c95c5c;
+}
+
+.btn-eliminar:hover {
+  background-color: #c95c5c;
+  color: #ffffff;
+}
+
+.producto-densidad {
+  grid-column: 1 / -1;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 10px 14px;
+
+  border-radius: 9px;
+
+  background-color: #fff9f5;
+  border: 1px solid #e3dce9;
+}
+
+.producto-densidad span {
+  color: #776d7d;
+  font-size: 12px;
+}
+
+.producto-densidad strong {
+  color: #594044;
+  font-size: 14px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 450px) {
+  .producto-card-info {
+    grid-template-columns: 1fr;
+  }
+}

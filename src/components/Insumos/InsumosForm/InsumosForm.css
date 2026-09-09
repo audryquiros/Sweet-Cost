@@ -1,0 +1,152 @@
+.insumos-form {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px;
+  background-color: #ffffff;
+  border: 1px solid #e3dce9;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(109, 76, 141, 0.08);
+}
+
+.insumos-form-header {
+  margin-bottom: 25px;
+}
+
+.insumos-form-header h2 {
+  margin: 0;
+  color: #352d3a;
+  font-size: 24px;
+}
+
+.insumos-form-header p {
+  max-width: 550px;
+  margin: 8px 0 0;
+  color: #776d7d;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.insumos-form form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.insumo-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.insumo-form-group label {
+  color: #352d3a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.insumo-form-group input,
+.insumo-form-group select {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid #e3dce9;
+  border-radius: 8px;
+  background-color: #fff9f5;
+  color: #352d3a;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.insumo-form-group input:focus,
+.insumo-form-group select:focus {
+  border-color: #9b7ede;
+  box-shadow: 0 0 0 3px rgba(155, 126, 222, 0.15);
+}
+
+.insumo-form-group input::placeholder {
+  color: #a69eaa;
+}
+
+.insumos-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.insumos-form-actions button {
+  flex: 1;
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.insumo-btn-cancelar {
+  border: 1px solid #e3dce9;
+  background-color: #ffffff;
+  color: #776d7d;
+}
+
+.insumo-btn-cancelar:hover {
+  background-color: #f3eef7;
+}
+
+.insumo-btn-guardar {
+  border: 1px solid #9b7ede;
+  background-color: #9b7ede;
+  color: #ffffff;
+}
+
+.insumo-btn-guardar:hover {
+  background-color: #6d4c8d;
+}
+
+.insumos-form-actions button:active {
+  transform: scale(0.98);
+}
+
+.insumos-form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.insumos-form-error {
+  margin-bottom: 18px;
+  padding: 11px 14px;
+  border: 1px solid #e8baba;
+  border-radius: 8px;
+  background-color: #fff1f1;
+  color: #c95c5c;
+  font-size: 14px;
+}
+
+@media (max-width: 650px) {
+  .insumos-form {
+    padding: 20px;
+  }
+
+  .insumos-form form {
+    grid-template-columns: 1fr;
+  }
+
+  .insumos-form-actions {
+    grid-column: auto;
+    flex-direction: column-reverse;
+  }
+
+  .insumos-form-actions button {
+    width: 100%;
+  }
+}

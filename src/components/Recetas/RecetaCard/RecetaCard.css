@@ -1,9 +1,13 @@
 .receta-card {
   padding: 22px;
+
   background-color: #ffffff;
+
   border: 1px solid #e3dce9;
   border-radius: 14px;
+
   box-shadow: 0 3px 12px rgba(109, 76, 141, 0.07);
+
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
@@ -11,72 +15,94 @@
 
 .receta-card:hover {
   transform: translateY(-2px);
+
   box-shadow: 0 6px 18px rgba(109, 76, 141, 0.11);
 }
 
-/* ENCABEZADO */
+/* =========================================
+   ENCABEZADO
+   ========================================= */
 
 .receta-card-header {
   display: flex;
+
   align-items: flex-start;
   justify-content: space-between;
+
   gap: 15px;
+
   margin-bottom: 20px;
 }
 
 .receta-card h3 {
   margin: 0;
+
   color: #352d3a;
   font-size: 18px;
 }
 
 .receta-descripcion {
   margin: 6px 0 0;
+
   color: #776d7d;
+
   font-size: 13px;
   line-height: 1.4;
 }
 
 .receta-rendimiento {
-  padding: 6px 10px;
+  padding: 5px 10px;
+
   border-radius: 20px;
+
   background-color: #d8c8f2;
   color: #6d4c8d;
+
   font-size: 11px;
   font-weight: 600;
+
   white-space: nowrap;
 }
 
-/* INGREDIENTES */
+/* =========================================
+   INGREDIENTES
+   ========================================= */
 
 .receta-ingredientes {
   padding: 15px 0;
+
   border-top: 1px solid #e3dce9;
   border-bottom: 1px solid #e3dce9;
 }
 
 .receta-ingredientes-title h4 {
   margin: 0 0 12px;
+
   color: #6d4c8d;
+
   font-size: 14px;
 }
 
 .receta-ingredientes-lista {
   display: flex;
   flex-direction: column;
+
   gap: 9px;
 }
 
 .receta-ingrediente {
   display: flex;
+
   align-items: center;
   justify-content: space-between;
+
   gap: 15px;
 }
 
 .receta-ingrediente > div {
   display: flex;
   flex-direction: column;
+
   gap: 3px;
 }
 
@@ -97,22 +123,29 @@
 
 .receta-sin-ingredientes {
   margin: 0;
+
   color: #776d7d;
   font-size: 13px;
 }
 
-/* COSTOS */
+/* =========================================
+   COSTOS
+   ========================================= */
 
 .receta-costos {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 12px;
+
   margin-top: 15px;
 }
 
 .receta-costo-item {
   display: flex;
   flex-direction: column;
+
   gap: 5px;
 }
 
@@ -128,7 +161,9 @@
 
 .receta-costo-item.destacado {
   padding: 11px 13px;
+
   border-radius: 9px;
+
   background-color: #f6f1fb;
 }
 
@@ -137,22 +172,32 @@
   font-size: 17px;
 }
 
-/* BOTONES */
+/* =========================================
+   BOTONES
+   ========================================= */
 
 .receta-card-actions {
   display: flex;
+
   gap: 10px;
+
   margin-top: 18px;
 }
 
 .receta-card-actions button {
   flex: 1;
+
   padding: 9px 12px;
+
   border-radius: 7px;
+
   font-family: inherit;
+
   font-size: 13px;
   font-weight: 600;
+
   cursor: pointer;
+
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
@@ -160,6 +205,7 @@
 
 .receta-btn-editar {
   border: 1px solid #9b7ede;
+
   background-color: #ffffff;
   color: #6d4c8d;
 }
@@ -170,6 +216,7 @@
 
 .receta-btn-eliminar {
   border: 1px solid #c95c5c;
+
   background-color: #ffffff;
   color: #c95c5c;
 }
@@ -179,7 +226,9 @@
   color: #ffffff;
 }
 
-/* RESPONSIVE */
+/* =========================================
+   RESPONSIVE
+   ========================================= */
 
 @media (max-width: 450px) {
   .receta-costos {

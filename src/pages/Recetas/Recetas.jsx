@@ -1,4 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import {
   getRecetas,
@@ -66,18 +71,27 @@ function Recetas() {
 
   const handleMostrarFormulario = () => {
     setRecetaSeleccionada(null);
+
     setIngredienteSeleccionado(null);
+
     setProductoSeleccionadoId("");
+
     setResultadoConversor(null);
+
     setMensajeExito("");
+
     setMostrarFormulario(true);
   };
 
   const handleCancelar = () => {
     setRecetaSeleccionada(null);
+
     setIngredienteSeleccionado(null);
+
     setProductoSeleccionadoId("");
+
     setResultadoConversor(null);
+
     setMostrarFormulario(false);
   };
 
@@ -88,7 +102,9 @@ function Recetas() {
     ]);
 
     setIngredienteSeleccionado(null);
+
     setProductoSeleccionadoId("");
+
     setResultadoConversor(null);
 
     setMensajeExito(
@@ -111,10 +127,15 @@ function Recetas() {
 
   const handleEditar = (receta) => {
     setRecetaSeleccionada(receta);
+
     setIngredienteSeleccionado(null);
+
     setProductoSeleccionadoId("");
+
     setResultadoConversor(null);
+
     setMensajeExito("");
+
     setMostrarFormulario(true);
 
     window.scrollTo({
@@ -135,8 +156,11 @@ function Recetas() {
     );
 
     setRecetaSeleccionada(null);
+
     setIngredienteSeleccionado(null);
+
     setProductoSeleccionadoId("");
+
     setResultadoConversor(null);
 
     setMensajeExito(
@@ -181,29 +205,66 @@ function Recetas() {
     }
   };
 
-  const handleSeleccionarIngrediente = (
-    indice,
+  /*
+   * Esta función se mantiene estable entre
+   * renderizados gracias a useCallback.
+   */
+  const handleSeleccionarIngrediente =
+    useCallback(
+      (indice, productoId) => {
+        setIngredienteSeleccionado(
+          indice
+        );
+
+        setProductoSeleccionadoId(
+          productoId || ""
+        );
+
+        setResultadoConversor(null);
+      },
+      []
+    );
+
+  const obtenerUnidadBaseProducto = (
     productoId
   ) => {
-    setIngredienteSeleccionado(indice);
-    setProductoSeleccionadoId(
-      productoId || ""
+    const producto = productos.find(
+      (producto) =>
+        String(producto.id) ===
+        String(productoId)
     );
-    setResultadoConversor(null);
+
+    if (!producto) {
+      return "";
+    }
+
+    if (producto.unidad === "kg") {
+      return "g";
+    }
+
+    if (producto.unidad === "l") {
+      return "ml";
+    }
+
+    return producto.unidad;
   };
 
   const handleUsarResultadoConversor = (
     valor,
     unidad
   ) => {
-    if (ingredienteSeleccionado === null) {
+    if (
+      ingredienteSeleccionado === null
+    ) {
       return;
     }
 
     setResultadoConversor({
       ingredienteIndex:
         ingredienteSeleccionado,
+
       valor,
+
       unidad,
     });
   };
@@ -265,8 +326,12 @@ function Recetas() {
         <div className="recetas-form-layout">
           <RecetasForm
             receta={recetaSeleccionada}
-            resultadoConversor={resultadoConversor}
-            onRecetaCreada={handleRecetaCreada}
+            resultadoConversor={
+              resultadoConversor
+            }
+            onRecetaCreada={
+              handleRecetaCreada
+            }
             onRecetaActualizada={
               handleRecetaActualizada
             }
@@ -281,30 +346,18 @@ function Recetas() {
               productoIdInicial={
                 productoSeleccionadoId
               }
+              unidadDestinoBase={
+                obtenerUnidadBaseProducto(
+                  productoSeleccionadoId
+                )
+              }
               onUsarResultado={
-                ingredienteSeleccionado !== null
+                ingredienteSeleccionado !==
+                null
                   ? handleUsarResultadoConversor
                   : null
               }
             />
-
-            {ingredienteSeleccionado !== null && (
-              <div className="ingrediente-seleccionado">
-                <span>
-                  Ingrediente seleccionado
-                </span>
-
-                <strong>
-                  Ingrediente #
-                  {ingredienteSeleccionado + 1}
-                </strong>
-
-                <p>
-                  El resultado del conversor se
-                  aplicará a este ingrediente.
-                </p>
-              </div>
-            )}
           </div>
         </div>
       )}
@@ -321,7 +374,9 @@ function Recetas() {
 
         <div className="recetas-lista-header">
           <div>
-            <h2>Recetas registradas</h2>
+            <h2>
+              Recetas registradas
+            </h2>
 
             <p>
               {recetas.length}{" "}

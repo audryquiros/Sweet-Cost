@@ -44,6 +44,25 @@
         }
       ],
       "id": "n-PPVNHZmc4"
+    },
+    {
+      "nombre": "Mini cupcakes",
+      "descripcion": "Receta base de las mini cupcakes",
+      "rendimiento": 20,
+      "unidadRendimiento": "unidad",
+      "ingredientes": [
+        {
+          "productoId": "pTZdUzw7lEs",
+          "cantidad": 127.2,
+          "unidad": "g"
+        },
+        {
+          "productoId": "lxb4plcizXA",
+          "cantidad": 3,
+          "unidad": "unidad"
+        }
+      ],
+      "id": "SSyGsuqhCF4"
     }
   ],
   "cotizaciones": [],

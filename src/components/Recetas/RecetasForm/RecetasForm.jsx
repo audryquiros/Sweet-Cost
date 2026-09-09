@@ -17,6 +17,23 @@ const formularioInicial = {
   ingredientes: [],
 };
 
+const masaEnGramos = {
+  mg: 0.001,
+  g: 1,
+  kg: 1000,
+  oz: 28.3495,
+  lb: 453.592,
+};
+
+const volumenEnMl = {
+  ml: 1,
+  l: 1000,
+  taza: 240,
+  cda: 15,
+  cdta: 5,
+  oz_liquida: 29.5735,
+};
+
 function RecetasForm({
   receta,
   resultadoConversor,
@@ -28,14 +45,24 @@ function RecetasForm({
   const [formulario, setFormulario] =
     useState(formularioInicial);
 
-  const [productos, setProductos] = useState([]);
-  const [error, setError] = useState("");
-  const [guardando, setGuardando] = useState(false);
-  const [cargandoProductos, setCargandoProductos] =
-    useState(true);
+  const [productos, setProductos] =
+    useState([]);
 
-  const [ingredienteActivo, setIngredienteActivo] =
-    useState(null);
+  const [error, setError] =
+    useState("");
+
+  const [guardando, setGuardando] =
+    useState(false);
+
+  const [
+    cargandoProductos,
+    setCargandoProductos,
+  ] = useState(true);
+
+  const [
+    ingredienteActivo,
+    setIngredienteActivo,
+  ] = useState(null);
 
   useEffect(() => {
     cargarProductos();
@@ -45,21 +72,39 @@ function RecetasForm({
     if (receta) {
       setFormulario({
         nombre: receta.nombre || "",
-        descripcion: receta.descripcion || "",
-        rendimiento: receta.rendimiento ?? "",
+        descripcion:
+          receta.descripcion || "",
+        rendimiento:
+          receta.rendimiento ?? "",
         unidadRendimiento:
-          receta.unidadRendimiento || "unidad",
-        ingredientes: receta.ingredientes || [],
+          receta.unidadRendimiento ||
+          "unidad",
+        ingredientes:
+          receta.ingredientes || [],
       });
     } else {
-      setFormulario(formularioInicial);
+      setFormulario({
+        ...formularioInicial,
+        ingredientes: [],
+      });
     }
 
     setIngredienteActivo(null);
-    onSeleccionarIngrediente(null, "");
+
+    if (onSeleccionarIngrediente) {
+      onSeleccionarIngrediente(
+        null,
+        ""
+      );
+    }
+
     setError("");
   }, [receta]);
 
+  /*
+   * Cuando el conversor devuelve un resultado,
+   * lo aplicamos al ingrediente seleccionado.
+   */
   useEffect(() => {
     if (!resultadoConversor) {
       return;
@@ -78,179 +123,253 @@ function RecetasForm({
       return;
     }
 
-    setFormulario((formularioActual) => {
-      const ingredientesActualizados = [
-        ...formularioActual.ingredientes,
-      ];
+    setFormulario(
+      (formularioActual) => {
+        const ingredientesActualizados =
+          [
+            ...formularioActual.ingredientes,
+          ];
 
-      if (
-        !ingredientesActualizados[
+        if (
+          !ingredientesActualizados[
+            ingredienteIndex
+          ]
+        ) {
+          return formularioActual;
+        }
+
+        ingredientesActualizados[
           ingredienteIndex
-        ]
-      ) {
-        return formularioActual;
+        ] = {
+          ...ingredientesActualizados[
+            ingredienteIndex
+          ],
+          cantidad: valor,
+          unidad,
+        };
+
+        return {
+          ...formularioActual,
+          ingredientes:
+            ingredientesActualizados,
+        };
       }
-
-      ingredientesActualizados[
-        ingredienteIndex
-      ] = {
-        ...ingredientesActualizados[
-          ingredienteIndex
-        ],
-        cantidad: valor,
-        unidad,
-      };
-
-      return {
-        ...formularioActual,
-        ingredientes: ingredientesActualizados,
-      };
-    });
+    );
 
     setError("");
   }, [resultadoConversor]);
 
-  const cargarProductos = async () => {
-    try {
-      setCargandoProductos(true);
+  const cargarProductos =
+    async () => {
+      try {
+        setCargandoProductos(
+          true
+        );
 
-      const data = await getProductos();
+        const data =
+          await getProductos();
 
-      setProductos(data);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setCargandoProductos(false);
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormulario((formularioActual) => ({
-      ...formularioActual,
-      [name]: value,
-    }));
-  };
-
-  const agregarIngrediente = () => {
-    const nuevoIngrediente = {
-      productoId: "",
-      cantidad: "",
-      unidad: "",
+        setProductos(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setCargandoProductos(
+          false
+        );
+      }
     };
 
-    const nuevoIndice =
-      formulario.ingredientes.length;
+  const handleChange = (e) => {
+    const {
+      name,
+      value,
+    } = e.target;
 
-    setFormulario((formularioActual) => ({
-      ...formularioActual,
-      ingredientes: [
-        ...formularioActual.ingredientes,
-        nuevoIngrediente,
-      ],
-    }));
-
-    setIngredienteActivo(nuevoIndice);
-
-    onSeleccionarIngrediente(
-      nuevoIndice,
-      ""
+    setFormulario(
+      (formularioActual) => ({
+        ...formularioActual,
+        [name]: value,
+      })
     );
   };
+
+  /*
+   * Agrega una nueva fila de ingrediente.
+   *
+   * No depende de cargandoProductos.
+   * Así el botón siempre puede agregar una fila.
+   */
+  const agregarIngrediente =
+    () => {
+      const nuevoIndice =
+        formulario.ingredientes
+          .length;
+
+      const nuevoIngrediente = {
+        productoId: "",
+        cantidad: "",
+        unidad: "",
+      };
+
+      setFormulario(
+        (formularioActual) => ({
+          ...formularioActual,
+
+          ingredientes: [
+            ...formularioActual.ingredientes,
+            nuevoIngrediente,
+          ],
+        })
+      );
+
+      setIngredienteActivo(
+        nuevoIndice
+      );
+
+      if (onSeleccionarIngrediente) {
+        onSeleccionarIngrediente(
+          nuevoIndice,
+          ""
+        );
+      }
+    };
 
   const actualizarIngrediente = (
     indice,
     campo,
     valor
   ) => {
-    setFormulario((formularioActual) => {
-      const ingredientesActualizados = [
-        ...formularioActual.ingredientes,
-      ];
+    setFormulario(
+      (formularioActual) => {
+        const ingredientesActualizados =
+          [
+            ...formularioActual.ingredientes,
+          ];
 
-      ingredientesActualizados[indice] = {
-        ...ingredientesActualizados[indice],
-        [campo]: valor,
-      };
+        ingredientesActualizados[
+          indice
+        ] = {
+          ...ingredientesActualizados[
+            indice
+          ],
+          [campo]: valor,
+        };
 
-      return {
-        ...formularioActual,
-        ingredientes: ingredientesActualizados,
-      };
-    });
+        return {
+          ...formularioActual,
+          ingredientes:
+            ingredientesActualizados,
+        };
+      }
+    );
   };
 
   const seleccionarProducto = (
     indice,
     productoId
   ) => {
-    const producto = productos.find(
-      (producto) =>
-        String(producto.id) ===
-        String(productoId)
+    const producto =
+      productos.find(
+        (producto) =>
+          String(
+            producto.id
+          ) ===
+          String(productoId)
+      );
+
+    const unidad =
+      producto
+        ? obtenerUnidadBase(
+            producto.unidad
+          )
+        : "";
+
+    setFormulario(
+      (formularioActual) => {
+        const ingredientesActualizados =
+          [
+            ...formularioActual.ingredientes,
+          ];
+
+        ingredientesActualizados[
+          indice
+        ] = {
+          ...ingredientesActualizados[
+            indice
+          ],
+          productoId,
+          unidad,
+        };
+
+        return {
+          ...formularioActual,
+          ingredientes:
+            ingredientesActualizados,
+        };
+      }
     );
 
-    const unidad = producto
-      ? obtenerUnidadBase(producto.unidad)
-      : "";
-
-    setFormulario((formularioActual) => {
-      const ingredientesActualizados = [
-        ...formularioActual.ingredientes,
-      ];
-
-      ingredientesActualizados[indice] = {
-        ...ingredientesActualizados[indice],
-        productoId,
-        unidad,
-      };
-
-      return {
-        ...formularioActual,
-        ingredientes: ingredientesActualizados,
-      };
-    });
-
-    setIngredienteActivo(indice);
-
-    onSeleccionarIngrediente(
-      indice,
-      productoId
+    setIngredienteActivo(
+      indice
     );
+
+    if (onSeleccionarIngrediente) {
+      onSeleccionarIngrediente(
+        indice,
+        productoId
+      );
+    }
   };
 
   const seleccionarIngrediente = (
     indice
   ) => {
     const ingrediente =
-      formulario.ingredientes[indice];
+      formulario.ingredientes[
+        indice
+      ];
 
-    setIngredienteActivo(indice);
-
-    onSeleccionarIngrediente(
-      indice,
-      ingrediente?.productoId || ""
+    setIngredienteActivo(
+      indice
     );
+
+    if (onSeleccionarIngrediente) {
+      onSeleccionarIngrediente(
+        indice,
+        ingrediente?.productoId ||
+          ""
+      );
+    }
   };
 
   const eliminarIngrediente = (
     indice
   ) => {
-    setFormulario((formularioActual) => ({
-      ...formularioActual,
-      ingredientes:
-        formularioActual.ingredientes.filter(
-          (_, index) => index !== indice
-        ),
-    }));
+    setFormulario(
+      (formularioActual) => ({
+        ...formularioActual,
+
+        ingredientes:
+          formularioActual.ingredientes.filter(
+            (_, index) =>
+              index !== indice
+          ),
+      })
+    );
 
     setIngredienteActivo(null);
 
-    onSeleccionarIngrediente(null, "");
+    if (onSeleccionarIngrediente) {
+      onSeleccionarIngrediente(
+        null,
+        ""
+      );
+    }
   };
 
-  const obtenerUnidadBase = (unidad) => {
+  const obtenerUnidadBase = (
+    unidad
+  ) => {
     if (unidad === "kg") {
       return "g";
     }
@@ -262,67 +381,190 @@ function RecetasForm({
     return unidad;
   };
 
-  const handleSubmit = async (e) => {
+  const convertirCantidadAUnidadBase =
+    (
+      cantidad,
+      unidadActual,
+      unidadBase
+    ) => {
+      const valor =
+        Number(cantidad);
+
+      if (
+        !Number.isFinite(valor)
+      ) {
+        return 0;
+      }
+
+      if (
+        unidadActual ===
+        unidadBase
+      ) {
+        return valor;
+      }
+
+      if (
+        masaEnGramos[
+          unidadActual
+        ] !== undefined &&
+        unidadBase === "g"
+      ) {
+        return (
+          valor *
+          masaEnGramos[
+            unidadActual
+          ]
+        );
+      }
+
+      if (
+        volumenEnMl[
+          unidadActual
+        ] !== undefined &&
+        unidadBase === "ml"
+      ) {
+        return (
+          valor *
+          volumenEnMl[
+            unidadActual
+          ]
+        );
+      }
+
+      if (
+        unidadActual === "docena" &&
+        unidadBase === "unidad"
+      ) {
+        return valor * 12;
+      }
+
+      return valor;
+    };
+
+  const prepararIngredientes =
+    () => {
+      return formulario.ingredientes
+        .filter(
+          (ingrediente) =>
+            ingrediente.productoId &&
+            Number(
+              ingrediente.cantidad
+            ) > 0
+        )
+        .map(
+          (ingrediente) => {
+            const producto =
+              productos.find(
+                (producto) =>
+                  String(
+                    producto.id
+                  ) ===
+                  String(
+                    ingrediente.productoId
+                  )
+              );
+
+            if (!producto) {
+              return null;
+            }
+
+            const unidadBase =
+              obtenerUnidadBase(
+                producto.unidad
+              );
+
+            const cantidadBase =
+              convertirCantidadAUnidadBase(
+                ingrediente.cantidad,
+                ingrediente.unidad,
+                unidadBase
+              );
+
+            return {
+              productoId:
+                ingrediente.productoId,
+
+              cantidad: Number(
+                cantidadBase.toFixed(
+                  4
+                )
+              ),
+
+              unidad: unidadBase,
+            };
+          }
+        )
+        .filter(Boolean);
+    };
+
+  const handleSubmit = async (
+    e
+  ) => {
     e.preventDefault();
 
     setError("");
     setGuardando(true);
 
-    if (!formulario.nombre.trim()) {
+    if (
+      !formulario.nombre.trim()
+    ) {
       setError(
         "Ingresa un nombre para la receta."
       );
+
       setGuardando(false);
+
       return;
     }
 
+    const rendimiento =
+      Number(
+        formulario.rendimiento
+      );
+
     if (
-      Number(formulario.rendimiento) <= 0
+      !Number.isFinite(
+        rendimiento
+      ) ||
+      rendimiento <= 0
     ) {
       setError(
         "El rendimiento debe ser mayor que cero."
       );
+
       setGuardando(false);
+
       return;
     }
 
-    const ingredientesValidos =
-      formulario.ingredientes.filter(
-        (ingrediente) =>
-          ingrediente.productoId &&
-          Number(ingrediente.cantidad) > 0
-      );
+    const ingredientes =
+      prepararIngredientes();
 
     if (
-      ingredientesValidos.length === 0
+      ingredientes.length === 0
     ) {
       setError(
         "Agrega al menos un ingrediente válido."
       );
+
       setGuardando(false);
+
       return;
     }
 
     const recetaData = {
-      nombre: formulario.nombre.trim(),
+      nombre:
+        formulario.nombre.trim(),
+
       descripcion:
         formulario.descripcion.trim(),
-      rendimiento: Number(
-        formulario.rendimiento
-      ),
+
+      rendimiento,
+
       unidadRendimiento:
         formulario.unidadRendimiento,
-      ingredientes:
-        ingredientesValidos.map(
-          (ingrediente) => ({
-            productoId:
-              ingrediente.productoId,
-            cantidad: Number(
-              ingrediente.cantidad
-            ),
-            unidad: ingrediente.unidad,
-          })
-        ),
+
+      ingredientes,
     };
 
     try {
@@ -346,18 +588,19 @@ function RecetasForm({
           recetaCreada
         );
 
-        setFormulario(
-          formularioInicial
-        );
+        setFormulario({
+          ...formularioInicial,
+          ingredientes: [],
+        });
 
-        setIngredienteActivo(null);
-        onSeleccionarIngrediente(
-          null,
-          ""
+        setIngredienteActivo(
+          null
         );
       }
     } catch (error) {
-      setError(error.message);
+      setError(
+        error.message
+      );
     } finally {
       setGuardando(false);
     }
@@ -413,7 +656,9 @@ function RecetasForm({
             id="descripcion"
             type="text"
             name="descripcion"
-            value={formulario.descripcion}
+            value={
+              formulario.descripcion
+            }
             onChange={handleChange}
             placeholder="Ej. Receta base de mini donas"
           />
@@ -428,7 +673,9 @@ function RecetasForm({
             id="rendimiento"
             type="number"
             name="rendimiento"
-            value={formulario.rendimiento}
+            value={
+              formulario.rendimiento
+            }
             onChange={handleChange}
             placeholder="Ej. 20"
             min="0"
@@ -467,19 +714,22 @@ function RecetasForm({
         <div className="receta-ingredientes">
           <div className="receta-ingredientes-header">
             <div>
-              <h3>Ingredientes</h3>
+              <h3>
+                Ingredientes
+              </h3>
 
               <p>
-                Selecciona un ingrediente para
-                utilizar el conversor.
+                Selecciona un ingrediente
+                para utilizar el conversor.
               </p>
             </div>
 
             <button
               type="button"
               className="btn-agregar-ingrediente"
-              onClick={agregarIngrediente}
-              disabled={cargandoProductos}
+              onClick={
+                agregarIngrediente
+              }
             >
               Agregar ingrediente
             </button>
@@ -537,11 +787,6 @@ function RecetasForm({
                         : ""
                     }`}
                     key={indice}
-                    onClick={() =>
-                      seleccionarIngrediente(
-                        indice
-                      )
-                    }
                   >
                     <div className="ingrediente-campo producto">
                       <label>
@@ -556,6 +801,11 @@ function RecetasForm({
                           seleccionarProducto(
                             indice,
                             e.target.value
+                          )
+                        }
+                        onFocus={() =>
+                          seleccionarIngrediente(
+                            indice
                           )
                         }
                         required

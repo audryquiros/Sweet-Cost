@@ -90,6 +90,7 @@ const masaEnGramos = {
 
 function ConversorMedidas({
   productoIdInicial = "",
+  unidadDestinoBase = "",
   onUsarResultado,
 }) {
   const [productos, setProductos] =
@@ -130,15 +131,37 @@ function ConversorMedidas({
       productoIdInicial || ""
     );
 
+    if (unidadDestinoBase) {
+      setUnidadDestino(
+        unidadDestinoBase
+      );
+
+      if (
+        unidadDestinoBase ===
+        "unidad"
+      ) {
+        setUnidadOrigen(
+          "unidad"
+        );
+      }
+    } else {
+      setUnidadDestino("g");
+    }
+
     setDensidadPersonalizada("");
+
     setResultado(null);
+
     setMensaje("");
-  }, [productoIdInicial]);
+
+    setError("");
+  }, [
+    productoIdInicial,
+    unidadDestinoBase,
+  ]);
 
   const cargarProductos = async () => {
     try {
-      setError("");
-
       const data =
         await getProductos();
 
@@ -155,15 +178,19 @@ function ConversorMedidas({
           String(producto.id) ===
           String(productoId)
       );
-    }, [productos, productoId]);
+    }, [
+      productos,
+      productoId,
+    ]);
 
   const obtenerDensidad = () => {
     if (
       densidadPersonalizada !== ""
     ) {
-      const densidad = Number(
-        densidadPersonalizada
-      );
+      const densidad =
+        Number(
+          densidadPersonalizada
+        );
 
       if (densidad > 0) {
         return densidad;
@@ -172,8 +199,9 @@ function ConversorMedidas({
 
     if (
       productoSeleccionado &&
-      Number(productoSeleccionado.densidad) >
-        0
+      Number(
+        productoSeleccionado.densidad
+      ) > 0
     ) {
       return Number(
         productoSeleccionado.densidad
@@ -212,10 +240,14 @@ function ConversorMedidas({
 
   const convertir = () => {
     setError("");
+
     setMensaje("");
+
     setResultado(null);
 
-    const valor = Number(cantidad);
+    const valor = Number(
+      cantidad
+    );
 
     if (
       !Number.isFinite(valor) ||
@@ -229,7 +261,8 @@ function ConversorMedidas({
     }
 
     if (
-      unidadOrigen === unidadDestino
+      unidadOrigen ===
+      unidadDestino
     ) {
       setResultado({
         valor,
@@ -255,11 +288,15 @@ function ConversorMedidas({
     ) {
       const gramos =
         valor *
-        masaEnGramos[unidadOrigen];
+        masaEnGramos[
+          unidadOrigen
+        ];
 
       const convertido =
         gramos /
-        masaEnGramos[unidadDestino];
+        masaEnGramos[
+          unidadDestino
+        ];
 
       setResultado({
         valor: convertido,
@@ -275,11 +312,15 @@ function ConversorMedidas({
     ) {
       const mililitros =
         valor *
-        volumenEnMl[unidadOrigen];
+        volumenEnMl[
+          unidadOrigen
+        ];
 
       const convertido =
         mililitros /
-        volumenEnMl[unidadDestino];
+        volumenEnMl[
+          unidadDestino
+        ];
 
       setResultado({
         valor: convertido,
@@ -293,10 +334,12 @@ function ConversorMedidas({
       tipoOrigen === "cantidad" &&
       tipoDestino === "cantidad"
     ) {
-      let unidadesTotales = valor;
+      let unidadesTotales =
+        valor;
 
       if (
-        unidadOrigen === "docena"
+        unidadOrigen ===
+        "docena"
       ) {
         unidadesTotales =
           valor * 12;
@@ -306,7 +349,8 @@ function ConversorMedidas({
         unidadesTotales;
 
       if (
-        unidadDestino === "docena"
+        unidadDestino ===
+        "docena"
       ) {
         convertido =
           unidadesTotales / 12;
@@ -322,9 +366,12 @@ function ConversorMedidas({
 
     if (
       (tipoOrigen === "masa" &&
-        tipoDestino === "volumen") ||
-      (tipoOrigen === "volumen" &&
-        tipoDestino === "masa")
+        tipoDestino ===
+          "volumen") ||
+      (tipoOrigen ===
+        "volumen" &&
+        tipoDestino ===
+          "masa")
     ) {
       const densidad =
         obtenerDensidad();
@@ -344,7 +391,9 @@ function ConversorMedidas({
       ) {
         const gramos =
           valor *
-          masaEnGramos[unidadOrigen];
+          masaEnGramos[
+            unidadOrigen
+          ];
 
         const mililitros =
           gramos / densidad;
@@ -357,7 +406,9 @@ function ConversorMedidas({
       } else {
         const mililitros =
           valor *
-          volumenEnMl[unidadOrigen];
+          volumenEnMl[
+            unidadOrigen
+          ];
 
         const gramos =
           mililitros * densidad;
@@ -428,8 +479,11 @@ function ConversorMedidas({
 
   const limpiar = () => {
     setCantidad("1");
+
     setResultado(null);
+
     setError("");
+
     setMensaje("");
   };
 
@@ -557,6 +611,9 @@ function ConversorMedidas({
                 e.target.value
               )
             }
+            disabled={Boolean(
+              unidadDestinoBase
+            )}
           >
             <optgroup label="Masa">
               {unidades.masa.map(
@@ -687,7 +744,9 @@ function ConversorMedidas({
               placeholder="Ej. 0.53"
             />
 
-            <span>g/ml</span>
+            <span>
+              g/ml
+            </span>
           </div>
 
           <small>

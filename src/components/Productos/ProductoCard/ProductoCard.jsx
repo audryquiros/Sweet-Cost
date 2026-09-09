@@ -10,21 +10,27 @@ function ProductoCard({
   onEditar,
   onEliminar,
 }) {
-  const precio = Number(producto.precio);
+  const precio =
+    Number(producto.precio);
 
-  const densidad = Number(producto.densidad);
+  const densidad =
+    Number(producto.densidad);
 
   const costoUnitario =
     obtenerCostoUnitario(producto);
 
   const unidadBase =
-    obtenerUnidadBase(producto.unidad);
+    obtenerUnidadBase(
+      producto.unidad
+    );
 
   return (
     <article className="producto-card">
       <div className="producto-card-header">
         <div>
-          <h3>{producto.nombre}</h3>
+          <h3>
+            {producto.nombre}
+          </h3>
 
           {producto.marca && (
             <p className="producto-marca">
@@ -42,15 +48,20 @@ function ProductoCard({
 
       <div className="producto-card-info">
         <div className="producto-info-item">
-          <span>Cantidad comprada</span>
+          <span>
+            Cantidad comprada
+          </span>
 
           <strong>
-            {producto.cantidad} {producto.unidad}
+            {producto.cantidad}{" "}
+            {producto.unidad}
           </strong>
         </div>
 
         <div className="producto-info-item">
-          <span>Precio total de compra</span>
+          <span>
+            Precio total de compra
+          </span>
 
           <strong>
             ₡{precio.toFixed(2)}
@@ -58,19 +69,56 @@ function ProductoCard({
         </div>
 
         <div className="producto-costo">
-          <span>Costo unitario</span>
+          <span>
+            Costo unitario
+          </span>
 
           <strong>
-            ₡{costoUnitario.toFixed(2)} / {unidadBase}
+            ₡
+            {costoUnitario.toFixed(2)}
+            {" / "}
+            {unidadBase}
           </strong>
         </div>
 
-        {producto.densidad !== null &&
-          producto.densidad !== undefined &&
-          producto.densidad !== "" &&
+        {(producto.tipo ===
+          "topping" ||
+          producto.tipo ===
+            "salsa") &&
+          Number(
+            producto.cantidadPorUso
+          ) > 0 && (
+            <div className="producto-uso">
+              <span>
+                Cantidad por{" "}
+                {producto.tipo ===
+                "topping"
+                  ? "topping"
+                  : "salsa"}
+              </span>
+
+              <strong>
+                {
+                  producto.cantidadPorUso
+                }{" "}
+                {
+                  producto.unidadPorUso
+                }
+              </strong>
+            </div>
+          )}
+
+        {producto.densidad !==
+          null &&
+          producto.densidad !==
+            undefined &&
+          producto.densidad !==
+            "" &&
           densidad > 0 && (
             <div className="producto-densidad">
-              <span>Densidad</span>
+              <span>
+                Densidad
+              </span>
 
               <strong>
                 {densidad} g/ml
@@ -83,7 +131,9 @@ function ProductoCard({
         <button
           type="button"
           className="btn-editar"
-          onClick={() => onEditar(producto)}
+          onClick={() =>
+            onEditar(producto)
+          }
         >
           Editar
         </button>
@@ -91,7 +141,9 @@ function ProductoCard({
         <button
           type="button"
           className="btn-eliminar"
-          onClick={() => onEliminar(producto)}
+          onClick={() =>
+            onEliminar(producto)
+          }
         >
           Eliminar
         </button>

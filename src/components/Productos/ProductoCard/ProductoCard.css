@@ -176,6 +176,33 @@
   font-size: 14px;
 }
 
+.producto-uso {
+  grid-column: 1 / -1;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 10px 14px;
+
+  border-radius: 9px;
+
+  background-color: #fdf4f6;
+  border: 1px solid #ead1d7;
+}
+
+.producto-uso span {
+  color: #776d7d;
+  font-size: 12px;
+}
+
+.producto-uso strong {
+  color: #8f5260;
+  font-size: 14px;
+}
+
 /* RESPONSIVE */
 
 @media (max-width: 450px) {

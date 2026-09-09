@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+
 import "./Nav.css";
 
 function Nav() {
@@ -6,15 +7,25 @@ function Nav() {
     <nav className="nav">
       <div className="nav-container">
 
-        <NavLink to="/" className="nav-logo">
-          Sweet Cost
+        <NavLink to="/" className="nav-brand">
+          <img
+            src="/logoSC.png"
+            alt="Sweet Cost"
+            className="nav-logo"
+          />
+
+          <span className="nav-brand-name">
+            Sweet Cost
+          </span>
         </NavLink>
 
         <div className="nav-links">
           <NavLink
             to="/"
             className={({ isActive }) =>
-              isActive ? "nav-link active" : "nav-link"
+              isActive
+                ? "nav-link active"
+                : "nav-link"
             }
           >
             Inicio
@@ -23,7 +34,9 @@ function Nav() {
           <NavLink
             to="/productos"
             className={({ isActive }) =>
-              isActive ? "nav-link active" : "nav-link"
+              isActive
+                ? "nav-link active"
+                : "nav-link"
             }
           >
             Productos
@@ -32,7 +45,9 @@ function Nav() {
           <NavLink
             to="/insumos"
             className={({ isActive }) =>
-              isActive ? "nav-link active" : "nav-link"
+              isActive
+                ? "nav-link active"
+                : "nav-link"
             }
           >
             Insumos
@@ -41,7 +56,9 @@ function Nav() {
           <NavLink
             to="/recetas"
             className={({ isActive }) =>
-              isActive ? "nav-link active" : "nav-link"
+              isActive
+                ? "nav-link active"
+                : "nav-link"
             }
           >
             Recetas
@@ -50,7 +67,9 @@ function Nav() {
           <NavLink
             to="/cotizaciones"
             className={({ isActive }) =>
-              isActive ? "nav-link active" : "nav-link"
+              isActive
+                ? "nav-link active"
+                : "nav-link"
             }
           >
             Cotizador

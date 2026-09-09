@@ -18,6 +18,18 @@
       "precio": 1200,
       "densidad": null,
       "id": "lxb4plcizXA"
+    },
+    {
+      "nombre": "Galletas Oreo",
+      "marca": "Oreo",
+      "tipo": "topping",
+      "cantidad": 154,
+      "unidad": "g",
+      "precio": 1200,
+      "densidad": null,
+      "cantidadPorUso": 10,
+      "unidadPorUso": "g",
+      "id": "xr7VFc0L2hg"
     }
   ],
   "insumos": [

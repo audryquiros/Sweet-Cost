@@ -5,10 +5,8 @@ import {
 } from "../../../services/cotizadorServices";
 
 import {
-  obtenerCostoUnitario,
   obtenerCostoUnitarioInsumo,
-  obtenerUnidadBase,
-  obtenerUnidadCostoInsumo,
+  calcularCostoPorUso,
   calcularCostoPorRendimiento,
 } from "../../../utils/calculosCostos";
 
@@ -21,61 +19,83 @@ function CotizadorForm({
   onCotizacionCreada,
   onCancelar,
 }) {
-  const [formulario, setFormulario] = useState({
-    nombre: "",
-    recetaId: "",
-    cantidad: 1,
-    manoObra: "",
-    margen: 30,
-  });
+  const [formulario, setFormulario] =
+    useState({
+      nombre: "",
+      recetaId: "",
+      cantidad: 1,
+      manoObra: "",
+      margen: 30,
+    });
 
-  const [extras, setExtras] = useState([]);
+  const [extras, setExtras] =
+    useState([]);
 
   const [insumosSeleccionados, setInsumosSeleccionados] =
     useState([]);
 
-  const [error, setError] = useState("");
+  const [error, setError] =
+    useState("");
 
   const [guardando, setGuardando] =
     useState(false);
 
-  const productosExtras = productos.filter(
-    (producto) =>
-      producto.tipo === "topping" ||
-      producto.tipo === "salsa"
-  );
+  const productosExtras =
+    productos.filter(
+      (producto) =>
+        producto.tipo ===
+          "topping" ||
+        producto.tipo ===
+          "salsa"
+    );
 
-  const recetaSeleccionada = recetas.find(
-    (receta) =>
-      String(receta.id) ===
-      String(formulario.recetaId)
-  );
+  const recetaSeleccionada =
+    recetas.find(
+      (receta) =>
+        String(receta.id) ===
+        String(
+          formulario.recetaId
+        )
+    );
 
-  const cambiarFormulario = (e) => {
-    const { name, value } = e.target;
+  const cambiarFormulario = (
+    e
+  ) => {
+    const {
+      name,
+      value,
+    } = e.target;
 
-    setFormulario((actual) => ({
-      ...actual,
-      [name]: value,
-    }));
+    setFormulario(
+      (actual) => ({
+        ...actual,
+        [name]: value,
+      })
+    );
   };
 
-  const seleccionarReceta = (e) => {
-    setFormulario((actual) => ({
-      ...actual,
-      recetaId: e.target.value,
-    }));
+  const seleccionarReceta = (
+    e
+  ) => {
+    setFormulario(
+      (actual) => ({
+        ...actual,
+        recetaId:
+          e.target.value,
+      })
+    );
   };
 
   const agregarExtra = () => {
-    setExtras((actuales) => [
-      ...actuales,
-      {
-        productoId: "",
-        cantidad: 1,
-        unidad: "",
-      },
-    ]);
+    setExtras(
+      (actuales) => [
+        ...actuales,
+        {
+          productoId: "",
+          cantidad: 1,
+        },
+      ]
+    );
   };
 
   const cambiarExtra = (
@@ -83,44 +103,30 @@ function CotizadorForm({
     campo,
     valor
   ) => {
-    setExtras((actuales) =>
-      actuales.map((extra, index) => {
-        if (index !== indice) {
-          return extra;
-        }
-
-        if (campo === "productoId") {
-          const producto =
-            productosExtras.find(
-              (productoActual) =>
-                String(productoActual.id) ===
-                String(valor)
-            );
-
-          return {
-            ...extra,
-            productoId: valor,
-            unidad: producto
-              ? obtenerUnidadBase(
-                  producto.unidad
-                )
-              : "",
-          };
-        }
-
-        return {
-          ...extra,
-          [campo]: valor,
-        };
-      })
+    setExtras(
+      (actuales) =>
+        actuales.map(
+          (extra, index) =>
+            index === indice
+              ? {
+                  ...extra,
+                  [campo]:
+                    valor,
+                }
+              : extra
+        )
     );
   };
 
-  const eliminarExtra = (indice) => {
-    setExtras((actuales) =>
-      actuales.filter(
-        (_, index) => index !== indice
-      )
+  const eliminarExtra = (
+    indice
+  ) => {
+    setExtras(
+      (actuales) =>
+        actuales.filter(
+          (_, index) =>
+            index !== indice
+        )
     );
   };
 
@@ -143,38 +149,46 @@ function CotizadorForm({
   ) => {
     setInsumosSeleccionados(
       (actuales) =>
-        actuales.map((insumo, index) =>
-          index === indice
-            ? {
-                ...insumo,
-                [campo]: valor,
-              }
-            : insumo
+        actuales.map(
+          (insumo, index) =>
+            index === indice
+              ? {
+                  ...insumo,
+                  [campo]:
+                    valor,
+                }
+              : insumo
         )
     );
   };
 
-  const eliminarInsumo = (indice) => {
+  const eliminarInsumo = (
+    indice
+  ) => {
     setInsumosSeleccionados(
       (actuales) =>
         actuales.filter(
-          (_, index) => index !== indice
+          (_, index) =>
+            index !== indice
         )
     );
   };
 
   const calculos = useMemo(() => {
-    const cantidad = Number(
-      formulario.cantidad
-    );
+    const cantidad =
+      Number(
+        formulario.cantidad
+      );
 
-    const manoObra = Number(
-      formulario.manoObra
-    );
+    const manoObra =
+      Number(
+        formulario.manoObra
+      );
 
-    const margen = Number(
-      formulario.margen
-    );
+    const margen =
+      Number(
+        formulario.margen
+      );
 
     let costoReceta = 0;
 
@@ -187,17 +201,26 @@ function CotizadorForm({
 
       costoReceta =
         costoPorUnidad *
-        (Number.isFinite(cantidad)
-          ? cantidad
-          : 0);
+        (
+          Number.isFinite(
+            cantidad
+          )
+            ? cantidad
+            : 0
+        );
     }
 
     const costoExtras =
       extras.reduce(
-        (total, extra) => {
+        (
+          total,
+          extra
+        ) => {
           const producto =
             productos.find(
-              (productoActual) =>
+              (
+                productoActual
+              ) =>
                 String(
                   productoActual.id
                 ) ===
@@ -210,26 +233,14 @@ function CotizadorForm({
             return total;
           }
 
-          const costoUnitario =
-            obtenerCostoUnitario(
-              producto
-            );
-
-          const cantidadExtra =
-            Number(extra.cantidad);
-
-          if (
-            !Number.isFinite(
-              cantidadExtra
-            )
-          ) {
-            return total;
-          }
-
           return (
             total +
-            costoUnitario *
-              cantidadExtra
+            calcularCostoPorUso(
+              producto,
+              Number(
+                extra.cantidad
+              )
+            )
           );
         },
         0
@@ -237,14 +248,21 @@ function CotizadorForm({
 
     const costoInsumos =
       insumosSeleccionados.reduce(
-        (total, item) => {
+        (
+          total,
+          item
+        ) => {
           const insumo =
             insumos.find(
-              (insumoActual) =>
+              (
+                insumoActual
+              ) =>
                 String(
                   insumoActual.id
                 ) ===
-                String(item.insumoId)
+                String(
+                  item.insumoId
+                )
             );
 
           if (!insumo) {
@@ -257,7 +275,9 @@ function CotizadorForm({
             );
 
           const cantidadInsumo =
-            Number(item.cantidad);
+            Number(
+              item.cantidad
+            );
 
           if (
             !Number.isFinite(
@@ -277,7 +297,9 @@ function CotizadorForm({
       );
 
     const manoObraValida =
-      Number.isFinite(manoObra)
+      Number.isFinite(
+        manoObra
+      )
         ? manoObra
         : 0;
 
@@ -293,13 +315,18 @@ function CotizadorForm({
     let precioSugerido = 0;
 
     if (
-      Number.isFinite(margen) &&
+      Number.isFinite(
+        margen
+      ) &&
       margen >= 0 &&
       margen < 100
     ) {
       precioSugerido =
         costoTotal /
-        (1 - margen / 100);
+        (
+          1 -
+          margen / 100
+        );
     }
 
     return {
@@ -307,7 +334,8 @@ function CotizadorForm({
       costoExtras,
       costoInsumos,
       costoProduccion,
-      manoObra: manoObraValida,
+      manoObra:
+        manoObraValida,
       costoTotal,
       precioSugerido,
     };
@@ -322,63 +350,121 @@ function CotizadorForm({
     insumos,
   ]);
 
-  const validarFormulario = () => {
-    if (!formulario.nombre.trim()) {
-      return "Ingresa un nombre para la cotización.";
-    }
-
-    if (!formulario.recetaId) {
-      return "Selecciona una receta.";
-    }
-
-    if (
-      Number(formulario.cantidad) <= 0
-    ) {
-      return "La cantidad a vender debe ser mayor que cero.";
-    }
-
-    if (
-      Number(formulario.margen) < 0 ||
-      Number(formulario.margen) >= 100
-    ) {
-      return "El margen debe estar entre 0% y 99.99%.";
-    }
-
-    for (const extra of extras) {
-      if (!extra.productoId) {
-        return "Selecciona un producto para cada topping o salsa.";
+  const validarFormulario =
+    () => {
+      if (
+        !formulario.nombre.trim()
+      ) {
+        return "Ingresa un nombre para la cotización.";
       }
 
       if (
-        Number(extra.cantidad) <= 0
+        !formulario.recetaId
       ) {
-        return "La cantidad de cada topping o salsa debe ser mayor que cero.";
-      }
-    }
-
-    for (const item of insumosSeleccionados) {
-      if (!item.insumoId) {
-        return "Selecciona un insumo para cada elemento agregado.";
+        return "Selecciona una receta.";
       }
 
       if (
-        Number(item.cantidad) <= 0
+        Number(
+          formulario.cantidad
+        ) <= 0
       ) {
-        return "La cantidad de cada insumo debe ser mayor que cero.";
+        return "La cantidad a vender debe ser mayor que cero.";
       }
-    }
 
-    return "";
-  };
+      if (
+        Number(
+          formulario.margen
+        ) < 0 ||
+        Number(
+          formulario.margen
+        ) >= 100
+      ) {
+        return "El margen debe estar entre 0% y 99.99%.";
+      }
 
-  const handleSubmit = async (e) => {
+      for (
+        const extra of extras
+      ) {
+        if (
+          !extra.productoId
+        ) {
+          return "Selecciona un topping o salsa.";
+        }
+
+        const producto =
+          productos.find(
+            (
+              productoActual
+            ) =>
+              String(
+                productoActual.id
+              ) ===
+              String(
+                extra.productoId
+              )
+          );
+
+        if (
+          !producto
+        ) {
+          return "No se encontró uno de los productos seleccionados.";
+        }
+
+        if (
+          !Number(
+            producto.cantidadPorUso
+          ) ||
+          Number(
+            producto.cantidadPorUso
+          ) <= 0
+        ) {
+          return `El producto "${producto.nombre}" no tiene configurada la cantidad por uso. Ve a Productos y edítalo.`;
+        }
+
+        if (
+          Number(
+            extra.cantidad
+          ) <= 0
+        ) {
+          return "La cantidad de toppings o salsas debe ser mayor que cero.";
+        }
+      }
+
+      for (
+        const item of
+          insumosSeleccionados
+      ) {
+        if (
+          !item.insumoId
+        ) {
+          return "Selecciona un insumo.";
+        }
+
+        if (
+          Number(
+            item.cantidad
+          ) <= 0
+        ) {
+          return "La cantidad de insumos debe ser mayor que cero.";
+        }
+      }
+
+      return "";
+    };
+
+  const handleSubmit = async (
+    e
+  ) => {
     e.preventDefault();
 
     const mensajeError =
       validarFormulario();
 
     if (mensajeError) {
-      setError(mensajeError);
+      setError(
+        mensajeError
+      );
       return;
     }
 
@@ -387,65 +473,100 @@ function CotizadorForm({
       setGuardando(true);
 
       const extrasGuardados =
-        extras.map((extra) => {
-          const producto =
-            productos.find(
-              (productoActual) =>
-                String(
-                  productoActual.id
-                ) ===
-                String(
-                  extra.productoId
-                )
-            );
+        extras.map(
+          (extra) => {
+            const producto =
+              productos.find(
+                (
+                  productoActual
+                ) =>
+                  String(
+                    productoActual.id
+                  ) ===
+                  String(
+                    extra.productoId
+                  )
+              );
 
-          return {
-            productoId: extra.productoId,
-            nombre: producto?.nombre || "",
-            tipo: producto?.tipo || "",
-            cantidad: Number(
-              extra.cantidad
-            ),
-            unidad: extra.unidad,
-            costo: Number(
-              (
-                obtenerCostoUnitario(
-                  producto
-                ) *
-                Number(extra.cantidad)
-              ).toFixed(2)
-            ),
-          };
-        });
+            const cantidadUsos =
+              Number(
+                extra.cantidad
+              );
+
+            return {
+              productoId:
+                extra.productoId,
+
+              nombre:
+                producto?.nombre ||
+                "",
+
+              tipo:
+                producto?.tipo ||
+                "",
+
+              cantidadUsos,
+
+              cantidadPorUso:
+                Number(
+                  producto?.cantidadPorUso
+                ),
+
+              unidadPorUso:
+                producto?.unidadPorUso ||
+                "",
+
+              costo: Number(
+                calcularCostoPorUso(
+                  producto,
+                  cantidadUsos
+                ).toFixed(2)
+              ),
+            };
+          }
+        );
 
       const insumosGuardados =
         insumosSeleccionados.map(
           (item) => {
             const insumo =
               insumos.find(
-                (insumoActual) =>
+                (
+                  insumoActual
+                ) =>
                   String(
                     insumoActual.id
                   ) ===
-                  String(item.insumoId)
+                  String(
+                    item.insumoId
+                  )
               );
 
             return {
-              insumoId: item.insumoId,
-              nombre: insumo?.nombre || "",
-              cantidad: Number(
-                item.cantidad
-              ),
-              unidad:
-                obtenerUnidadCostoInsumo(
-                  insumo?.unidad
+              insumoId:
+                item.insumoId,
+
+              nombre:
+                insumo?.nombre ||
+                "",
+
+              cantidad:
+                Number(
+                  item.cantidad
                 ),
+
+              unidad:
+                insumo?.unidad ||
+                "",
+
               costo: Number(
                 (
                   obtenerCostoUnitarioInsumo(
                     insumo
                   ) *
-                  Number(item.cantidad)
+                  Number(
+                    item.cantidad
+                  )
                 ).toFixed(2)
               ),
             };
@@ -463,49 +584,68 @@ function CotizadorForm({
           recetaSeleccionada?.nombre ||
           "",
 
-        cantidad: Number(
-          formulario.cantidad
-        ),
+        cantidad:
+          Number(
+            formulario.cantidad
+          ),
 
-        extras: extrasGuardados,
+        extras:
+          extrasGuardados,
 
-        insumos: insumosGuardados,
+        insumos:
+          insumosGuardados,
 
-        manoObra: Number(
-          formulario.manoObra
-        ) || 0,
+        manoObra:
+          Number(
+            formulario.manoObra
+          ) || 0,
 
-        margen: Number(
-          formulario.margen
-        ),
+        margen:
+          Number(
+            formulario.margen
+          ),
 
-        costoReceta: Number(
-          calculos.costoReceta.toFixed(2)
-        ),
+        costoReceta:
+          Number(
+            calculos.costoReceta.toFixed(
+              2
+            )
+          ),
 
-        costoExtras: Number(
-          calculos.costoExtras.toFixed(2)
-        ),
+        costoExtras:
+          Number(
+            calculos.costoExtras.toFixed(
+              2
+            )
+          ),
 
-        costoInsumos: Number(
-          calculos.costoInsumos.toFixed(2)
-        ),
+        costoInsumos:
+          Number(
+            calculos.costoInsumos.toFixed(
+              2
+            )
+          ),
 
-        costoProduccion: Number(
-          calculos.costoProduccion.toFixed(
-            2
-          )
-        ),
+        costoProduccion:
+          Number(
+            calculos.costoProduccion.toFixed(
+              2
+            )
+          ),
 
-        costoTotal: Number(
-          calculos.costoTotal.toFixed(2)
-        ),
+        costoTotal:
+          Number(
+            calculos.costoTotal.toFixed(
+              2
+            )
+          ),
 
-        precioSugerido: Number(
-          calculos.precioSugerido.toFixed(
-            2
-          )
-        ),
+        precioSugerido:
+          Number(
+            calculos.precioSugerido.toFixed(
+              2
+            )
+          ),
 
         fecha:
           new Date().toISOString(),
@@ -520,7 +660,9 @@ function CotizadorForm({
         nuevaCotizacion
       );
     } catch (error) {
-      setError(error.message);
+      setError(
+        error.message
+      );
     } finally {
       setGuardando(false);
     }
@@ -533,7 +675,9 @@ function CotizadorForm({
     >
       <div className="cotizador-form-header">
         <div>
-          <h2>Nueva cotización</h2>
+          <h2>
+            Nueva cotización
+          </h2>
 
           <p>
             Configura exactamente lo que vas a
@@ -558,8 +702,12 @@ function CotizadorForm({
             id="nombre"
             name="nombre"
             type="text"
-            value={formulario.nombre}
-            onChange={cambiarFormulario}
+            value={
+              formulario.nombre
+            }
+            onChange={
+              cambiarFormulario
+            }
             placeholder="Ej. Caja de mini donas"
           />
         </div>
@@ -572,27 +720,37 @@ function CotizadorForm({
           <select
             id="recetaId"
             name="recetaId"
-            value={formulario.recetaId}
-            onChange={seleccionarReceta}
+            value={
+              formulario.recetaId
+            }
+            onChange={
+              seleccionarReceta
+            }
           >
             <option value="">
               Selecciona una receta
             </option>
 
-            {recetas.map((receta) => (
-              <option
-                key={receta.id}
-                value={receta.id}
-              >
-                {receta.nombre}
-              </option>
-            ))}
+            {recetas.map(
+              (receta) => (
+                <option
+                  key={
+                    receta.id
+                  }
+                  value={
+                    receta.id
+                  }
+                >
+                  {receta.nombre}
+                </option>
+              )
+            )}
           </select>
         </div>
 
         <div className="cotizador-field">
           <label htmlFor="cantidad">
-            Cantidad a vender
+            Cantidad de productos
           </label>
 
           <input
@@ -601,145 +759,208 @@ function CotizadorForm({
             type="number"
             min="1"
             step="1"
-            value={formulario.cantidad}
-            onChange={cambiarFormulario}
+            value={
+              formulario.cantidad
+            }
+            onChange={
+              cambiarFormulario
+            }
           />
-
-          {recetaSeleccionada && (
-            <small>
-              Costo por unidad:
-              {" "}
-              ₡
-              {calcularCostoPorRendimiento(
-                recetaSeleccionada,
-                productos
-              ).toFixed(2)}
-            </small>
-          )}
         </div>
       </div>
 
       <section className="cotizador-seccion">
         <div className="cotizador-seccion-header">
           <div>
-            <h3>Toppings y salsas</h3>
+            <h3>
+              Toppings y salsas
+            </h3>
 
             <p>
-              Agrega los productos adicionales
-              utilizados en la venta.
+              Indica cuántos toppings o salsas
+              utilizarás. El sistema conoce cuánto
+              producto necesita cada uno.
             </p>
           </div>
 
           <button
             type="button"
             className="btn-agregar-extra"
-            onClick={agregarExtra}
+            onClick={
+              agregarExtra
+            }
           >
             Agregar
           </button>
         </div>
 
-        {extras.length === 0 ? (
+        {extras.length ===
+        0 ? (
           <div className="cotizador-vacio">
-            No has agregado toppings ni salsas.
+            No has agregado toppings ni
+            salsas.
           </div>
         ) : (
           <div className="cotizador-items">
             {extras.map(
-              (extra, indice) => (
-                <div
-                  className="cotizador-item"
-                  key={indice}
-                >
-                  <div className="cotizador-field">
-                    <label>
-                      Producto
-                    </label>
-
-                    <select
-                      value={
+              (
+                extra,
+                indice
+              ) => {
+                const producto =
+                  productosExtras.find(
+                    (
+                      productoActual
+                    ) =>
+                      String(
+                        productoActual.id
+                      ) ===
+                      String(
                         extra.productoId
-                      }
-                      onChange={(e) =>
-                        cambiarExtra(
-                          indice,
-                          "productoId",
-                          e.target.value
+                      )
+                  );
+
+                const costo =
+                  producto
+                    ? calcularCostoPorUso(
+                        producto,
+                        Number(
+                          extra.cantidad
+                        )
+                      )
+                    : 0;
+
+                return (
+                  <div
+                    className="cotizador-item"
+                    key={
+                      indice
+                    }
+                  >
+                    <div className="cotizador-field">
+                      <label>
+                        Topping o salsa
+                      </label>
+
+                      <select
+                        value={
+                          extra.productoId
+                        }
+                        onChange={(
+                          e
+                        ) =>
+                          cambiarExtra(
+                            indice,
+                            "productoId",
+                            e.target.value
+                          )
+                        }
+                      >
+                        <option value="">
+                          Selecciona
+                        </option>
+
+                        {productosExtras.map(
+                          (
+                            productoActual
+                          ) => (
+                            <option
+                              key={
+                                productoActual.id
+                              }
+                              value={
+                                productoActual.id
+                              }
+                            >
+                              {
+                                productoActual.nombre
+                              }
+                              {" - "}
+                              {
+                                productoActual.tipo
+                              }
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </div>
+
+                    <div className="cotizador-field">
+                      <label>
+                        Cantidad de usos
+                      </label>
+
+                      <input
+                        type="number"
+                        min="1"
+                        step="1"
+                        value={
+                          extra.cantidad
+                        }
+                        onChange={(
+                          e
+                        ) =>
+                          cambiarExtra(
+                            indice,
+                            "cantidad",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+
+                    <div className="cotizador-field">
+                      <label>
+                        Consumo
+                      </label>
+
+                      <input
+                        type="text"
+                        readOnly
+                        value={
+                          producto
+                            ? `${Number(
+                                producto.cantidadPorUso
+                              )} ${
+                                producto.unidadPorUso
+                              } / uso`
+                            : ""
+                        }
+                      />
+                    </div>
+
+                    <div className="cotizador-field">
+                      <label>
+                        Costo
+                      </label>
+
+                      <input
+                        type="text"
+                        readOnly
+                        value={
+                          producto
+                            ? `₡${costo.toFixed(
+                                2
+                              )}`
+                            : ""
+                        }
+                      />
+                    </div>
+
+                    <button
+                      type="button"
+                      className="btn-eliminar-item"
+                      onClick={() =>
+                        eliminarExtra(
+                          indice
                         )
                       }
                     >
-                      <option value="">
-                        Selecciona
-                      </option>
-
-                      {productosExtras.map(
-                        (producto) => (
-                          <option
-                            key={
-                              producto.id
-                            }
-                            value={
-                              producto.id
-                            }
-                          >
-                            {producto.nombre}
-                            {" - "}
-                            {producto.tipo}
-                          </option>
-                        )
-                      )}
-                    </select>
+                      Eliminar
+                    </button>
                   </div>
-
-                  <div className="cotizador-field">
-                    <label>
-                      Cantidad
-                    </label>
-
-                    <input
-                      type="number"
-                      min="0.01"
-                      step="0.01"
-                      value={
-                        extra.cantidad
-                      }
-                      onChange={(e) =>
-                        cambiarExtra(
-                          indice,
-                          "cantidad",
-                          e.target.value
-                        )
-                      }
-                    />
-                  </div>
-
-                  <div className="cotizador-field">
-                    <label>
-                      Unidad
-                    </label>
-
-                    <input
-                      type="text"
-                      value={
-                        extra.unidad
-                      }
-                      readOnly
-                    />
-                  </div>
-
-                  <button
-                    type="button"
-                    className="btn-eliminar-item"
-                    onClick={() =>
-                      eliminarExtra(
-                        indice
-                      )
-                    }
-                  >
-                    Eliminar
-                  </button>
-                </div>
-              )
+                );
+              }
             )}
           </div>
         )}
@@ -748,7 +969,9 @@ function CotizadorForm({
       <section className="cotizador-seccion">
         <div className="cotizador-seccion-header">
           <div>
-            <h3>Insumos</h3>
+            <h3>
+              Insumos
+            </h3>
 
             <p>
               Agrega cajas, bolsas, servilletas,
@@ -759,23 +982,31 @@ function CotizadorForm({
           <button
             type="button"
             className="btn-agregar-extra"
-            onClick={agregarInsumo}
+            onClick={
+              agregarInsumo
+            }
           >
             Agregar
           </button>
         </div>
 
-        {insumosSeleccionados.length === 0 ? (
+        {insumosSeleccionados.length ===
+        0 ? (
           <div className="cotizador-vacio">
             No has agregado insumos.
           </div>
         ) : (
           <div className="cotizador-items">
             {insumosSeleccionados.map(
-              (item, indice) => (
+              (
+                item,
+                indice
+              ) => (
                 <div
                   className="cotizador-item"
-                  key={indice}
+                  key={
+                    indice
+                  }
                 >
                   <div className="cotizador-field">
                     <label>
@@ -786,7 +1017,9 @@ function CotizadorForm({
                       value={
                         item.insumoId
                       }
-                      onChange={(e) =>
+                      onChange={(
+                        e
+                      ) =>
                         cambiarInsumo(
                           indice,
                           "insumoId",
@@ -799,14 +1032,20 @@ function CotizadorForm({
                       </option>
 
                       {insumos.map(
-                        (insumo) => (
+                        (
+                          insumo
+                        ) => (
                           <option
-                            key={insumo.id}
+                            key={
+                              insumo.id
+                            }
                             value={
                               insumo.id
                             }
                           >
-                            {insumo.nombre}
+                            {
+                              insumo.nombre
+                            }
                           </option>
                         )
                       )}
@@ -820,12 +1059,14 @@ function CotizadorForm({
 
                     <input
                       type="number"
-                      min="0.01"
-                      step="0.01"
+                      min="1"
+                      step="1"
                       value={
                         item.cantidad
                       }
-                      onChange={(e) =>
+                      onChange={(
+                        e
+                      ) =>
                         cambiarInsumo(
                           indice,
                           "cantidad",
@@ -856,7 +1097,9 @@ function CotizadorForm({
       <section className="cotizador-seccion">
         <div className="cotizador-seccion-header">
           <div>
-            <h3>Costos adicionales</h3>
+            <h3>
+              Costos adicionales
+            </h3>
 
             <p>
               Define la mano de obra y el margen de
@@ -877,8 +1120,12 @@ function CotizadorForm({
               type="number"
               min="0"
               step="0.01"
-              value={formulario.manoObra}
-              onChange={cambiarFormulario}
+              value={
+                formulario.manoObra
+              }
+              onChange={
+                cambiarFormulario
+              }
               placeholder="₡0"
             />
           </div>
@@ -895,8 +1142,12 @@ function CotizadorForm({
               min="0"
               max="99.99"
               step="0.01"
-              value={formulario.margen}
-              onChange={cambiarFormulario}
+              value={
+                formulario.margen
+              }
+              onChange={
+                cambiarFormulario
+              }
             />
           </div>
         </div>
@@ -908,7 +1159,9 @@ function CotizadorForm({
         </h3>
 
         <div className="cotizador-resumen-linea">
-          <span>Costo de receta</span>
+          <span>
+            Costo de receta
+          </span>
 
           <strong>
             ₡
@@ -919,7 +1172,9 @@ function CotizadorForm({
         </div>
 
         <div className="cotizador-resumen-linea">
-          <span>Toppings y salsas</span>
+          <span>
+            Toppings y salsas
+          </span>
 
           <strong>
             ₡
@@ -930,7 +1185,9 @@ function CotizadorForm({
         </div>
 
         <div className="cotizador-resumen-linea">
-          <span>Insumos</span>
+          <span>
+            Insumos
+          </span>
 
           <strong>
             ₡
@@ -941,7 +1198,9 @@ function CotizadorForm({
         </div>
 
         <div className="cotizador-resumen-linea">
-          <span>Mano de obra</span>
+          <span>
+            Mano de obra
+          </span>
 
           <strong>
             ₡
@@ -952,7 +1211,9 @@ function CotizadorForm({
         </div>
 
         <div className="cotizador-resumen-total">
-          <span>Costo total</span>
+          <span>
+            Costo total
+          </span>
 
           <strong>
             ₡
@@ -980,8 +1241,12 @@ function CotizadorForm({
         <button
           type="button"
           className="cotizador-btn-cancelar"
-          onClick={onCancelar}
-          disabled={guardando}
+          onClick={
+            onCancelar
+          }
+          disabled={
+            guardando
+          }
         >
           Cancelar
         </button>
@@ -989,7 +1254,9 @@ function CotizadorForm({
         <button
           type="submit"
           className="cotizador-btn-guardar"
-          disabled={guardando}
+          disabled={
+            guardando
+          }
         >
           {guardando
             ? "Guardando..."

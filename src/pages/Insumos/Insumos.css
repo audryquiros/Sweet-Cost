@@ -98,6 +98,23 @@
   font-size: 13px;
 }
 
+.insumos-exito {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 0 auto 20px;
+
+  padding: 12px 16px;
+
+  background: #e8f3ea;
+  border: 1px solid #b9d6bd;
+  border-radius: 8px;
+
+  color: #4f7d57;
+
+  font-size: 14px;
+}
+
 @media (max-width: 700px) {
   .insumos-page {
     padding: 25px 20px;

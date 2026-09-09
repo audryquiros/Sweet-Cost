@@ -1,0 +1,42 @@
+.cotizador-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+.cotizador-vacio-lista {
+  padding: 35px 20px;
+
+  background-color: #ffffff;
+
+  border: 1px dashed #e3dce9;
+  border-radius: 10px;
+
+  text-align: center;
+}
+
+.cotizador-vacio-lista h3 {
+  margin: 0;
+
+  color: #6d4c8d;
+
+  font-size: 17px;
+}
+
+.cotizador-vacio-lista p {
+  margin: 8px 0 0;
+
+  color: #776d7d;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+@media (max-width: 800px) {
+  .cotizador-grid {
+    grid-template-columns: 1fr;
+  }
+}

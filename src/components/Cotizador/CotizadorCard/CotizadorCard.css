@@ -1,0 +1,222 @@
+.cotizador-card {
+  padding: 22px;
+
+  background-color: #ffffff;
+
+  border: 1px solid #e3dce9;
+  border-radius: 12px;
+
+  box-shadow: 0 4px 15px rgba(53, 45, 58, 0.05);
+}
+
+.cotizador-card-header {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding-bottom: 15px;
+
+  border-bottom: 1px solid #e3dce9;
+}
+
+.cotizador-card-header h3 {
+  margin: 0;
+
+  color: #352d3a;
+
+  font-size: 18px;
+}
+
+.cotizador-card-header p {
+  margin: 5px 0 0;
+
+  color: #776d7d;
+
+  font-size: 13px;
+}
+
+.cotizador-card-fecha {
+  flex-shrink: 0;
+
+  color: #776d7d;
+
+  font-size: 12px;
+}
+
+/* =========================================
+   DATOS
+   ========================================= */
+
+.cotizador-card-datos {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
+  margin-top: 15px;
+}
+
+.cotizador-card-dato {
+  padding: 11px;
+
+  background-color: #fff9f5;
+
+  border-radius: 7px;
+}
+
+.cotizador-card-dato span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #776d7d;
+
+  font-size: 12px;
+}
+
+.cotizador-card-dato strong {
+  color: #352d3a;
+
+  font-size: 14px;
+}
+
+/* =========================================
+   COSTOS
+   ========================================= */
+
+.cotizador-card-costos {
+  display: flex;
+  flex-direction: column;
+
+  gap: 9px;
+
+  margin-top: 18px;
+}
+
+.cotizador-card-costos div {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.cotizador-card-costos span {
+  color: #776d7d;
+
+  font-size: 13px;
+}
+
+.cotizador-card-costos strong {
+  color: #352d3a;
+
+  font-size: 13px;
+}
+
+/* =========================================
+   TOTAL
+   ========================================= */
+
+.cotizador-card-total {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 18px;
+  padding-top: 15px;
+
+  border-top: 1px solid #e3dce9;
+}
+
+.cotizador-card-total span {
+  color: #352d3a;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cotizador-card-total strong {
+  color: #6d4c8d;
+
+  font-size: 17px;
+}
+
+/* =========================================
+   PRECIO
+   ========================================= */
+
+.cotizador-card-precio {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-top: 12px;
+  padding: 14px;
+
+  background-color: #d8c8f2;
+
+  border-radius: 8px;
+
+  color: #6d4c8d;
+}
+
+.cotizador-card-precio span {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cotizador-card-precio strong {
+  font-size: 19px;
+}
+
+/* =========================================
+   ACCIONES
+   ========================================= */
+
+.cotizador-card-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  margin-top: 16px;
+}
+
+.cotizador-card-eliminar {
+  padding: 8px 13px;
+
+  border: 1px solid #e8baba;
+  border-radius: 7px;
+
+  background-color: #ffffff;
+  color: #c95c5c;
+
+  font-family: inherit;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.cotizador-card-eliminar:hover {
+  background-color: #fff1f1;
+}
+
+@media (max-width: 500px) {
+  .cotizador-card-header {
+    flex-direction: column;
+  }
+
+  .cotizador-card-fecha {
+    align-self: flex-start;
+  }
+}

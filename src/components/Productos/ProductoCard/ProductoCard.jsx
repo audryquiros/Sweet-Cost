@@ -1,3 +1,8 @@
+import {
+  obtenerCostoUnitario,
+  obtenerUnidadBase,
+} from "../../../utils/calculosCostos";
+
 import "./ProductoCard.css";
 
 function ProductoCard({
@@ -5,27 +10,15 @@ function ProductoCard({
   onEditar,
   onEliminar,
 }) {
-  const cantidad = Number(producto.cantidad);
   const precio = Number(producto.precio);
+
   const densidad = Number(producto.densidad);
 
-  let costoUnitario = 0;
-  let unidadBase = producto.unidad;
+  const costoUnitario =
+    obtenerCostoUnitario(producto);
 
-  if (producto.unidad === "kg") {
-    costoUnitario =
-      precio / (cantidad * 1000);
-
-    unidadBase = "g";
-  } else if (producto.unidad === "l") {
-    costoUnitario =
-      precio / (cantidad * 1000);
-
-    unidadBase = "ml";
-  } else if (cantidad > 0) {
-    costoUnitario =
-      precio / cantidad;
-  }
+  const unidadBase =
+    obtenerUnidadBase(producto.unidad);
 
   return (
     <article className="producto-card">
@@ -90,9 +83,7 @@ function ProductoCard({
         <button
           type="button"
           className="btn-editar"
-          onClick={() =>
-            onEditar(producto)
-          }
+          onClick={() => onEditar(producto)}
         >
           Editar
         </button>
@@ -100,9 +91,7 @@ function ProductoCard({
         <button
           type="button"
           className="btn-eliminar"
-          onClick={() =>
-            onEliminar(producto.id)
-          }
+          onClick={() => onEliminar(producto)}
         >
           Eliminar
         </button>

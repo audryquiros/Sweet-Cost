@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import {
   getInsumos,
   deleteInsumo,
@@ -6,15 +7,24 @@ import {
 
 import InsumosForm from "../../components/Insumos/InsumosForm/InsumosForm";
 import InsumoList from "../../components/Insumos/InsumoList/InsumoList";
+import Confirmacion from "../../components/Confirmacion/Confirmacion";
 
 import "./Insumos.css";
 
 function Insumos() {
   const [insumos, setInsumos] = useState([]);
+
   const [mostrarFormulario, setMostrarFormulario] =
     useState(false);
+
   const [insumoSeleccionado, setInsumoSeleccionado] =
     useState(null);
+
+  const [insumoAEliminar, setInsumoAEliminar] =
+    useState(null);
+
+  const [mensajeExito, setMensajeExito] =
+    useState("");
 
   const [error, setError] = useState("");
 
@@ -50,7 +60,15 @@ function Insumos() {
       insumo,
     ]);
 
+    setMensajeExito(
+      "Insumo agregado correctamente."
+    );
+
     setMostrarFormulario(false);
+
+    setTimeout(() => {
+      setMensajeExito("");
+    }, 3000);
   };
 
   const handleEditar = (insumo) => {
@@ -76,28 +94,53 @@ function Insumos() {
 
     setInsumoSeleccionado(null);
     setMostrarFormulario(false);
-  };
 
-  const handleEliminar = async (id) => {
-    const confirmar = window.confirm(
-      "¿Estás seguro de que deseas eliminar este insumo?"
+    setMensajeExito(
+      "Insumo actualizado correctamente."
     );
 
-    if (!confirmar) {
+    setTimeout(() => {
+      setMensajeExito("");
+    }, 3000);
+  };
+
+  const handleEliminar = (insumo) => {
+    setInsumoAEliminar(insumo);
+  };
+
+  const confirmarEliminacion = async () => {
+    if (!insumoAEliminar) {
       return;
     }
 
     try {
-      await deleteInsumo(id);
+      setError("");
+
+      await deleteInsumo(insumoAEliminar.id);
 
       setInsumos((insumosActuales) =>
         insumosActuales.filter(
-          (insumo) => insumo.id !== id
+          (insumo) =>
+            insumo.id !== insumoAEliminar.id
         )
       );
+
+      setInsumoAEliminar(null);
+
+      setMensajeExito(
+        "Insumo eliminado correctamente."
+      );
+
+      setTimeout(() => {
+        setMensajeExito("");
+      }, 3000);
     } catch (error) {
       setError(error.message);
     }
+  };
+
+  const cancelarEliminacion = () => {
+    setInsumoAEliminar(null);
   };
 
   return (
@@ -122,6 +165,12 @@ function Insumos() {
           </button>
         )}
       </header>
+
+      {mensajeExito && (
+        <div className="insumos-exito">
+          {mensajeExito}
+        </div>
+      )}
 
       {error && (
         <div className="insumos-error">
@@ -160,6 +209,14 @@ function Insumos() {
           onEliminar={handleEliminar}
         />
       </section>
+
+      {insumoAEliminar && (
+        <Confirmacion
+          mensaje={`¿Estás seguro de que deseas eliminar el insumo "${insumoAEliminar.nombre}"? Esta acción no se puede deshacer.`}
+          onConfirmar={confirmarEliminacion}
+          onCancelar={cancelarEliminacion}
+        />
+      )}
     </main>
   );
 }

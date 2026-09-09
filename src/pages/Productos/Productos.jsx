@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import {
   getProductos,
   deleteProducto,
@@ -6,15 +7,24 @@ import {
 
 import ProductosForm from "../../components/Productos/ProductosForm/ProductosForm";
 import ProductoList from "../../components/Productos/ProductoList/ProductoList";
+import Confirmacion from "../../components/Confirmacion/Confirmacion";
 
 import "./Productos.css";
 
 function Productos() {
   const [productos, setProductos] = useState([]);
+
   const [mostrarFormulario, setMostrarFormulario] =
     useState(false);
+
   const [productoSeleccionado, setProductoSeleccionado] =
     useState(null);
+
+  const [productoAEliminar, setProductoAEliminar] =
+    useState(null);
+
+  const [mensajeExito, setMensajeExito] =
+    useState("");
 
   const [error, setError] = useState("");
 
@@ -50,7 +60,15 @@ function Productos() {
       producto,
     ]);
 
+    setMensajeExito(
+      "Producto agregado correctamente."
+    );
+
     setMostrarFormulario(false);
+
+    setTimeout(() => {
+      setMensajeExito("");
+    }, 3000);
   };
 
   const handleEditar = (producto) => {
@@ -76,28 +94,53 @@ function Productos() {
 
     setProductoSeleccionado(null);
     setMostrarFormulario(false);
-  };
 
-  const handleEliminar = async (id) => {
-    const confirmar = window.confirm(
-      "¿Estás seguro de que deseas eliminar este producto?"
+    setMensajeExito(
+      "Producto actualizado correctamente."
     );
 
-    if (!confirmar) {
+    setTimeout(() => {
+      setMensajeExito("");
+    }, 3000);
+  };
+
+  const handleEliminar = (producto) => {
+    setProductoAEliminar(producto);
+  };
+
+  const confirmarEliminacion = async () => {
+    if (!productoAEliminar) {
       return;
     }
 
     try {
-      await deleteProducto(id);
+      setError("");
+
+      await deleteProducto(productoAEliminar.id);
 
       setProductos((productosActuales) =>
         productosActuales.filter(
-          (producto) => producto.id !== id
+          (producto) =>
+            producto.id !== productoAEliminar.id
         )
       );
+
+      setProductoAEliminar(null);
+
+      setMensajeExito(
+        "Producto eliminado correctamente."
+      );
+
+      setTimeout(() => {
+        setMensajeExito("");
+      }, 3000);
     } catch (error) {
       setError(error.message);
     }
+  };
+
+  const cancelarEliminacion = () => {
+    setProductoAEliminar(null);
   };
 
   return (
@@ -122,6 +165,12 @@ function Productos() {
           </button>
         )}
       </header>
+
+      {mensajeExito && (
+        <div className="productos-exito">
+          {mensajeExito}
+        </div>
+      )}
 
       {error && (
         <div className="productos-error">
@@ -160,6 +209,14 @@ function Productos() {
           onEliminar={handleEliminar}
         />
       </section>
+
+      {productoAEliminar && (
+        <Confirmacion
+          mensaje={`¿Estás seguro de que deseas eliminar el producto "${productoAEliminar.nombre}"? Esta acción no se puede deshacer.`}
+          onConfirmar={confirmarEliminacion}
+          onCancelar={cancelarEliminacion}
+        />
+      )}
     </main>
   );
 }

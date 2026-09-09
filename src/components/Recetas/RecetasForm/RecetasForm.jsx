@@ -7,6 +7,11 @@ import {
 
 import { getProductos } from "../../../services/productoServices";
 
+import {
+  convertirCantidadAUnidadBase,
+  obtenerUnidadBase,
+} from "../../../utils/calculosCostos";
+
 import "./RecetasForm.css";
 
 const formularioInicial = {
@@ -17,22 +22,7 @@ const formularioInicial = {
   ingredientes: [],
 };
 
-const masaEnGramos = {
-  mg: 0.001,
-  g: 1,
-  kg: 1000,
-  oz: 28.3495,
-  lb: 453.592,
-};
 
-const volumenEnMl = {
-  ml: 1,
-  l: 1000,
-  taza: 240,
-  cda: 15,
-  cdta: 5,
-  oz_liquida: 29.5735,
-};
 
 function RecetasForm({
   receta,
@@ -367,79 +357,7 @@ function RecetasForm({
     }
   };
 
-  const obtenerUnidadBase = (
-    unidad
-  ) => {
-    if (unidad === "kg") {
-      return "g";
-    }
 
-    if (unidad === "l") {
-      return "ml";
-    }
-
-    return unidad;
-  };
-
-  const convertirCantidadAUnidadBase =
-    (
-      cantidad,
-      unidadActual,
-      unidadBase
-    ) => {
-      const valor =
-        Number(cantidad);
-
-      if (
-        !Number.isFinite(valor)
-      ) {
-        return 0;
-      }
-
-      if (
-        unidadActual ===
-        unidadBase
-      ) {
-        return valor;
-      }
-
-      if (
-        masaEnGramos[
-          unidadActual
-        ] !== undefined &&
-        unidadBase === "g"
-      ) {
-        return (
-          valor *
-          masaEnGramos[
-            unidadActual
-          ]
-        );
-      }
-
-      if (
-        volumenEnMl[
-          unidadActual
-        ] !== undefined &&
-        unidadBase === "ml"
-      ) {
-        return (
-          valor *
-          volumenEnMl[
-            unidadActual
-          ]
-        );
-      }
-
-      if (
-        unidadActual === "docena" &&
-        unidadBase === "unidad"
-      ) {
-        return valor * 12;
-      }
-
-      return valor;
-    };
 
   const prepararIngredientes =
     () => {

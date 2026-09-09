@@ -1,3 +1,8 @@
+import {
+  obtenerCostoUnitarioInsumo,
+  obtenerUnidadCostoInsumo,
+} from "../../../utils/calculosCostos";
+
 import "./InsumoCard.css";
 
 function InsumoCard({
@@ -5,27 +10,13 @@ function InsumoCard({
   onEditar,
   onEliminar,
 }) {
-  const cantidad = Number(insumo.cantidad);
   const precio = Number(insumo.precio);
 
-  let costoUnitario = 0;
-  let unidadBase = insumo.unidad;
+  const costoUnitario =
+    obtenerCostoUnitarioInsumo(insumo);
 
-  if (insumo.unidad === "docena") {
-    costoUnitario = precio / (cantidad * 12);
-    unidadBase = "unidad";
-  } else if (insumo.unidad === "paquete") {
-    costoUnitario = precio / cantidad;
-    unidadBase = "paquete";
-  } else if (insumo.unidad === "kg") {
-    costoUnitario = precio / (cantidad * 1000);
-    unidadBase = "g";
-  } else if (insumo.unidad === "l") {
-    costoUnitario = precio / (cantidad * 1000);
-    unidadBase = "ml";
-  } else if (cantidad > 0) {
-    costoUnitario = precio / cantidad;
-  }
+  const unidadBase =
+    obtenerUnidadCostoInsumo(insumo.unidad);
 
   return (
     <article className="insumo-card">
@@ -83,7 +74,7 @@ function InsumoCard({
         <button
           type="button"
           className="insumo-btn-eliminar"
-          onClick={() => onEliminar(insumo.id)}
+          onClick={() => onEliminar(insumo)}
         >
           Eliminar
         </button>

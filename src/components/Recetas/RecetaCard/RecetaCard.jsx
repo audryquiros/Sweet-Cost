@@ -1,4 +1,11 @@
 import { useState } from "react";
+
+import {
+  calcularCostoIngrediente,
+  calcularCostoPorRendimiento,
+  calcularCostoReceta,
+} from "../../../utils/calculosCostos";
+
 import "./RecetaCard.css";
 
 function RecetaCard({
@@ -10,114 +17,16 @@ function RecetaCard({
   const [mostrarIngredientes, setMostrarIngredientes] =
     useState(false);
 
-  const obtenerCostoUnitario = (producto) => {
-    const cantidad = Number(producto.cantidad);
-    const precio = Number(producto.precio);
-
-    if (cantidad <= 0) {
-      return 0;
-    }
-
-    if (producto.unidad === "kg") {
-      return precio / (cantidad * 1000);
-    }
-
-    if (producto.unidad === "l") {
-      return precio / (cantidad * 1000);
-    }
-
-    return precio / cantidad;
-  };
-
-  const convertirCantidadAUnidadBase = (
-    ingrediente,
-    producto
-  ) => {
-    const cantidad = Number(ingrediente.cantidad);
-
-    if (!Number.isFinite(cantidad)) {
-      return 0;
-    }
-
-    if (producto.unidad === "kg") {
-      if (ingrediente.unidad === "kg") {
-        return cantidad * 1000;
-      }
-
-      if (ingrediente.unidad === "g") {
-        return cantidad;
-      }
-
-      if (ingrediente.unidad === "mg") {
-        return cantidad / 1000;
-      }
-
-      if (ingrediente.unidad === "oz") {
-        return cantidad * 28.3495;
-      }
-
-      if (ingrediente.unidad === "lb") {
-        return cantidad * 453.592;
-      }
-    }
-
-    if (producto.unidad === "l") {
-      if (ingrediente.unidad === "l") {
-        return cantidad * 1000;
-      }
-
-      if (ingrediente.unidad === "ml") {
-        return cantidad;
-      }
-    }
-
-    if (producto.unidad === "unidad") {
-      if (ingrediente.unidad === "docena") {
-        return cantidad * 12;
-      }
-
-      return cantidad;
-    }
-
-    return cantidad;
-  };
-
-  const calcularCostoIngrediente = (ingrediente) => {
-    const producto = productos.find(
-      (producto) =>
-        String(producto.id) ===
-        String(ingrediente.productoId)
-    );
-
-    if (!producto) {
-      return 0;
-    }
-
-    const costoUnitario =
-      obtenerCostoUnitario(producto);
-
-    const cantidadBase =
-      convertirCantidadAUnidadBase(
-        ingrediente,
-        producto
-      );
-
-    return cantidadBase * costoUnitario;
-  };
-
-  const costoTotal = receta.ingredientes.reduce(
-    (total, ingrediente) =>
-      total +
-      calcularCostoIngrediente(ingrediente),
-    0
+  const costoTotal = calcularCostoReceta(
+    receta,
+    productos
   );
 
-  const rendimiento = Number(receta.rendimiento);
-
   const costoPorRendimiento =
-    rendimiento > 0
-      ? costoTotal / rendimiento
-      : 0;
+    calcularCostoPorRendimiento(
+      receta,
+      productos
+    );
 
   const obtenerNombreRendimiento = () => {
     if (receta.unidadRendimiento === "docena") {
@@ -207,7 +116,7 @@ function RecetaCard({
           <button
             type="button"
             className="receta-btn-eliminar"
-            onClick={() => onEliminar(receta.id)}
+            onClick={() => onEliminar(receta)}
           >
             Eliminar
           </button>
@@ -256,9 +165,9 @@ function RecetaCard({
                   (ingrediente, indice) => {
                     const producto =
                       productos.find(
-                        (producto) =>
+                        (productoActual) =>
                           String(
-                            producto.id
+                            productoActual.id
                           ) ===
                           String(
                             ingrediente.productoId
@@ -267,7 +176,8 @@ function RecetaCard({
 
                     const costo =
                       calcularCostoIngrediente(
-                        ingrediente
+                        ingrediente,
+                        productos
                       );
 
                     return (

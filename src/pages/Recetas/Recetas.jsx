@@ -15,6 +15,9 @@ import { getProductos } from "../../services/productoServices";
 import RecetasForm from "../../components/Recetas/RecetasForm/RecetasForm";
 import RecetaList from "../../components/Recetas/RecetaList/RecetaList";
 import ConversorMedidas from "../../components/ConversorMedidas/ConversorMedidas";
+import Confirmacion from "../../components/Confirmacion/Confirmacion";
+
+import { obtenerUnidadBase } from "../../utils/calculosCostos";
 
 import "./Recetas.css";
 
@@ -26,6 +29,9 @@ function Recetas() {
     useState(false);
 
   const [recetaSeleccionada, setRecetaSeleccionada] =
+    useState(null);
+
+  const [recetaAEliminar, setRecetaAEliminar] =
     useState(null);
 
   const [ingredienteSeleccionado, setIngredienteSeleccionado] =
@@ -41,6 +47,7 @@ function Recetas() {
     useState("");
 
   const [error, setError] = useState("");
+
   const [cargando, setCargando] = useState(true);
 
   const recetasListaRef = useRef(null);
@@ -71,27 +78,18 @@ function Recetas() {
 
   const handleMostrarFormulario = () => {
     setRecetaSeleccionada(null);
-
     setIngredienteSeleccionado(null);
-
     setProductoSeleccionadoId("");
-
     setResultadoConversor(null);
-
     setMensajeExito("");
-
     setMostrarFormulario(true);
   };
 
   const handleCancelar = () => {
     setRecetaSeleccionada(null);
-
     setIngredienteSeleccionado(null);
-
     setProductoSeleccionadoId("");
-
     setResultadoConversor(null);
-
     setMostrarFormulario(false);
   };
 
@@ -102,9 +100,7 @@ function Recetas() {
     ]);
 
     setIngredienteSeleccionado(null);
-
     setProductoSeleccionadoId("");
-
     setResultadoConversor(null);
 
     setMensajeExito(
@@ -127,15 +123,10 @@ function Recetas() {
 
   const handleEditar = (receta) => {
     setRecetaSeleccionada(receta);
-
     setIngredienteSeleccionado(null);
-
     setProductoSeleccionadoId("");
-
     setResultadoConversor(null);
-
     setMensajeExito("");
-
     setMostrarFormulario(true);
 
     window.scrollTo({
@@ -156,11 +147,8 @@ function Recetas() {
     );
 
     setRecetaSeleccionada(null);
-
     setIngredienteSeleccionado(null);
-
     setProductoSeleccionadoId("");
-
     setResultadoConversor(null);
 
     setMensajeExito(
@@ -181,40 +169,49 @@ function Recetas() {
     }, 3000);
   };
 
-  const handleEliminar = async (id) => {
-    const confirmar = window.confirm(
-      "¿Estás seguro de que deseas eliminar esta receta?"
-    );
+  const handleEliminar = (receta) => {
+    setRecetaAEliminar(receta);
+  };
 
-    if (!confirmar) {
+  const confirmarEliminacion = async () => {
+    if (!recetaAEliminar) {
       return;
     }
 
     try {
       setError("");
 
-      await deleteReceta(id);
+      await deleteReceta(recetaAEliminar.id);
 
       setRecetas((recetasActuales) =>
         recetasActuales.filter(
-          (receta) => receta.id !== id
+          (receta) =>
+            receta.id !== recetaAEliminar.id
         )
       );
+
+      setRecetaAEliminar(null);
+
+      setMensajeExito(
+        "Receta eliminada correctamente."
+      );
+
+      setTimeout(() => {
+        setMensajeExito("");
+      }, 3000);
     } catch (error) {
       setError(error.message);
     }
   };
 
-  /*
-   * Esta función se mantiene estable entre
-   * renderizados gracias a useCallback.
-   */
+  const cancelarEliminacion = () => {
+    setRecetaAEliminar(null);
+  };
+
   const handleSeleccionarIngrediente =
     useCallback(
       (indice, productoId) => {
-        setIngredienteSeleccionado(
-          indice
-        );
+        setIngredienteSeleccionado(indice);
 
         setProductoSeleccionadoId(
           productoId || ""
@@ -229,8 +226,8 @@ function Recetas() {
     productoId
   ) => {
     const producto = productos.find(
-      (producto) =>
-        String(producto.id) ===
+      (productoActual) =>
+        String(productoActual.id) ===
         String(productoId)
     );
 
@@ -238,15 +235,7 @@ function Recetas() {
       return "";
     }
 
-    if (producto.unidad === "kg") {
-      return "g";
-    }
-
-    if (producto.unidad === "l") {
-      return "ml";
-    }
-
-    return producto.unidad;
+    return obtenerUnidadBase(producto.unidad);
   };
 
   const handleUsarResultadoConversor = (
@@ -262,9 +251,7 @@ function Recetas() {
     setResultadoConversor({
       ingredienteIndex:
         ingredienteSeleccionado,
-
       valor,
-
       unidad,
     });
   };
@@ -301,6 +288,12 @@ function Recetas() {
           </button>
         )}
       </header>
+
+      {mensajeExito && (
+        <div className="recetas-exito">
+          {mensajeExito}
+        </div>
+      )}
 
       {error && (
         <div className="recetas-error">
@@ -366,12 +359,6 @@ function Recetas() {
         className="recetas-lista"
         ref={recetasListaRef}
       >
-        {mensajeExito && (
-          <div className="recetas-exito">
-            {mensajeExito}
-          </div>
-        )}
-
         <div className="recetas-lista-header">
           <div>
             <h2>
@@ -394,6 +381,14 @@ function Recetas() {
           onEliminar={handleEliminar}
         />
       </section>
+
+      {recetaAEliminar && (
+        <Confirmacion
+          mensaje={`¿Estás seguro de que deseas eliminar la receta "${recetaAEliminar.nombre}"? Esta acción no se puede deshacer.`}
+          onConfirmar={confirmarEliminacion}
+          onCancelar={cancelarEliminacion}
+        />
+      )}
     </main>
   );
 }

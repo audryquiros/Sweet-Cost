@@ -1,0 +1,93 @@
+.confirmacion-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(53, 45, 58, 0.45);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  z-index: 1000;
+}
+
+.confirmacion-modal {
+  width: 100%;
+  max-width: 430px;
+
+  background: #ffffff;
+  border: 1px solid #e3dce9;
+  border-radius: 14px;
+
+  padding: 28px;
+
+  box-shadow: 0 12px 35px rgba(53, 45, 58, 0.18);
+}
+
+.confirmacion-contenido h3 {
+  margin: 0 0 12px;
+
+  color: #352d3a;
+  font-size: 20px;
+}
+
+.confirmacion-contenido p {
+  margin: 0;
+
+  color: #776d7d;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.confirmacion-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  margin-top: 25px;
+}
+
+.confirmacion-acciones button {
+  border: none;
+  border-radius: 8px;
+
+  padding: 10px 18px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-confirmacion-cancelar {
+  background: #d8c8f2;
+  color: #6d4c8d;
+}
+
+.btn-confirmacion-cancelar:hover {
+  background: #cbb8eb;
+}
+
+.btn-confirmacion-eliminar {
+  background: #c95c5c;
+  color: #ffffff;
+}
+
+.btn-confirmacion-eliminar:hover {
+  background: #b94d4d;
+}
+
+@media (max-width: 480px) {
+  .confirmacion-modal {
+    padding: 22px;
+  }
+
+  .confirmacion-acciones {
+    flex-direction: column-reverse;
+  }
+
+  .confirmacion-acciones button {
+    width: 100%;
+  }
+}

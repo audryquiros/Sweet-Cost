@@ -16,29 +16,154 @@ export const volumenEnMl = {
 };
 
 export const obtenerUnidadBase = (unidad) => {
-  if (unidad === "kg") {
-    return "g";
-  }
-
-  if (unidad === "l") {
-    return "ml";
-  }
-
-  if (unidad === "docena") {
-    return "unidad";
-  }
+  if (unidad === "kg") return "g";
+  if (unidad === "l") return "ml";
+  if (unidad === "docena") return "unidad";
 
   return unidad;
 };
 
-export const obtenerCostoUnitario = (producto) => {
-  const cantidad = Number(producto?.cantidad);
-  const precio = Number(producto?.precio);
+export const convertirCantidadAUnidadBase = (
+  cantidad,
+  unidadActual,
+  unidadBase
+) => {
+  const valor = Number(cantidad);
+
+  if (!Number.isFinite(valor)) return 0;
+
+  if (unidadActual === unidadBase) {
+    return valor;
+  }
 
   if (
-    !Number.isFinite(cantidad) ||
-    cantidad <= 0 ||
-    !Number.isFinite(precio)
+    masaEnGramos[unidadActual] !== undefined &&
+    unidadBase === "g"
+  ) {
+    return valor * masaEnGramos[unidadActual];
+  }
+
+  if (
+    volumenEnMl[unidadActual] !== undefined &&
+    unidadBase === "ml"
+  ) {
+    return valor * volumenEnMl[unidadActual];
+  }
+
+  if (
+    unidadActual === "docena" &&
+    unidadBase === "unidad"
+  ) {
+    return valor * 12;
+  }
+
+  return valor;
+};
+
+/* PRODUCTOS */
+
+export const calcularCantidadTotalProducto = (producto) => {
+  const cantidadPresentaciones = Number(
+    producto?.cantidadPresentaciones
+  );
+
+  const cantidadPorPresentacion = Number(
+    producto?.cantidadPorPresentacion
+  );
+
+  if (
+    !Number.isFinite(cantidadPresentaciones) ||
+    cantidadPresentaciones <= 0 ||
+    !Number.isFinite(cantidadPorPresentacion) ||
+    cantidadPorPresentacion <= 0
+  ) {
+    return 0;
+  }
+
+  return (
+    cantidadPresentaciones *
+    cantidadPorPresentacion
+  );
+};
+
+export const calcularTotalCompraProducto = (producto) => {
+  const cantidadPresentaciones = Number(
+    producto?.cantidadPresentaciones
+  );
+
+  const precioPorPresentacion = Number(
+    producto?.precioPorPresentacion
+  );
+
+  if (
+    !Number.isFinite(cantidadPresentaciones) ||
+    cantidadPresentaciones <= 0 ||
+    !Number.isFinite(precioPorPresentacion) ||
+    precioPorPresentacion < 0
+  ) {
+    return 0;
+  }
+
+  return (
+    cantidadPresentaciones *
+    precioPorPresentacion
+  );
+};
+
+export const calcularCantidadTotalBase = (producto) => {
+  const cantidadTotal =
+    calcularCantidadTotalProducto(producto);
+
+  if (cantidadTotal <= 0) return 0;
+
+  const unidadBase = obtenerUnidadBase(
+    producto?.unidad
+  );
+
+  return convertirCantidadAUnidadBase(
+    cantidadTotal,
+    producto?.unidad,
+    unidadBase
+  );
+};
+
+export const calcularCostoUnitario = (producto) => {
+  const cantidadBase =
+    calcularCantidadTotalBase(producto);
+
+  const totalCompra =
+    calcularTotalCompraProducto(producto);
+
+  if (
+    cantidadBase <= 0 ||
+    totalCompra < 0
+  ) {
+    return 0;
+  }
+
+  return totalCompra / cantidadBase;
+};
+
+export const obtenerUnidadCosto = (unidad) => {
+  if (unidad === "kg") return "g";
+  if (unidad === "l") return "ml";
+  if (unidad === "docena") return "unidad";
+
+  return unidad;
+};
+
+export const calcularCostoCantidadProducto = (
+  producto,
+  cantidad,
+  unidad
+) => {
+  if (!producto) return 0;
+
+  const cantidadNumero = Number(cantidad);
+
+  if (
+    !Number.isFinite(cantidadNumero) ||
+    cantidadNumero <= 0
   ) {
     return 0;
   }
@@ -47,43 +172,142 @@ export const obtenerCostoUnitario = (producto) => {
     producto.unidad
   );
 
-  let cantidadBase = cantidad;
+  const cantidadBase =
+    convertirCantidadAUnidadBase(
+      cantidadNumero,
+      unidad,
+      unidadBase
+    );
 
-  if (
-    masaEnGramos[producto.unidad] !== undefined &&
-    unidadBase === "g"
-  ) {
-    cantidadBase =
-      cantidad *
-      masaEnGramos[producto.unidad];
-  }
+  const costoUnitario =
+    calcularCostoUnitario(producto);
 
-  if (
-    volumenEnMl[producto.unidad] !== undefined &&
-    unidadBase === "ml"
-  ) {
-    cantidadBase =
-      cantidad *
-      volumenEnMl[producto.unidad];
-  }
-
-  if (producto.unidad === "docena") {
-    cantidadBase = cantidad * 12;
-  }
-
-  return precio / cantidadBase;
+  return cantidadBase * costoUnitario;
 };
 
-export const obtenerCostoUnitarioInsumo = (
-  insumo
+/* PORCIONES */
+
+export const calcularCantidadPorciones = (
+  producto,
+  cantidadPorciones
 ) => {
-  const cantidad = Number(insumo?.cantidad);
-  const precio = Number(insumo?.precio);
+  const cantidad =
+    Number(cantidadPorciones);
+
+  const cantidadPorPorcion =
+    Number(producto?.cantidadPorPorcion);
 
   if (
     !Number.isFinite(cantidad) ||
     cantidad <= 0 ||
-    !Number.isFinite(precio)
+    !Number.isFinite(cantidadPorPorcion) ||
+    cantidadPorPorcion <= 0
+  ) {
+    return 0;
+  }
+
+  return cantidad * cantidadPorPorcion;
+};
+
+export const calcularCostoPorciones = (
+  producto,
+  cantidadPorciones
+) => {
+  const cantidadTotal =
+    calcularCantidadPorciones(
+      producto,
+      cantidadPorciones
+    );
+
+  if (cantidadTotal <= 0) return 0;
+
+  return calcularCostoCantidadProducto(
+    producto,
+    cantidadTotal,
+    producto.unidadPorPorcion || producto.unidad
+  );
+};
+
+/* RECETAS */
+
+export const calcularCostoIngrediente = (
+  ingrediente,
+  productos
+) => {
+  const producto = productos.find(
+    (productoActual) =>
+      String(productoActual.id) ===
+      String(ingrediente?.productoId)
+  );
+
+  if (!producto) return 0;
+
+  return calcularCostoCantidadProducto(
+    producto,
+    ingrediente.cantidad,
+    ingrediente.unidad
+  );
+};
+
+export const calcularCostoReceta = (
+  receta,
+  productos
+) => {
+  if (!receta?.ingredientes?.length) {
+    return 0;
+  }
+
+  return receta.ingredientes.reduce(
+    (total, ingrediente) =>
+      total +
+      calcularCostoIngrediente(
+        ingrediente,
+        productos
+      ),
+    0
+  );
+};
+
+export const calcularCostoPorRendimiento = (
+  receta,
+  productos
+) => {
+  const rendimiento =
+    Number(receta?.rendimiento);
+
+  if (
+    !Number.isFinite(rendimiento) ||
+    rendimiento <= 0
+  ) {
+    return 0;
+  }
+
+  return (
+    calcularCostoReceta(
+      receta,
+      productos
+    ) / rendimiento
+  );
+};
+
+/* INSUMOS */
+
+export const obtenerCostoUnitarioInsumo = (
+  insumo
+) => {
+  const cantidad = Number(
+    insumo?.cantidad
+  );
+
+  const precio = Number(
+    insumo?.precio
+  );
+
+  if (
+    !Number.isFinite(cantidad) ||
+    cantidad <= 0 ||
+    !Number.isFinite(precio) ||
+    precio < 0
   ) {
     return 0;
   }
@@ -106,205 +330,33 @@ export const obtenerCostoUnitarioInsumo = (
 export const obtenerUnidadCostoInsumo = (
   unidad
 ) => {
-  if (unidad === "docena") {
-    return "unidad";
-  }
-
-  if (unidad === "kg") {
-    return "g";
-  }
-
-  if (unidad === "l") {
-    return "ml";
-  }
+  if (unidad === "docena") return "unidad";
+  if (unidad === "kg") return "g";
+  if (unidad === "l") return "ml";
 
   return unidad;
 };
 
-export const convertirCantidadAUnidadBase = (
-  cantidad,
-  unidadActual,
-  unidadBase
+/* NOMBRES DE UNIDADES */
+
+export const obtenerNombreUnidad = (
+  unidad
 ) => {
-  const valor = Number(cantidad);
+  const unidades = {
+    mg: "miligramos",
+    g: "gramos",
+    kg: "kilogramos",
+    ml: "mililitros",
+    l: "litros",
+    unidad: "unidades",
+    docena: "docenas",
+    oz: "onzas",
+    lb: "libras",
+    taza: "tazas",
+    cda: "cucharadas",
+    cdta: "cucharaditas",
+    oz_liquida: "onzas líquidas",
+  };
 
-  if (!Number.isFinite(valor)) {
-    return 0;
-  }
-
-  if (unidadActual === unidadBase) {
-    return valor;
-  }
-
-  if (
-    masaEnGramos[unidadActual] !== undefined &&
-    unidadBase === "g"
-  ) {
-    return (
-      valor *
-      masaEnGramos[unidadActual]
-    );
-  }
-
-  if (
-    volumenEnMl[unidadActual] !== undefined &&
-    unidadBase === "ml"
-  ) {
-    return (
-      valor *
-      volumenEnMl[unidadActual]
-    );
-  }
-
-  if (
-    unidadActual === "docena" &&
-    unidadBase === "unidad"
-  ) {
-    return valor * 12;
-  }
-
-  return valor;
-};
-
-export const obtenerCantidadPorUso = (
-  producto
-) => {
-  if (!producto) {
-    return 0;
-  }
-
-  const cantidadPorUso = Number(
-    producto.cantidadPorUso
-  );
-
-  if (
-    !Number.isFinite(cantidadPorUso) ||
-    cantidadPorUso <= 0
-  ) {
-    return 0;
-  }
-
-  const unidadBase = obtenerUnidadBase(
-    producto.unidad
-  );
-
-  return convertirCantidadAUnidadBase(
-    cantidadPorUso,
-    producto.unidadPorUso ||
-      unidadBase,
-    unidadBase
-  );
-};
-
-export const calcularCostoPorUso = (
-  producto,
-  cantidadUsos = 1
-) => {
-  if (!producto) {
-    return 0;
-  }
-
-  const usos = Number(cantidadUsos);
-
-  if (!Number.isFinite(usos) || usos <= 0) {
-    return 0;
-  }
-
-  const costoUnitario =
-    obtenerCostoUnitario(producto);
-
-  const cantidadPorUso =
-    obtenerCantidadPorUso(producto);
-
-  if (
-    costoUnitario <= 0 ||
-    cantidadPorUso <= 0
-  ) {
-    return 0;
-  }
-
-  return (
-    costoUnitario *
-    cantidadPorUso *
-    usos
-  );
-};
-
-export const calcularCostoIngrediente = (
-  ingrediente,
-  productos
-) => {
-  const producto = productos.find(
-    (productoActual) =>
-      String(productoActual.id) ===
-      String(ingrediente?.productoId)
-  );
-
-  if (!producto) {
-    return 0;
-  }
-
-  const unidadBase = obtenerUnidadBase(
-    producto.unidad
-  );
-
-  const cantidadBase =
-    convertirCantidadAUnidadBase(
-      ingrediente.cantidad,
-      ingrediente.unidad,
-      unidadBase
-    );
-
-  const costoUnitario =
-    obtenerCostoUnitario(producto);
-
-  return (
-    cantidadBase *
-    costoUnitario
-  );
-};
-
-export const calcularCostoReceta = (
-  receta,
-  productos
-) => {
-  if (!receta?.ingredientes?.length) {
-    return 0;
-  }
-
-  return receta.ingredientes.reduce(
-    (
-      total,
-      ingrediente
-    ) =>
-      total +
-      calcularCostoIngrediente(
-        ingrediente,
-        productos
-      ),
-    0
-  );
-};
-
-export const calcularCostoPorRendimiento = (
-  receta,
-  productos
-) => {
-  const rendimiento = Number(
-    receta?.rendimiento
-  );
-
-  if (
-    !Number.isFinite(rendimiento) ||
-    rendimiento <= 0
-  ) {
-    return 0;
-  }
-
-  return (
-    calcularCostoReceta(
-      receta,
-      productos
-    ) / rendimiento
-  );
+  return unidades[unidad] || unidad;
 };

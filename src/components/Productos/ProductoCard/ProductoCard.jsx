@@ -1,6 +1,9 @@
 import {
-  obtenerCostoUnitario,
-  obtenerUnidadBase,
+  calcularCantidadTotalProducto,
+  calcularTotalCompraProducto,
+  calcularCostoUnitario,
+  obtenerUnidadCosto,
+  obtenerNombreUnidad,
 } from "../../../utils/calculosCostos";
 
 import "./ProductoCard.css";
@@ -10,27 +13,69 @@ function ProductoCard({
   onEditar,
   onEliminar,
 }) {
-  const precio =
-    Number(producto.precio);
+  const cantidadTotal =
+    calcularCantidadTotalProducto(producto);
 
-  const densidad =
-    Number(producto.densidad);
+  const totalCompra =
+    calcularTotalCompraProducto(producto);
 
   const costoUnitario =
-    obtenerCostoUnitario(producto);
+    calcularCostoUnitario(producto);
 
-  const unidadBase =
-    obtenerUnidadBase(
-      producto.unidad
+  const unidadCosto =
+    obtenerUnidadCosto(producto.unidad);
+
+  const nombreUnidadCosto =
+    obtenerNombreUnidad(unidadCosto);
+
+  const densidad = Number(producto.densidad);
+
+  const esPorcion =
+    producto.tipo === "topping" ||
+    producto.tipo === "salsa";
+
+  const nombrePorcion =
+    producto.tipo === "topping"
+      ? "topping"
+      : "salsa";
+
+  const unidadPorcion =
+    producto.unidadPorPorcion
+      ? obtenerNombreUnidad(
+          producto.unidadPorPorcion
+        )
+      : "";
+
+  const cantidadPorPorcion =
+    Number(producto.cantidadPorPorcion);
+
+  const formatearNumero = (valor) => {
+    return Number(valor).toLocaleString(
+      "es-CR",
+      {
+        maximumFractionDigits: 2,
+      }
     );
+  };
+
+  const formatearMoneda = (valor) => {
+    return Number(valor).toLocaleString(
+      "es-CR",
+      {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }
+    );
+  };
 
   return (
     <article className="producto-card">
+
+      {/* ENCABEZADO */}
+
       <div className="producto-card-header">
         <div>
-          <h3>
-            {producto.nombre}
-          </h3>
+          <h3>{producto.nombre}</h3>
 
           {producto.marca && (
             <p className="producto-marca">
@@ -46,74 +91,128 @@ function ProductoCard({
         </span>
       </div>
 
+      {/* INFORMACIÓN */}
+
       <div className="producto-card-info">
+
         <div className="producto-info-item">
           <span>
-            Cantidad comprada
+            Presentaciones compradas
           </span>
 
           <strong>
-            {producto.cantidad}{" "}
-            {producto.unidad}
+            {formatearNumero(
+              producto.cantidadPresentaciones
+            )}{" "}
+            {producto.cantidadPresentaciones === 1
+              ? "presentación"
+              : "presentaciones"}
           </strong>
         </div>
 
         <div className="producto-info-item">
           <span>
-            Precio total de compra
+            Contenido por presentación
           </span>
 
           <strong>
-            ₡{precio.toFixed(2)}
+            {formatearNumero(
+              producto.cantidadPorPresentacion
+            )}{" "}
+            {obtenerNombreUnidad(
+              producto.unidad
+            )}
           </strong>
         </div>
 
-        <div className="producto-costo">
+        <div className="producto-info-item">
           <span>
-            Costo unitario
+            Total disponible
+          </span>
+
+          <strong>
+            {formatearNumero(
+              cantidadTotal
+            )}{" "}
+            {obtenerNombreUnidad(
+              producto.unidad
+            )}
+          </strong>
+        </div>
+
+        <div className="producto-info-item">
+          <span>
+            Precio por presentación
           </span>
 
           <strong>
             ₡
-            {costoUnitario.toFixed(2)}
-            {" / "}
-            {unidadBase}
+            {formatearMoneda(
+              producto.precioPorPresentacion
+            )}
           </strong>
         </div>
 
-        {(producto.tipo ===
-          "topping" ||
-          producto.tipo ===
-            "salsa") &&
-          Number(
-            producto.cantidadPorUso
-          ) > 0 && (
-            <div className="producto-uso">
+        <div className="producto-info-item">
+          <span>
+            Total de compra
+          </span>
+
+          <strong>
+            ₡
+            {formatearMoneda(
+              totalCompra
+            )}
+          </strong>
+        </div>
+
+        {/* COSTO UNITARIO */}
+
+        <div className="producto-costo">
+          <span>
+            Costo por {nombreUnidadCosto}
+          </span>
+
+          <strong>
+            ₡
+            {formatearMoneda(
+              costoUnitario
+            )}
+
+            <small>
+              / {nombreUnidadCosto}
+            </small>
+          </strong>
+        </div>
+
+        {/* CANTIDAD POR TOPPING / SALSA */}
+
+        {esPorcion &&
+          Number.isFinite(
+            cantidadPorPorcion
+          ) &&
+          cantidadPorPorcion > 0 && (
+            <div className="producto-porcion">
+
               <span>
-                Cantidad por{" "}
-                {producto.tipo ===
-                "topping"
-                  ? "topping"
-                  : "salsa"}
+                Cantidad por {nombrePorcion}
               </span>
 
               <strong>
-                {
-                  producto.cantidadPorUso
-                }{" "}
-                {
-                  producto.unidadPorUso
-                }
+                {formatearNumero(
+                  cantidadPorPorcion
+                )}{" "}
+                {unidadPorcion}
               </strong>
+
             </div>
           )}
 
-        {producto.densidad !==
-          null &&
-          producto.densidad !==
-            undefined &&
-          producto.densidad !==
-            "" &&
+        {/* DENSIDAD */}
+
+        {producto.densidad !== null &&
+          producto.densidad !== undefined &&
+          producto.densidad !== "" &&
           densidad > 0 && (
             <div className="producto-densidad">
               <span>
@@ -121,13 +220,19 @@ function ProductoCard({
               </span>
 
               <strong>
-                {densidad} g/ml
+                {formatearNumero(
+                  densidad
+                )} g/ml
               </strong>
             </div>
           )}
+
       </div>
 
+      {/* ACCIONES */}
+
       <div className="producto-card-actions">
+
         <button
           type="button"
           className="btn-editar"
@@ -147,7 +252,9 @@ function ProductoCard({
         >
           Eliminar
         </button>
+
       </div>
+
     </article>
   );
 }

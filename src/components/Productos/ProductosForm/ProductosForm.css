@@ -1,73 +1,69 @@
 .productos-form {
   width: 100%;
-  max-width: 760px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 28px;
-  background-color: #ffffff;
-  border: 1px solid #e3dce9;
-  border-radius: 16px;
-  box-shadow: 0 4px 18px rgba(109, 76, 141, 0.08);
+  padding: 32px;
+  background: #ffffff;
+  border: 1px solid #e7def5;
+  border-radius: 20px;
+  box-sizing: border-box;
 }
 
 .productos-form-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 25px;
-}
-
-.productos-form-header > div {
-  flex: 1;
+  margin-bottom: 28px;
 }
 
 .productos-form-header h2 {
-  margin: 0;
-  color: #352d3a;
-  font-size: 24px;
-  line-height: 1.15;
+  margin: 0 0 8px;
+  color: #3f3157;
+  font-size: 1.6rem;
+  font-weight: 700;
 }
 
 .productos-form-header p {
-  max-width: 300px;
-  margin: 8px 0 0;
-  color: #776d7d;
-  font-size: 14px;
-  line-height: 1.4;
+  margin: 0;
+  color: #756982;
+  font-size: 0.95rem;
 }
 
+/* GRID */
 
-/* FORMULARIO */
-
-.productos-form form {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
+.productos-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
 }
+
+/* CAMPOS */
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 8px;
 }
 
 .form-group label {
-  color: #352d3a;
-  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4d3d61;
+  font-size: 0.92rem;
   font-weight: 600;
 }
 
 .form-group input,
 .form-group select {
   width: 100%;
-  padding: 11px 13px;
-  border: 1px solid #e3dce9;
-  border-radius: 8px;
-  background-color: #fff9f5;
-  color: #352d3a;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid #d9cde8;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #3f3157;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 0.95rem;
   outline: none;
+  box-sizing: border-box;
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
@@ -76,128 +72,243 @@
 .form-group input:focus,
 .form-group select:focus {
   border-color: #9b7ede;
-  box-shadow: 0 0 0 3px rgba(155, 126, 222, 0.15);
+  box-shadow: 0 0 0 3px rgba(155, 126, 222, 0.14);
 }
 
 .form-group input::placeholder {
-  color: #a69eaa;
+  color: #aaa1b5;
+}
+
+.form-group small {
+  color: #887d95;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+/* INPUT + UNIDAD */
+
+.input-with-unit {
+  display: grid;
+  grid-template-columns: 1fr 110px;
+  gap: 8px;
+}
+
+.input-with-unit input {
+  min-width: 0;
+}
+
+.input-with-unit select {
+  min-width: 0;
+}
+
+/* PRECIO */
+
+.precio-input {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  border: 1px solid #d9cde8;
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.precio-input:focus-within {
+  border-color: #9b7ede;
+  box-shadow: 0 0 0 3px rgba(155, 126, 222, 0.14);
+}
+
+.precio-input span {
+  padding-left: 14px;
+  color: #6d5a85;
+  font-weight: 600;
+}
+
+.precio-input input {
+  min-height: 44px;
+  padding-left: 8px;
+  border: none;
+  box-shadow: none;
+}
+
+.precio-input input:focus {
+  border: none;
+  box-shadow: none;
+}
+
+/* CAMPO OPCIONAL */
+
+.campo-opcional {
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: #f0eafa;
+  color: #7963a0;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+/* CANTIDAD POR PORCIÓN */
+/* Nuevo: utilizado para toppings y salsas */
+
+.producto-porcion {
+  padding: 18px;
+  border: 1px solid #e7def5;
+  border-radius: 14px;
+  background: #f8f5fc;
+}
+
+.producto-porcion .form-group {
+  margin: 0;
+}
+
+.producto-porcion small {
+  display: block;
+  margin-top: 2px;
+}
+
+.producto-porcion .input-with-unit {
+  grid-template-columns: 1fr 110px;
+}
+
+/* NOTA */
+
+.productos-form-nota {
+  margin-top: 26px;
+  padding: 16px 18px;
+  border-left: 4px solid #9b7ede;
+  border-radius: 8px;
+  background: #f8f5fc;
+  color: #655a70;
+  line-height: 1.5;
+}
+
+.productos-form-nota strong {
+  color: #4d3d61;
+}
+
+.productos-form-nota p {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+}
+
+/* RESUMEN */
+
+.productos-resumen {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 26px;
+  padding: 20px;
+  border-radius: 14px;
+  background: #f4effa;
+}
+
+.resumen-item {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.resumen-item span {
+  color: #756982;
+  font-size: 0.82rem;
+}
+
+.resumen-item strong {
+  color: #5c4380;
+  font-size: 1.05rem;
 }
 
 /* BOTONES */
 
-.form-actions {
-  grid-column: 1 / -1;
+.productos-form-acciones {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 8px;
+  gap: 12px;
+  margin-top: 28px;
 }
 
-.form-actions button {
-  flex: 1;
-  width: auto;
-  padding: 11px 20px;
-  border-radius: 8px;
+.productos-form-acciones button {
+  min-height: 44px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 10px;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
-.btn-cancelar {
-  border: 1px solid #e3dce9;
-  background-color: #ffffff;
-  color: #776d7d;
-}
-
-.btn-cancelar:hover {
-  background-color: #f3eef7;
+.productos-form-acciones button:hover {
+  transform: translateY(-1px);
 }
 
 .btn-guardar {
-  border: 1px solid #9b7ede;
-  background-color: #9b7ede;
+  background: #9b7ede;
   color: #ffffff;
+  box-shadow: 0 4px 12px rgba(109, 85, 151, 0.18);
 }
 
 .btn-guardar:hover {
-  background-color: #6d4c8d;
+  background: #896bcf;
+  box-shadow: 0 6px 16px rgba(109, 85, 151, 0.24);
 }
 
-.form-actions button:active {
-  transform: scale(0.98);
+.btn-cancelar {
+  background: #eee9f3;
+  color: #5c5265;
 }
 
-.form-actions button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.btn-cancelar:hover {
+  background: #e2dbe9;
 }
 
-/* ERROR */
+/* RESPONSIVE */
 
-.form-error {
-  margin-bottom: 18px;
-  padding: 11px 14px;
-  border: 1px solid #e8baba;
-  border-radius: 8px;
-  background-color: #fff1f1;
-  color: #c95c5c;
-  font-size: 14px;
-}
-
-.input-con-unidad {
-  display: flex;
-  align-items: stretch;
-}
-
-.input-con-unidad input {
-  border-radius: 8px 0 0 8px;
-}
-
-.input-con-unidad span {
-  display: flex;
-  align-items: center;
-
-  padding: 0 12px;
-
-  border: 1px solid #e3dce9;
-  border-left: none;
-  border-radius: 0 8px 8px 0;
-
-  background-color: #f3eef7;
-  color: #6d4c8d;
-
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.form-group small {
-  color: #776d7d;
-  font-size: 11px;
-  line-height: 1.4;
-}
-
-/* TABLET Y MÓVIL */
-
-@media (max-width: 650px) {
+@media (max-width: 768px) {
   .productos-form {
-    padding: 20px;
+    padding: 22px;
+    border-radius: 16px;
   }
 
-  .productos-form form {
-    grid-template-columns: 1fr !important;
+  .productos-form-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 
-  .form-actions {
-    grid-column: auto;
+  .productos-resumen {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .productos-form {
+    padding: 18px;
+  }
+
+  .input-with-unit {
+    grid-template-columns: 1fr;
+  }
+
+  .producto-porcion .input-with-unit {
+    grid-template-columns: 1fr;
+  }
+
+  .productos-form-acciones {
     flex-direction: column-reverse;
   }
 
-  .form-actions button {
+  .productos-form-acciones button {
     width: 100%;
   }
 }

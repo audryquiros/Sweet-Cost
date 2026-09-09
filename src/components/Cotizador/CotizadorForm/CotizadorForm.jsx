@@ -6,8 +6,9 @@ import {
 
 import {
   obtenerCostoUnitarioInsumo,
-  calcularCostoPorUso,
   calcularCostoPorRendimiento,
+  calcularCantidadPorciones,
+  calcularCostoPorciones,
 } from "../../../utils/calculosCostos";
 
 import "./CotizadorForm.css";
@@ -19,83 +20,72 @@ function CotizadorForm({
   onCotizacionCreada,
   onCancelar,
 }) {
-  const [formulario, setFormulario] =
-    useState({
-      nombre: "",
-      recetaId: "",
-      cantidad: 1,
-      manoObra: "",
-      margen: 30,
-    });
+  const [formulario, setFormulario] = useState({
+    nombre: "",
+    recetaId: "",
+    cantidad: 1,
+    manoObra: "",
+    margen: 30,
+  });
 
-  const [extras, setExtras] =
-    useState([]);
+  const [extras, setExtras] = useState([]);
 
   const [insumosSeleccionados, setInsumosSeleccionados] =
     useState([]);
 
-  const [error, setError] =
-    useState("");
+  const [error, setError] = useState("");
 
-  const [guardando, setGuardando] =
-    useState(false);
+  const [guardando, setGuardando] = useState(false);
 
-  const productosExtras =
-    productos.filter(
-      (producto) =>
-        producto.tipo ===
-          "topping" ||
-        producto.tipo ===
-          "salsa"
-    );
+  const productosExtras = productos.filter(
+    (producto) =>
+      producto.tipo === "topping" ||
+      producto.tipo === "salsa"
+  );
 
-  const recetaSeleccionada =
-    recetas.find(
-      (receta) =>
-        String(receta.id) ===
-        String(
-          formulario.recetaId
-        )
-    );
+  const recetaSeleccionada = recetas.find(
+    (receta) =>
+      String(receta.id) ===
+      String(formulario.recetaId)
+  );
 
-  const cambiarFormulario = (
-    e
-  ) => {
-    const {
-      name,
-      value,
-    } = e.target;
+  const cambiarFormulario = (e) => {
+    const { name, value } = e.target;
 
-    setFormulario(
-      (actual) => ({
-        ...actual,
-        [name]: value,
-      })
-    );
+    setFormulario((actual) => ({
+      ...actual,
+      [name]: value,
+    }));
   };
 
-  const seleccionarReceta = (
-    e
-  ) => {
-    setFormulario(
-      (actual) => ({
-        ...actual,
-        recetaId:
-          e.target.value,
-      })
-    );
+  const seleccionarReceta = (e) => {
+    setFormulario((actual) => ({
+      ...actual,
+      recetaId: e.target.value,
+    }));
   };
+
+  /*
+   * EXTRAS
+   *
+   * Cada extra representa una cantidad de porciones.
+   *
+   * Ejemplo:
+   * Oreo -> cantidadPorPorcion = 10 g
+   * cantidad = 2
+   *
+   * Resultado:
+   * 2 toppings = 20 g
+   */
 
   const agregarExtra = () => {
-    setExtras(
-      (actuales) => [
-        ...actuales,
-        {
-          productoId: "",
-          cantidad: 1,
-        },
-      ]
-    );
+    setExtras((actuales) => [
+      ...actuales,
+      {
+        productoId: "",
+        cantidad: 1,
+      },
+    ]);
   };
 
   const cambiarExtra = (
@@ -103,43 +93,61 @@ function CotizadorForm({
     campo,
     valor
   ) => {
-    setExtras(
-      (actuales) =>
-        actuales.map(
-          (extra, index) =>
-            index === indice
-              ? {
-                  ...extra,
-                  [campo]:
-                    valor,
-                }
-              : extra
-        )
+    setExtras((actuales) =>
+      actuales.map((extra, index) =>
+        index === indice
+          ? {
+              ...extra,
+              [campo]: valor,
+            }
+          : extra
+      )
     );
   };
 
-  const eliminarExtra = (
-    indice
+  const seleccionarExtra = (
+    indice,
+    productoId
   ) => {
-    setExtras(
-      (actuales) =>
-        actuales.filter(
-          (_, index) =>
-            index !== indice
-        )
+    const producto = productosExtras.find(
+      (productoActual) =>
+        String(productoActual.id) ===
+        String(productoId)
+    );
+
+    setExtras((actuales) =>
+      actuales.map((extra, index) =>
+        index === indice
+          ? {
+              ...extra,
+              productoId,
+              cantidad: 1,
+            }
+          : extra
+      )
     );
   };
+
+  const eliminarExtra = (indice) => {
+    setExtras((actuales) =>
+      actuales.filter(
+        (_, index) => index !== indice
+      )
+    );
+  };
+
+  /*
+   * INSUMOS
+   */
 
   const agregarInsumo = () => {
-    setInsumosSeleccionados(
-      (actuales) => [
-        ...actuales,
-        {
-          insumoId: "",
-          cantidad: 1,
-        },
-      ]
-    );
+    setInsumosSeleccionados((actuales) => [
+      ...actuales,
+      {
+        insumoId: "",
+        cantidad: 1,
+      },
+    ]);
   };
 
   const cambiarInsumo = (
@@ -147,48 +155,42 @@ function CotizadorForm({
     campo,
     valor
   ) => {
-    setInsumosSeleccionados(
-      (actuales) =>
-        actuales.map(
-          (insumo, index) =>
-            index === indice
-              ? {
-                  ...insumo,
-                  [campo]:
-                    valor,
-                }
-              : insumo
-        )
+    setInsumosSeleccionados((actuales) =>
+      actuales.map((insumo, index) =>
+        index === indice
+          ? {
+              ...insumo,
+              [campo]: valor,
+            }
+          : insumo
+      )
     );
   };
 
-  const eliminarInsumo = (
-    indice
-  ) => {
-    setInsumosSeleccionados(
-      (actuales) =>
-        actuales.filter(
-          (_, index) =>
-            index !== indice
-        )
+  const eliminarInsumo = (indice) => {
+    setInsumosSeleccionados((actuales) =>
+      actuales.filter(
+        (_, index) => index !== indice
+      )
     );
   };
+
+  /*
+   * CÁLCULOS
+   */
 
   const calculos = useMemo(() => {
-    const cantidad =
-      Number(
-        formulario.cantidad
-      );
+    const cantidad = Number(
+      formulario.cantidad
+    );
 
-    const manoObra =
-      Number(
-        formulario.manoObra
-      );
+    const manoObra = Number(
+      formulario.manoObra
+    );
 
-    const margen =
-      Number(
-        formulario.margen
-      );
+    const margen = Number(
+      formulario.margen
+    );
 
     let costoReceta = 0;
 
@@ -201,69 +203,51 @@ function CotizadorForm({
 
       costoReceta =
         costoPorUnidad *
-        (
-          Number.isFinite(
-            cantidad
-          )
-            ? cantidad
-            : 0
-        );
+        (Number.isFinite(cantidad)
+          ? cantidad
+          : 0);
     }
 
-    const costoExtras =
-      extras.reduce(
-        (
-          total,
-          extra
-        ) => {
-          const producto =
-            productos.find(
-              (
-                productoActual
-              ) =>
-                String(
-                  productoActual.id
-                ) ===
-                String(
-                  extra.productoId
-                )
-            );
+    /*
+     * Costo de toppings y salsas
+     */
 
-          if (!producto) {
-            return total;
-          }
-
-          return (
-            total +
-            calcularCostoPorUso(
-              producto,
-              Number(
-                extra.cantidad
-              )
-            )
+    const costoExtras = extras.reduce(
+      (total, extra) => {
+        const producto =
+          productos.find(
+            (productoActual) =>
+              String(productoActual.id) ===
+              String(extra.productoId)
           );
-        },
-        0
-      );
+
+        if (!producto) {
+          return total;
+        }
+
+        return (
+          total +
+          calcularCostoPorciones(
+            producto,
+            Number(extra.cantidad)
+          )
+        );
+      },
+      0
+    );
+
+    /*
+     * Costo de insumos
+     */
 
     const costoInsumos =
       insumosSeleccionados.reduce(
-        (
-          total,
-          item
-        ) => {
-          const insumo =
-            insumos.find(
-              (
-                insumoActual
-              ) =>
-                String(
-                  insumoActual.id
-                ) ===
-                String(
-                  item.insumoId
-                )
-            );
+        (total, item) => {
+          const insumo = insumos.find(
+            (insumoActual) =>
+              String(insumoActual.id) ===
+              String(item.insumoId)
+          );
 
           if (!insumo) {
             return total;
@@ -274,10 +258,9 @@ function CotizadorForm({
               insumo
             );
 
-          const cantidadInsumo =
-            Number(
-              item.cantidad
-            );
+          const cantidadInsumo = Number(
+            item.cantidad
+          );
 
           if (
             !Number.isFinite(
@@ -297,9 +280,7 @@ function CotizadorForm({
       );
 
     const manoObraValida =
-      Number.isFinite(
-        manoObra
-      )
+      Number.isFinite(manoObra)
         ? manoObra
         : 0;
 
@@ -315,18 +296,13 @@ function CotizadorForm({
     let precioSugerido = 0;
 
     if (
-      Number.isFinite(
-        margen
-      ) &&
+      Number.isFinite(margen) &&
       margen >= 0 &&
       margen < 100
     ) {
       precioSugerido =
         costoTotal /
-        (
-          1 -
-          margen / 100
-        );
+        (1 - margen / 100);
     }
 
     return {
@@ -334,8 +310,7 @@ function CotizadorForm({
       costoExtras,
       costoInsumos,
       costoProduccion,
-      manoObra:
-        manoObraValida,
+      manoObra: manoObraValida,
       costoTotal,
       precioSugerido,
     };
@@ -350,121 +325,113 @@ function CotizadorForm({
     insumos,
   ]);
 
-  const validarFormulario =
-    () => {
-      if (
-        !formulario.nombre.trim()
-      ) {
-        return "Ingresa un nombre para la cotización.";
+  /*
+   * VALIDACIÓN
+   */
+
+  const validarFormulario = () => {
+    if (!formulario.nombre.trim()) {
+      return "Ingresa un nombre para la cotización.";
+    }
+
+    if (!formulario.recetaId) {
+      return "Selecciona una receta.";
+    }
+
+    if (
+      Number(formulario.cantidad) <= 0
+    ) {
+      return "La cantidad a vender debe ser mayor que cero.";
+    }
+
+    if (
+      Number(formulario.margen) < 0 ||
+      Number(formulario.margen) >= 100
+    ) {
+      return "El margen debe estar entre 0% y 99.99%.";
+    }
+
+    /*
+     * Validar toppings y salsas
+     */
+
+    for (const extra of extras) {
+      if (!extra.productoId) {
+        return "Selecciona un topping o salsa.";
+      }
+
+      const producto =
+        productos.find(
+          (productoActual) =>
+            String(productoActual.id) ===
+            String(extra.productoId)
+        );
+
+      if (!producto) {
+        return "No se encontró uno de los productos seleccionados.";
       }
 
       if (
-        !formulario.recetaId
+        !Number.isFinite(
+          Number(extra.cantidad)
+        ) ||
+        Number(extra.cantidad) <= 0
       ) {
-        return "Selecciona una receta.";
+        return "La cantidad de porciones debe ser mayor que cero.";
       }
 
-      if (
+      const cantidadPorPorcion =
         Number(
-          formulario.cantidad
-        ) <= 0
+          producto.cantidadPorPorcion
+        );
+
+      if (
+        !Number.isFinite(
+          cantidadPorPorcion
+        ) ||
+        cantidadPorPorcion <= 0
       ) {
-        return "La cantidad a vender debe ser mayor que cero.";
+        return `El producto "${producto.nombre}" no tiene configurada una cantidad por porción.`;
       }
 
       if (
-        Number(
-          formulario.margen
-        ) < 0 ||
-        Number(
-          formulario.margen
-        ) >= 100
+        !producto.unidadPorPorcion
       ) {
-        return "El margen debe estar entre 0% y 99.99%.";
+        return `El producto "${producto.nombre}" no tiene configurada una unidad por porción.`;
+      }
+    }
+
+    /*
+     * Validar insumos
+     */
+
+    for (const item of insumosSeleccionados) {
+      if (!item.insumoId) {
+        return "Selecciona un insumo.";
       }
 
-      for (
-        const extra of extras
+      if (
+        Number(item.cantidad) <= 0
       ) {
-        if (
-          !extra.productoId
-        ) {
-          return "Selecciona un topping o salsa.";
-        }
-
-        const producto =
-          productos.find(
-            (
-              productoActual
-            ) =>
-              String(
-                productoActual.id
-              ) ===
-              String(
-                extra.productoId
-              )
-          );
-
-        if (
-          !producto
-        ) {
-          return "No se encontró uno de los productos seleccionados.";
-        }
-
-        if (
-          !Number(
-            producto.cantidadPorUso
-          ) ||
-          Number(
-            producto.cantidadPorUso
-          ) <= 0
-        ) {
-          return `El producto "${producto.nombre}" no tiene configurada la cantidad por uso. Ve a Productos y edítalo.`;
-        }
-
-        if (
-          Number(
-            extra.cantidad
-          ) <= 0
-        ) {
-          return "La cantidad de toppings o salsas debe ser mayor que cero.";
-        }
+        return "La cantidad de insumos debe ser mayor que cero.";
       }
+    }
 
-      for (
-        const item of
-          insumosSeleccionados
-      ) {
-        if (
-          !item.insumoId
-        ) {
-          return "Selecciona un insumo.";
-        }
+    return "";
+  };
 
-        if (
-          Number(
-            item.cantidad
-          ) <= 0
-        ) {
-          return "La cantidad de insumos debe ser mayor que cero.";
-        }
-      }
+  /*
+   * GUARDAR
+   */
 
-      return "";
-    };
-
-  const handleSubmit = async (
-    e
-  ) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const mensajeError =
       validarFormulario();
 
     if (mensajeError) {
-      setError(
-        mensajeError
-      );
+      setError(mensajeError);
       return;
     }
 
@@ -472,68 +439,84 @@ function CotizadorForm({
       setError("");
       setGuardando(true);
 
-      const extrasGuardados =
-        extras.map(
-          (extra) => {
-            const producto =
-              productos.find(
-                (
-                  productoActual
-                ) =>
-                  String(
-                    productoActual.id
-                  ) ===
-                  String(
-                    extra.productoId
-                  )
-              );
+      /*
+       * Guardar toppings y salsas
+       */
 
-            const cantidadUsos =
+      const extrasGuardados = extras.map(
+        (extra) => {
+          const producto =
+            productos.find(
+              (productoActual) =>
+                String(
+                  productoActual.id
+                ) ===
+                String(
+                  extra.productoId
+                )
+            );
+
+          const cantidadPorciones =
+            Number(
+              extra.cantidad
+            );
+
+          const cantidadUtilizada =
+            calcularCantidadPorciones(
+              producto,
+              cantidadPorciones
+            );
+
+          const costo =
+            calcularCostoPorciones(
+              producto,
+              cantidadPorciones
+            );
+
+          return {
+            productoId:
+              extra.productoId,
+
+            nombre:
+              producto?.nombre || "",
+
+            tipo:
+              producto?.tipo || "",
+
+            cantidadPorciones,
+
+            cantidadPorPorcion:
               Number(
-                extra.cantidad
-              );
-
-            return {
-              productoId:
-                extra.productoId,
-
-              nombre:
-                producto?.nombre ||
-                "",
-
-              tipo:
-                producto?.tipo ||
-                "",
-
-              cantidadUsos,
-
-              cantidadPorUso:
-                Number(
-                  producto?.cantidadPorUso
-                ),
-
-              unidadPorUso:
-                producto?.unidadPorUso ||
-                "",
-
-              costo: Number(
-                calcularCostoPorUso(
-                  producto,
-                  cantidadUsos
-                ).toFixed(2)
+                producto?.cantidadPorPorcion
               ),
-            };
-          }
-        );
+
+            unidadPorPorcion:
+              producto?.unidadPorPorcion ||
+              "",
+
+            cantidadUtilizada,
+
+            unidad:
+              producto?.unidadPorPorcion ||
+              "",
+
+            costo: Number(
+              costo.toFixed(2)
+            ),
+          };
+        }
+      );
+
+      /*
+       * Guardar insumos
+       */
 
       const insumosGuardados =
         insumosSeleccionados.map(
           (item) => {
             const insumo =
               insumos.find(
-                (
-                  insumoActual
-                ) =>
+                (insumoActual) =>
                   String(
                     insumoActual.id
                   ) ===
@@ -542,36 +525,36 @@ function CotizadorForm({
                   )
               );
 
+            const cantidad =
+              Number(item.cantidad);
+
+            const costo =
+              obtenerCostoUnitarioInsumo(
+                insumo
+              ) * cantidad;
+
             return {
               insumoId:
                 item.insumoId,
 
               nombre:
-                insumo?.nombre ||
-                "",
+                insumo?.nombre || "",
 
-              cantidad:
-                Number(
-                  item.cantidad
-                ),
+              cantidad,
 
               unidad:
-                insumo?.unidad ||
-                "",
+                insumo?.unidad || "",
 
               costo: Number(
-                (
-                  obtenerCostoUnitarioInsumo(
-                    insumo
-                  ) *
-                  Number(
-                    item.cantidad
-                  )
-                ).toFixed(2)
+                costo.toFixed(2)
               ),
             };
           }
         );
+
+      /*
+       * Crear cotización
+       */
 
       const cotizacion = {
         nombre:
@@ -661,7 +644,8 @@ function CotizadorForm({
       );
     } catch (error) {
       setError(
-        error.message
+        error.message ||
+          "No se pudo guardar la cotización."
       );
     } finally {
       setGuardando(false);
@@ -734,12 +718,8 @@ function CotizadorForm({
             {recetas.map(
               (receta) => (
                 <option
-                  key={
-                    receta.id
-                  }
-                  value={
-                    receta.id
-                  }
+                  key={receta.id}
+                  value={receta.id}
                 >
                   {receta.nombre}
                 </option>
@@ -769,6 +749,8 @@ function CotizadorForm({
         </div>
       </div>
 
+      {/* TOPPINGS Y SALSAS */}
+
       <section className="cotizador-seccion">
         <div className="cotizador-seccion-header">
           <div>
@@ -777,9 +759,9 @@ function CotizadorForm({
             </h3>
 
             <p>
-              Indica cuántos toppings o salsas
-              utilizarás. El sistema conoce cuánto
-              producto necesita cada uno.
+              Selecciona los toppings o salsas
+              y define cuántas porciones deseas
+              agregar.
             </p>
           </div>
 
@@ -794,8 +776,7 @@ function CotizadorForm({
           </button>
         </div>
 
-        {extras.length ===
-        0 ? (
+        {extras.length === 0 ? (
           <div className="cotizador-vacio">
             No has agregado toppings ni
             salsas.
@@ -820,22 +801,34 @@ function CotizadorForm({
                       )
                   );
 
+                const cantidadPorciones =
+                  Number(
+                    extra.cantidad
+                  );
+
+                const cantidadPorPorcion =
+                  Number(
+                    producto?.cantidadPorPorcion
+                  );
+
+                const cantidadTotal =
+                  calcularCantidadPorciones(
+                    producto,
+                    cantidadPorciones
+                  );
+
                 const costo =
                   producto
-                    ? calcularCostoPorUso(
+                    ? calcularCostoPorciones(
                         producto,
-                        Number(
-                          extra.cantidad
-                        )
+                        cantidadPorciones
                       )
                     : 0;
 
                 return (
                   <div
                     className="cotizador-item"
-                    key={
-                      indice
-                    }
+                    key={indice}
                   >
                     <div className="cotizador-field">
                       <label>
@@ -846,12 +839,9 @@ function CotizadorForm({
                         value={
                           extra.productoId
                         }
-                        onChange={(
-                          e
-                        ) =>
-                          cambiarExtra(
+                        onChange={(e) =>
+                          seleccionarExtra(
                             indice,
-                            "productoId",
                             e.target.value
                           )
                         }
@@ -887,7 +877,7 @@ function CotizadorForm({
 
                     <div className="cotizador-field">
                       <label>
-                        Cantidad de usos
+                        Cantidad de porciones
                       </label>
 
                       <input
@@ -897,9 +887,7 @@ function CotizadorForm({
                         value={
                           extra.cantidad
                         }
-                        onChange={(
-                          e
-                        ) =>
+                        onChange={(e) =>
                           cambiarExtra(
                             indice,
                             "cantidad",
@@ -911,19 +899,41 @@ function CotizadorForm({
 
                     <div className="cotizador-field">
                       <label>
-                        Consumo
+                        Cantidad por porción
                       </label>
 
                       <input
                         type="text"
                         readOnly
                         value={
-                          producto
-                            ? `${Number(
-                                producto.cantidadPorUso
-                              )} ${
-                                producto.unidadPorUso
-                              } / uso`
+                          producto &&
+                          Number.isFinite(
+                            cantidadPorPorcion
+                          )
+                            ? `${cantidadPorPorcion} ${
+                                producto.unidadPorPorcion ||
+                                ""
+                              }`
+                            : ""
+                        }
+                      />
+                    </div>
+
+                    <div className="cotizador-field">
+                      <label>
+                        Consumo total
+                      </label>
+
+                      <input
+                        type="text"
+                        readOnly
+                        value={
+                          producto &&
+                          cantidadTotal > 0
+                            ? `${cantidadTotal} ${
+                                producto.unidadPorPorcion ||
+                                ""
+                              }`
                             : ""
                         }
                       />
@@ -966,6 +976,8 @@ function CotizadorForm({
         )}
       </section>
 
+      {/* INSUMOS */}
+
       <section className="cotizador-seccion">
         <div className="cotizador-seccion-header">
           <div>
@@ -1004,9 +1016,7 @@ function CotizadorForm({
               ) => (
                 <div
                   className="cotizador-item"
-                  key={
-                    indice
-                  }
+                  key={indice}
                 >
                   <div className="cotizador-field">
                     <label>
@@ -1017,9 +1027,7 @@ function CotizadorForm({
                       value={
                         item.insumoId
                       }
-                      onChange={(
-                        e
-                      ) =>
+                      onChange={(e) =>
                         cambiarInsumo(
                           indice,
                           "insumoId",
@@ -1032,9 +1040,7 @@ function CotizadorForm({
                       </option>
 
                       {insumos.map(
-                        (
-                          insumo
-                        ) => (
+                        (insumo) => (
                           <option
                             key={
                               insumo.id
@@ -1059,14 +1065,12 @@ function CotizadorForm({
 
                     <input
                       type="number"
-                      min="1"
-                      step="1"
+                      min="0.01"
+                      step="any"
                       value={
                         item.cantidad
                       }
-                      onChange={(
-                        e
-                      ) =>
+                      onChange={(e) =>
                         cambiarInsumo(
                           indice,
                           "cantidad",
@@ -1094,6 +1098,8 @@ function CotizadorForm({
         )}
       </section>
 
+      {/* COSTOS ADICIONALES */}
+
       <section className="cotizador-seccion">
         <div className="cotizador-seccion-header">
           <div>
@@ -1102,8 +1108,8 @@ function CotizadorForm({
             </h3>
 
             <p>
-              Define la mano de obra y el margen de
-              ganancia.
+              Define la mano de obra y el margen
+              de ganancia.
             </p>
           </div>
         </div>
@@ -1152,6 +1158,8 @@ function CotizadorForm({
           </div>
         </div>
       </section>
+
+      {/* RESUMEN */}
 
       <section className="cotizador-resumen">
         <h3>
@@ -1236,6 +1244,8 @@ function CotizadorForm({
           </strong>
         </div>
       </section>
+
+      {/* BOTONES */}
 
       <div className="cotizador-form-actions">
         <button

@@ -1,47 +1,112 @@
 {
   "productos": [
     {
-      "nombre": "Harina",
-      "marca": "Nacarina",
-      "tipo": "ingrediente",
-      "cantidad": 2500,
+      "nombre": "Chocolate",
+      "marca": "M&M's",
+      "tipo": "topping",
+      "cantidadPresentaciones": 1,
+      "cantidadPorPresentacion": 256.5,
       "unidad": "g",
-      "precio": 2000,
-      "id": "pTZdUzw7lEs"
-    },
-    {
-      "nombre": "Huevos",
-      "marca": "Lacko",
-      "tipo": "ingrediente",
-      "cantidad": 12,
-      "unidad": "unidad",
-      "precio": 1200,
+      "precioPorPresentacion": 2500,
       "densidad": null,
-      "id": "lxb4plcizXA"
+      "id": "zWCpc_HqChM"
     },
     {
-      "nombre": "Galletas Oreo",
+      "nombre": "Chocolate con mani",
+      "marca": "M&M's",
+      "tipo": "topping",
+      "cantidadPresentaciones": 1,
+      "cantidadPorPresentacion": 87,
+      "unidad": "g",
+      "precioPorPresentacion": 1000,
+      "densidad": null,
+      "id": "gp8ejuoDbD8"
+    },
+    {
+      "nombre": "Chocolate de leche",
+      "marca": "M&M´s",
+      "tipo": "topping",
+      "cantidadPresentaciones": 1,
+      "cantidadPorPresentacion": 81,
+      "unidad": "g",
+      "precioPorPresentacion": 1000,
+      "densidad": null,
+      "id": "w1ys_g8hh08"
+    },
+    {
+      "nombre": "Galleta original",
       "marca": "Oreo",
       "tipo": "topping",
-      "cantidad": 154,
+      "cantidadPresentaciones": 2,
+      "cantidadPorPresentacion": 135,
       "unidad": "g",
-      "precio": 1200,
+      "precioPorPresentacion": 750,
       "densidad": null,
-      "cantidadPorUso": 10,
-      "unidadPorUso": "g",
-      "id": "xr7VFc0L2hg"
-    }
-  ],
-  "insumos": [
+      "cantidadPorPorcion": 10,
+      "unidadPorPorcion": "g",
+      "id": "trvSKhMtj3o"
+    },
     {
-      "nombre": "Caja para mini donas",
-      "presentacion": "Para 10 mini donas",
-      "cantidad": 10,
-      "unidad": "unidad",
-      "precio": 2000,
-      "id": "oO35om7aYmk"
+      "nombre": "Leche semidescremada",
+      "marca": "Coronado",
+      "tipo": "ingrediente",
+      "cantidadPresentaciones": 2,
+      "cantidadPorPresentacion": 1,
+      "unidad": "l",
+      "precioPorPresentacion": 850,
+      "densidad": null,
+      "id": "z_p5SDXDWLA"
+    },
+    {
+      "nombre": "Sirope de chocolate",
+      "marca": "Brooks",
+      "tipo": "salsa",
+      "cantidad": 680,
+      "unidad": "g",
+      "precio": 1398,
+      "densidad": null,
+      "cantidadPorUso": 30,
+      "unidadPorUso": "g",
+      "id": "dLjIJ1M1-gw"
+    },
+    {
+      "nombre": "Leche condensada sabor a fresa",
+      "marca": "Angelito",
+      "tipo": "salsa",
+      "cantidad": 20,
+      "unidad": "g",
+      "precio": 150,
+      "densidad": null,
+      "cantidadPorUso": 20,
+      "unidadPorUso": "g",
+      "id": "JRospH4vjBk"
+    },
+    {
+      "nombre": "Lluvia de colores",
+      "marca": "Sin Marca",
+      "tipo": "topping",
+      "cantidad": 150,
+      "unidad": "g",
+      "precio": 250,
+      "densidad": null,
+      "cantidadPorUso": 25,
+      "unidadPorUso": "g",
+      "id": "vFP4wgfJSPk"
+    },
+    {
+      "nombre": "Azucar",
+      "marca": "Doña Maria",
+      "tipo": "ingrediente",
+      "cantidad": 2,
+      "unidad": "kg",
+      "precio": 1350,
+      "densidad": null,
+      "cantidadPorUso": null,
+      "unidadPorUso": null,
+      "id": "bJ7xD8Dhk5E"
     }
   ],
+  "insumos": [],
   "recetas": [
     {
       "nombre": "Mini donas",

@@ -148,7 +148,7 @@
 }
 
 /* =========================================
-   PRECIO
+   PRECIO POR ENVASE
    ========================================= */
 
 .cotizador-card-precio {
@@ -179,6 +179,38 @@
 }
 
 /* =========================================
+   PRECIO TOTAL
+   ========================================= */
+
+.cotizador-card-precio-total {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-top: 8px;
+  padding: 11px 14px;
+
+  background-color: #f4effa;
+
+  border: 1px solid #dfd1ed;
+  border-radius: 8px;
+
+  color: #6d4c8d;
+}
+
+.cotizador-card-precio-total span {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cotizador-card-precio-total strong {
+  font-size: 16px;
+}
+
+/* =========================================
    ACCIONES
    ========================================= */
 
@@ -187,17 +219,16 @@
 
   justify-content: flex-end;
 
+  gap: 9px;
+
   margin-top: 16px;
 }
 
+.cotizador-card-detalles,
 .cotizador-card-eliminar {
   padding: 8px 13px;
 
-  border: 1px solid #e8baba;
   border-radius: 7px;
-
-  background-color: #ffffff;
-  color: #c95c5c;
 
   font-family: inherit;
 
@@ -207,16 +238,575 @@
   cursor: pointer;
 }
 
+.cotizador-card-detalles {
+  border: 1px solid #cdbbe2;
+
+  background-color: #ffffff;
+  color: #6d4c8d;
+}
+
+.cotizador-card-detalles:hover {
+  background-color: #f7f2fb;
+}
+
+.cotizador-card-eliminar {
+  border: 1px solid #e8baba;
+
+  background-color: #ffffff;
+  color: #c95c5c;
+}
+
 .cotizador-card-eliminar:hover {
   background-color: #fff1f1;
 }
 
-@media (max-width: 500px) {
-  .cotizador-card-header {
+/* =========================================
+   MODAL
+   ========================================= */
+
+.cotizador-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 25px;
+
+  background-color: rgba(45, 35, 55, 0.45);
+
+  box-sizing: border-box;
+
+  overflow-y: auto;
+}
+
+.cotizador-modal {
+  width: 100%;
+  max-width: 850px;
+  max-height: 90vh;
+
+  padding: 28px;
+
+  background-color: #ffffff;
+
+  border: 1px solid #e3dce9;
+  border-radius: 16px;
+
+  box-shadow: 0 15px 45px rgba(45, 35, 55, 0.18);
+
+  overflow-y: auto;
+
+  box-sizing: border-box;
+}
+
+.cotizador-modal-header {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding-bottom: 18px;
+
+  border-bottom: 1px solid #e3dce9;
+}
+
+.cotizador-modal-header h2 {
+  margin: 0;
+
+  color: #352d3a;
+
+  font-size: 23px;
+}
+
+.cotizador-modal-header p {
+  margin: 5px 0 0;
+
+  color: #776d7d;
+
+  font-size: 14px;
+}
+
+.cotizador-modal-cerrar {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #f4effa;
+  color: #6d4c8d;
+
+  font-size: 25px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.cotizador-modal-cerrar:hover {
+  background-color: #e9ddf4;
+}
+
+/* =========================================
+   SECCIONES DEL MODAL
+   ========================================= */
+
+.cotizador-modal-seccion {
+  margin-top: 24px;
+}
+
+.cotizador-modal-seccion h3 {
+  margin: 0 0 14px;
+
+  color: #352d3a;
+
+  font-size: 17px;
+}
+
+.cotizador-modal-seccion h4 {
+  margin: 22px 0 10px;
+
+  color: #51455c;
+
+  font-size: 14px;
+}
+
+/* =========================================
+   GRID INFORMACIÓN
+   ========================================= */
+
+.cotizador-modal-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 10px;
+}
+
+.cotizador-modal-grid > div {
+  padding: 12px;
+
+  background-color: #fff9f5;
+
+  border-radius: 8px;
+}
+
+.cotizador-modal-grid span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #776d7d;
+
+  font-size: 12px;
+}
+
+.cotizador-modal-grid strong {
+  color: #352d3a;
+
+  font-size: 14px;
+}
+
+/* =========================================
+   DESGLOSE
+   ========================================= */
+
+.cotizador-modal-desglose {
+  display: flex;
+
+  flex-direction: column;
+
+  border-top: 1px solid #e3dce9;
+}
+
+.cotizador-modal-desglose > div {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  min-height: 43px;
+
+  padding: 9px 4px;
+
+  border-bottom: 1px solid #eee9f1;
+
+  box-sizing: border-box;
+}
+
+.cotizador-modal-desglose span {
+  color: #776d7d;
+
+  font-size: 13px;
+}
+
+.cotizador-modal-desglose strong {
+  color: #352d3a;
+
+  font-size: 13px;
+}
+
+/* =========================================
+   LÍNEAS IMPORTANTES
+   ========================================= */
+
+.cotizador-modal-linea-principal {
+  background-color: #faf7fc;
+}
+
+.cotizador-modal-linea-principal span {
+  color: #51455c;
+
+  font-weight: 600;
+}
+
+.cotizador-modal-linea-total {
+  margin-top: 8px;
+
+  background-color: #f0e8f8;
+
+  border-radius: 7px;
+}
+
+.cotizador-modal-linea-total span {
+  color: #4b3b5f;
+
+  font-weight: 700;
+}
+
+.cotizador-modal-linea-total strong {
+  color: #6d55a8;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.cotizador-modal-linea-total-secundaria {
+  background-color: #faf8fc;
+}
+
+.cotizador-modal-linea-total-secundaria span {
+  color: #655b70;
+
+  font-weight: 600;
+}
+
+.cotizador-modal-linea-total-secundaria strong {
+  color: #40364d;
+
+  font-weight: 600;
+}
+
+/* =========================================
+   PRECIO MODAL
+   ========================================= */
+
+.cotizador-modal-precio {
+  margin-top: 10px;
+
+  padding: 15px !important;
+
+  background-color: #d8c8f2;
+
+  border: none !important;
+
+  border-radius: 8px;
+}
+
+.cotizador-modal-precio span {
+  color: #4d3b69;
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+.cotizador-modal-precio strong {
+  color: #6d55a8;
+
+  font-size: 20px;
+
+  font-weight: 700;
+}
+
+/* =========================================
+   LISTA DE EXTRAS
+   ========================================= */
+
+.cotizador-modal-lista {
+  margin-top: 16px;
+}
+
+.cotizador-modal-extra {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 11px 13px;
+
+  border-bottom: 1px solid #eee9f1;
+}
+
+.cotizador-modal-extra > div {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.cotizador-modal-extra strong {
+  color: #40364d;
+
+  font-size: 13px;
+}
+
+.cotizador-modal-extra span {
+  color: #776d7d;
+
+  font-size: 12px;
+}
+
+/* =========================================
+   TABLA DE INSUMOS
+   ========================================= */
+
+.cotizador-modal-tabla {
+  width: 100%;
+
+  overflow-x: auto;
+
+  border: 1px solid #e3dce9;
+  border-radius: 9px;
+}
+
+.cotizador-modal-tabla-header,
+.cotizador-modal-tabla-fila {
+  display: grid;
+
+  grid-template-columns:
+    minmax(220px, 1.6fr)
+    minmax(110px, 0.8fr)
+    minmax(110px, 0.8fr)
+    minmax(120px, 0.9fr);
+
+  min-width: 600px;
+
+  gap: 12px;
+
+  padding: 11px 13px;
+
+  box-sizing: border-box;
+}
+
+.cotizador-modal-tabla-header {
+  background-color: #f4effa;
+
+  color: #51455c;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.cotizador-modal-tabla-fila {
+  border-top: 1px solid #eee9f1;
+
+  color: #776d7d;
+
+  font-size: 12px;
+}
+
+.cotizador-modal-tabla-fila strong {
+  color: #40364d;
+}
+
+/* =========================================
+   VACÍO
+   ========================================= */
+
+.cotizador-modal-vacio {
+  margin: 0;
+
+  padding: 14px;
+
+  border: 1px dashed #d8cedf;
+  border-radius: 8px;
+
+  color: #776d7d;
+
+  font-size: 13px;
+
+  text-align: center;
+}
+
+/* =========================================
+   ACCIONES MODAL
+   ========================================= */
+
+.cotizador-modal-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 28px;
+  padding-top: 18px;
+
+  border-top: 1px solid #e3dce9;
+}
+
+.cotizador-modal-btn-secundario,
+.cotizador-modal-btn-imprimir {
+  min-height: 42px;
+
+  padding: 9px 17px;
+
+  border-radius: 8px;
+
+  font-family: inherit;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.cotizador-modal-btn-secundario {
+  border: 1px solid #d5ccdf;
+
+  background-color: #ffffff;
+  color: #5d5368;
+}
+
+.cotizador-modal-btn-secundario:hover {
+  background-color: #f7f4fa;
+}
+
+.cotizador-modal-btn-imprimir {
+  border: 1px solid #9b7ede;
+
+  background-color: #9b7ede;
+  color: #ffffff;
+}
+
+.cotizador-modal-btn-imprimir:hover {
+  background-color: #8768d0;
+}
+
+/* =========================================
+   IMPRESIÓN / PDF
+   ========================================= */
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .cotizador-modal-overlay,
+  .cotizador-modal-overlay * {
+    visibility: visible;
+  }
+
+  .cotizador-modal-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    display: block;
+
+    padding: 0;
+
+    background-color: #ffffff;
+
+    overflow: visible;
+  }
+
+  .cotizador-modal {
+    width: 100%;
+    max-width: none;
+    max-height: none;
+
+    padding: 20px;
+
+    border: none;
+    border-radius: 0;
+
+    box-shadow: none;
+
+    overflow: visible;
+  }
+
+  .cotizador-modal-cerrar,
+  .cotizador-modal-actions {
+    display: none;
+  }
+
+  .cotizador-modal-header {
+    margin-bottom: 20px;
+  }
+
+  .cotizador-modal-seccion {
+    break-inside: avoid;
+  }
+
+  .cotizador-modal-tabla {
+    overflow: visible;
+  }
+
+  @page {
+    margin: 15mm;
+  }
+}
+
+@media (max-width: 800px) {
+  .cotizador-modal-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .cotizador-card-actions {
     flex-direction: column;
   }
 
-  .cotizador-card-fecha {
-    align-self: flex-start;
+  .cotizador-card-detalles,
+  .cotizador-card-eliminar {
+    width: 100%;
+  }
+
+  .cotizador-modal-overlay {
+    padding: 10px;
+  }
+
+  .cotizador-modal {
+    padding: 20px;
+  }
+
+  .cotizador-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cotizador-modal-actions {
+    flex-direction: column;
+  }
+
+  .cotizador-modal-btn-secundario,
+  .cotizador-modal-btn-imprimir {
+    width: 100%;
   }
 }

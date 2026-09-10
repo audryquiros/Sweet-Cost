@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 import {
   getCotizaciones,
-  createCotizacion,
   deleteCotizacion,
 } from "../../services/cotizadorServices";
 
@@ -61,7 +60,10 @@ function Cotizador() {
       setProductos(productosData);
       setInsumos(insumosData);
     } catch (error) {
-      setError(error.message);
+      setError(
+        error.message ||
+          "No se pudieron cargar los datos."
+      );
     } finally {
       setCargando(false);
     }
@@ -131,7 +133,10 @@ function Cotizador() {
         setMensajeExito("");
       }, 3000);
     } catch (error) {
-      setError(error.message);
+      setError(
+        error.message ||
+          "No se pudo eliminar la cotización."
+      );
     }
   };
 
@@ -151,13 +156,15 @@ function Cotizador() {
 
   return (
     <main className="cotizador-page">
+      {/* ENCABEZADO */}
+
       <header className="cotizador-header">
         <div>
-          <h1>Cotizador</h1>
+          <h1>Cotizaciones</h1>
 
           <p>
-            Configura una venta y calcula el costo y
-            precio sugerido de tus productos.
+            Configura una venta y calcula el costo
+            y precio sugerido de tus productos.
           </p>
         </div>
 
@@ -172,6 +179,8 @@ function Cotizador() {
         )}
       </header>
 
+      {/* MENSAJES */}
+
       {mensajeExito && (
         <div className="cotizador-exito">
           {mensajeExito}
@@ -183,6 +192,8 @@ function Cotizador() {
           {error}
         </div>
       )}
+
+      {/* FORMULARIO */}
 
       {mostrarFormulario && (
         <CotizadorForm
@@ -196,20 +207,16 @@ function Cotizador() {
         />
       )}
 
+      {/* HISTORIAL */}
+
       <section className="cotizador-lista">
         <div className="cotizador-lista-header">
-          <div>
-            <h2>
-              Cotizaciones registradas
-            </h2>
-
-            <p>
-              {cotizaciones.length}{" "}
-              {cotizaciones.length === 1
-                ? "cotización registrada"
-                : "cotizaciones registradas"}
-            </p>
-          </div>
+          <p>
+            {cotizaciones.length}{" "}
+            {cotizaciones.length === 1
+              ? "cotización realizada"
+              : "cotizaciones realizadas"}
+          </p>
         </div>
 
         <CotizadorList
@@ -217,6 +224,8 @@ function Cotizador() {
           onEliminar={handleEliminar}
         />
       </section>
+
+      {/* CONFIRMACIÓN DE ELIMINACIÓN */}
 
       {cotizacionAEliminar && (
         <Confirmacion

@@ -7,7 +7,6 @@ import {
 import {
   obtenerCostoUnitarioInsumo,
   calcularCostoPorRendimiento,
-  calcularCantidadPorciones,
   calcularCostoPorciones,
 } from "../../../utils/calculosCostos";
 
@@ -23,33 +22,266 @@ function CotizadorForm({
   const [formulario, setFormulario] = useState({
     nombre: "",
     recetaId: "",
-    cantidad: 1,
+    cantidadAVender: 1,
+    unidadesIncluidas: 10,
     manoObra: "",
     margen: 30,
   });
 
-  const [extras, setExtras] = useState([]);
+  const [extrasModo, setExtrasModo] = useState("estandar");
+
+  const [toppingsPorEnvase, setToppingsPorEnvase] =
+    useState(0);
+
+  const [salsasPorEnvase, setSalsasPorEnvase] =
+    useState(0);
+
+  const [toppingsSeleccionados, setToppingsSeleccionados] =
+    useState([]);
+
+  const [salsasSeleccionadas, setSalsasSeleccionadas] =
+    useState([]);
 
   const [insumosSeleccionados, setInsumosSeleccionados] =
     useState([]);
 
   const [error, setError] = useState("");
-
   const [guardando, setGuardando] = useState(false);
 
-  const productosExtras = productos.filter(
-    (producto) =>
-      producto.tipo === "topping" ||
-      producto.tipo === "salsa"
-  );
+  const recetaSeleccionada = useMemo(() => {
+    return recetas.find(
+      (receta) =>
+        String(receta.id) === String(formulario.recetaId)
+    );
+  }, [recetas, formulario.recetaId]);
 
-  const recetaSeleccionada = recetas.find(
-    (receta) =>
-      String(receta.id) ===
-      String(formulario.recetaId)
-  );
+  const toppings = useMemo(() => {
+    return productos.filter(
+      (producto) => producto.tipo === "topping"
+    );
+  }, [productos]);
 
-  const cambiarFormulario = (e) => {
+  const salsas = useMemo(() => {
+    return productos.filter(
+      (producto) => producto.tipo === "salsa"
+    );
+  }, [productos]);
+
+  const cantidadAVender =
+    Number(formulario.cantidadAVender) || 0;
+
+  const unidadesIncluidas =
+    Number(formulario.unidadesIncluidas) || 0;
+
+  const cantidadTotalProductos =
+    cantidadAVender * unidadesIncluidas;
+
+  /* COSTO DE LA RECETA */
+
+  const costoPorUnidadReceta = recetaSeleccionada
+    ? calcularCostoPorRendimiento(
+        recetaSeleccionada,
+        productos
+      )
+    : 0;
+
+  const costoReceta =
+    costoPorUnidadReceta * cantidadTotalProductos;
+
+  /* COSTO TOPPINGS ESTÁNDAR */
+
+  const costoToppingEstandar = useMemo(() => {
+    if (!toppings.length) return 0;
+
+    const costos = toppings
+      .map((producto) =>
+        calcularCostoPorciones(producto, 1)
+      )
+      .filter((costo) => costo > 0);
+
+    if (!costos.length) return 0;
+
+    return (
+      costos.reduce(
+        (total, costo) => total + costo,
+        0
+      ) / costos.length
+    );
+  }, [toppings]);
+
+  const costoToppingsEstandar =
+    costoToppingEstandar *
+    toppingsPorEnvase *
+    cantidadAVender;
+
+  /* COSTO TOPPINGS PERSONALIZADOS */
+
+  const costoToppingsPersonalizados =
+    toppingsSeleccionados.reduce(
+      (total, productoId) => {
+        const producto = toppings.find(
+          (item) =>
+            String(item.id) === String(productoId)
+        );
+
+        if (!producto) return total;
+
+        const costoPorPorcion =
+          calcularCostoPorciones(producto, 1);
+
+        return (
+          total +
+          costoPorPorcion *
+            toppingsPorEnvase *
+            cantidadAVender
+        );
+      },
+      0
+    );
+
+  const costoToppings =
+    extrasModo === "estandar"
+      ? costoToppingsEstandar
+      : costoToppingsPersonalizados;
+
+  const costoToppingsPorEnvase =
+    cantidadAVender > 0
+      ? costoToppings / cantidadAVender
+      : 0;
+
+  /* COSTO SALSAS ESTÁNDAR */
+
+  const costoSalsaEstandar = useMemo(() => {
+    if (!salsas.length) return 0;
+
+    const costos = salsas
+      .map((producto) =>
+        calcularCostoPorciones(producto, 1)
+      )
+      .filter((costo) => costo > 0);
+
+    if (!costos.length) return 0;
+
+    return (
+      costos.reduce(
+        (total, costo) => total + costo,
+        0
+      ) / costos.length
+    );
+  }, [salsas]);
+
+  const costoSalsasEstandar =
+    costoSalsaEstandar *
+    salsasPorEnvase *
+    cantidadAVender;
+
+  /* COSTO SALSAS PERSONALIZADAS */
+
+  const costoSalsasPersonalizadas =
+    salsasSeleccionadas.reduce(
+      (total, productoId) => {
+        const producto = salsas.find(
+          (item) =>
+            String(item.id) === String(productoId)
+        );
+
+        if (!producto) return total;
+
+        const costoPorPorcion =
+          calcularCostoPorciones(producto, 1);
+
+        return (
+          total +
+          costoPorPorcion *
+            salsasPorEnvase *
+            cantidadAVender
+        );
+      },
+      0
+    );
+
+  const costoSalsas =
+    extrasModo === "estandar"
+      ? costoSalsasEstandar
+      : costoSalsasPersonalizadas;
+
+  const costoSalsasPorEnvase =
+    cantidadAVender > 0
+      ? costoSalsas / cantidadAVender
+      : 0;
+
+  /* COSTO INSUMOS */
+
+  const costoInsumos =
+    insumosSeleccionados.reduce(
+      (total, item) => {
+        const insumo = insumos.find(
+          (insumoActual) =>
+            String(insumoActual.id) ===
+            String(item.insumoId)
+        );
+
+        if (!insumo) return total;
+
+        const cantidadPorEnvase =
+          Number(item.cantidadPorEnvase) || 0;
+
+        const cantidadTotal =
+          cantidadPorEnvase *
+          cantidadAVender;
+
+        const costoUnitario =
+          obtenerCostoUnitarioInsumo(insumo);
+
+        return (
+          total +
+          costoUnitario * cantidadTotal
+        );
+      },
+      0
+    );
+
+  const costoInsumosPorEnvase =
+    cantidadAVender > 0
+      ? costoInsumos / cantidadAVender
+      : 0;
+
+  /* COSTOS */
+
+  const costoExtras =
+    costoToppings + costoSalsas;
+
+  const costoExtrasPorEnvase =
+    cantidadAVender > 0
+      ? costoExtras / cantidadAVender
+      : 0;
+
+  const costoProduccion =
+    costoReceta +
+    costoExtras +
+    costoInsumos;
+
+  const manoObra =
+    Number(formulario.manoObra) || 0;
+
+  const costoTotal =
+    costoProduccion + manoObra;
+
+  const margen =
+    Number(formulario.margen) || 0;
+
+  const precioSugerido =
+    costoTotal +
+    costoTotal * (margen / 100);
+
+  const precioPorUnidadVenta =
+    cantidadAVender > 0
+      ? precioSugerido / cantidadAVender
+      : 0;
+
+  /* CAMBIAR CAMPOS */
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
 
     setFormulario((actual) => ({
@@ -58,590 +290,260 @@ function CotizadorForm({
     }));
   };
 
-  const seleccionarReceta = (e) => {
-    setFormulario((actual) => ({
-      ...actual,
-      recetaId: e.target.value,
-    }));
-  };
+  /* TOPPINGS PERSONALIZADOS */
 
-  /*
-   * EXTRAS
-   *
-   * Cada extra representa una cantidad de porciones.
-   *
-   * Ejemplo:
-   * Oreo -> cantidadPorPorcion = 10 g
-   * cantidad = 2
-   *
-   * Resultado:
-   * 2 toppings = 20 g
-   */
-
-  const agregarExtra = () => {
-    setExtras((actuales) => [
+  const agregarTopping = () => {
+    setToppingsSeleccionados((actuales) => [
       ...actuales,
-      {
-        productoId: "",
-        cantidad: 1,
-      },
+      "",
     ]);
   };
 
-  const cambiarExtra = (
-    indice,
-    campo,
-    valor
-  ) => {
-    setExtras((actuales) =>
-      actuales.map((extra, index) =>
-        index === indice
-          ? {
-              ...extra,
-              [campo]: valor,
-            }
-          : extra
+  const cambiarTopping = (index, value) => {
+    setToppingsSeleccionados((actuales) =>
+      actuales.map((item, i) =>
+        i === index ? value : item
       )
     );
   };
 
-  const seleccionarExtra = (
-    indice,
-    productoId
-  ) => {
-    const producto = productosExtras.find(
-      (productoActual) =>
-        String(productoActual.id) ===
-        String(productoId)
+  const eliminarTopping = (index) => {
+    setToppingsSeleccionados((actuales) =>
+      actuales.filter((_, i) => i !== index)
     );
+  };
 
-    setExtras((actuales) =>
-      actuales.map((extra, index) =>
-        index === indice
-          ? {
-              ...extra,
-              productoId,
-              cantidad: 1,
-            }
-          : extra
+  /* SALSAS PERSONALIZADAS */
+
+  const agregarSalsa = () => {
+    setSalsasSeleccionadas((actuales) => [
+      ...actuales,
+      "",
+    ]);
+  };
+
+  const cambiarSalsa = (index, value) => {
+    setSalsasSeleccionadas((actuales) =>
+      actuales.map((item, i) =>
+        i === index ? value : item
       )
     );
   };
 
-  const eliminarExtra = (indice) => {
-    setExtras((actuales) =>
-      actuales.filter(
-        (_, index) => index !== indice
-      )
+  const eliminarSalsa = (index) => {
+    setSalsasSeleccionadas((actuales) =>
+      actuales.filter((_, i) => i !== index)
     );
   };
 
-  /*
-   * INSUMOS
-   */
+  /* INSUMOS */
 
   const agregarInsumo = () => {
     setInsumosSeleccionados((actuales) => [
       ...actuales,
       {
         insumoId: "",
-        cantidad: 1,
+        cantidadPorEnvase: 1,
       },
     ]);
   };
 
   const cambiarInsumo = (
-    indice,
+    index,
     campo,
     valor
   ) => {
     setInsumosSeleccionados((actuales) =>
-      actuales.map((insumo, index) =>
-        index === indice
+      actuales.map((item, i) =>
+        i === index
           ? {
-              ...insumo,
+              ...item,
               [campo]: valor,
             }
-          : insumo
+          : item
       )
     );
   };
 
-  const eliminarInsumo = (indice) => {
+  const eliminarInsumo = (index) => {
     setInsumosSeleccionados((actuales) =>
-      actuales.filter(
-        (_, index) => index !== indice
-      )
+      actuales.filter((_, i) => i !== index)
     );
   };
 
-  /*
-   * CÁLCULOS
-   */
-
-  const calculos = useMemo(() => {
-    const cantidad = Number(
-      formulario.cantidad
-    );
-
-    const manoObra = Number(
-      formulario.manoObra
-    );
-
-    const margen = Number(
-      formulario.margen
-    );
-
-    let costoReceta = 0;
-
-    if (recetaSeleccionada) {
-      const costoPorUnidad =
-        calcularCostoPorRendimiento(
-          recetaSeleccionada,
-          productos
-        );
-
-      costoReceta =
-        costoPorUnidad *
-        (Number.isFinite(cantidad)
-          ? cantidad
-          : 0);
-    }
-
-    /*
-     * Costo de toppings y salsas
-     */
-
-    const costoExtras = extras.reduce(
-      (total, extra) => {
-        const producto =
-          productos.find(
-            (productoActual) =>
-              String(productoActual.id) ===
-              String(extra.productoId)
-          );
-
-        if (!producto) {
-          return total;
-        }
-
-        return (
-          total +
-          calcularCostoPorciones(
-            producto,
-            Number(extra.cantidad)
-          )
-        );
-      },
-      0
-    );
-
-    /*
-     * Costo de insumos
-     */
-
-    const costoInsumos =
-      insumosSeleccionados.reduce(
-        (total, item) => {
-          const insumo = insumos.find(
-            (insumoActual) =>
-              String(insumoActual.id) ===
-              String(item.insumoId)
-          );
-
-          if (!insumo) {
-            return total;
-          }
-
-          const costoUnitario =
-            obtenerCostoUnitarioInsumo(
-              insumo
-            );
-
-          const cantidadInsumo = Number(
-            item.cantidad
-          );
-
-          if (
-            !Number.isFinite(
-              cantidadInsumo
-            )
-          ) {
-            return total;
-          }
-
-          return (
-            total +
-            costoUnitario *
-              cantidadInsumo
-          );
-        },
-        0
-      );
-
-    const manoObraValida =
-      Number.isFinite(manoObra)
-        ? manoObra
-        : 0;
-
-    const costoProduccion =
-      costoReceta +
-      costoExtras +
-      costoInsumos;
-
-    const costoTotal =
-      costoProduccion +
-      manoObraValida;
-
-    let precioSugerido = 0;
-
-    if (
-      Number.isFinite(margen) &&
-      margen >= 0 &&
-      margen < 100
-    ) {
-      precioSugerido =
-        costoTotal /
-        (1 - margen / 100);
-    }
-
-    return {
-      costoReceta,
-      costoExtras,
-      costoInsumos,
-      costoProduccion,
-      manoObra: manoObraValida,
-      costoTotal,
-      precioSugerido,
-    };
-  }, [
-    formulario.cantidad,
-    formulario.manoObra,
-    formulario.margen,
-    recetaSeleccionada,
-    productos,
-    extras,
-    insumosSeleccionados,
-    insumos,
-  ]);
-
-  /*
-   * VALIDACIÓN
-   */
-
-  const validarFormulario = () => {
-    if (!formulario.nombre.trim()) {
-      return "Ingresa un nombre para la cotización.";
-    }
-
-    if (!formulario.recetaId) {
-      return "Selecciona una receta.";
-    }
-
-    if (
-      Number(formulario.cantidad) <= 0
-    ) {
-      return "La cantidad a vender debe ser mayor que cero.";
-    }
-
-    if (
-      Number(formulario.margen) < 0 ||
-      Number(formulario.margen) >= 100
-    ) {
-      return "El margen debe estar entre 0% y 99.99%.";
-    }
-
-    /*
-     * Validar toppings y salsas
-     */
-
-    for (const extra of extras) {
-      if (!extra.productoId) {
-        return "Selecciona un topping o salsa.";
-      }
-
-      const producto =
-        productos.find(
-          (productoActual) =>
-            String(productoActual.id) ===
-            String(extra.productoId)
-        );
-
-      if (!producto) {
-        return "No se encontró uno de los productos seleccionados.";
-      }
-
-      if (
-        !Number.isFinite(
-          Number(extra.cantidad)
-        ) ||
-        Number(extra.cantidad) <= 0
-      ) {
-        return "La cantidad de porciones debe ser mayor que cero.";
-      }
-
-      const cantidadPorPorcion =
-        Number(
-          producto.cantidadPorPorcion
-        );
-
-      if (
-        !Number.isFinite(
-          cantidadPorPorcion
-        ) ||
-        cantidadPorPorcion <= 0
-      ) {
-        return `El producto "${producto.nombre}" no tiene configurada una cantidad por porción.`;
-      }
-
-      if (
-        !producto.unidadPorPorcion
-      ) {
-        return `El producto "${producto.nombre}" no tiene configurada una unidad por porción.`;
-      }
-    }
-
-    /*
-     * Validar insumos
-     */
-
-    for (const item of insumosSeleccionados) {
-      if (!item.insumoId) {
-        return "Selecciona un insumo.";
-      }
-
-      if (
-        Number(item.cantidad) <= 0
-      ) {
-        return "La cantidad de insumos debe ser mayor que cero.";
-      }
-    }
-
-    return "";
-  };
-
-  /*
-   * GUARDAR
-   */
+  /* GUARDAR */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const mensajeError =
-      validarFormulario();
+    setError("");
 
-    if (mensajeError) {
-      setError(mensajeError);
+    if (!formulario.nombre.trim()) {
+      setError(
+        "Debes ingresar un nombre para la cotización."
+      );
+      return;
+    }
+
+    if (!formulario.recetaId) {
+      setError(
+        "Debes seleccionar una receta."
+      );
+      return;
+    }
+
+    if (cantidadAVender <= 0) {
+      setError(
+        "La cantidad a vender debe ser mayor que 0."
+      );
+      return;
+    }
+
+    if (unidadesIncluidas <= 0) {
+      setError(
+        "La cantidad de productos por envase debe ser mayor que 0."
+      );
+      return;
+    }
+
+    if (margen < 0) {
+      setError(
+        "El margen no puede ser negativo."
+      );
+      return;
+    }
+
+    if (
+      extrasModo === "personalizado" &&
+      toppingsPorEnvase > 0 &&
+      toppingsSeleccionados.some(
+        (id) => !id
+      )
+    ) {
+      setError(
+        "Debes seleccionar todos los toppings personalizados."
+      );
+      return;
+    }
+
+    if (
+      extrasModo === "personalizado" &&
+      salsasPorEnvase > 0 &&
+      salsasSeleccionadas.some(
+        (id) => !id
+      )
+    ) {
+      setError(
+        "Debes seleccionar todas las salsas personalizadas."
+      );
+      return;
+    }
+
+    if (
+      insumosSeleccionados.some(
+        (item) =>
+          !item.insumoId ||
+          Number(item.cantidadPorEnvase) <= 0
+      )
+    ) {
+      setError(
+        "Debes seleccionar todos los insumos y colocar una cantidad por envase mayor que 0."
+      );
       return;
     }
 
     try {
-      setError("");
       setGuardando(true);
 
-      /*
-       * Guardar toppings y salsas
-       */
-
-      const extrasGuardados = extras.map(
-        (extra) => {
-          const producto =
-            productos.find(
-              (productoActual) =>
-                String(
-                  productoActual.id
-                ) ===
-                String(
-                  extra.productoId
-                )
-            );
-
-          const cantidadPorciones =
+      const insumosGuardados =
+        insumosSeleccionados.map((item) => {
+          const cantidadPorEnvase =
             Number(
-              extra.cantidad
+              item.cantidadPorEnvase
             );
 
-          const cantidadUtilizada =
-            calcularCantidadPorciones(
-              producto,
-              cantidadPorciones
-            );
-
-          const costo =
-            calcularCostoPorciones(
-              producto,
-              cantidadPorciones
-            );
+          const cantidadTotal =
+            cantidadPorEnvase *
+            cantidadAVender;
 
           return {
-            productoId:
-              extra.productoId,
-
-            nombre:
-              producto?.nombre || "",
-
-            tipo:
-              producto?.tipo || "",
-
-            cantidadPorciones,
-
-            cantidadPorPorcion:
-              Number(
-                producto?.cantidadPorPorcion
-              ),
-
-            unidadPorPorcion:
-              producto?.unidadPorPorcion ||
-              "",
-
-            cantidadUtilizada,
-
-            unidad:
-              producto?.unidadPorPorcion ||
-              "",
-
-            costo: Number(
-              costo.toFixed(2)
-            ),
+            insumoId: item.insumoId,
+            cantidadPorEnvase,
+            cantidadTotal,
           };
-        }
-      );
-
-      /*
-       * Guardar insumos
-       */
-
-      const insumosGuardados =
-        insumosSeleccionados.map(
-          (item) => {
-            const insumo =
-              insumos.find(
-                (insumoActual) =>
-                  String(
-                    insumoActual.id
-                  ) ===
-                  String(
-                    item.insumoId
-                  )
-              );
-
-            const cantidad =
-              Number(item.cantidad);
-
-            const costo =
-              obtenerCostoUnitarioInsumo(
-                insumo
-              ) * cantidad;
-
-            return {
-              insumoId:
-                item.insumoId,
-
-              nombre:
-                insumo?.nombre || "",
-
-              cantidad,
-
-              unidad:
-                insumo?.unidad || "",
-
-              costo: Number(
-                costo.toFixed(2)
-              ),
-            };
-          }
-        );
-
-      /*
-       * Crear cotización
-       */
+        });
 
       const cotizacion = {
-        nombre:
-          formulario.nombre.trim(),
+        nombre: formulario.nombre.trim(),
 
-        recetaId:
-          formulario.recetaId,
+        recetaId: recetaSeleccionada.id,
+        recetaNombre: recetaSeleccionada.nombre,
 
-        recetaNombre:
-          recetaSeleccionada?.nombre ||
-          "",
+        cantidadAVender,
+        unidadesIncluidas,
+        cantidadTotalProductos,
 
-        cantidad:
-          Number(
-            formulario.cantidad
+        extrasModo,
+
+        toppings: toppingsSeleccionados,
+        salsas: salsasSeleccionadas,
+
+        toppingsEstandar:
+          toppingsPorEnvase,
+
+        salsasEstandar:
+          salsasPorEnvase,
+
+        toppingsPorEnvase,
+        salsasPorEnvase,
+
+        extras: [
+          ...toppingsSeleccionados.map(
+            (productoId) => ({
+              tipo: "topping",
+              productoId,
+            })
           ),
-
-        extras:
-          extrasGuardados,
-
-        insumos:
-          insumosGuardados,
-
-        manoObra:
-          Number(
-            formulario.manoObra
-          ) || 0,
-
-        margen:
-          Number(
-            formulario.margen
+          ...salsasSeleccionadas.map(
+            (productoId) => ({
+              tipo: "salsa",
+              productoId,
+            })
           ),
+        ],
 
-        costoReceta:
-          Number(
-            calculos.costoReceta.toFixed(
-              2
-            )
-          ),
+        insumos: insumosGuardados,
 
-        costoExtras:
-          Number(
-            calculos.costoExtras.toFixed(
-              2
-            )
-          ),
+        manoObra,
+        margen,
 
-        costoInsumos:
-          Number(
-            calculos.costoInsumos.toFixed(
-              2
-            )
-          ),
+        costoReceta,
 
-        costoProduccion:
-          Number(
-            calculos.costoProduccion.toFixed(
-              2
-            )
-          ),
+        costoToppings,
+        costoToppingsPorEnvase,
 
-        costoTotal:
-          Number(
-            calculos.costoTotal.toFixed(
-              2
-            )
-          ),
+        costoSalsas,
+        costoSalsasPorEnvase,
 
-        precioSugerido:
-          Number(
-            calculos.precioSugerido.toFixed(
-              2
-            )
-          ),
+        costoExtras,
+        costoExtrasPorEnvase,
 
-        fecha:
-          new Date().toISOString(),
+        costoInsumos,
+        costoInsumosPorEnvase,
+
+        costoProduccion,
+
+        costoTotal,
+        precioSugerido,
+        precioPorUnidadVenta,
+
+        fecha: new Date().toISOString(),
       };
 
       const nuevaCotizacion =
-        await createCotizacion(
-          cotizacion
-        );
+        await createCotizacion(cotizacion);
 
-      onCotizacionCreada(
-        nuevaCotizacion
-      );
+      onCotizacionCreada(nuevaCotizacion);
     } catch (error) {
       setError(
         error.message ||
@@ -659,13 +561,11 @@ function CotizadorForm({
     >
       <div className="cotizador-form-header">
         <div>
-          <h2>
-            Nueva cotización
-          </h2>
+          <h2>Nueva cotización</h2>
 
           <p>
-            Configura exactamente lo que vas a
-            vender.
+            Configura la venta y calcula su
+            precio sugerido.
           </p>
         </div>
       </div>
@@ -675,6 +575,8 @@ function CotizadorForm({
           {error}
         </div>
       )}
+
+      {/* DATOS PRINCIPALES */}
 
       <div className="cotizador-form-grid">
         <div className="cotizador-field">
@@ -686,13 +588,9 @@ function CotizadorForm({
             id="nombre"
             name="nombre"
             type="text"
-            value={
-              formulario.nombre
-            }
-            onChange={
-              cambiarFormulario
-            }
-            placeholder="Ej. Caja de mini donas"
+            value={formulario.nombre}
+            onChange={handleChange}
+            placeholder="Ej. Pedido cumpleaños"
           />
         </div>
 
@@ -704,48 +602,64 @@ function CotizadorForm({
           <select
             id="recetaId"
             name="recetaId"
-            value={
-              formulario.recetaId
-            }
-            onChange={
-              seleccionarReceta
-            }
+            value={formulario.recetaId}
+            onChange={handleChange}
           >
             <option value="">
               Selecciona una receta
             </option>
 
-            {recetas.map(
-              (receta) => (
-                <option
-                  key={receta.id}
-                  value={receta.id}
-                >
-                  {receta.nombre}
-                </option>
-              )
-            )}
+            {recetas.map((receta) => (
+              <option
+                key={receta.id}
+                value={receta.id}
+              >
+                {receta.nombre}
+              </option>
+            ))}
           </select>
         </div>
 
         <div className="cotizador-field">
-          <label htmlFor="cantidad">
-            Cantidad de productos
+          <label htmlFor="cantidadAVender">
+            Cantidad a vender
           </label>
 
           <input
-            id="cantidad"
-            name="cantidad"
+            id="cantidadAVender"
+            name="cantidadAVender"
             type="number"
             min="1"
-            step="1"
-            value={
-              formulario.cantidad
-            }
-            onChange={
-              cambiarFormulario
-            }
+            value={formulario.cantidadAVender}
+            onChange={handleChange}
           />
+
+          <small>
+            Ej.: cantidad de cajas, vasos,
+            bolsas o envases
+          </small>
+        </div>
+
+        <div className="cotizador-field">
+          <label htmlFor="unidadesIncluidas">
+            Cantidad de productos incluidos
+            en el envase
+          </label>
+
+          <input
+            id="unidadesIncluidas"
+            name="unidadesIncluidas"
+            type="number"
+            min="1"
+            value={formulario.unidadesIncluidas}
+            onChange={handleChange}
+          />
+
+          <small>
+            {recetaSeleccionada
+              ? `Ej.: cantidad de ${recetaSeleccionada.nombre.toLowerCase()} por cada envase`
+              : "Ej.: cantidad de productos por cada envase"}
+          </small>
         </div>
       </div>
 
@@ -759,221 +673,368 @@ function CotizadorForm({
             </h3>
 
             <p>
-              Selecciona los toppings o salsas
-              y define cuántas porciones deseas
-              agregar.
+              Selecciona cómo quieres calcular
+              los extras de la venta.
             </p>
           </div>
+        </div>
+
+        <div className="cotizador-extra-modos">
+          <button
+            type="button"
+            className={`cotizador-extra-modo ${
+              extrasModo === "estandar"
+                ? "activo"
+                : ""
+            }`}
+            onClick={() =>
+              setExtrasModo("estandar")
+            }
+          >
+            Estándar
+          </button>
 
           <button
             type="button"
-            className="btn-agregar-extra"
-            onClick={
-              agregarExtra
+            className={`cotizador-extra-modo ${
+              extrasModo === "personalizado"
+                ? "activo"
+                : ""
+            }`}
+            onClick={() =>
+              setExtrasModo("personalizado")
             }
           >
-            Agregar
+            Personalizado
           </button>
         </div>
 
-        {extras.length === 0 ? (
-          <div className="cotizador-vacio">
-            No has agregado toppings ni
-            salsas.
+        {/* TOPPINGS */}
+
+        <div className="cotizador-subseccion">
+          <div className="cotizador-seccion-header">
+            <div>
+              <h4>Toppings</h4>
+
+              <p>
+                Cantidad de toppings que se
+                entregan por cada envase.
+              </p>
+            </div>
           </div>
-        ) : (
-          <div className="cotizador-items">
-            {extras.map(
-              (
-                extra,
-                indice
-              ) => {
-                const producto =
-                  productosExtras.find(
-                    (
-                      productoActual
-                    ) =>
-                      String(
-                        productoActual.id
-                      ) ===
-                      String(
-                        extra.productoId
-                      )
-                  );
 
-                const cantidadPorciones =
-                  Number(
-                    extra.cantidad
-                  );
+          <div className="cotizador-form-grid">
+            <div className="cotizador-field">
+              <label htmlFor="toppingsPorEnvase">
+                Cantidad de toppings por
+                envase
+              </label>
 
-                const cantidadPorPorcion =
-                  Number(
-                    producto?.cantidadPorPorcion
-                  );
+              <input
+                id="toppingsPorEnvase"
+                type="number"
+                min="0"
+                value={toppingsPorEnvase}
+                onChange={(e) =>
+                  setToppingsPorEnvase(
+                    Number(e.target.value)
+                  )
+                }
+                placeholder="Ej. 2"
+              />
 
-                const cantidadTotal =
-                  calcularCantidadPorciones(
-                    producto,
-                    cantidadPorciones
-                  );
+              <small>
+                Coloca 0 si la venta no lleva
+                toppings.
+              </small>
+            </div>
+          </div>
 
-                const costo =
-                  producto
-                    ? calcularCostoPorciones(
-                        producto,
-                        cantidadPorciones
-                      )
-                    : 0;
-
-                return (
-                  <div
-                    className="cotizador-item"
-                    key={indice}
-                  >
-                    <div className="cotizador-field">
-                      <label>
-                        Topping o salsa
-                      </label>
-
-                      <select
-                        value={
-                          extra.productoId
-                        }
-                        onChange={(e) =>
-                          seleccionarExtra(
-                            indice,
-                            e.target.value
-                          )
-                        }
-                      >
-                        <option value="">
-                          Selecciona
-                        </option>
-
-                        {productosExtras.map(
-                          (
-                            productoActual
-                          ) => (
-                            <option
-                              key={
-                                productoActual.id
-                              }
-                              value={
-                                productoActual.id
-                              }
-                            >
-                              {
-                                productoActual.nombre
-                              }
-                              {" - "}
-                              {
-                                productoActual.tipo
-                              }
-                            </option>
-                          )
-                        )}
-                      </select>
-                    </div>
-
-                    <div className="cotizador-field">
-                      <label>
-                        Cantidad de porciones
-                      </label>
-
-                      <input
-                        type="number"
-                        min="1"
-                        step="1"
-                        value={
-                          extra.cantidad
-                        }
-                        onChange={(e) =>
-                          cambiarExtra(
-                            indice,
-                            "cantidad",
-                            e.target.value
-                          )
-                        }
-                      />
-                    </div>
-
-                    <div className="cotizador-field">
-                      <label>
-                        Cantidad por porción
-                      </label>
-
-                      <input
-                        type="text"
-                        readOnly
-                        value={
-                          producto &&
-                          Number.isFinite(
-                            cantidadPorPorcion
-                          )
-                            ? `${cantidadPorPorcion} ${
-                                producto.unidadPorPorcion ||
-                                ""
-                              }`
-                            : ""
-                        }
-                      />
-                    </div>
-
-                    <div className="cotizador-field">
-                      <label>
-                        Consumo total
-                      </label>
-
-                      <input
-                        type="text"
-                        readOnly
-                        value={
-                          producto &&
-                          cantidadTotal > 0
-                            ? `${cantidadTotal} ${
-                                producto.unidadPorPorcion ||
-                                ""
-                              }`
-                            : ""
-                        }
-                      />
-                    </div>
-
-                    <div className="cotizador-field">
-                      <label>
-                        Costo
-                      </label>
-
-                      <input
-                        type="text"
-                        readOnly
-                        value={
-                          producto
-                            ? `₡${costo.toFixed(
-                                2
-                              )}`
-                            : ""
-                        }
-                      />
-                    </div>
-
-                    <button
-                      type="button"
-                      className="btn-eliminar-item"
-                      onClick={() =>
-                        eliminarExtra(
-                          indice
-                        )
-                      }
-                    >
-                      Eliminar
-                    </button>
+          {extrasModo === "personalizado" &&
+            toppingsPorEnvase > 0 && (
+              <>
+                <div className="cotizador-seccion-header">
+                  <div>
+                    <h4>
+                      Toppings seleccionados
+                    </h4>
                   </div>
-                );
-              }
+
+                  <button
+                    type="button"
+                    className="btn-agregar-extra"
+                    onClick={agregarTopping}
+                  >
+                    Agregar topping
+                  </button>
+                </div>
+
+                <div className="cotizador-items">
+                  {toppingsSeleccionados.length ===
+                    0 && (
+                    <div className="cotizador-vacio">
+                      No has seleccionado
+                      toppings.
+                    </div>
+                  )}
+
+                  {toppingsSeleccionados.map(
+                    (productoId, index) => (
+                      <div
+                        className="cotizador-item"
+                        key={index}
+                      >
+                        <div className="cotizador-field">
+                          <label>
+                            Topping
+                          </label>
+
+                          <select
+                            value={productoId}
+                            onChange={(e) =>
+                              cambiarTopping(
+                                index,
+                                e.target.value
+                              )
+                            }
+                          >
+                            <option value="">
+                              Selecciona un
+                              topping
+                            </option>
+
+                            {toppings.map(
+                              (producto) => (
+                                <option
+                                  key={
+                                    producto.id
+                                  }
+                                  value={
+                                    producto.id
+                                  }
+                                >
+                                  {
+                                    producto.nombre
+                                  }
+                                </option>
+                              )
+                            )}
+                          </select>
+                        </div>
+
+                        <button
+                          type="button"
+                          className="btn-eliminar-item"
+                          onClick={() =>
+                            eliminarTopping(
+                              index
+                            )
+                          }
+                        >
+                          Eliminar
+                        </button>
+                      </div>
+                    )
+                  )}
+                </div>
+              </>
             )}
+        </div>
+
+        {/* SALSAS */}
+
+        <div className="cotizador-subseccion">
+          <div className="cotizador-seccion-header">
+            <div>
+              <h4>Salsas</h4>
+
+              <p>
+                Cantidad de salsas que se
+                entregan por cada envase.
+              </p>
+            </div>
           </div>
-        )}
+
+          <div className="cotizador-form-grid">
+            <div className="cotizador-field">
+              <label htmlFor="salsasPorEnvase">
+                Cantidad de salsas por envase
+              </label>
+
+              <input
+                id="salsasPorEnvase"
+                type="number"
+                min="0"
+                value={salsasPorEnvase}
+                onChange={(e) =>
+                  setSalsasPorEnvase(
+                    Number(e.target.value)
+                  )
+                }
+                placeholder="Ej. 2"
+              />
+
+              <small>
+                Coloca 0 si la venta no lleva
+                salsas.
+              </small>
+            </div>
+          </div>
+
+          {extrasModo === "personalizado" &&
+            salsasPorEnvase > 0 && (
+              <>
+                <div className="cotizador-seccion-header">
+                  <div>
+                    <h4>
+                      Salsas seleccionadas
+                    </h4>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="btn-agregar-extra"
+                    onClick={agregarSalsa}
+                  >
+                    Agregar salsa
+                  </button>
+                </div>
+
+                <div className="cotizador-items">
+                  {salsasSeleccionadas.length ===
+                    0 && (
+                    <div className="cotizador-vacio">
+                      No has seleccionado
+                      salsas.
+                    </div>
+                  )}
+
+                  {salsasSeleccionadas.map(
+                    (productoId, index) => (
+                      <div
+                        className="cotizador-item"
+                        key={index}
+                      >
+                        <div className="cotizador-field">
+                          <label>
+                            Salsa
+                          </label>
+
+                          <select
+                            value={productoId}
+                            onChange={(e) =>
+                              cambiarSalsa(
+                                index,
+                                e.target.value
+                              )
+                            }
+                          >
+                            <option value="">
+                              Selecciona una
+                              salsa
+                            </option>
+
+                            {salsas.map(
+                              (producto) => (
+                                <option
+                                  key={
+                                    producto.id
+                                  }
+                                  value={
+                                    producto.id
+                                  }
+                                >
+                                  {
+                                    producto.nombre
+                                  }
+                                </option>
+                              )
+                            )}
+                          </select>
+                        </div>
+
+                        <button
+                          type="button"
+                          className="btn-eliminar-item"
+                          onClick={() =>
+                            eliminarSalsa(
+                              index
+                            )
+                          }
+                        >
+                          Eliminar
+                        </button>
+                      </div>
+                    )
+                  )}
+                </div>
+              </>
+            )}
+        </div>
+
+        {/* RESUMEN EXTRAS */}
+
+        <div className="cotizador-resumen-extra">
+          <div>
+            <span>
+              Costo de toppings total
+            </span>
+
+            <strong>
+              ₡{costoToppings.toFixed(2)}
+            </strong>
+          </div>
+
+          <div>
+            <span>
+              Costo de toppings por envase
+            </span>
+
+            <strong>
+              ₡{costoToppingsPorEnvase.toFixed(2)}
+            </strong>
+          </div>
+
+          <div>
+            <span>
+              Costo de salsas total
+            </span>
+
+            <strong>
+              ₡{costoSalsas.toFixed(2)}
+            </strong>
+          </div>
+
+          <div>
+            <span>
+              Costo de salsas por envase
+            </span>
+
+            <strong>
+              ₡{costoSalsasPorEnvase.toFixed(2)}
+            </strong>
+          </div>
+
+          <div>
+            <span>
+              Total extras
+            </span>
+
+            <strong>
+              ₡{costoExtras.toFixed(2)}
+            </strong>
+          </div>
+
+          <div>
+            <span>
+              Total extras por envase
+            </span>
+
+            <strong>
+              ₡{costoExtrasPorEnvase.toFixed(2)}
+            </strong>
+          </div>
+        </div>
       </section>
 
       {/* INSUMOS */}
@@ -981,42 +1042,63 @@ function CotizadorForm({
       <section className="cotizador-seccion">
         <div className="cotizador-seccion-header">
           <div>
-            <h3>
-              Insumos
-            </h3>
+            <h3>Insumos</h3>
 
             <p>
-              Agrega cajas, bolsas, servilletas,
-              cubiertos u otros materiales.
+              Agrega los materiales necesarios
+              para preparar cada envase.
             </p>
           </div>
 
           <button
             type="button"
             className="btn-agregar-extra"
-            onClick={
-              agregarInsumo
-            }
+            onClick={agregarInsumo}
           >
-            Agregar
+            Agregar insumo
           </button>
         </div>
 
-        {insumosSeleccionados.length ===
-        0 ? (
-          <div className="cotizador-vacio">
-            No has agregado insumos.
-          </div>
-        ) : (
-          <div className="cotizador-items">
-            {insumosSeleccionados.map(
-              (
-                item,
-                indice
-              ) => (
+        <div className="cotizador-items">
+          {insumosSeleccionados.length === 0 && (
+            <div className="cotizador-vacio">
+              No has agregado insumos.
+            </div>
+          )}
+
+          {insumosSeleccionados.map(
+            (item, index) => {
+              const insumoSeleccionado =
+                insumos.find(
+                  (insumo) =>
+                    String(insumo.id) ===
+                    String(item.insumoId)
+                );
+
+              const cantidadPorEnvase =
+                Number(
+                  item.cantidadPorEnvase
+                ) || 0;
+
+              const cantidadTotal =
+                cantidadPorEnvase *
+                cantidadAVender;
+
+              const costoUnitario =
+                insumoSeleccionado
+                  ? obtenerCostoUnitarioInsumo(
+                      insumoSeleccionado
+                    )
+                  : 0;
+
+              const costoTotal =
+                costoUnitario *
+                cantidadTotal;
+
+              return (
                 <div
                   className="cotizador-item"
-                  key={indice}
+                  key={index}
                 >
                   <div className="cotizador-field">
                     <label>
@@ -1024,34 +1106,26 @@ function CotizadorForm({
                     </label>
 
                     <select
-                      value={
-                        item.insumoId
-                      }
+                      value={item.insumoId}
                       onChange={(e) =>
                         cambiarInsumo(
-                          indice,
+                          index,
                           "insumoId",
                           e.target.value
                         )
                       }
                     >
                       <option value="">
-                        Selecciona
+                        Selecciona un insumo
                       </option>
 
                       {insumos.map(
                         (insumo) => (
                           <option
-                            key={
-                              insumo.id
-                            }
-                            value={
-                              insumo.id
-                            }
+                            key={insumo.id}
+                            value={insumo.id}
                           >
-                            {
-                              insumo.nombre
-                            }
+                            {insumo.nombre}
                           </option>
                         )
                       )}
@@ -1060,23 +1134,61 @@ function CotizadorForm({
 
                   <div className="cotizador-field">
                     <label>
-                      Cantidad
+                      Cantidad por envase
                     </label>
 
                     <input
                       type="number"
-                      min="0.01"
-                      step="any"
+                      min="1"
+                      step="1"
                       value={
-                        item.cantidad
+                        item.cantidadPorEnvase
                       }
                       onChange={(e) =>
                         cambiarInsumo(
-                          indice,
-                          "cantidad",
+                          index,
+                          "cantidadPorEnvase",
                           e.target.value
                         )
                       }
+                      placeholder="Ej. 2"
+                    />
+
+                    <small>
+                      Cantidad que necesita
+                      cada envase.
+                    </small>
+                  </div>
+
+                  <div className="cotizador-field">
+                    <label>
+                      Cantidad total
+                    </label>
+
+                    <input
+                      type="number"
+                      value={cantidadTotal}
+                      readOnly
+                    />
+
+                    <small>
+                      {cantidadPorEnvase} ×{" "}
+                      {cantidadAVender}{" "}
+                      envases
+                    </small>
+                  </div>
+
+                  <div className="cotizador-field">
+                    <label>
+                      Costo
+                    </label>
+
+                    <input
+                      type="text"
+                      value={`₡${costoTotal.toFixed(
+                        2
+                      )}`}
+                      readOnly
                     />
                   </div>
 
@@ -1084,18 +1196,38 @@ function CotizadorForm({
                     type="button"
                     className="btn-eliminar-item"
                     onClick={() =>
-                      eliminarInsumo(
-                        indice
-                      )
+                      eliminarInsumo(index)
                     }
                   >
                     Eliminar
                   </button>
                 </div>
-              )
-            )}
+              );
+            }
+          )}
+        </div>
+
+        <div className="cotizador-resumen-extra">
+          <div>
+            <span>
+              Costo de insumos total
+            </span>
+
+            <strong>
+              ₡{costoInsumos.toFixed(2)}
+            </strong>
           </div>
-        )}
+
+          <div>
+            <span>
+              Costo de insumos por envase
+            </span>
+
+            <strong>
+              ₡{costoInsumosPorEnvase.toFixed(2)}
+            </strong>
+          </div>
+        </div>
       </section>
 
       {/* COSTOS ADICIONALES */}
@@ -1103,13 +1235,11 @@ function CotizadorForm({
       <section className="cotizador-seccion">
         <div className="cotizador-seccion-header">
           <div>
-            <h3>
-              Costos adicionales
-            </h3>
+            <h3>Costos adicionales</h3>
 
             <p>
-              Define la mano de obra y el margen
-              de ganancia.
+              Agrega la mano de obra y define
+              el margen de ganancia.
             </p>
           </div>
         </div>
@@ -1125,15 +1255,16 @@ function CotizadorForm({
               name="manoObra"
               type="number"
               min="0"
-              step="0.01"
-              value={
-                formulario.manoObra
-              }
-              onChange={
-                cambiarFormulario
-              }
-              placeholder="₡0"
+              value={formulario.manoObra}
+              onChange={handleChange}
+              placeholder="Ej. 6875"
             />
+
+            <small>
+              Por ahora se ingresa manualmente.
+              Luego lo calcularemos según
+              tiempo y costo por hora.
+            </small>
           </div>
 
           <div className="cotizador-field">
@@ -1146,15 +1277,14 @@ function CotizadorForm({
               name="margen"
               type="number"
               min="0"
-              max="99.99"
-              step="0.01"
-              value={
-                formulario.margen
-              }
-              onChange={
-                cambiarFormulario
-              }
+              value={formulario.margen}
+              onChange={handleChange}
             />
+
+            <small>
+              Ej.: 30 significa un 30% de
+              ganancia sobre el costo.
+            </small>
           </div>
         </div>
       </section>
@@ -1162,9 +1292,17 @@ function CotizadorForm({
       {/* RESUMEN */}
 
       <section className="cotizador-resumen">
-        <h3>
-          Resumen de costos
-        </h3>
+        <h3>Resumen de la cotización</h3>
+
+        <div className="cotizador-resumen-linea">
+          <span>
+            Total de productos
+          </span>
+
+          <strong>
+            {cantidadTotalProductos}
+          </strong>
+        </div>
 
         <div className="cotizador-resumen-linea">
           <span>
@@ -1172,10 +1310,27 @@ function CotizadorForm({
           </span>
 
           <strong>
-            ₡
-            {calculos.costoReceta.toFixed(
-              2
-            )}
+            ₡{costoReceta.toFixed(2)}
+          </strong>
+        </div>
+
+        <div className="cotizador-resumen-linea">
+          <span>
+            Toppings por envase
+          </span>
+
+          <strong>
+            ₡{costoToppingsPorEnvase.toFixed(2)}
+          </strong>
+        </div>
+
+        <div className="cotizador-resumen-linea">
+          <span>
+            Salsas por envase
+          </span>
+
+          <strong>
+            ₡{costoSalsasPorEnvase.toFixed(2)}
           </strong>
         </div>
 
@@ -1185,23 +1340,27 @@ function CotizadorForm({
           </span>
 
           <strong>
-            ₡
-            {calculos.costoExtras.toFixed(
-              2
-            )}
+            ₡{costoExtras.toFixed(2)}
           </strong>
         </div>
 
         <div className="cotizador-resumen-linea">
           <span>
-            Insumos
+            Costo de insumos total
           </span>
 
           <strong>
-            ₡
-            {calculos.costoInsumos.toFixed(
-              2
-            )}
+            ₡{costoInsumos.toFixed(2)}
+          </strong>
+        </div>
+
+        <div className="cotizador-resumen-linea">
+          <span>
+            Costo de insumos por envase
+          </span>
+
+          <strong>
+            ₡{costoInsumosPorEnvase.toFixed(2)}
           </strong>
         </div>
 
@@ -1211,10 +1370,7 @@ function CotizadorForm({
           </span>
 
           <strong>
-            ₡
-            {calculos.manoObra.toFixed(
-              2
-            )}
+            ₡{manoObra.toFixed(2)}
           </strong>
         </div>
 
@@ -1224,23 +1380,27 @@ function CotizadorForm({
           </span>
 
           <strong>
-            ₡
-            {calculos.costoTotal.toFixed(
-              2
-            )}
+            ₡{costoTotal.toFixed(2)}
           </strong>
         </div>
 
         <div className="cotizador-precio">
           <span>
-            Precio sugerido
+            Precio sugerido por envase
           </span>
 
           <strong>
-            ₡
-            {calculos.precioSugerido.toFixed(
-              2
-            )}
+            ₡{precioPorUnidadVenta.toFixed(2)}
+          </strong>
+        </div>
+
+        <div className="cotizador-resumen-linea">
+          <span>
+            Precio total sugerido
+          </span>
+
+          <strong>
+            ₡{precioSugerido.toFixed(2)}
           </strong>
         </div>
       </section>
@@ -1251,12 +1411,8 @@ function CotizadorForm({
         <button
           type="button"
           className="cotizador-btn-cancelar"
-          onClick={
-            onCancelar
-          }
-          disabled={
-            guardando
-          }
+          onClick={onCancelar}
+          disabled={guardando}
         >
           Cancelar
         </button>
@@ -1264,9 +1420,7 @@ function CotizadorForm({
         <button
           type="submit"
           className="cotizador-btn-guardar"
-          disabled={
-            guardando
-          }
+          disabled={guardando}
         >
           {guardando
             ? "Guardando..."

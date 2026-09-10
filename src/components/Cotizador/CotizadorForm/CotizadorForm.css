@@ -25,7 +25,9 @@
   font-size: 15px;
 }
 
-/* ERROR */
+/* =========================================================
+   ERROR
+   ========================================================= */
 
 .cotizador-form-error {
   margin-bottom: 24px;
@@ -37,11 +39,13 @@
   font-size: 14px;
 }
 
-/* GRID PRINCIPAL */
+/* =========================================================
+   GRID PRINCIPAL
+   ========================================================= */
 
-.cotizador-form-grid {
+.cotizador-form > .cotizador-form-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
@@ -88,10 +92,18 @@
   cursor: default;
 }
 
-/* SECCIONES */
+.cotizador-field small {
+  color: #766b82;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* =========================================================
+   SECCIONES
+   ========================================================= */
 
 .cotizador-seccion {
-  margin-top: 32px;
+  margin-top: 28px;
   padding: 24px;
   border: 1px solid #e5deed;
   border-radius: 14px;
@@ -103,13 +115,19 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 }
 
 .cotizador-seccion-header h3 {
   margin: 0 0 6px;
   color: #382d46;
   font-size: 20px;
+}
+
+.cotizador-seccion-header h4 {
+  margin: 0 0 5px;
+  color: #40364d;
+  font-size: 17px;
 }
 
 .cotizador-seccion-header p {
@@ -119,7 +137,9 @@
   line-height: 1.5;
 }
 
-/* BOTÓN AGREGAR */
+/* =========================================================
+   BOTÓN AGREGAR
+   ========================================================= */
 
 .btn-agregar-extra {
   flex-shrink: 0;
@@ -142,10 +162,408 @@
   transform: translateY(-1px);
 }
 
-/* ESTADO VACÍO */
+/* =========================================================
+   TOPPINGS Y SALSAS
+   ========================================================= */
+
+.cotizador-extra-modos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 22px;
+  border-radius: 11px;
+  background: #f0e8f8;
+  box-sizing: border-box;
+}
+
+.cotizador-extra-modo {
+  min-height: 44px;
+  padding: 9px 16px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: #665a75;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cotizador-extra-modo:hover {
+  color: #6d55a8;
+}
+
+.cotizador-extra-modo.activo {
+  border-color: #d8c8f2;
+  background: #ffffff;
+  color: #6d55a8;
+  box-shadow: 0 1px 4px rgba(74, 53, 102, 0.08);
+}
+
+/* =========================================================
+   CONTENEDOR TOPPINGS Y SALSAS
+   ========================================================= */
+
+.cotizador-seccion:has(.cotizador-extra-modos) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 20px;
+  background: #fbf9fd;
+}
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  > .cotizador-seccion-header {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  > .cotizador-extra-modos {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+
+/* =========================================================
+   TARJETAS TOPPINGS / SALSAS
+   ========================================================= */
+
+.cotizador-subseccion {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #e5deed;
+  border-radius: 12px;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.cotizador-subseccion + .cotizador-subseccion {
+  margin-top: 0;
+}
+
+.cotizador-subseccion .cotizador-seccion-header {
+  margin-bottom: 18px;
+}
+
+.cotizador-subseccion .cotizador-form-grid {
+  display: block;
+}
+
+.cotizador-subseccion .cotizador-field {
+  max-width: 375px;
+}
+
+/* =========================================================
+   DESGLOSE TOPPINGS Y SALSAS
+   ========================================================= */
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra {
+  grid-column: 1 / -1;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  column-gap: 28px;
+  row-gap: 0;
+
+  margin-top: 0;
+  padding-top: 4px;
+
+  border-top: 1px solid #ded5e7;
+}
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  min-height: 46px;
+  padding: 10px 4px;
+
+  border-bottom: 1px solid #e8e1ed;
+  box-sizing: border-box;
+}
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  span {
+  color: #6b6076;
+  font-size: 13px;
+}
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  strong {
+  color: #40364d;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Toppings por envase */
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div:nth-child(2) {
+  grid-column: 1;
+  grid-row: 1;
+
+  min-height: 54px;
+  padding: 12px 6px;
+
+  background: #f7f3fb;
+  border-bottom: 1px solid #ddd2e8;
+  border-radius: 7px 7px 0 0;
+}
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div:nth-child(2)
+  span {
+  color: #59466f;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div:nth-child(2)
+  strong {
+  color: #6d55a8;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* Toppings total */
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div:nth-child(1) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+/* Salsas por envase */
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div:nth-child(4) {
+  grid-column: 2;
+  grid-row: 1;
+
+  min-height: 54px;
+  padding: 12px 6px;
+
+  background: #f7f3fb;
+  border-bottom: 1px solid #ddd2e8;
+  border-radius: 7px 7px 0 0;
+}
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div:nth-child(4)
+  span {
+  color: #59466f;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div:nth-child(4)
+  strong {
+  color: #6d55a8;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* Salsas total */
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div:nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* =========================================================
+   TOTALES EXTRAS
+   ========================================================= */
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div:nth-child(6) {
+  grid-column: 1 / -1;
+  grid-row: 3;
+
+  min-height: 58px;
+  margin-top: 16px;
+  padding: 14px 6px;
+
+  border-top: 1px solid #d8cee2;
+  border-bottom: 1px solid #e2d9eb;
+  border-radius: 8px;
+
+  background: #f0e8f8;
+}
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div:nth-child(6)
+  span {
+  color: #4b3b5f;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div:nth-child(6)
+  strong {
+  color: #6d55a8;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Total extras */
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div:nth-child(5) {
+  grid-column: 1 / -1;
+  grid-row: 4;
+
+  min-height: 48px;
+  padding: 10px 6px;
+
+  border-top: none;
+  border-bottom: none;
+  background: transparent;
+}
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div:nth-child(5)
+  span {
+  color: #6b6076;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cotizador-seccion:has(.cotizador-extra-modos)
+  .cotizador-resumen-extra
+  > div:nth-child(5)
+  strong {
+  color: #40364d;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   ITEMS
+   ========================================================= */
+
+.cotizador-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.cotizador-item {
+  display: grid;
+  align-items: start;
+  gap: 14px;
+
+  padding: 18px;
+
+  border: 1px solid #e5deed;
+  border-radius: 12px;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   INSUMOS - DISTRIBUCIÓN
+   ========================================================= */
+
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-item {
+  grid-template-columns:
+    minmax(220px, 1.6fr)
+    minmax(145px, 0.9fr)
+    minmax(145px, 0.9fr)
+    minmax(145px, 0.9fr)
+    minmax(130px, 0.8fr);
+
+  align-items: start;
+}
+
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-item
+  .cotizador-field {
+  width: 100%;
+  min-width: 0;
+}
+
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-item
+  .cotizador-field
+  input,
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-item
+  .cotizador-field
+  select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/*
+  El botón eliminar se alinea con los inputs.
+  Como los otros elementos tienen un label encima
+  del input, dejamos ese mismo espacio superior.
+*/
+
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-item
+  .btn-eliminar-item {
+  align-self: start;
+  width: 100%;
+  min-width: 0;
+  margin-top: 30px;
+}
+
+/*
+  Altura consistente para los campos.
+*/
+
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-item
+  .cotizador-field
+  input,
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-item
+  .cotizador-field
+  select {
+  min-height: 55px;
+}
+
+/* =========================================================
+   ESTADO VACÍO
+   ========================================================= */
 
 .cotizador-vacio {
-  padding: 24px;
+  padding: 20px;
   border: 1px dashed #d7cde2;
   border-radius: 10px;
   background: #ffffff;
@@ -154,52 +572,9 @@
   text-align: center;
 }
 
-/* ITEMS */
-
-.cotizador-items {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.cotizador-item {
-  display: grid;
-  grid-template-columns:
-    minmax(180px, 1.5fr)
-    minmax(130px, 0.8fr)
-    minmax(150px, 1fr)
-    minmax(150px, 1fr)
-    minmax(130px, 0.8fr)
-    auto;
-  align-items: end;
-  gap: 14px;
-  padding: 18px;
-  border: 1px solid #e5deed;
-  border-radius: 12px;
-  background: #ffffff;
-}
-
-/* CAMPOS DE PORCIÓN */
-
-.cotizador-item .cotizador-field:nth-child(2),
-.cotizador-item .cotizador-field:nth-child(3),
-.cotizador-item .cotizador-field:nth-child(4) {
-  min-width: 0;
-}
-
-.cotizador-item .cotizador-field:nth-child(3) input,
-.cotizador-item .cotizador-field:nth-child(4) input {
-  background: #f7f4fb;
-  font-weight: 600;
-}
-
-/* TIPO DEL PRODUCTO */
-
-.cotizador-item .cotizador-field:first-child select {
-  text-transform: none;
-}
-
-/* BOTÓN ELIMINAR */
+/* =========================================================
+   BOTÓN ELIMINAR
+   ========================================================= */
 
 .btn-eliminar-item {
   min-height: 44px;
@@ -223,19 +598,121 @@
   background: #fdf2f2;
 }
 
-/* INSUMOS */
+/* =========================================================
+   INSUMOS - RESUMEN
+   ========================================================= */
 
-.cotizador-seccion:nth-of-type(2) .cotizador-item {
-  grid-template-columns:
-    minmax(220px, 1.5fr)
-    minmax(150px, 0.8fr)
-    auto;
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-resumen-extra {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0;
+  margin-top: 20px;
+  padding-top: 4px;
+
+  border-top: 1px solid #ded5e7;
 }
 
-/* RESUMEN */
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-resumen-extra
+  > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  box-sizing: border-box;
+}
+
+/* Por envase destacado */
+
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-resumen-extra
+  > div:last-child {
+  order: 1;
+
+  min-height: 58px;
+  padding: 14px 6px;
+
+  background: #f0e8f8;
+  border-top: 1px solid #d8cee2;
+  border-bottom: 1px solid #ddd2e8;
+  border-radius: 8px;
+}
+
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-resumen-extra
+  > div:last-child
+  span {
+  color: #4b3b5f;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-resumen-extra
+  > div:last-child
+  strong {
+  color: #6d55a8;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Total debajo */
+
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-resumen-extra
+  > div:first-child {
+  order: 2;
+
+  min-height: 48px;
+  padding: 10px 6px;
+
+  border-bottom: none;
+  background: transparent;
+}
+
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-resumen-extra
+  > div:first-child
+  span {
+  color: #6b6076;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cotizador-seccion:nth-of-type(2)
+  .cotizador-resumen-extra
+  > div:first-child
+  strong {
+  color: #40364d;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   COSTOS ADICIONALES
+   ========================================================= */
+
+.cotizador-seccion:nth-of-type(3)
+  .cotizador-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.cotizador-seccion:nth-of-type(3)
+  .cotizador-field {
+  width: 100%;
+}
+
+/* =========================================================
+   RESUMEN GENERAL
+   ========================================================= */
 
 .cotizador-resumen {
-  margin-top: 32px;
+  margin-top: 28px;
   padding: 24px;
   border: 1px solid #ddd3e8;
   border-radius: 14px;
@@ -253,8 +730,11 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+
   padding: 12px 0;
+
   border-bottom: 1px solid #e8e1ef;
+
   color: #655b70;
   font-size: 14px;
 }
@@ -262,6 +742,7 @@
 .cotizador-resumen-linea strong {
   color: #40364d;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .cotizador-resumen-total {
@@ -269,8 +750,10 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+
   margin-top: 12px;
   padding: 16px 0;
+
   color: #382d46;
   font-size: 17px;
   font-weight: 700;
@@ -286,10 +769,13 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+
   margin-top: 8px;
   padding: 18px;
+
   border-radius: 10px;
   background: #d8c8f2;
+
   color: #4d3b69;
   font-size: 17px;
   font-weight: 700;
@@ -299,7 +785,9 @@
   font-size: 22px;
 }
 
-/* BOTONES DEL FORMULARIO */
+/* =========================================================
+   BOTONES DEL FORMULARIO
+   ========================================================= */
 
 .cotizador-form-actions {
   display: flex;
@@ -313,10 +801,13 @@
   min-height: 44px;
   padding: 10px 22px;
   border-radius: 9px;
+
   font-family: inherit;
   font-size: 14px;
   font-weight: 600;
+
   cursor: pointer;
+
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
@@ -353,58 +844,42 @@
   transform: none;
 }
 
-/* RESPONSIVE */
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
-@media (max-width: 1100px) {
-  .cotizador-item {
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
-  }
-
-  .cotizador-item .btn-eliminar-item {
-    grid-column: span 1;
-  }
-
-  .cotizador-seccion:nth-of-type(2)
-    .cotizador-item {
-    grid-template-columns:
-      minmax(0, 1fr)
-      minmax(150px, 0.6fr)
-      auto;
-  }
-}
-
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .cotizador-form {
     padding: 24px;
   }
 
-  .cotizador-form-grid {
-    grid-template-columns: 1fr;
+  .cotizador-form > .cotizador-form-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .cotizador-seccion {
-    padding: 18px;
+  .cotizador-seccion:has(.cotizador-extra-modos) {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .cotizador-seccion-header {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .cotizador-item,
   .cotizador-seccion:nth-of-type(2)
     .cotizador-item {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
-  .cotizador-item .btn-eliminar-item {
-    grid-column: auto;
+  .cotizador-seccion:nth-of-type(2)
+    .cotizador-item
+    .btn-eliminar-item {
     width: 100%;
+    margin-top: 30px;
+  }
+
+  .cotizador-seccion:nth-of-type(3)
+    .cotizador-form-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 650px) {
   .cotizador-form {
     padding: 18px;
   }
@@ -413,9 +888,71 @@
     font-size: 24px;
   }
 
+  .cotizador-form > .cotizador-form-grid {
+    grid-template-columns: 1fr;
+  }
+
   .cotizador-seccion {
     margin-top: 22px;
     padding: 16px;
+  }
+
+  .cotizador-seccion-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .cotizador-subseccion {
+    padding: 16px;
+  }
+
+  .cotizador-seccion:has(.cotizador-extra-modos) {
+    grid-template-columns: 1fr;
+  }
+
+  .cotizador-seccion:has(.cotizador-extra-modos)
+    .cotizador-resumen-extra {
+    grid-template-columns: 1fr;
+  }
+
+  .cotizador-seccion:has(.cotizador-extra-modos)
+    .cotizador-resumen-extra
+    > div:nth-child(1),
+  .cotizador-seccion:has(.cotizador-extra-modos)
+    .cotizador-resumen-extra
+    > div:nth-child(2),
+  .cotizador-seccion:has(.cotizador-extra-modos)
+    .cotizador-resumen-extra
+    > div:nth-child(3),
+  .cotizador-seccion:has(.cotizador-extra-modos)
+    .cotizador-resumen-extra
+    > div:nth-child(4),
+  .cotizador-seccion:has(.cotizador-extra-modos)
+    .cotizador-resumen-extra
+    > div:nth-child(5),
+  .cotizador-seccion:has(.cotizador-extra-modos)
+    .cotizador-resumen-extra
+    > div:nth-child(6) {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .cotizador-item,
+  .cotizador-seccion:nth-of-type(2)
+    .cotizador-item {
+    grid-template-columns: 1fr;
+  }
+
+  .cotizador-seccion:nth-of-type(2)
+    .cotizador-item
+    .btn-eliminar-item {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .cotizador-seccion:nth-of-type(3)
+    .cotizador-form-grid {
+    grid-template-columns: 1fr;
   }
 
   .cotizador-form-actions {

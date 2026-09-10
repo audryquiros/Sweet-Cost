@@ -192,6 +192,19 @@
       "cantidadPorPorcion": null,
       "unidadPorPorcion": null,
       "id": "pin-dXS_Hl4"
+    },
+    {
+      "nombre": "Marshmallows",
+      "marca": "Angelitos",
+      "tipo": "topping",
+      "cantidadPresentaciones": 1,
+      "cantidadPorPresentacion": 300,
+      "unidad": "g",
+      "precioPorPresentacion": 975,
+      "densidad": null,
+      "cantidadPorPorcion": 10,
+      "unidadPorPorcion": "g",
+      "id": "udZBkAMCcZs"
     }
   ],
   "insumos": [
@@ -273,89 +286,54 @@
   ],
   "cotizaciones": [
     {
-      "nombre": "Caja de mini donas",
+      "nombre": "Combo del dia del niño",
       "recetaId": "Iw41VSxxpIk",
       "recetaNombre": "Mini donas",
-      "cantidad": 10,
-      "extras": [
-        {
-          "productoId": "zWCpc_HqChM",
-          "nombre": "Chocolate",
-          "tipo": "topping",
-          "cantidadPorciones": 1,
-          "cantidadPorPorcion": 10,
-          "unidadPorPorcion": "g",
-          "cantidadUtilizada": 10,
-          "unidad": "g",
-          "costo": 97.47
-        },
-        {
-          "productoId": "trvSKhMtj3o",
-          "nombre": "Galleta original",
-          "tipo": "topping",
-          "cantidadPorciones": 1,
-          "cantidadPorPorcion": 10,
-          "unidadPorPorcion": "g",
-          "cantidadUtilizada": 10,
-          "unidad": "g",
-          "costo": 55.56
-        },
-        {
-          "productoId": "vFP4wgfJSPk",
-          "nombre": "Lluvia de colores",
-          "tipo": "topping",
-          "cantidadPorciones": 1,
-          "cantidadPorPorcion": 10,
-          "unidadPorPorcion": "g",
-          "cantidadUtilizada": 10,
-          "unidad": "g",
-          "costo": 20
-        },
-        {
-          "productoId": "dLjIJ1M1-gw",
-          "nombre": "Sirope de chocolate",
-          "tipo": "salsa",
-          "cantidadPorciones": 1,
-          "cantidadPorPorcion": 15,
-          "unidadPorPorcion": "g",
-          "cantidadUtilizada": 15,
-          "unidad": "g",
-          "costo": 30.88
-        }
-      ],
+      "cantidadAVender": 15,
+      "unidadesIncluidas": 10,
+      "cantidadTotalProductos": 150,
+      "extrasModo": "estandar",
+      "toppings": [],
+      "salsas": [],
+      "toppingsEstandar": 2,
+      "salsasEstandar": 2,
+      "toppingsPorEnvase": 2,
+      "salsasPorEnvase": 2,
+      "extras": [],
       "insumos": [
         {
           "insumoId": "-_NDPxfEJ3M",
-          "nombre": "Contenedor Biodegradable",
-          "cantidad": 1,
-          "unidad": "unidad",
-          "costo": 165
+          "cantidadPorEnvase": 1,
+          "cantidadTotal": 15
         },
         {
           "insumoId": "5YxIMLmkmOE",
-          "nombre": "Envase Souffle con tapa 3.25 oz",
-          "cantidad": 3,
-          "unidad": "unidad",
-          "costo": 144
+          "cantidadPorEnvase": 2,
+          "cantidadTotal": 30
         },
         {
           "insumoId": "P3TNtweyFtw",
-          "nombre": "Envase Souffle con tapa 10 oz",
-          "cantidad": 3,
-          "unidad": "unidad",
-          "costo": 72
+          "cantidadPorEnvase": 2,
+          "cantidadTotal": 30
         }
       ],
-      "manoObra": 2500,
-      "margen": 15,
-      "costoReceta": 172.06,
-      "costoExtras": 203.9,
-      "costoInsumos": 381,
-      "costoProduccion": 756.96,
-      "costoTotal": 3256.96,
-      "precioSugerido": 3831.72,
-      "fecha": "2026-09-10T01:34:20.933Z",
-      "id": "03V_PAMkMZA"
+      "manoObra": 5000,
+      "margen": 30,
+      "costoReceta": 2580.9000000000005,
+      "costoToppings": 2468.5245681252936,
+      "costoToppingsPorEnvase": 164.56830454168625,
+      "costoSalsas": 2713.235294117647,
+      "costoSalsasPorEnvase": 180.88235294117646,
+      "costoExtras": 5181.7598622429405,
+      "costoExtrasPorEnvase": 345.4506574828627,
+      "costoInsumos": 4635,
+      "costoInsumosPorEnvase": 309,
+      "costoProduccion": 12397.659862242941,
+      "costoTotal": 17397.65986224294,
+      "precioSugerido": 22616.957820915824,
+      "precioPorUnidadVenta": 1507.797188061055,
+      "fecha": "2026-09-10T05:19:33.801Z",
+      "id": "uLtb1lnK_7A"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

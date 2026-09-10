@@ -88,6 +88,118 @@ const masaEnGramos = {
   lb: 453.592,
 };
 
+/*
+ * Convierte una cantidad escrita como decimal,
+ * fracción o número mixto a un número.
+ *
+ * Ejemplos:
+ * "1"     -> 1
+ * "1.5"   -> 1.5
+ * "1,5"   -> 1.5
+ * "1/2"   -> 0.5
+ * "3/4"   -> 0.75
+ * "1 1/2" -> 1.5
+ * "2 1/4" -> 2.25
+ */
+const interpretarCantidad = (valor) => {
+  if (typeof valor !== "string") {
+    return null;
+  }
+
+  const texto = valor
+    .trim()
+    .replace(",", ".");
+
+  if (!texto) {
+    return null;
+  }
+
+  /*
+   * Número decimal o entero.
+   * Ejemplos: 1, 1.5, 0.25
+   */
+  if (/^\d*\.?\d+$/.test(texto)) {
+    const numero = Number(texto);
+
+    return Number.isFinite(numero)
+      ? numero
+      : null;
+  }
+
+  /*
+   * Fracción simple.
+   * Ejemplos: 1/2, 1/3, 3/4
+   */
+  const fraccionSimple =
+    texto.match(/^(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)$/);
+
+  if (fraccionSimple) {
+    const numerador = Number(
+      fraccionSimple[1]
+    );
+
+    const denominador = Number(
+      fraccionSimple[2]
+    );
+
+    if (
+      !Number.isFinite(numerador) ||
+      !Number.isFinite(denominador) ||
+      denominador === 0
+    ) {
+      return null;
+    }
+
+    const resultado =
+      numerador / denominador;
+
+    return Number.isFinite(resultado)
+      ? resultado
+      : null;
+  }
+
+  /*
+   * Número mixto.
+   * Ejemplos: 1 1/2, 2 1/4, 3 3/4
+   */
+  const numeroMixto =
+    texto.match(
+      /^(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)$/
+    );
+
+  if (numeroMixto) {
+    const entero = Number(
+      numeroMixto[1]
+    );
+
+    const numerador = Number(
+      numeroMixto[2]
+    );
+
+    const denominador = Number(
+      numeroMixto[3]
+    );
+
+    if (
+      !Number.isFinite(entero) ||
+      !Number.isFinite(numerador) ||
+      !Number.isFinite(denominador) ||
+      denominador === 0
+    ) {
+      return null;
+    }
+
+    const resultado =
+      entero + numerador / denominador;
+
+    return Number.isFinite(resultado)
+      ? resultado
+      : null;
+  }
+
+  return null;
+};
+
 function ConversorMedidas({
   productoIdInicial = "",
   unidadDestinoBase = "",
@@ -245,16 +357,15 @@ function ConversorMedidas({
 
     setResultado(null);
 
-    const valor = Number(
-      cantidad
-    );
+    const valor =
+      interpretarCantidad(cantidad);
 
     if (
-      !Number.isFinite(valor) ||
+      valor === null ||
       valor < 0
     ) {
       setError(
-        "Ingresa una cantidad válida mayor o igual a cero."
+        "Ingresa una cantidad válida. Puedes usar números, fracciones como 1/2 o números mixtos como 1 1/2."
       );
 
       return;
@@ -519,16 +630,22 @@ function ConversorMedidas({
 
           <input
             id="conversor-cantidad"
-            type="number"
+            type="text"
+            inputMode="decimal"
             value={cantidad}
             onChange={(e) =>
               setCantidad(
                 e.target.value
               )
             }
-            min="0"
-            step="any"
+            placeholder="Ej. 1/2 o 1 1/2"
           />
+
+          <small>
+            Puedes usar números decimales,
+            fracciones como 1/2 o números
+            mixtos como 1 1/2.
+          </small>
         </div>
 
         <div className="conversor-group">

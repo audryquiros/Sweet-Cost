@@ -51,6 +51,8 @@
   transform: scale(0.98);
 }
 
+/* MENSAJES */
+
 .productos-error {
   max-width: 1100px;
   margin: 0 auto 20px;
@@ -62,12 +64,31 @@
   font-size: 14px;
 }
 
+.productos-exito {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto 20px;
+  padding: 12px 16px;
+  background: #e8f3ea;
+  border: 1px solid #b9d6bd;
+  border-radius: 8px;
+  color: #4f7d57;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* LISTADO */
+
 .productos-lista {
   max-width: 1100px;
   margin: 40px auto 0;
 }
 
 .productos-lista-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 25px;
   margin-bottom: 20px;
 }
 
@@ -83,21 +104,60 @@
   font-size: 13px;
 }
 
-.productos-exito {
-  width: 100%;
-  max-width: 1100px;
+/* FILTROS */
 
-  margin: 0 auto 20px;
+.productos-filtros {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid #e3dce9;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
 
-  padding: 12px 16px;
+.productos-filtros button {
+  min-width: 82px;
+  padding: 8px 13px;
+  border: none;
+  border-radius: 7px;
+  background-color: transparent;
+  color: #776d7d;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
 
-  background: #e8f3ea;
-  border: 1px solid #b9d6bd;
-  border-radius: 8px;
+.productos-filtros button:hover {
+  background-color: #f6f1fb;
+  color: #6d4c8d;
+}
 
-  color: #4f7d57;
+.productos-filtros button.filtro-activo {
+  background-color: #d8c8f2;
+  color: #6d4c8d;
+}
 
-  font-size: 14px;
+/* RESPONSIVE */
+
+@media (max-width: 850px) {
+  .productos-lista-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .productos-filtros {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .productos-filtros button {
+    flex: 1;
+  }
 }
 
 @media (max-width: 700px) {
@@ -116,5 +176,14 @@
 
   .productos-header h1 {
     font-size: 27px;
+  }
+
+  .productos-filtros {
+    overflow-x: auto;
+  }
+
+  .productos-filtros button {
+    flex: 0 0 auto;
+    white-space: nowrap;
   }
 }

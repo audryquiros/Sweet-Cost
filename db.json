@@ -9,6 +9,8 @@
       "unidad": "g",
       "precioPorPresentacion": 2500,
       "densidad": null,
+      "cantidadPorPorcion": 10,
+      "unidadPorPorcion": "g",
       "id": "zWCpc_HqChM"
     },
     {
@@ -20,6 +22,8 @@
       "unidad": "g",
       "precioPorPresentacion": 1000,
       "densidad": null,
+      "cantidadPorPorcion": 10,
+      "unidadPorPorcion": "g",
       "id": "gp8ejuoDbD8"
     },
     {
@@ -31,6 +35,8 @@
       "unidad": "g",
       "precioPorPresentacion": 1000,
       "densidad": null,
+      "cantidadPorPorcion": 10,
+      "unidadPorPorcion": "g",
       "id": "w1ys_g8hh08"
     },
     {
@@ -61,52 +67,159 @@
       "nombre": "Sirope de chocolate",
       "marca": "Brooks",
       "tipo": "salsa",
-      "cantidad": 680,
+      "cantidadPresentaciones": 1,
+      "cantidadPorPresentacion": 680,
       "unidad": "g",
-      "precio": 1398,
+      "precioPorPresentacion": 1400,
       "densidad": null,
-      "cantidadPorUso": 30,
-      "unidadPorUso": "g",
+      "cantidadPorPorcion": 15,
+      "unidadPorPorcion": "g",
       "id": "dLjIJ1M1-gw"
     },
     {
       "nombre": "Leche condensada sabor a fresa",
       "marca": "Angelito",
       "tipo": "salsa",
-      "cantidad": 20,
+      "cantidadPresentaciones": 5,
+      "cantidadPorPresentacion": 15,
       "unidad": "g",
-      "precio": 150,
+      "precioPorPresentacion": 150,
       "densidad": null,
-      "cantidadPorUso": 20,
-      "unidadPorUso": "g",
+      "cantidadPorPorcion": 15,
+      "unidadPorPorcion": "g",
       "id": "JRospH4vjBk"
     },
     {
       "nombre": "Lluvia de colores",
       "marca": "Sin Marca",
       "tipo": "topping",
-      "cantidad": 150,
+      "cantidadPresentaciones": 6,
+      "cantidadPorPresentacion": 125,
       "unidad": "g",
-      "precio": 250,
+      "precioPorPresentacion": 250,
       "densidad": null,
-      "cantidadPorUso": 25,
-      "unidadPorUso": "g",
+      "cantidadPorPorcion": 10,
+      "unidadPorPorcion": "g",
       "id": "vFP4wgfJSPk"
     },
     {
       "nombre": "Azucar",
       "marca": "Doña Maria",
       "tipo": "ingrediente",
-      "cantidad": 2,
+      "cantidadPresentaciones": 1,
+      "cantidadPorPresentacion": 2,
       "unidad": "kg",
-      "precio": 1350,
+      "precioPorPresentacion": 1350,
       "densidad": null,
-      "cantidadPorUso": null,
-      "unidadPorUso": null,
+      "cantidadPorPorcion": null,
+      "unidadPorPorcion": null,
       "id": "bJ7xD8Dhk5E"
+    },
+    {
+      "nombre": "Harina",
+      "marca": "Nacarina",
+      "tipo": "ingrediente",
+      "cantidadPresentaciones": 1,
+      "cantidadPorPresentacion": 1000,
+      "unidad": "g",
+      "precioPorPresentacion": 950,
+      "densidad": null,
+      "cantidadPorPorcion": null,
+      "unidadPorPorcion": null,
+      "id": "Zg_nsMuRkfU"
+    },
+    {
+      "nombre": "Aceite",
+      "marca": "Clover",
+      "tipo": "ingrediente",
+      "cantidadPresentaciones": 1,
+      "cantidadPorPresentacion": 1500,
+      "unidad": "l",
+      "precioPorPresentacion": 1500,
+      "densidad": null,
+      "cantidadPorPorcion": null,
+      "unidadPorPorcion": null,
+      "id": "D0c4DnqjR8E"
+    },
+    {
+      "nombre": "Sal",
+      "marca": "Sol",
+      "tipo": "ingrediente",
+      "cantidadPresentaciones": 1,
+      "cantidadPorPresentacion": 500,
+      "unidad": "g",
+      "precioPorPresentacion": 480,
+      "densidad": null,
+      "cantidadPorPorcion": null,
+      "unidadPorPorcion": null,
+      "id": "J9z07iFFvyg"
+    },
+    {
+      "nombre": "Polvo para hornear",
+      "marca": "Great Value",
+      "tipo": "ingrediente",
+      "cantidadPresentaciones": 1,
+      "cantidadPorPresentacion": 100,
+      "unidad": "g",
+      "precioPorPresentacion": 560,
+      "densidad": null,
+      "cantidadPorPorcion": null,
+      "unidadPorPorcion": null,
+      "id": "Axb9NUPB30U"
+    },
+    {
+      "nombre": "Esencia de Vainilla",
+      "marca": "Vainol",
+      "tipo": "ingrediente",
+      "cantidadPresentaciones": 1,
+      "cantidadPorPresentacion": 120,
+      "unidad": "ml",
+      "precioPorPresentacion": 1400,
+      "densidad": null,
+      "cantidadPorPorcion": null,
+      "unidadPorPorcion": null,
+      "id": "j6xQoGytqFU"
+    },
+    {
+      "nombre": "Huevo de Gallina",
+      "marca": "Don Cristobal",
+      "tipo": "ingrediente",
+      "cantidadPresentaciones": 1,
+      "cantidadPorPresentacion": 15,
+      "unidad": "unidad",
+      "precioPorPresentacion": 1500,
+      "densidad": null,
+      "cantidadPorPorcion": null,
+      "unidadPorPorcion": null,
+      "id": "pin-dXS_Hl4"
     }
   ],
-  "insumos": [],
+  "insumos": [
+    {
+      "nombre": "Contenedor Biodegradable",
+      "presentacion": "1000 ml",
+      "cantidad": 15,
+      "unidad": "unidad",
+      "precio": 2475,
+      "id": "-_NDPxfEJ3M"
+    },
+    {
+      "nombre": "Envase Souffle con tapa 3.25 oz",
+      "presentacion": "3.25 oz",
+      "cantidad": 25,
+      "unidad": "unidad",
+      "precio": 1200,
+      "id": "5YxIMLmkmOE"
+    },
+    {
+      "nombre": "Envase Souffle con tapa 10 oz",
+      "presentacion": "10 oz",
+      "cantidad": 25,
+      "unidad": "unidad",
+      "precio": 600,
+      "id": "P3TNtweyFtw"
+    }
+  ],
   "recetas": [
     {
       "nombre": "Mini donas",
@@ -115,14 +228,135 @@
       "unidadRendimiento": "unidad",
       "ingredientes": [
         {
-          "productoId": "pTZdUzw7lEs",
-          "cantidad": 127.2,
+          "productoId": "Zg_nsMuRkfU",
+          "cantidad": 249.6,
           "unidad": "g"
+        },
+        {
+          "productoId": "z_p5SDXDWLA",
+          "cantidad": 240,
+          "unidad": "ml"
+        },
+        {
+          "productoId": "bJ7xD8Dhk5E",
+          "cantidad": 204,
+          "unidad": "g"
+        },
+        {
+          "productoId": "D0c4DnqjR8E",
+          "cantidad": 60,
+          "unidad": "ml"
+        },
+        {
+          "productoId": "J9z07iFFvyg",
+          "cantidad": 3,
+          "unidad": "g"
+        },
+        {
+          "productoId": "Axb9NUPB30U",
+          "cantidad": 13.5,
+          "unidad": "g"
+        },
+        {
+          "productoId": "j6xQoGytqFU",
+          "cantidad": 15,
+          "unidad": "ml"
+        },
+        {
+          "productoId": "pin-dXS_Hl4",
+          "cantidad": 2,
+          "unidad": "unidad"
         }
       ],
-      "id": "n-PPVNHZmc4"
+      "id": "Iw41VSxxpIk"
     }
   ],
-  "cotizaciones": [],
+  "cotizaciones": [
+    {
+      "nombre": "Caja de mini donas",
+      "recetaId": "Iw41VSxxpIk",
+      "recetaNombre": "Mini donas",
+      "cantidad": 10,
+      "extras": [
+        {
+          "productoId": "zWCpc_HqChM",
+          "nombre": "Chocolate",
+          "tipo": "topping",
+          "cantidadPorciones": 1,
+          "cantidadPorPorcion": 10,
+          "unidadPorPorcion": "g",
+          "cantidadUtilizada": 10,
+          "unidad": "g",
+          "costo": 97.47
+        },
+        {
+          "productoId": "trvSKhMtj3o",
+          "nombre": "Galleta original",
+          "tipo": "topping",
+          "cantidadPorciones": 1,
+          "cantidadPorPorcion": 10,
+          "unidadPorPorcion": "g",
+          "cantidadUtilizada": 10,
+          "unidad": "g",
+          "costo": 55.56
+        },
+        {
+          "productoId": "vFP4wgfJSPk",
+          "nombre": "Lluvia de colores",
+          "tipo": "topping",
+          "cantidadPorciones": 1,
+          "cantidadPorPorcion": 10,
+          "unidadPorPorcion": "g",
+          "cantidadUtilizada": 10,
+          "unidad": "g",
+          "costo": 20
+        },
+        {
+          "productoId": "dLjIJ1M1-gw",
+          "nombre": "Sirope de chocolate",
+          "tipo": "salsa",
+          "cantidadPorciones": 1,
+          "cantidadPorPorcion": 15,
+          "unidadPorPorcion": "g",
+          "cantidadUtilizada": 15,
+          "unidad": "g",
+          "costo": 30.88
+        }
+      ],
+      "insumos": [
+        {
+          "insumoId": "-_NDPxfEJ3M",
+          "nombre": "Contenedor Biodegradable",
+          "cantidad": 1,
+          "unidad": "unidad",
+          "costo": 165
+        },
+        {
+          "insumoId": "5YxIMLmkmOE",
+          "nombre": "Envase Souffle con tapa 3.25 oz",
+          "cantidad": 3,
+          "unidad": "unidad",
+          "costo": 144
+        },
+        {
+          "insumoId": "P3TNtweyFtw",
+          "nombre": "Envase Souffle con tapa 10 oz",
+          "cantidad": 3,
+          "unidad": "unidad",
+          "costo": 72
+        }
+      ],
+      "manoObra": 2500,
+      "margen": 15,
+      "costoReceta": 172.06,
+      "costoExtras": 203.9,
+      "costoInsumos": 381,
+      "costoProduccion": 756.96,
+      "costoTotal": 3256.96,
+      "precioSugerido": 3831.72,
+      "fecha": "2026-09-10T01:34:20.933Z",
+      "id": "03V_PAMkMZA"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

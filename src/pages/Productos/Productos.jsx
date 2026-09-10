@@ -28,6 +28,9 @@ function Productos() {
 
   const [error, setError] = useState("");
 
+  const [filtroTipo, setFiltroTipo] =
+    useState("todos");
+
   useEffect(() => {
     cargarProductos();
   }, []);
@@ -116,12 +119,15 @@ function Productos() {
     try {
       setError("");
 
-      await deleteProducto(productoAEliminar.id);
+      await deleteProducto(
+        productoAEliminar.id
+      );
 
       setProductos((productosActuales) =>
         productosActuales.filter(
           (producto) =>
-            producto.id !== productoAEliminar.id
+            producto.id !==
+            productoAEliminar.id
         )
       );
 
@@ -143,15 +149,65 @@ function Productos() {
     setProductoAEliminar(null);
   };
 
+  /*
+   * FILTRAR PRODUCTOS
+   */
+
+  const productosFiltrados =
+    filtroTipo === "todos"
+      ? productos
+      : productos.filter(
+          (producto) =>
+            producto.tipo === filtroTipo
+        );
+
+  /*
+   * TEXTO DEL CONTADOR
+   */
+
+  const obtenerTextoCantidad = () => {
+    const cantidad =
+      productosFiltrados.length;
+
+    if (filtroTipo === "todos") {
+      return cantidad === 1
+        ? "1 producto"
+        : `${cantidad} productos`;
+    }
+
+    if (filtroTipo === "ingrediente") {
+      return cantidad === 1
+        ? "1 ingrediente"
+        : `${cantidad} ingredientes`;
+    }
+
+    if (filtroTipo === "topping") {
+      return cantidad === 1
+        ? "1 topping"
+        : `${cantidad} toppings`;
+    }
+
+    if (filtroTipo === "salsa") {
+      return cantidad === 1
+        ? "1 salsa"
+        : `${cantidad} salsas`;
+    }
+
+    return `${cantidad} productos`;
+  };
+
   return (
     <main className="productos-page">
+
+      {/* ENCABEZADO */}
+
       <header className="productos-header">
         <div>
           <h1>Productos</h1>
 
           <p>
-            Administra los ingredientes, toppings y salsas
-            utilizados en tu negocio.
+            Administra los ingredientes, toppings y
+            salsas utilizados en tu negocio.
           </p>
         </div>
 
@@ -159,12 +215,16 @@ function Productos() {
           <button
             type="button"
             className="btn-agregar-producto"
-            onClick={handleMostrarFormulario}
+            onClick={
+              handleMostrarFormulario
+            }
           >
             Agregar producto
           </button>
         )}
       </header>
+
+      {/* MENSAJE DE ÉXITO */}
 
       {mensajeExito && (
         <div className="productos-exito">
@@ -172,16 +232,22 @@ function Productos() {
         </div>
       )}
 
+      {/* ERROR */}
+
       {error && (
         <div className="productos-error">
           {error}
         </div>
       )}
 
+      {/* FORMULARIO */}
+
       {mostrarFormulario && (
         <ProductosForm
           producto={productoSeleccionado}
-          onProductoCreado={handleProductoCreado}
+          onProductoCreado={
+            handleProductoCreado
+          }
           onProductoActualizado={
             handleProductoActualizado
           }
@@ -189,34 +255,109 @@ function Productos() {
         />
       )}
 
+      {/* LISTADO */}
+
       <section className="productos-lista">
+
         <div className="productos-lista-header">
+
           <div>
-            <h2>Productos registrados</h2>
+            <h2>Listado</h2>
 
             <p>
-              {productos.length}{" "}
-              {productos.length === 1
-                ? "producto registrado"
-                : "productos registrados"}
+              Mostrando{" "}
+              {obtenerTextoCantidad()}
             </p>
           </div>
+
+          {/* FILTROS */}
+
+          <div className="productos-filtros">
+
+            <button
+              type="button"
+              className={
+                filtroTipo === "todos"
+                  ? "filtro-activo"
+                  : ""
+              }
+              onClick={() =>
+                setFiltroTipo("todos")
+              }
+            >
+              Todos
+            </button>
+
+            <button
+              type="button"
+              className={
+                filtroTipo === "ingrediente"
+                  ? "filtro-activo"
+                  : ""
+              }
+              onClick={() =>
+                setFiltroTipo(
+                  "ingrediente"
+                )
+              }
+            >
+              Ingredientes
+            </button>
+
+            <button
+              type="button"
+              className={
+                filtroTipo === "topping"
+                  ? "filtro-activo"
+                  : ""
+              }
+              onClick={() =>
+                setFiltroTipo("topping")
+              }
+            >
+              Toppings
+            </button>
+
+            <button
+              type="button"
+              className={
+                filtroTipo === "salsa"
+                  ? "filtro-activo"
+                  : ""
+              }
+              onClick={() =>
+                setFiltroTipo("salsa")
+              }
+            >
+              Salsas
+            </button>
+
+          </div>
+
         </div>
 
         <ProductoList
-          productos={productos}
+          productos={productosFiltrados}
           onEditar={handleEditar}
           onEliminar={handleEliminar}
         />
+
       </section>
+
+      {/* CONFIRMACIÓN DE ELIMINACIÓN */}
 
       {productoAEliminar && (
         <Confirmacion
           mensaje={`¿Estás seguro de que deseas eliminar el producto "${productoAEliminar.nombre}"? Esta acción no se puede deshacer.`}
-          onConfirmar={confirmarEliminacion}
-          onCancelar={cancelarEliminacion}
+          onConfirmar={
+            confirmarEliminacion
+          }
+          onCancelar={
+            cancelarEliminacion
+          }
         />
       )}
+
     </main>
   );
 }

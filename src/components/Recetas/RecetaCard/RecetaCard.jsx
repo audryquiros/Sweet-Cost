@@ -40,12 +40,32 @@ function RecetaCard({
     return "unidad";
   };
 
+  const obtenerNombreCategoria = () => {
+    if (receta.categoria === "reposteria") {
+      return "Repostería";
+    }
+
+    if (receta.categoria === "comida") {
+      return "Comida";
+    }
+
+    if (receta.categoria === "bebidas") {
+      return "Bebidas";
+    }
+
+    return "General";
+  };
+
   return (
     <>
       <article className="receta-card">
         <div className="receta-card-header">
           <div className="receta-card-title">
             <h3>{receta.nombre}</h3>
+
+            <span className="receta-categoria">
+              {obtenerNombreCategoria()}
+            </span>
 
             {receta.descripcion && (
               <p className="receta-descripcion">
@@ -141,6 +161,10 @@ function RecetaCard({
                 <h3>Ingredientes</h3>
 
                 <p>{receta.nombre}</p>
+
+                <span className="modal-receta-categoria">
+                  {obtenerNombreCategoria()}
+                </span>
               </div>
 
               <button

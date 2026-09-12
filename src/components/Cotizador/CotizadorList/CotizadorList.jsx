@@ -4,6 +4,7 @@ import "./CotizadorList.css";
 
 function CotizadorList({
   cotizaciones,
+  insumos,
   onEliminar,
 }) {
   if (cotizaciones.length === 0) {
@@ -28,6 +29,7 @@ function CotizadorList({
           <CotizadorCard
             key={cotizacion.id}
             cotizacion={cotizacion}
+            insumos={insumos}
             onEliminar={onEliminar}
           />
         )

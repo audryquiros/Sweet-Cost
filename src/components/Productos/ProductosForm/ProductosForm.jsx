@@ -5,22 +5,13 @@ import {
   updateProducto,
 } from "../../../services/productoServices";
 
-import {
-  obtenerUnidadBase,
-  calcularCantidadTotalProducto,
-  calcularTotalCompraProducto,
-  calcularCantidadTotalBase,
-  calcularCostoUnitario,
-  obtenerUnidadCosto,
-  obtenerNombreUnidad,
-} from "../../../utils/calculosCostos";
-
 import "./ProductosForm.css";
 
 const FORMULARIO_INICIAL = {
   nombre: "",
   marca: "",
   tipo: "ingrediente",
+  categoria: "general",
   cantidadPresentaciones: "",
   cantidadPorPresentacion: "",
   unidad: "g",
@@ -45,33 +36,23 @@ function ProductosForm({
 
   useEffect(() => {
     if (producto) {
-      const unidad = producto.unidad || "g";
-
       setFormulario({
         nombre: producto.nombre || "",
         marca: producto.marca || "",
         tipo: producto.tipo || "ingrediente",
-
+        categoria: producto.categoria || "general",
         cantidadPresentaciones:
           producto.cantidadPresentaciones ?? "",
-
         cantidadPorPresentacion:
           producto.cantidadPorPresentacion ?? "",
-
-        unidad,
-
+        unidad: producto.unidad || "g",
         precioPorPresentacion:
           producto.precioPorPresentacion ?? "",
-
-        densidad:
-          producto.densidad ?? "",
-
+        densidad: producto.densidad ?? "",
         cantidadPorPorcion:
           producto.cantidadPorPorcion ?? "",
-
         unidadPorPorcion:
-          producto.unidadPorPorcion ||
-          obtenerUnidadBase(unidad),
+          producto.unidadPorPorcion || "g",
       });
     } else {
       setFormulario(FORMULARIO_INICIAL);
@@ -83,83 +64,80 @@ function ProductosForm({
   const manejarCambio = (e) => {
     const { name, value } = e.target;
 
-    setFormulario((actual) => {
-      const nuevoFormulario = {
-        ...actual,
-        [name]: value,
-      };
-
-      /*
-       * Si cambia el tipo de producto:
-       *
-       * Ingrediente:
-       * no necesita cantidad por porción.
-       *
-       * Topping:
-       * utiliza la unidad base del producto.
-       *
-       * Salsa:
-       * utiliza la unidad base del producto.
-       */
-      if (name === "tipo") {
-        if (value === "ingrediente") {
-          nuevoFormulario.cantidadPorPorcion = "";
-          nuevoFormulario.unidadPorPorcion = "";
-        } else {
-          nuevoFormulario.unidadPorPorcion =
-            obtenerUnidadBase(
-              nuevoFormulario.unidad
-            );
-        }
-      }
-
-      /*
-       * Si cambia la unidad del producto y es
-       * topping o salsa, actualizamos la unidad
-       * de la porción automáticamente.
-       */
-      if (
-        name === "unidad" &&
-        nuevoFormulario.tipo !== "ingrediente"
-      ) {
-        nuevoFormulario.unidadPorPorcion =
-          obtenerUnidadBase(value);
-      }
-
-      return nuevoFormulario;
-    });
+    setFormulario((actual) => ({
+      ...actual,
+      [name]: value,
+    }));
   };
 
+  const cantidadPresentaciones =
+    Number(formulario.cantidadPresentaciones) || 0;
+
+  const cantidadPorPresentacion =
+    Number(formulario.cantidadPorPresentacion) || 0;
+
+  const precioPorPresentacion =
+    Number(formulario.precioPorPresentacion) || 0;
+
   const cantidadTotal =
-    calcularCantidadTotalProducto(formulario);
+    cantidadPresentaciones *
+    cantidadPorPresentacion;
 
   const totalCompra =
-    calcularTotalCompraProducto(formulario);
+    cantidadPresentaciones *
+    precioPorPresentacion;
 
-  const cantidadTotalBase =
-    calcularCantidadTotalBase(formulario);
+  const obtenerUnidadCosto = () => {
+    if (formulario.unidad === "kg") {
+      return "g";
+    }
+
+    if (formulario.unidad === "l") {
+      return "ml";
+    }
+
+    if (formulario.unidad === "docena") {
+      return "unidad";
+    }
+
+    return formulario.unidad;
+  };
+
+  const obtenerCantidadBase = () => {
+    if (formulario.unidad === "kg") {
+      return cantidadTotal * 1000;
+    }
+
+    if (formulario.unidad === "l") {
+      return cantidadTotal * 1000;
+    }
+
+    if (formulario.unidad === "docena") {
+      return cantidadTotal * 12;
+    }
+
+    return cantidadTotal;
+  };
+
+  const cantidadBase = obtenerCantidadBase();
 
   const costoUnitario =
-    calcularCostoUnitario(formulario);
-
-  const unidadCosto =
-    obtenerUnidadCosto(formulario.unidad);
-
-  const nombreUnidadCosto =
-    obtenerNombreUnidad(unidadCosto);
+    cantidadBase > 0
+      ? totalCompra / cantidadBase
+      : 0;
 
   const manejarSubmit = async (e) => {
     e.preventDefault();
 
     setError("");
 
-    const cantidadPresentaciones =
+    const cantidadPresentacionesNumero =
       Number(formulario.cantidadPresentaciones);
 
-    const cantidadPorPresentacion =
+    const cantidadPorPresentacionNumero =
       Number(formulario.cantidadPorPresentacion);
 
-    const precioPorPresentacion =
+    const precioPorPresentacionNumero =
       Number(formulario.precioPorPresentacion);
 
     if (!formulario.nombre.trim()) {
@@ -169,9 +147,18 @@ function ProductosForm({
       return;
     }
 
+    if (!formulario.categoria) {
+      setError(
+        "Selecciona una categoría."
+      );
+      return;
+    }
+
     if (
-      !Number.isFinite(cantidadPresentaciones) ||
-      cantidadPresentaciones <= 0
+      !Number.isFinite(
+        cantidadPresentacionesNumero
+      ) ||
+      cantidadPresentacionesNumero <= 0
     ) {
       setError(
         "La cantidad de presentaciones debe ser mayor que cero."
@@ -180,8 +167,10 @@ function ProductosForm({
     }
 
     if (
-      !Number.isFinite(cantidadPorPresentacion) ||
-      cantidadPorPresentacion <= 0
+      !Number.isFinite(
+        cantidadPorPresentacionNumero
+      ) ||
+      cantidadPorPresentacionNumero <= 0
     ) {
       setError(
         "El contenido por presentación debe ser mayor que cero."
@@ -190,8 +179,10 @@ function ProductosForm({
     }
 
     if (
-      !Number.isFinite(precioPorPresentacion) ||
-      precioPorPresentacion < 0
+      !Number.isFinite(
+        precioPorPresentacionNumero
+      ) ||
+      precioPorPresentacionNumero < 0
     ) {
       setError(
         "Ingresa un precio por presentación válido."
@@ -214,22 +205,22 @@ function ProductosForm({
       return;
     }
 
-    /*
-     * Solo toppings y salsas necesitan
-     * una cantidad por porción.
-     */
-    if (formulario.tipo !== "ingrediente") {
-      const cantidadPorPorcion =
-        Number(formulario.cantidadPorPorcion);
+    const esPorcion =
+      formulario.tipo === "topping" ||
+      formulario.tipo === "salsa";
 
+    const cantidadPorPorcionNumero =
+      Number(formulario.cantidadPorPorcion);
+
+    if (esPorcion) {
       if (
-        !Number.isFinite(cantidadPorPorcion) ||
-        cantidadPorPorcion <= 0
+        !Number.isFinite(
+          cantidadPorPorcionNumero
+        ) ||
+        cantidadPorPorcionNumero <= 0
       ) {
         setError(
-          formulario.tipo === "topping"
-            ? "La cantidad por topping debe ser mayor que cero."
-            : "La cantidad por salsa debe ser mayor que cero."
+          "La cantidad por porción debe ser mayor que cero para toppings y salsas."
         );
         return;
       }
@@ -243,22 +234,29 @@ function ProductosForm({
     }
 
     const productoData = {
-      nombre: formulario.nombre.trim(),
+      nombre:
+        formulario.nombre.trim(),
 
-      marca: formulario.marca.trim(),
+      marca:
+        formulario.marca.trim(),
 
-      tipo: formulario.tipo,
+      tipo:
+        formulario.tipo,
+
+      categoria:
+        formulario.categoria,
 
       cantidadPresentaciones:
-        cantidadPresentaciones,
+        cantidadPresentacionesNumero,
 
       cantidadPorPresentacion:
-        cantidadPorPresentacion,
+        cantidadPorPresentacionNumero,
 
-      unidad: formulario.unidad,
+      unidad:
+        formulario.unidad,
 
       precioPorPresentacion:
-        precioPorPresentacion,
+        precioPorPresentacionNumero,
 
       densidad:
         formulario.densidad === ""
@@ -266,16 +264,14 @@ function ProductosForm({
           : Number(formulario.densidad),
 
       cantidadPorPorcion:
-        formulario.tipo === "ingrediente"
-          ? null
-          : Number(
-              formulario.cantidadPorPorcion
-            ),
+        esPorcion
+          ? cantidadPorPorcionNumero
+          : null,
 
       unidadPorPorcion:
-        formulario.tipo === "ingrediente"
-          ? null
-          : formulario.unidadPorPorcion,
+        esPorcion
+          ? formulario.unidadPorPorcion
+          : null,
     };
 
     setGuardando(true);
@@ -301,7 +297,9 @@ function ProductosForm({
           productoCreado
         );
 
-        setFormulario(FORMULARIO_INICIAL);
+        setFormulario(
+          FORMULARIO_INICIAL
+        );
       }
     } catch (error) {
       setError(
@@ -313,16 +311,6 @@ function ProductosForm({
     }
   };
 
-  const textoPorcion =
-    formulario.tipo === "topping"
-      ? "Cantidad por topping"
-      : "Cantidad por salsa";
-
-  const textoDescripcionPorcion =
-    formulario.tipo === "topping"
-      ? "Cantidad de producto que se entrega en cada topping."
-      : "Cantidad de producto que se entrega en cada salsa.";
-
   return (
     <form
       className="productos-form"
@@ -332,11 +320,12 @@ function ProductosForm({
         <h2>
           {producto
             ? "Editar producto"
-            : "Agregar producto"}
+            : "Registrar producto"}
         </h2>
 
         <p>
-          Registra un ingrediente, topping o salsa.
+          Registra la presentación en la que
+          compraste el producto.
         </p>
       </div>
 
@@ -347,9 +336,6 @@ function ProductosForm({
       )}
 
       <div className="productos-form-grid">
-
-        {/* NOMBRE */}
-
         <div className="form-group">
           <label htmlFor="nombre">
             Nombre del producto
@@ -366,8 +352,6 @@ function ProductosForm({
           />
         </div>
 
-        {/* MARCA */}
-
         <div className="form-group">
           <label htmlFor="marca">
             Marca
@@ -383,11 +367,9 @@ function ProductosForm({
           />
         </div>
 
-        {/* TIPO */}
-
         <div className="form-group">
           <label htmlFor="tipo">
-            Tipo de producto
+            Tipo
           </label>
 
           <select
@@ -410,11 +392,44 @@ function ProductosForm({
           </select>
         </div>
 
-        {/* PRESENTACIONES */}
+        <div className="form-group">
+          <label htmlFor="categoria">
+            Categoría
+          </label>
+
+          <select
+            id="categoria"
+            name="categoria"
+            value={formulario.categoria}
+            onChange={manejarCambio}
+            required
+          >
+            <option value="general">
+              General
+            </option>
+
+            <option value="reposteria">
+              Repostería
+            </option>
+
+            <option value="comida">
+              Comida
+            </option>
+
+            <option value="bebidas">
+              Bebidas
+            </option>
+          </select>
+
+          <small>
+            Indica en qué área del negocio se
+            utiliza este producto.
+          </small>
+        </div>
 
         <div className="form-group">
           <label htmlFor="cantidadPresentaciones">
-            Presentaciones compradas
+            Cantidad de presentaciones
           </label>
 
           <input
@@ -433,12 +448,10 @@ function ProductosForm({
 
           <small>
             Cantidad de paquetes, bolsas,
-            botellas, cajas u otras
-            presentaciones que compraste.
+            tubos, botellas, cajas, etc.
+            que compraste.
           </small>
         </div>
-
-        {/* CONTENIDO */}
 
         <div className="form-group">
           <label htmlFor="cantidadPorPresentacion">
@@ -456,7 +469,7 @@ function ProductosForm({
                 formulario.cantidadPorPresentacion
               }
               onChange={manejarCambio}
-              placeholder="Ej. 500"
+              placeholder="Ej. 135"
               required
             />
 
@@ -492,12 +505,11 @@ function ProductosForm({
           </div>
 
           <small>
-            Ej. 135 g por tubo, 500 ml por
-            botella o 12 unidades por cartón.
+            Ej.: 135 g por tubo, 500 ml por
+            botella, 2.5 kg por bolsa o 12
+            unidades por cartón.
           </small>
         </div>
-
-        {/* PRECIO */}
 
         <div className="form-group">
           <label htmlFor="precioPorPresentacion">
@@ -517,85 +529,16 @@ function ProductosForm({
                 formulario.precioPorPresentacion
               }
               onChange={manejarCambio}
-              placeholder="Ej. 2500"
+              placeholder="Ej. 1200"
               required
             />
           </div>
-
-          <small>
-            Precio de una sola presentación.
-          </small>
         </div>
-
-        {/* PORCIÓN */}
-
-        {formulario.tipo !== "ingrediente" && (
-          <div className="producto-porcion">
-            <div className="form-group">
-              <label htmlFor="cantidadPorPorcion">
-                {textoPorcion}
-              </label>
-
-              <div className="input-with-unit">
-                <input
-                  id="cantidadPorPorcion"
-                  name="cantidadPorPorcion"
-                  type="number"
-                  min="0"
-                  step="any"
-                  value={
-                    formulario.cantidadPorPorcion
-                  }
-                  onChange={manejarCambio}
-                  placeholder={
-                    formulario.tipo === "topping"
-                      ? "Ej. 10"
-                      : "Ej. 15"
-                  }
-                  required
-                />
-
-                <select
-                  name="unidadPorPorcion"
-                  value={
-                    formulario.unidadPorPorcion
-                  }
-                  onChange={manejarCambio}
-                >
-                  <option value="g">
-                    g
-                  </option>
-
-                  <option value="kg">
-                    kg
-                  </option>
-
-                  <option value="ml">
-                    ml
-                  </option>
-
-                  <option value="l">
-                    L
-                  </option>
-
-                  <option value="unidad">
-                    unidad
-                  </option>
-                </select>
-              </div>
-
-              <small>
-                {textoDescripcionPorcion}
-              </small>
-            </div>
-          </div>
-        )}
-
-        {/* DENSIDAD */}
 
         <div className="form-group">
           <label htmlFor="densidad">
             Densidad
+
             <span className="campo-opcional">
               Opcional
             </span>
@@ -613,14 +556,81 @@ function ProductosForm({
           />
 
           <small>
-            Se utiliza para conversiones entre
-            gramos y mililitros cuando corresponda.
+            Úsala si necesitas convertir entre
+            volumen y peso.
           </small>
         </div>
 
-      </div>
+        {(formulario.tipo === "topping" ||
+          formulario.tipo === "salsa") && (
+          <div className="form-group">
+            <label htmlFor="cantidadPorPorcion">
+              Cantidad por{" "}
+              {formulario.tipo === "topping"
+                ? "topping"
+                : "salsa"}
+            </label>
 
-      {/* NOTA */}
+            <div className="input-with-unit">
+              <input
+                id="cantidadPorPorcion"
+                name="cantidadPorPorcion"
+                type="number"
+                min="0"
+                step="any"
+                value={
+                  formulario.cantidadPorPorcion
+                }
+                onChange={manejarCambio}
+                placeholder="Ej. 10"
+                required
+              />
+
+              <select
+                name="unidadPorPorcion"
+                value={
+                  formulario.unidadPorPorcion
+                }
+                onChange={manejarCambio}
+              >
+                <option value="g">
+                  g
+                </option>
+
+                <option value="kg">
+                  kg
+                </option>
+
+                <option value="ml">
+                  ml
+                </option>
+
+                <option value="l">
+                  L
+                </option>
+
+                <option value="unidad">
+                  unidad
+                </option>
+
+                <option value="docena">
+                  docena
+                </option>
+              </select>
+            </div>
+
+            <small>
+              Cantidad que se utiliza para una
+              porción de este{" "}
+              {formulario.tipo === "topping"
+                ? "topping"
+                : "salsa"}.
+              {" "}
+              Ej.: 10 g por topping.
+            </small>
+          </div>
+        )}
+      </div>
 
       <div className="productos-form-nota">
         <strong>Importante:</strong>
@@ -640,28 +650,9 @@ function ProductosForm({
           , coloca 2 presentaciones y 135 g por
           presentación.
         </p>
-
-        {formulario.tipo === "topping" && (
-          <p>
-            Para el topping, indica también
-            cuántos gramos se entregan en cada
-            porción.
-          </p>
-        )}
-
-        {formulario.tipo === "salsa" && (
-          <p>
-            Para la salsa, indica también
-            cuántos mililitros se entregan en cada
-            porción.
-          </p>
-        )}
       </div>
 
-      {/* RESUMEN */}
-
       <div className="productos-resumen">
-
         <div className="resumen-item">
           <span>
             Total disponible
@@ -669,14 +660,7 @@ function ProductosForm({
 
           <strong>
             {cantidadTotal > 0
-              ? `${cantidadTotal.toLocaleString(
-                  "es-CR",
-                  {
-                    maximumFractionDigits: 2,
-                  }
-                )} ${obtenerNombreUnidad(
-                  formulario.unidad
-                )}`
+              ? `${cantidadTotal} ${formulario.unidad}`
               : "—"}
           </strong>
         </div>
@@ -701,28 +685,24 @@ function ProductosForm({
 
         <div className="resumen-item">
           <span>
-            Costo por {nombreUnidadCosto}
+            Costo por {obtenerUnidadCosto()}
           </span>
 
           <strong>
-            {cantidadTotalBase > 0
+            {costoUnitario > 0
               ? `₡${costoUnitario.toLocaleString(
                   "es-CR",
                   {
                     minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
+                    maximumFractionDigits: 4,
                   }
-                )} / ${nombreUnidadCosto}`
+                )}`
               : "—"}
           </strong>
         </div>
-
       </div>
 
-      {/* BOTONES */}
-
       <div className="productos-form-acciones">
-
         <button
           type="button"
           className="btn-cancelar"
@@ -741,9 +721,8 @@ function ProductosForm({
             ? "Guardando..."
             : producto
               ? "Guardar cambios"
-              : "Agregar producto"}
+              : "Registrar producto"}
         </button>
-
       </div>
     </form>
   );

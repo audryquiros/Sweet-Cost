@@ -28,7 +28,8 @@ function ProductoCard({
   const nombreUnidadCosto =
     obtenerNombreUnidad(unidadCosto);
 
-  const densidad = Number(producto.densidad);
+  const densidad =
+    Number(producto.densidad);
 
   const esPorcion =
     producto.tipo === "topping" ||
@@ -68,11 +69,27 @@ function ProductoCard({
     );
   };
 
+  const obtenerNombreCategoria = () => {
+    if (producto.categoria === "reposteria") {
+      return "Repostería";
+    }
+
+    if (producto.categoria === "comida") {
+      return "Comida";
+    }
+
+    if (producto.categoria === "bebidas") {
+      return "Bebidas";
+    }
+
+    return "";
+  };
+
+  const nombreCategoria =
+    obtenerNombreCategoria();
+
   return (
     <article className="producto-card">
-
-      {/* ENCABEZADO */}
-
       <div className="producto-card-header">
         <div>
           <h3>{producto.nombre}</h3>
@@ -84,17 +101,22 @@ function ProductoCard({
           )}
         </div>
 
-        <span
-          className={`producto-tipo tipo-${producto.tipo}`}
-        >
-          {producto.tipo}
-        </span>
+        <div className="producto-card-etiquetas">
+          <span
+            className={`producto-tipo tipo-${producto.tipo}`}
+          >
+            {producto.tipo}
+          </span>
+
+          {nombreCategoria && (
+            <span className="producto-categoria">
+              {nombreCategoria}
+            </span>
+          )}
+        </div>
       </div>
 
-      {/* INFORMACIÓN */}
-
       <div className="producto-card-info">
-
         <div className="producto-info-item">
           <span>
             Presentaciones compradas
@@ -166,8 +188,6 @@ function ProductoCard({
           </strong>
         </div>
 
-        {/* COSTO UNITARIO */}
-
         <div className="producto-costo">
           <span>
             Costo por {nombreUnidadCosto}
@@ -185,15 +205,12 @@ function ProductoCard({
           </strong>
         </div>
 
-        {/* CANTIDAD POR TOPPING / SALSA */}
-
         {esPorcion &&
           Number.isFinite(
             cantidadPorPorcion
           ) &&
           cantidadPorPorcion > 0 && (
             <div className="producto-porcion">
-
               <span>
                 Cantidad por {nombrePorcion}
               </span>
@@ -204,11 +221,8 @@ function ProductoCard({
                 )}{" "}
                 {unidadPorcion}
               </strong>
-
             </div>
           )}
-
-        {/* DENSIDAD */}
 
         {producto.densidad !== null &&
           producto.densidad !== undefined &&
@@ -226,13 +240,9 @@ function ProductoCard({
               </strong>
             </div>
           )}
-
       </div>
 
-      {/* ACCIONES */}
-
       <div className="producto-card-actions">
-
         <button
           type="button"
           className="btn-editar"
@@ -252,9 +262,7 @@ function ProductoCard({
         >
           Eliminar
         </button>
-
       </div>
-
     </article>
   );
 }

@@ -4,6 +4,7 @@ import "./CotizadorCard.css";
 
 function CotizadorCard({
   cotizacion,
+  insumos = [],
   onEliminar,
 }) {
   const [mostrarDetalles, setMostrarDetalles] =
@@ -63,7 +64,7 @@ function CotizadorCard({
     ? cotizacion.extras
     : [];
 
-  const insumos = Array.isArray(
+  const insumosCotizacion = Array.isArray(
     cotizacion.insumos
   )
     ? cotizacion.insumos
@@ -555,7 +556,7 @@ function CotizadorCard({
                 Insumos
               </h3>
 
-              {insumos.length > 0 ? (
+              {insumosCotizacion.length > 0 ? (
                 <div className="cotizador-modal-tabla">
                   <div className="cotizador-modal-tabla-header">
                     <span>
@@ -575,7 +576,7 @@ function CotizadorCard({
                     </span>
                   </div>
 
-                  {insumos.map(
+                  {insumosCotizacion.map(
                     (insumo, index) => {
                       const cantidadPorEnvase =
                         Number(
@@ -591,6 +592,18 @@ function CotizadorCard({
                               cantidadAVender
                         );
 
+                      const insumoRegistrado =
+                        insumos.find(
+                          (insumoActual) =>
+                            String(insumoActual.id) ===
+                            String(insumo.insumoId)
+                        );
+
+                      const nombreInsumo =
+                        insumo.nombre ||
+                        insumoRegistrado?.nombre ||
+                        "Insumo";
+
                       return (
                         <div
                           className="cotizador-modal-tabla-fila"
@@ -599,8 +612,7 @@ function CotizadorCard({
                           }
                         >
                           <span>
-                            {insumo.nombre ||
-                              "Insumo"}
+                            {nombreInsumo}
                           </span>
 
                           <span>

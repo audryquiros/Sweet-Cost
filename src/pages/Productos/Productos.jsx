@@ -1,15 +1,59 @@
 import { useEffect, useState } from "react";
 
+import ProductoList from "../../components/Productos/ProductoList/ProductoList";
+
+import ProductosForm from "../../components/Productos/ProductosForm/ProductosForm";
+
 import {
   getProductos,
+  createProducto,
+  updateProducto,
   deleteProducto,
 } from "../../services/productoServices";
 
-import ProductosForm from "../../components/Productos/ProductosForm/ProductosForm";
-import ProductoList from "../../components/Productos/ProductoList/ProductoList";
-import Confirmacion from "../../components/Confirmacion/Confirmacion";
-
 import "./Productos.css";
+
+const CATEGORIAS = [
+  {
+    valor: "todas",
+    nombre: "Todas",
+  },
+  {
+    valor: "general",
+    nombre: "General",
+  },
+  {
+    valor: "reposteria",
+    nombre: "Repostería",
+  },
+  {
+    valor: "comida",
+    nombre: "Comida",
+  },
+  {
+    valor: "bebidas",
+    nombre: "Bebidas",
+  },
+];
+
+const TIPOS = [
+  {
+    valor: "todos",
+    nombre: "Todos",
+  },
+  {
+    valor: "ingrediente",
+    nombre: "Ingredientes",
+  },
+  {
+    valor: "topping",
+    nombre: "Toppings",
+  },
+  {
+    valor: "salsa",
+    nombre: "Salsas",
+  },
+];
 
 function Productos() {
   const [productos, setProductos] = useState([]);
@@ -17,19 +61,29 @@ function Productos() {
   const [mostrarFormulario, setMostrarFormulario] =
     useState(false);
 
-  const [productoSeleccionado, setProductoSeleccionado] =
+  const [productoEditar, setProductoEditar] =
     useState(null);
-
-  const [productoAEliminar, setProductoAEliminar] =
-    useState(null);
-
-  const [mensajeExito, setMensajeExito] =
-    useState("");
-
-  const [error, setError] = useState("");
 
   const [filtroTipo, setFiltroTipo] =
     useState("todos");
+
+  const [filtroCategoria, setFiltroCategoria] =
+    useState("todas");
+
+  const [vista, setVista] =
+    useState("cards");
+
+  const [cargando, setCargando] =
+    useState(true);
+
+  const [error, setError] =
+    useState("");
+
+  /*
+   * =====================================================
+   * CARGAR PRODUCTOS
+   * =====================================================
+   */
 
   useEffect(() => {
     cargarProductos();
@@ -37,46 +91,144 @@ function Productos() {
 
   const cargarProductos = async () => {
     try {
+      setCargando(true);
       setError("");
 
-      const data = await getProductos();
+      const datos = await getProductos();
 
-      setProductos(data);
+      setProductos(
+        Array.isArray(datos)
+          ? datos
+          : []
+      );
     } catch (error) {
-      setError(error.message);
+      console.error(error);
+
+      setError(
+        "No se pudieron cargar los productos."
+      );
+    } finally {
+      setCargando(false);
     }
   };
 
-  const handleMostrarFormulario = () => {
-    setProductoSeleccionado(null);
+  /*
+   * =====================================================
+   * CREAR PRODUCTO
+   * =====================================================
+   */
+
+  const manejarProductoCreado = async (
+    producto
+  ) => {
+    try {
+      const nuevoProducto =
+        await createProducto(producto);
+
+      setProductos((actuales) => [
+        ...actuales,
+        nuevoProducto,
+      ]);
+
+      setMostrarFormulario(false);
+      setProductoEditar(null);
+      setError("");
+    } catch (error) {
+      console.error(error);
+
+      setError(
+        "No se pudo registrar el producto."
+      );
+    }
+  };
+
+  /*
+   * =====================================================
+   * ACTUALIZAR PRODUCTO
+   * =====================================================
+   */
+
+  const manejarProductoActualizado = async (
+    producto
+  ) => {
+    try {
+      const productoActualizado =
+        await updateProducto(
+          producto.id,
+          producto
+        );
+
+      setProductos((actuales) =>
+        actuales.map(
+          (productoActual) =>
+            String(productoActual.id) ===
+            String(producto.id)
+              ? productoActualizado
+              : productoActual
+        )
+      );
+
+      setProductoEditar(null);
+      setMostrarFormulario(false);
+      setError("");
+    } catch (error) {
+      console.error(error);
+
+      setError(
+        "No se pudo actualizar el producto."
+      );
+    }
+  };
+
+  /*
+   * =====================================================
+   * ELIMINAR PRODUCTO
+   * =====================================================
+   */
+
+  const manejarEliminar = async (id) => {
+    const confirmar =
+      window.confirm(
+        "¿Estás seguro de que deseas eliminar este producto?"
+      );
+
+    if (!confirmar) {
+      return;
+    }
+
+    try {
+      setError("");
+
+      await deleteProducto(id);
+
+      setProductos((actuales) =>
+        actuales.filter(
+          (producto) =>
+            String(producto.id) !==
+            String(id)
+        )
+      );
+    } catch (error) {
+      console.error(error);
+
+      setError(
+        "No se pudo eliminar el producto."
+      );
+    }
+  };
+
+  /*
+   * =====================================================
+   * EDITAR PRODUCTO
+   * =====================================================
+   */
+
+  const manejarEditar = (producto) => {
+    setProductoEditar(producto);
+
     setMostrarFormulario(true);
-  };
 
-  const handleCancelar = () => {
-    setProductoSeleccionado(null);
-    setMostrarFormulario(false);
-  };
-
-  const handleProductoCreado = (producto) => {
-    setProductos((productosActuales) => [
-      ...productosActuales,
-      producto,
-    ]);
-
-    setMensajeExito(
-      "Producto agregado correctamente."
-    );
-
-    setMostrarFormulario(false);
-
-    setTimeout(() => {
-      setMensajeExito("");
-    }, 3000);
-  };
-
-  const handleEditar = (producto) => {
-    setProductoSeleccionado(producto);
-    setMostrarFormulario(true);
+    setError("");
 
     window.scrollTo({
       top: 0,
@@ -84,155 +236,79 @@ function Productos() {
     });
   };
 
-  const handleProductoActualizado = (
-    productoActualizado
-  ) => {
-    setProductos((productosActuales) =>
-      productosActuales.map((producto) =>
-        producto.id === productoActualizado.id
-          ? productoActualizado
-          : producto
-      )
-    );
+  /*
+   * =====================================================
+   * CANCELAR FORMULARIO
+   * =====================================================
+   */
 
-    setProductoSeleccionado(null);
+  const manejarCancelarFormulario = () => {
+    setProductoEditar(null);
+
     setMostrarFormulario(false);
 
-    setMensajeExito(
-      "Producto actualizado correctamente."
-    );
-
-    setTimeout(() => {
-      setMensajeExito("");
-    }, 3000);
-  };
-
-  const handleEliminar = (producto) => {
-    setProductoAEliminar(producto);
-  };
-
-  const confirmarEliminacion = async () => {
-    if (!productoAEliminar) {
-      return;
-    }
-
-    try {
-      setError("");
-
-      await deleteProducto(
-        productoAEliminar.id
-      );
-
-      setProductos((productosActuales) =>
-        productosActuales.filter(
-          (producto) =>
-            producto.id !==
-            productoAEliminar.id
-        )
-      );
-
-      setProductoAEliminar(null);
-
-      setMensajeExito(
-        "Producto eliminado correctamente."
-      );
-
-      setTimeout(() => {
-        setMensajeExito("");
-      }, 3000);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  const cancelarEliminacion = () => {
-    setProductoAEliminar(null);
+    setError("");
   };
 
   /*
+   * =====================================================
    * FILTRAR PRODUCTOS
+   * =====================================================
    */
 
   const productosFiltrados =
-    filtroTipo === "todos"
-      ? productos
-      : productos.filter(
-          (producto) =>
-            producto.tipo === filtroTipo
-        );
+    productos.filter((producto) => {
+      const coincideTipo =
+        filtroTipo === "todos" ||
+        producto.tipo === filtroTipo;
 
-  /*
-   * TEXTO DEL CONTADOR
-   */
+      const coincideCategoria =
+        filtroCategoria === "todas" ||
+        producto.categoria ===
+          filtroCategoria;
 
-  const obtenerTextoCantidad = () => {
-    const cantidad =
-      productosFiltrados.length;
-
-    if (filtroTipo === "todos") {
-      return cantidad === 1
-        ? "1 producto"
-        : `${cantidad} productos`;
-    }
-
-    if (filtroTipo === "ingrediente") {
-      return cantidad === 1
-        ? "1 ingrediente"
-        : `${cantidad} ingredientes`;
-    }
-
-    if (filtroTipo === "topping") {
-      return cantidad === 1
-        ? "1 topping"
-        : `${cantidad} toppings`;
-    }
-
-    if (filtroTipo === "salsa") {
-      return cantidad === 1
-        ? "1 salsa"
-        : `${cantidad} salsas`;
-    }
-
-    return `${cantidad} productos`;
-  };
+      return (
+        coincideTipo &&
+        coincideCategoria
+      );
+    });
 
   return (
     <main className="productos-page">
 
-      {/* ENCABEZADO */}
+      {/* =================================================
+          ENCABEZADO
+          ================================================= */}
 
       <header className="productos-header">
         <div>
           <h1>Productos</h1>
 
           <p>
-            Administra los ingredientes, toppings y
-            salsas utilizados en tu negocio.
+            Administra los ingredientes,
+            toppings, salsas y productos
+            utilizados en tu negocio.
           </p>
         </div>
 
         {!mostrarFormulario && (
           <button
             type="button"
-            className="btn-agregar-producto"
-            onClick={
-              handleMostrarFormulario
-            }
+            className="btn-primary"
+            onClick={() => {
+              setProductoEditar(null);
+              setMostrarFormulario(true);
+              setError("");
+            }}
           >
-            Agregar producto
+            Nuevo producto
           </button>
         )}
       </header>
 
-      {/* MENSAJE DE ÉXITO */}
-
-      {mensajeExito && (
-        <div className="productos-exito">
-          {mensajeExito}
-        </div>
-      )}
-
-      {/* ERROR */}
+      {/* =================================================
+          ERROR
+          ================================================= */}
 
       {error && (
         <div className="productos-error">
@@ -240,121 +316,163 @@ function Productos() {
         </div>
       )}
 
-      {/* FORMULARIO */}
+      {/* =================================================
+          FORMULARIO
+
+          Aparece arriba del listado, pero NO
+          oculta los productos.
+          ================================================= */}
 
       {mostrarFormulario && (
-        <ProductosForm
-          producto={productoSeleccionado}
-          onProductoCreado={
-            handleProductoCreado
-          }
-          onProductoActualizado={
-            handleProductoActualizado
-          }
-          onCancelar={handleCancelar}
-        />
+        <div className="productos-form-contenedor">
+          <ProductosForm
+            producto={productoEditar}
+            onProductoCreado={
+              manejarProductoCreado
+            }
+            onProductoActualizado={
+              manejarProductoActualizado
+            }
+            onCancelar={
+              manejarCancelarFormulario
+            }
+          />
+        </div>
       )}
 
-      {/* LISTADO */}
+      {/* =================================================
+          CONTROLES
+          ================================================= */}
 
-      <section className="productos-lista">
+      <div className="productos-controles">
 
-        <div className="productos-lista-header">
+        <div className="productos-filtros">
 
-          <div>
-            <h2>Listado</h2>
+          <div className="productos-filtro">
+            <label htmlFor="filtroCategoria">
+              Categoría
+            </label>
 
-            <p>
-              Mostrando{" "}
-              {obtenerTextoCantidad()}
-            </p>
-          </div>
-
-          {/* FILTROS */}
-
-          <div className="productos-filtros">
-
-            <button
-              type="button"
-              className={
-                filtroTipo === "todos"
-                  ? "filtro-activo"
-                  : ""
-              }
-              onClick={() =>
-                setFiltroTipo("todos")
-              }
-            >
-              Todos
-            </button>
-
-            <button
-              type="button"
-              className={
-                filtroTipo === "ingrediente"
-                  ? "filtro-activo"
-                  : ""
-              }
-              onClick={() =>
-                setFiltroTipo(
-                  "ingrediente"
+            <select
+              id="filtroCategoria"
+              value={filtroCategoria}
+              onChange={(e) =>
+                setFiltroCategoria(
+                  e.target.value
                 )
               }
             >
-              Ingredientes
-            </button>
+              {CATEGORIAS.map(
+                (categoria) => (
+                  <option
+                    key={categoria.valor}
+                    value={categoria.valor}
+                  >
+                    {categoria.nombre}
+                  </option>
+                )
+              )}
+            </select>
+          </div>
 
-            <button
-              type="button"
-              className={
-                filtroTipo === "topping"
-                  ? "filtro-activo"
-                  : ""
-              }
-              onClick={() =>
-                setFiltroTipo("topping")
+          <div className="productos-filtro">
+            <label htmlFor="filtroTipo">
+              Tipo
+            </label>
+
+            <select
+              id="filtroTipo"
+              value={filtroTipo}
+              onChange={(e) =>
+                setFiltroTipo(
+                  e.target.value
+                )
               }
             >
-              Toppings
-            </button>
-
-            <button
-              type="button"
-              className={
-                filtroTipo === "salsa"
-                  ? "filtro-activo"
-                  : ""
-              }
-              onClick={() =>
-                setFiltroTipo("salsa")
-              }
-            >
-              Salsas
-            </button>
-
+              {TIPOS.map((tipo) => (
+                <option
+                  key={tipo.valor}
+                  value={tipo.valor}
+                >
+                  {tipo.nombre}
+                </option>
+              ))}
+            </select>
           </div>
 
         </div>
 
+        {/* =================================================
+            CAMBIO DE VISTA
+            ================================================= */}
+
+        <div
+          className="productos-vista"
+          aria-label="Cambiar vista"
+        >
+          <button
+            type="button"
+            className={
+              vista === "cards"
+                ? "vista-activa"
+                : ""
+            }
+            onClick={() =>
+              setVista("cards")
+            }
+            aria-pressed={
+              vista === "cards"
+            }
+          >
+            Tarjetas
+          </button>
+
+          <button
+            type="button"
+            className={
+              vista === "lista"
+                ? "vista-activa"
+                : ""
+            }
+            onClick={() =>
+              setVista("lista")
+            }
+            aria-pressed={
+              vista === "lista"
+            }
+          >
+            Lista
+          </button>
+        </div>
+      </div>
+
+      {/* =================================================
+          CONTADOR
+          ================================================= */}
+
+      <div className="productos-contador">
+        <span>
+          {productosFiltrados.length}{" "}
+          {productosFiltrados.length === 1
+            ? "producto"
+            : "productos"}
+        </span>
+      </div>
+
+      {/* =================================================
+          LISTADO
+          ================================================= */}
+
+      {cargando ? (
+        <div className="productos-mensaje">
+          Cargando productos...
+        </div>
+      ) : (
         <ProductoList
           productos={productosFiltrados}
-          onEditar={handleEditar}
-          onEliminar={handleEliminar}
-        />
-
-      </section>
-
-      {/* CONFIRMACIÓN DE ELIMINACIÓN */}
-
-      {productoAEliminar && (
-        <Confirmacion
-          mensaje={`¿Estás seguro de que deseas eliminar el producto "${productoAEliminar.nombre}"? Esta acción no se puede deshacer.`}
-          onConfirmar={
-            confirmarEliminacion
-          }
-          onCancelar={
-            cancelarEliminacion
-          }
+          onEditar={manejarEditar}
+          onEliminar={manejarEliminar}
+          vista={vista}
         />
       )}
 

@@ -2,161 +2,388 @@
   min-height: 100vh;
   padding: 40px;
   background-color: #fff9f5;
+  box-sizing: border-box;
 }
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
 
 .productos-header {
   max-width: 1100px;
   margin: 0 auto 30px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 25px;
+}
+
+.productos-header > div {
+  min-width: 0;
 }
 
 .productos-header h1 {
   margin: 0;
+
   color: #352d3a;
+
   font-size: 32px;
+  line-height: 1.2;
 }
 
 .productos-header p {
   max-width: 600px;
+
   margin: 8px 0 0;
+
   color: #776d7d;
+
   font-size: 15px;
   line-height: 1.5;
 }
 
-.btn-agregar-producto {
+/* =========================================================
+   BOTÓN NUEVO PRODUCTO
+   ========================================================= */
+
+.btn-primary {
   flex-shrink: 0;
-  padding: 12px 20px;
+
+  min-height: 44px;
+
+  padding: 0 20px;
+
   border: none;
-  border-radius: 8px;
+  border-radius: 9px;
+
   background-color: #9b7ede;
   color: #ffffff;
+
   font-family: inherit;
   font-size: 14px;
   font-weight: 600;
+
   cursor: pointer;
+
   transition:
     background-color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.btn-agregar-producto:hover {
+.btn-primary:hover {
   background-color: #6d4c8d;
+
+  box-shadow: 0 4px 12px rgba(109, 76, 141, 0.18);
 }
 
-.btn-agregar-producto:active {
+.btn-primary:active {
   transform: scale(0.98);
 }
 
-/* MENSAJES */
+/* =========================================================
+   MENSAJES
+   ========================================================= */
 
-.productos-error {
-  max-width: 1100px;
-  margin: 0 auto 20px;
-  padding: 12px 15px;
-  border: 1px solid #e8baba;
-  border-radius: 8px;
-  background-color: #fff1f1;
-  color: #c95c5c;
-  font-size: 14px;
-}
-
+.productos-error,
 .productos-exito {
   width: 100%;
   max-width: 1100px;
+
   margin: 0 auto 20px;
+
   padding: 12px 16px;
-  background: #e8f3ea;
-  border: 1px solid #b9d6bd;
+
   border-radius: 8px;
-  color: #4f7d57;
+
   font-size: 14px;
+
   box-sizing: border-box;
 }
 
-/* LISTADO */
+.productos-error {
+  border: 1px solid #e8baba;
 
-.productos-lista {
-  max-width: 1100px;
-  margin: 40px auto 0;
+  background-color: #fff1f1;
+
+  color: #c95c5c;
 }
 
-.productos-lista-header {
+.productos-exito {
+  background: #e8f3ea;
+
+  border: 1px solid #b9d6bd;
+
+  color: #4f7d57;
+}
+
+/* =========================================================
+   CONTROLES
+   ========================================================= */
+
+.productos-controles {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 30px auto 0;
+
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 25px;
-  margin-bottom: 20px;
+
+  gap: 20px;
 }
 
-.productos-lista-header h2 {
-  margin: 0;
-  color: #6d4c8d;
-  font-size: 22px;
-}
-
-.productos-lista-header p {
-  margin: 5px 0 0;
-  color: #776d7d;
-  font-size: 13px;
-}
-
-/* FILTROS */
+/* =========================================================
+   FILTROS
+   ========================================================= */
 
 .productos-filtros {
   display: flex;
+  align-items: flex-end;
+
+  gap: 14px;
+
+  min-width: 0;
+}
+
+.productos-filtro {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  min-width: 170px;
+}
+
+.productos-filtro label {
+  color: #5c5265;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.productos-filtro select {
+  min-width: 170px;
+  min-height: 40px;
+
+  padding: 0 12px;
+
+  border: 1px solid #d9cde8;
+  border-radius: 8px;
+
+  background-color: #ffffff;
+  color: #4d3d61;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  outline: none;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.productos-filtro select:focus {
+  border-color: #9b7ede;
+
+  box-shadow: 0 0 0 3px rgba(155, 126, 222, 0.14);
+}
+
+/* =========================================================
+   CAMBIO DE VISTA
+   ========================================================= */
+
+.productos-vista {
+  display: flex;
   align-items: center;
+
   gap: 4px;
+
   padding: 4px;
+
   border: 1px solid #e3dce9;
-  border-radius: 10px;
+  border-radius: 9px;
+
   background-color: #ffffff;
 }
 
-.productos-filtros button {
-  min-width: 82px;
-  padding: 8px 13px;
+.productos-vista button {
+  min-height: 32px;
+
+  padding: 0 13px;
+
   border: none;
-  border-radius: 7px;
+  border-radius: 6px;
+
   background-color: transparent;
   color: #776d7d;
+
   font-family: inherit;
   font-size: 12px;
   font-weight: 600;
+
   cursor: pointer;
+
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
 }
 
-.productos-filtros button:hover {
+.productos-vista button:hover {
   background-color: #f6f1fb;
+
   color: #6d4c8d;
 }
 
-.productos-filtros button.filtro-activo {
+.productos-vista button.vista-activa {
   background-color: #d8c8f2;
+
   color: #6d4c8d;
 }
 
-/* RESPONSIVE */
+/* =========================================================
+   CONTADOR
+   ========================================================= */
+
+.productos-contador {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 18px auto 14px;
+
+  color: #776d7d;
+
+  font-size: 13px;
+}
+
+.productos-contador span {
+  font-weight: 600;
+}
+
+/* =========================================================
+   LISTADO DE TARJETAS
+   ========================================================= */
+
+.productos-grid {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(280px, 1fr)
+  );
+
+  gap: 20px;
+}
+
+/* =========================================================
+   VISTA DE LISTA
+   ========================================================= */
+
+.productos-lista-vista {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: #ffffff;
+
+  border: 1px solid #e4dced;
+  border-radius: 14px;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   MENSAJE SIN PRODUCTOS / CARGANDO
+   ========================================================= */
+
+.productos-mensaje {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  padding: 55px 20px;
+
+  text-align: center;
+
+  background-color: #ffffff;
+
+  border: 1px dashed #d8c8f2;
+  border-radius: 14px;
+
+  color: #776d7d;
+
+  font-size: 14px;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.productos-page > .productos-form {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+/* =========================================================
+   FORMULARIO DE PRODUCTOS
+   ========================================================= */
+
+.productos-form-contenedor {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 0 auto 30px;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
 @media (max-width: 850px) {
-  .productos-lista-header {
+  .productos-controles {
     align-items: stretch;
+
     flex-direction: column;
   }
 
   .productos-filtros {
     width: 100%;
-    box-sizing: border-box;
   }
 
-  .productos-filtros button {
+  .productos-filtro {
     flex: 1;
+  }
+
+  .productos-filtro select {
+    width: 100%;
+  }
+
+  .productos-vista {
+    align-self: flex-start;
   }
 }
 
@@ -167,23 +394,51 @@
 
   .productos-header {
     align-items: stretch;
-    flex-direction: column;
-  }
 
-  .btn-agregar-producto {
-    width: 100%;
+    flex-direction: column;
   }
 
   .productos-header h1 {
     font-size: 27px;
   }
 
-  .productos-filtros {
-    overflow-x: auto;
+  .btn-primary {
+    width: 100%;
   }
 
-  .productos-filtros button {
-    flex: 0 0 auto;
-    white-space: nowrap;
+  .productos-filtros {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .productos-filtro {
+    width: 100%;
+  }
+
+  .productos-vista {
+    width: 100%;
+  }
+
+  .productos-vista button {
+    flex: 1;
+  }
+
+  .productos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .productos-page {
+    padding: 20px 15px;
+  }
+
+  .productos-controles {
+    margin-top: 20px;
+  }
+
+  .productos-vista {
+    width: 100%;
   }
 }

@@ -16,23 +16,34 @@ import Confirmacion from "../../components/Confirmacion/Confirmacion";
 import "./Cotizador.css";
 
 function Cotizador() {
-  const [cotizaciones, setCotizaciones] = useState([]);
-  const [recetas, setRecetas] = useState([]);
-  const [productos, setProductos] = useState([]);
-  const [insumos, setInsumos] = useState([]);
+  const [cotizaciones, setCotizaciones] =
+    useState([]);
+
+  const [recetas, setRecetas] =
+    useState([]);
+
+  const [productos, setProductos] =
+    useState([]);
+
+  const [insumos, setInsumos] =
+    useState([]);
 
   const [mostrarFormulario, setMostrarFormulario] =
     useState(false);
 
-  const [cotizacionAEliminar, setCotizacionAEliminar] =
-    useState(null);
+  const [
+    cotizacionAEliminar,
+    setCotizacionAEliminar,
+  ] = useState(null);
 
   const [mensajeExito, setMensajeExito] =
     useState("");
 
-  const [error, setError] = useState("");
+  const [error, setError] =
+    useState("");
 
-  const [cargando, setCargando] = useState(true);
+  const [cargando, setCargando] =
+    useState(true);
 
   useEffect(() => {
     cargarDatos();
@@ -55,10 +66,21 @@ function Cotizador() {
         getInsumos(),
       ]);
 
-      setCotizaciones(cotizacionesData);
-      setRecetas(recetasData);
-      setProductos(productosData);
-      setInsumos(insumosData);
+      setCotizaciones(
+        cotizacionesData
+      );
+
+      setRecetas(
+        recetasData
+      );
+
+      setProductos(
+        productosData
+      );
+
+      setInsumos(
+        insumosData
+      );
     } catch (error) {
       setError(
         error.message ||
@@ -82,10 +104,12 @@ function Cotizador() {
   const handleCotizacionCreada = (
     cotizacion
   ) => {
-    setCotizaciones((cotizacionesActuales) => [
-      ...cotizacionesActuales,
-      cotizacion,
-    ]);
+    setCotizaciones(
+      (cotizacionesActuales) => [
+        ...cotizacionesActuales,
+        cotizacion,
+      ]
+    );
 
     setMostrarFormulario(false);
 
@@ -98,50 +122,61 @@ function Cotizador() {
     }, 3000);
   };
 
-  const handleEliminar = (cotizacion) => {
-    setCotizacionAEliminar(cotizacion);
+  const handleEliminar = (
+    cotizacion
+  ) => {
+    setCotizacionAEliminar(
+      cotizacion
+    );
   };
 
-  const confirmarEliminacion = async () => {
-    if (!cotizacionAEliminar) {
-      return;
-    }
+  const confirmarEliminacion =
+    async () => {
+      if (
+        !cotizacionAEliminar
+      ) {
+        return;
+      }
 
-    try {
-      setError("");
+      try {
+        setError("");
 
-      await deleteCotizacion(
-        cotizacionAEliminar.id
-      );
+        await deleteCotizacion(
+          cotizacionAEliminar.id
+        );
 
-      setCotizaciones(
-        (cotizacionesActuales) =>
-          cotizacionesActuales.filter(
-            (cotizacion) =>
-              cotizacion.id !==
-              cotizacionAEliminar.id
-          )
-      );
+        setCotizaciones(
+          (cotizacionesActuales) =>
+            cotizacionesActuales.filter(
+              (cotizacion) =>
+                cotizacion.id !==
+                cotizacionAEliminar.id
+            )
+        );
 
-      setCotizacionAEliminar(null);
+        setCotizacionAEliminar(
+          null
+        );
 
-      setMensajeExito(
-        "Cotización eliminada correctamente."
-      );
+        setMensajeExito(
+          "Cotización eliminada correctamente."
+        );
 
-      setTimeout(() => {
-        setMensajeExito("");
-      }, 3000);
-    } catch (error) {
-      setError(
-        error.message ||
-          "No se pudo eliminar la cotización."
-      );
-    }
-  };
+        setTimeout(() => {
+          setMensajeExito("");
+        }, 3000);
+      } catch (error) {
+        setError(
+          error.message ||
+            "No se pudo eliminar la cotización."
+        );
+      }
+    };
 
   const cancelarEliminacion = () => {
-    setCotizacionAEliminar(null);
+    setCotizacionAEliminar(
+      null
+    );
   };
 
   if (cargando) {
@@ -160,11 +195,14 @@ function Cotizador() {
 
       <header className="cotizador-header">
         <div>
-          <h1>Cotizaciones</h1>
+          <h1>
+            Cotizaciones
+          </h1>
 
           <p>
-            Configura una venta y calcula el costo
-            y precio sugerido de tus productos.
+            Configura una venta y calcula
+            el costo y precio sugerido de
+            tus productos.
           </p>
         </div>
 
@@ -172,7 +210,9 @@ function Cotizador() {
           <button
             type="button"
             className="btn-nueva-cotizacion"
-            onClick={handleMostrarFormulario}
+            onClick={
+              handleMostrarFormulario
+            }
           >
             Nueva cotización
           </button>
@@ -203,7 +243,9 @@ function Cotizador() {
           onCotizacionCreada={
             handleCotizacionCreada
           }
-          onCancelar={handleCancelar}
+          onCancelar={
+            handleCancelar
+          }
         />
       )}
 
@@ -220,8 +262,13 @@ function Cotizador() {
         </div>
 
         <CotizadorList
-          cotizaciones={cotizaciones}
-          onEliminar={handleEliminar}
+          cotizaciones={
+            cotizaciones
+          }
+          insumos={insumos}
+          onEliminar={
+            handleEliminar
+          }
         />
       </section>
 
@@ -230,8 +277,12 @@ function Cotizador() {
       {cotizacionAEliminar && (
         <Confirmacion
           mensaje={`¿Estás seguro de que deseas eliminar la cotización "${cotizacionAEliminar.nombre}"? Esta acción no se puede deshacer.`}
-          onConfirmar={confirmarEliminacion}
-          onCancelar={cancelarEliminacion}
+          onConfirmar={
+            confirmarEliminacion
+          }
+          onCancelar={
+            cancelarEliminacion
+          }
         />
       )}
     </main>

@@ -1,29 +1,449 @@
+/* =========================================================
+   VISTA DE TARJETAS
+   ========================================================= */
+
 .productos-grid {
+  width: 100%;
+  max-width: 1375px;
+  margin: 0 auto;
+
   display: grid;
   grid-template-columns: repeat(
     auto-fill,
     minmax(280px, 1fr)
   );
+
   gap: 20px;
 }
 
+
+/* =========================================================
+   VISTA DE LISTA
+   ========================================================= */
+
+.productos-lista-vista {
+  width: 100%;
+  max-width: 1375px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #ffffff;
+
+  border: 1px solid #e4dced;
+  border-radius: 14px;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   ENCABEZADO DE LA LISTA
+   ========================================================= */
+
+.productos-lista-header {
+  display: grid;
+
+  grid-template-columns:
+    minmax(210px, 1.7fr)
+    minmax(90px, 0.7fr)
+    minmax(120px, 1fr)
+    minmax(110px, 0.9fr)
+    minmax(120px, 1fr)
+    minmax(100px, 0.8fr)
+    150px;
+
+  align-items: center;
+
+  min-height: 48px;
+
+  padding: 0 18px;
+
+  background: #faf7fc;
+
+  border-bottom: 1px solid #e4dced;
+
+  color: #6d4c8d;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   FILA DE PRODUCTO
+   ========================================================= */
+
+.producto-lista-item {
+  display: grid;
+
+  grid-template-columns:
+    minmax(210px, 1.7fr)
+    minmax(90px, 0.7fr)
+    minmax(120px, 1fr)
+    minmax(110px, 0.9fr)
+    minmax(120px, 1fr)
+    minmax(100px, 0.8fr)
+    150px;
+
+  align-items: center;
+
+  min-height: 82px;
+
+  padding: 12px 18px;
+
+  background: #ffffff;
+
+  border-bottom: 1px solid #eee8f2;
+
+  transition: background-color 0.2s ease;
+}
+
+.producto-lista-item:last-child {
+  border-bottom: none;
+}
+
+.producto-lista-item:hover {
+  background-color: #fcf9fe;
+}
+
+
+/* =========================================================
+   INFORMACIÓN PRINCIPAL
+   ========================================================= */
+
+.producto-lista-producto {
+  min-width: 0;
+  padding-right: 14px;
+}
+
+.producto-lista-nombre {
+  margin-bottom: 3px;
+
+  color: #25203a;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.producto-lista-marca {
+  margin-bottom: 7px;
+
+  color: #806f8d;
+
+  font-size: 12px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   ETIQUETAS
+   ========================================================= */
+
+.producto-lista-etiquetas {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 5px;
+}
+
+.producto-lista-tipo,
+.producto-lista-categoria {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 21px;
+
+  padding: 2px 8px;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  box-sizing: border-box;
+}
+
+
+/* Topping */
+
+.producto-lista-tipo {
+  background-color: #f6dfe7;
+  color: #9a5366;
+}
+
+
+/* Salsa */
+
+.producto-lista-tipo.tipo-salsa {
+  background-color: #e7ddf5;
+  color: #6d4c8d;
+}
+
+
+/* Ingrediente */
+
+.producto-lista-tipo.tipo-ingrediente {
+  background-color: #eee9df;
+  color: #75654d;
+}
+
+
+/* Categoría */
+
+.producto-lista-categoria {
+  background-color: #eee8f7;
+  color: #725a8c;
+}
+
+
+/* =========================================================
+   DATOS
+   ========================================================= */
+
+.producto-lista-dato,
+.producto-lista-costo {
+  min-width: 0;
+
+  padding: 0 12px;
+
+  box-sizing: border-box;
+}
+
+.producto-lista-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #8a7c91;
+
+  font-size: 10px;
+}
+
+.producto-lista-dato strong,
+.producto-lista-costo strong {
+  display: block;
+
+  color: #2b243b;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   COSTO UNITARIO
+   ========================================================= */
+
+.producto-lista-costo {
+  padding: 8px 12px;
+
+  background-color: #f7f0fb;
+
+  border-radius: 8px;
+}
+
+.producto-lista-costo .producto-lista-label {
+  color: #806c91;
+}
+
+.producto-lista-costo strong {
+  color: #6d4c8d;
+}
+
+
+/* =========================================================
+   SIN DATO
+   ========================================================= */
+
+.producto-lista-sin-dato {
+  color: #aaa1ae;
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   ACCIONES
+   ========================================================= */
+
+.producto-lista-acciones {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 7px;
+
+  padding-left: 10px;
+}
+
+.producto-lista-acciones button {
+  min-width: 68px;
+  height: 34px;
+
+  padding: 0 10px;
+
+  border-radius: 7px;
+
+  background: #ffffff;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+
+/* Editar */
+
+.producto-lista-acciones .btn-editar {
+  border: 1px solid #9b7ede;
+  color: #6d4c8d;
+}
+
+.producto-lista-acciones .btn-editar:hover {
+  background-color: #f5effb;
+}
+
+
+/* Eliminar */
+
+.producto-lista-acciones .btn-eliminar {
+  border: 1px solid #e58c8c;
+  color: #d95353;
+}
+
+.producto-lista-acciones .btn-eliminar:hover {
+  background-color: #fff4f4;
+}
+
+
+/* =========================================================
+   ESTADO VACÍO
+   ========================================================= */
+
 .productos-vacio {
+  width: 100%;
+  max-width: 1375px;
+
+  margin: 0 auto;
+
   padding: 55px 20px;
+
   text-align: center;
+
   background-color: #ffffff;
+
   border: 1px dashed #d8c8f2;
   border-radius: 14px;
+
+  box-sizing: border-box;
 }
 
 .productos-vacio h3 {
   margin: 0 0 8px;
+
   color: #6d4c8d;
+
   font-size: 18px;
 }
 
 .productos-vacio p {
   max-width: 400px;
+
   margin: 0 auto;
+
   color: #776d7d;
+
   font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1250px) {
+  .productos-grid,
+  .productos-lista-vista,
+  .productos-vacio {
+    max-width: 100%;
+  }
+
+  .productos-lista-header,
+  .producto-lista-item {
+    grid-template-columns:
+      minmax(180px, 1.5fr)
+      minmax(80px, 0.7fr)
+      minmax(110px, 1fr)
+      minmax(100px, 0.9fr)
+      minmax(110px, 1fr)
+      minmax(90px, 0.8fr)
+      135px;
+  }
+
+  .producto-lista-acciones {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 5px;
+  }
+
+  .producto-lista-acciones button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   TABLET PEQUEÑA
+   ========================================================= */
+
+@media (max-width: 950px) {
+  .productos-lista-vista {
+    overflow-x: auto;
+  }
+
+  .productos-lista-header,
+  .producto-lista-item {
+    min-width: 900px;
+  }
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .productos-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .productos-lista-vista {
+    border-radius: 12px;
+  }
+
+  .productos-lista-header,
+  .producto-lista-item {
+    min-width: 850px;
+  }
 }

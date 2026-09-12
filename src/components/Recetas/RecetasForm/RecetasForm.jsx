@@ -17,12 +17,11 @@ import "./RecetasForm.css";
 const formularioInicial = {
   nombre: "",
   descripcion: "",
+  categoria: "general",
   rendimiento: "",
   unidadRendimiento: "unidad",
   ingredientes: [],
 };
-
-
 
 function RecetasForm({
   receta,
@@ -64,6 +63,8 @@ function RecetasForm({
         nombre: receta.nombre || "",
         descripcion:
           receta.descripcion || "",
+        categoria:
+          receta.categoria || "general",
         rendimiento:
           receta.rendimiento ?? "",
         unidadRendimiento:
@@ -115,10 +116,9 @@ function RecetasForm({
 
     setFormulario(
       (formularioActual) => {
-        const ingredientesActualizados =
-          [
-            ...formularioActual.ingredientes,
-          ];
+        const ingredientesActualizados = [
+          ...formularioActual.ingredientes,
+        ];
 
         if (
           !ingredientesActualizados[
@@ -152,9 +152,7 @@ function RecetasForm({
   const cargarProductos =
     async () => {
       try {
-        setCargandoProductos(
-          true
-        );
+        setCargandoProductos(true);
 
         const data =
           await getProductos();
@@ -163,9 +161,7 @@ function RecetasForm({
       } catch (error) {
         setError(error.message);
       } finally {
-        setCargandoProductos(
-          false
-        );
+        setCargandoProductos(false);
       }
     };
 
@@ -192,8 +188,7 @@ function RecetasForm({
   const agregarIngrediente =
     () => {
       const nuevoIndice =
-        formulario.ingredientes
-          .length;
+        formulario.ingredientes.length;
 
       const nuevoIngrediente = {
         productoId: "",
@@ -231,10 +226,9 @@ function RecetasForm({
   ) => {
     setFormulario(
       (formularioActual) => {
-        const ingredientesActualizados =
-          [
-            ...formularioActual.ingredientes,
-          ];
+        const ingredientesActualizados = [
+          ...formularioActual.ingredientes,
+        ];
 
         ingredientesActualizados[
           indice
@@ -261,9 +255,7 @@ function RecetasForm({
     const producto =
       productos.find(
         (producto) =>
-          String(
-            producto.id
-          ) ===
+          String(producto.id) ===
           String(productoId)
       );
 
@@ -276,10 +268,9 @@ function RecetasForm({
 
     setFormulario(
       (formularioActual) => {
-        const ingredientesActualizados =
-          [
-            ...formularioActual.ingredientes,
-          ];
+        const ingredientesActualizados = [
+          ...formularioActual.ingredientes,
+        ];
 
         ingredientesActualizados[
           indice
@@ -299,9 +290,7 @@ function RecetasForm({
       }
     );
 
-    setIngredienteActivo(
-      indice
-    );
+    setIngredienteActivo(indice);
 
     if (onSeleccionarIngrediente) {
       onSeleccionarIngrediente(
@@ -315,19 +304,14 @@ function RecetasForm({
     indice
   ) => {
     const ingrediente =
-      formulario.ingredientes[
-        indice
-      ];
+      formulario.ingredientes[indice];
 
-    setIngredienteActivo(
-      indice
-    );
+    setIngredienteActivo(indice);
 
     if (onSeleccionarIngrediente) {
       onSeleccionarIngrediente(
         indice,
-        ingrediente?.productoId ||
-          ""
+        ingrediente?.productoId || ""
       );
     }
   };
@@ -356,8 +340,6 @@ function RecetasForm({
       );
     }
   };
-
-
 
   const prepararIngredientes =
     () => {
@@ -403,9 +385,7 @@ function RecetasForm({
                 ingrediente.productoId,
 
               cantidad: Number(
-                cantidadBase.toFixed(
-                  4
-                )
+                cantidadBase.toFixed(4)
               ),
 
               unidad: unidadBase,
@@ -441,9 +421,7 @@ function RecetasForm({
       );
 
     if (
-      !Number.isFinite(
-        rendimiento
-      ) ||
+      !Number.isFinite(rendimiento) ||
       rendimiento <= 0
     ) {
       setError(
@@ -476,6 +454,9 @@ function RecetasForm({
 
       descripcion:
         formulario.descripcion.trim(),
+
+      categoria:
+        formulario.categoria,
 
       rendimiento,
 
@@ -511,14 +492,10 @@ function RecetasForm({
           ingredientes: [],
         });
 
-        setIngredienteActivo(
-          null
-        );
+        setIngredienteActivo(null);
       }
     } catch (error) {
-      setError(
-        error.message
-      );
+      setError(error.message);
     } finally {
       setGuardando(false);
     }
@@ -580,6 +557,38 @@ function RecetasForm({
             onChange={handleChange}
             placeholder="Ej. Receta base de mini donas"
           />
+        </div>
+
+        <div className="receta-form-group">
+          <label htmlFor="categoria">
+            Categoría
+          </label>
+
+          <select
+            id="categoria"
+            name="categoria"
+            value={
+              formulario.categoria
+            }
+            onChange={handleChange}
+            required
+          >
+            <option value="general">
+              General
+            </option>
+
+            <option value="reposteria">
+              Repostería
+            </option>
+
+            <option value="comida">
+              Comida
+            </option>
+
+            <option value="bebidas">
+              Bebidas
+            </option>
+          </select>
         </div>
 
         <div className="receta-form-group">

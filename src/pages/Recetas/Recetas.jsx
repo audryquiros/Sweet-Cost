@@ -13,16 +13,43 @@ import {
 import { getProductos } from "../../services/productoServices";
 
 import RecetasForm from "../../components/Recetas/RecetasForm/RecetasForm";
+
 import RecetaList from "../../components/Recetas/RecetaList/RecetaList";
+
 import ConversorMedidas from "../../components/ConversorMedidas/ConversorMedidas";
+
 import Confirmacion from "../../components/Confirmacion/Confirmacion";
 
 import { obtenerUnidadBase } from "../../utils/calculosCostos";
 
 import "./Recetas.css";
 
+const CATEGORIAS = [
+  {
+    valor: "todas",
+    nombre: "Todas",
+  },
+  {
+    valor: "general",
+    nombre: "General",
+  },
+  {
+    valor: "reposteria",
+    nombre: "Repostería",
+  },
+  {
+    valor: "comida",
+    nombre: "Comida",
+  },
+  {
+    valor: "bebidas",
+    nombre: "Bebidas",
+  },
+];
+
 function Recetas() {
   const [recetas, setRecetas] = useState([]);
+
   const [productos, setProductos] = useState([]);
 
   const [mostrarFormulario, setMostrarFormulario] =
@@ -49,6 +76,9 @@ function Recetas() {
   const [error, setError] = useState("");
 
   const [cargando, setCargando] = useState(true);
+
+  const [filtroCategoria, setFiltroCategoria] =
+    useState("todas");
 
   const recetasListaRef = useRef(null);
 
@@ -256,6 +286,17 @@ function Recetas() {
     });
   };
 
+  const recetasFiltradas =
+    recetas.filter((receta) => {
+      const categoriaReceta =
+        receta.categoria || "general";
+
+      return (
+        filtroCategoria === "todas" ||
+        categoriaReceta === filtroCategoria
+      );
+    });
+
   if (cargando) {
     return (
       <main className="recetas-page">
@@ -366,16 +407,43 @@ function Recetas() {
             </h2>
 
             <p>
-              {recetas.length}{" "}
-              {recetas.length === 1
+              {recetasFiltradas.length}{" "}
+              {recetasFiltradas.length === 1
                 ? "receta registrada"
                 : "recetas registradas"}
             </p>
           </div>
+
+          <div className="recetas-filtro">
+            <label htmlFor="filtroCategoria">
+              Categoría
+            </label>
+
+            <select
+              id="filtroCategoria"
+              value={filtroCategoria}
+              onChange={(e) =>
+                setFiltroCategoria(
+                  e.target.value
+                )
+              }
+            >
+              {CATEGORIAS.map(
+                (categoria) => (
+                  <option
+                    key={categoria.valor}
+                    value={categoria.valor}
+                  >
+                    {categoria.nombre}
+                  </option>
+                )
+              )}
+            </select>
+          </div>
         </div>
 
         <RecetaList
-          recetas={recetas}
+          recetas={recetasFiltradas}
           productos={productos}
           onEditar={handleEditar}
           onEliminar={handleEliminar}

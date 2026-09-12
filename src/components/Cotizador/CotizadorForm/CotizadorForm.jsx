@@ -24,7 +24,11 @@ function CotizadorForm({
     recetaId: "",
     cantidadAVender: 1,
     unidadesIncluidas: 10,
-    manoObra: "",
+    tiempoPreparacion: 0,
+    tiempoCoccion: 0,
+    tiempoDecoracion: 0,
+    tiempoEmpaque: 0,
+    tarifaHora: 2500,
     margen: 30,
   });
 
@@ -76,7 +80,9 @@ function CotizadorForm({
   const cantidadTotalProductos =
     cantidadAVender * unidadesIncluidas;
 
-  /* COSTO DE LA RECETA */
+  /* =====================================================
+     COSTO DE LA RECETA
+  ===================================================== */
 
   const costoPorUnidadReceta = recetaSeleccionada
     ? calcularCostoPorRendimiento(
@@ -88,7 +94,9 @@ function CotizadorForm({
   const costoReceta =
     costoPorUnidadReceta * cantidadTotalProductos;
 
-  /* COSTO TOPPINGS ESTÁNDAR */
+  /* =====================================================
+     COSTO TOPPINGS ESTÁNDAR
+  ===================================================== */
 
   const costoToppingEstandar = useMemo(() => {
     if (!toppings.length) return 0;
@@ -114,7 +122,25 @@ function CotizadorForm({
     toppingsPorEnvase *
     cantidadAVender;
 
-  /* COSTO TOPPINGS PERSONALIZADOS */
+  /* =====================================================
+     COSTO TOPPINGS PERSONALIZADOS
+
+     Cada topping seleccionado representa
+     UNA porción.
+
+     Ejemplo:
+     2 toppings por envase:
+       - Oreo
+       - M&M
+
+     Se calcula:
+       Oreo x 1
+       M&M x 1
+
+     y no:
+       Oreo x 2
+       M&M x 2
+  ===================================================== */
 
   const costoToppingsPersonalizados =
     toppingsSeleccionados.reduce(
@@ -131,9 +157,7 @@ function CotizadorForm({
 
         return (
           total +
-          costoPorPorcion *
-            toppingsPorEnvase *
-            cantidadAVender
+          costoPorPorcion * cantidadAVender
         );
       },
       0
@@ -149,7 +173,9 @@ function CotizadorForm({
       ? costoToppings / cantidadAVender
       : 0;
 
-  /* COSTO SALSAS ESTÁNDAR */
+  /* =====================================================
+     COSTO SALSAS ESTÁNDAR
+  ===================================================== */
 
   const costoSalsaEstandar = useMemo(() => {
     if (!salsas.length) return 0;
@@ -175,7 +201,21 @@ function CotizadorForm({
     salsasPorEnvase *
     cantidadAVender;
 
-  /* COSTO SALSAS PERSONALIZADAS */
+  /* =====================================================
+     COSTO SALSAS PERSONALIZADAS
+
+     Cada salsa seleccionada representa
+     UNA porción.
+
+     Ejemplo:
+     2 salsas por envase:
+       - Chocolate
+       - Fresa
+
+     Se calcula:
+       Chocolate x 1
+       Fresa x 1
+  ===================================================== */
 
   const costoSalsasPersonalizadas =
     salsasSeleccionadas.reduce(
@@ -192,9 +232,7 @@ function CotizadorForm({
 
         return (
           total +
-          costoPorPorcion *
-            salsasPorEnvase *
-            cantidadAVender
+          costoPorPorcion * cantidadAVender
         );
       },
       0
@@ -210,7 +248,9 @@ function CotizadorForm({
       ? costoSalsas / cantidadAVender
       : 0;
 
-  /* COSTO INSUMOS */
+  /* =====================================================
+     COSTO INSUMOS
+  ===================================================== */
 
   const costoInsumos =
     insumosSeleccionados.reduce(
@@ -246,7 +286,9 @@ function CotizadorForm({
       ? costoInsumos / cantidadAVender
       : 0;
 
-  /* COSTOS */
+  /* =====================================================
+     COSTOS
+  ===================================================== */
 
   const costoExtras =
     costoToppings + costoSalsas;
@@ -261,8 +303,36 @@ function CotizadorForm({
     costoExtras +
     costoInsumos;
 
+  /* =====================================================
+     PRODUCCIÓN DEL PEDIDO COMPLETO
+  ===================================================== */
+
+  const tiempoPreparacion =
+    Number(formulario.tiempoPreparacion) || 0;
+
+  const tiempoCoccion =
+    Number(formulario.tiempoCoccion) || 0;
+
+  const tiempoDecoracion =
+    Number(formulario.tiempoDecoracion) || 0;
+
+  const tiempoEmpaque =
+    Number(formulario.tiempoEmpaque) || 0;
+
+  const tarifaHora =
+    Number(formulario.tarifaHora) || 0;
+
+  const tiempoTotalProduccion =
+    tiempoPreparacion +
+    tiempoCoccion +
+    tiempoDecoracion +
+    tiempoEmpaque;
+
+  const horasProduccion =
+    tiempoTotalProduccion / 60;
+
   const manoObra =
-    Number(formulario.manoObra) || 0;
+    horasProduccion * tarifaHora;
 
   const costoTotal =
     costoProduccion + manoObra;
@@ -279,7 +349,9 @@ function CotizadorForm({
       ? precioSugerido / cantidadAVender
       : 0;
 
-  /* CAMBIAR CAMPOS */
+  /* =====================================================
+     CAMBIAR CAMPOS
+  ===================================================== */
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -290,9 +362,18 @@ function CotizadorForm({
     }));
   };
 
-  /* TOPPINGS PERSONALIZADOS */
+  /* =====================================================
+     TOPPINGS PERSONALIZADOS
+  ===================================================== */
 
   const agregarTopping = () => {
+    if (
+      toppingsSeleccionados.length >=
+      toppingsPorEnvase
+    ) {
+      return;
+    }
+
     setToppingsSeleccionados((actuales) => [
       ...actuales,
       "",
@@ -313,9 +394,18 @@ function CotizadorForm({
     );
   };
 
-  /* SALSAS PERSONALIZADAS */
+  /* =====================================================
+     SALSAS PERSONALIZADAS
+  ===================================================== */
 
   const agregarSalsa = () => {
+    if (
+      salsasSeleccionadas.length >=
+      salsasPorEnvase
+    ) {
+      return;
+    }
+
     setSalsasSeleccionadas((actuales) => [
       ...actuales,
       "",
@@ -336,7 +426,9 @@ function CotizadorForm({
     );
   };
 
-  /* INSUMOS */
+  /* =====================================================
+     INSUMOS
+  ===================================================== */
 
   const agregarInsumo = () => {
     setInsumosSeleccionados((actuales) => [
@@ -371,7 +463,9 @@ function CotizadorForm({
     );
   };
 
-  /* GUARDAR */
+  /* =====================================================
+     GUARDAR
+  ===================================================== */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -413,9 +507,21 @@ function CotizadorForm({
       return;
     }
 
+    /* VALIDAR TOPPINGS */
+
     if (
       extrasModo === "personalizado" &&
-      toppingsPorEnvase > 0 &&
+      toppingsPorEnvase !==
+        toppingsSeleccionados.length
+    ) {
+      setError(
+        `Debes seleccionar exactamente ${toppingsPorEnvase} topping(s) por envase.`
+      );
+      return;
+    }
+
+    if (
+      extrasModo === "personalizado" &&
       toppingsSeleccionados.some(
         (id) => !id
       )
@@ -426,9 +532,21 @@ function CotizadorForm({
       return;
     }
 
+    /* VALIDAR SALSAS */
+
     if (
       extrasModo === "personalizado" &&
-      salsasPorEnvase > 0 &&
+      salsasPorEnvase !==
+        salsasSeleccionadas.length
+    ) {
+      setError(
+        `Debes seleccionar exactamente ${salsasPorEnvase} salsa(s) por envase.`
+      );
+      return;
+    }
+
+    if (
+      extrasModo === "personalizado" &&
       salsasSeleccionadas.some(
         (id) => !id
       )
@@ -438,6 +556,8 @@ function CotizadorForm({
       );
       return;
     }
+
+    /* VALIDAR INSUMOS */
 
     if (
       insumosSeleccionados.some(
@@ -466,10 +586,32 @@ function CotizadorForm({
             cantidadPorEnvase *
             cantidadAVender;
 
+          const insumo = insumos.find(
+            (insumoActual) =>
+              String(insumoActual.id) ===
+              String(item.insumoId)
+          );
+
+          const costoUnitario =
+            insumo
+              ? obtenerCostoUnitarioInsumo(
+                  insumo
+                )
+              : 0;
+
+          const costoTotal =
+            costoUnitario *
+            cantidadTotal;
+
           return {
             insumoId: item.insumoId,
+            nombre: insumo
+              ? insumo.nombre
+              : "",
             cantidadPorEnvase,
             cantidadTotal,
+            costoUnitario,
+            costo: costoTotal,
           };
         });
 
@@ -514,6 +656,13 @@ function CotizadorForm({
 
         insumos: insumosGuardados,
 
+        tiempoPreparacion,
+        tiempoCoccion,
+        tiempoDecoracion,
+        tiempoEmpaque,
+        tiempoTotalProduccion,
+        horasProduccion,
+        tarifaHora,
         manoObra,
         margen,
 
@@ -735,11 +884,22 @@ function CotizadorForm({
                 type="number"
                 min="0"
                 value={toppingsPorEnvase}
-                onChange={(e) =>
+                onChange={(e) => {
+                  const cantidad =
+                    Number(e.target.value) || 0;
+
                   setToppingsPorEnvase(
-                    Number(e.target.value)
-                  )
-                }
+                    cantidad
+                  );
+
+                  setToppingsSeleccionados(
+                    (actuales) =>
+                      actuales.slice(
+                        0,
+                        cantidad
+                      )
+                  );
+                }}
                 placeholder="Ej. 2"
               />
 
@@ -764,6 +924,10 @@ function CotizadorForm({
                     type="button"
                     className="btn-agregar-extra"
                     onClick={agregarTopping}
+                    disabled={
+                      toppingsSeleccionados.length >=
+                      toppingsPorEnvase
+                    }
                   >
                     Agregar topping
                   </button>
@@ -837,6 +1001,12 @@ function CotizadorForm({
                     )
                   )}
                 </div>
+
+                <small className="cotizador-ayuda-selecciones">
+                  Seleccionados:{" "}
+                  {toppingsSeleccionados.length}{" "}
+                  de {toppingsPorEnvase}
+                </small>
               </>
             )}
         </div>
@@ -866,11 +1036,22 @@ function CotizadorForm({
                 type="number"
                 min="0"
                 value={salsasPorEnvase}
-                onChange={(e) =>
+                onChange={(e) => {
+                  const cantidad =
+                    Number(e.target.value) || 0;
+
                   setSalsasPorEnvase(
-                    Number(e.target.value)
-                  )
-                }
+                    cantidad
+                  );
+
+                  setSalsasSeleccionadas(
+                    (actuales) =>
+                      actuales.slice(
+                        0,
+                        cantidad
+                      )
+                  );
+                }}
                 placeholder="Ej. 2"
               />
 
@@ -895,6 +1076,10 @@ function CotizadorForm({
                     type="button"
                     className="btn-agregar-extra"
                     onClick={agregarSalsa}
+                    disabled={
+                      salsasSeleccionadas.length >=
+                      salsasPorEnvase
+                    }
                   >
                     Agregar salsa
                   </button>
@@ -968,6 +1153,12 @@ function CotizadorForm({
                     )
                   )}
                 </div>
+
+                <small className="cotizador-ayuda-selecciones">
+                  Seleccionadas:{" "}
+                  {salsasSeleccionadas.length}{" "}
+                  de {salsasPorEnvase}
+                </small>
               </>
             )}
         </div>
@@ -1230,46 +1421,162 @@ function CotizadorForm({
         </div>
       </section>
 
-      {/* COSTOS ADICIONALES */}
+      {/* PRODUCCIÓN DEL PEDIDO COMPLETO */}
 
       <section className="cotizador-seccion">
         <div className="cotizador-seccion-header">
           <div>
-            <h3>Costos adicionales</h3>
+            <h3>Producción del pedido completo</h3>
 
             <p>
-              Agrega la mano de obra y define
-              el margen de ganancia.
+              Registra cuánto tiempo necesitas para
+              preparar todo el pedido y calcula
+              automáticamente el costo de mano de obra.
             </p>
           </div>
         </div>
 
         <div className="cotizador-form-grid">
           <div className="cotizador-field">
-            <label htmlFor="manoObra">
-              Mano de obra
+            <label htmlFor="tiempoPreparacion">
+              Preparación (minutos)
             </label>
 
             <input
-              id="manoObra"
-              name="manoObra"
+              id="tiempoPreparacion"
+              name="tiempoPreparacion"
               type="number"
               min="0"
-              value={formulario.manoObra}
+              step="1"
+              value={formulario.tiempoPreparacion}
               onChange={handleChange}
-              placeholder="Ej. 6875"
+              placeholder="Ej. 30"
             />
 
             <small>
-              Por ahora se ingresa manualmente.
-              Luego lo calcularemos según
-              tiempo y costo por hora.
+              Tiempo de preparación de todo el pedido.
+            </small>
+          </div>
+
+          <div className="cotizador-field">
+            <label htmlFor="tiempoCoccion">
+              Cocción (minutos)
+            </label>
+
+            <input
+              id="tiempoCoccion"
+              name="tiempoCoccion"
+              type="number"
+              min="0"
+              step="1"
+              value={formulario.tiempoCoccion}
+              onChange={handleChange}
+              placeholder="Ej. 60"
+            />
+
+            <small>
+              Tiempo total de cocción del pedido.
+            </small>
+          </div>
+
+          <div className="cotizador-field">
+            <label htmlFor="tiempoDecoracion">
+              Decoración (minutos)
+            </label>
+
+            <input
+              id="tiempoDecoracion"
+              name="tiempoDecoracion"
+              type="number"
+              min="0"
+              step="1"
+              value={formulario.tiempoDecoracion}
+              onChange={handleChange}
+              placeholder="Ej. 45"
+            />
+
+            <small>
+              Tiempo necesario para decorar todo el pedido.
+            </small>
+          </div>
+
+          <div className="cotizador-field">
+            <label htmlFor="tiempoEmpaque">
+              Empaque (minutos)
+            </label>
+
+            <input
+              id="tiempoEmpaque"
+              name="tiempoEmpaque"
+              type="number"
+              min="0"
+              step="1"
+              value={formulario.tiempoEmpaque}
+              onChange={handleChange}
+              placeholder="Ej. 30"
+            />
+
+            <small>
+              Tiempo necesario para empacar todo el pedido.
+            </small>
+          </div>
+
+          <div className="cotizador-field">
+            <label htmlFor="tarifaHora">
+              Costo por hora de trabajo
+            </label>
+
+            <input
+              id="tarifaHora"
+              name="tarifaHora"
+              type="number"
+              min="0"
+              step="1"
+              value={formulario.tarifaHora}
+              onChange={handleChange}
+              placeholder="Ej. 2500"
+            />
+
+            <small>
+              Tarifa utilizada para calcular la mano de obra.
+            </small>
+          </div>
+
+          <div className="cotizador-field">
+            <label>
+              Tiempo total de producción
+            </label>
+
+            <input
+              type="text"
+              value={`${tiempoTotalProduccion} minutos (${horasProduccion.toFixed(2)} h)`}
+              readOnly
+            />
+
+            <small>
+              Suma de preparación, cocción, decoración y empaque.
+            </small>
+          </div>
+
+          <div className="cotizador-field">
+            <label>
+              Costo de mano de obra
+            </label>
+
+            <input
+              type="text"
+              value={`₡${manoObra.toFixed(2)}`}
+              readOnly
+            />
+
+            <small>
+              Tiempo total ÷ 60 × costo por hora.
             </small>
           </div>
 
           <div className="cotizador-field">
             <label htmlFor="margen">
-              Margen de ganancia (%)
+              Ganancia sobre costo (%)
             </label>
 
             <input
@@ -1316,26 +1623,6 @@ function CotizadorForm({
 
         <div className="cotizador-resumen-linea">
           <span>
-            Toppings por envase
-          </span>
-
-          <strong>
-            ₡{costoToppingsPorEnvase.toFixed(2)}
-          </strong>
-        </div>
-
-        <div className="cotizador-resumen-linea">
-          <span>
-            Salsas por envase
-          </span>
-
-          <strong>
-            ₡{costoSalsasPorEnvase.toFixed(2)}
-          </strong>
-        </div>
-
-        <div className="cotizador-resumen-linea">
-          <span>
             Toppings y salsas
           </span>
 
@@ -1361,6 +1648,16 @@ function CotizadorForm({
 
           <strong>
             ₡{costoInsumosPorEnvase.toFixed(2)}
+          </strong>
+        </div>
+
+        <div className="cotizador-resumen-linea">
+          <span>
+            Tiempo total de producción
+          </span>
+
+          <strong>
+            {tiempoTotalProduccion} min
           </strong>
         </div>
 

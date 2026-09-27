@@ -6,3 +6,69 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
+.app-shell {
+  min-height: 100vh;
+  margin-left: 280px;
+}
+
+.module-placeholder {
+  min-height: 100vh;
+  padding: 50px 40px;
+  display: grid;
+  place-items: center;
+  background: #fff9f5;
+}
+
+.module-placeholder-card {
+  width: min(620px, 100%);
+  padding: 38px;
+  background: #ffffff;
+  border: 1px solid #e3dce9;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(109, 76, 141, 0.07);
+  text-align: center;
+}
+
+.module-placeholder-label {
+  margin: 0 0 8px;
+  color: #9b7ede;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.module-placeholder-card h1 {
+  margin: 0 0 12px;
+  color: #352d3a;
+  font-size: 30px;
+}
+
+.module-placeholder-card p:not(.module-placeholder-label) {
+  margin: 0 auto 14px;
+  color: #776d7d;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.module-placeholder-card span {
+  color: #6d4c8d;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .app-shell {
+    margin-left: 250px;
+  }
+}
+
+@media (max-width: 700px) {
+  .app-shell {
+    margin-left: 0;
+  }
+
+  .module-placeholder {
+    padding: 30px 20px;
+  }
+}

@@ -969,3 +969,21 @@
     align-items: flex-start;
   }
 }
+/* Ajuste visual Sweet Cost / mockup */
+.cotizador-form { max-width: 100%; margin: 0; padding: 20px; border: 1px solid var(--sc-border); border-radius: 12px; box-shadow: var(--sc-shadow); }
+.cotizador-form-header { margin-bottom: 18px; }
+.cotizador-form-header h2 { font-size: 19px; color: var(--sc-text); }
+.cotizador-form-header p { font-size: 11px; color: var(--sc-text-soft); }
+.cotizador-form > .cotizador-form-grid { gap: 13px; }
+.cotizador-field { gap: 5px; }
+.cotizador-field label { color: var(--sc-text-soft); font-size: 10px; }
+.cotizador-field input, .cotizador-field select { min-height: 36px; padding: 8px 10px; border-color: var(--sc-border-strong); border-radius: 7px; font-size: 11px; }
+.cotizador-field small { font-size: 9px; }
+.cotizador-seccion { margin-top: 18px; padding: 15px; border-color: var(--sc-border); border-radius: 10px; background: #fbf8fc; }
+.cotizador-seccion-header { margin-bottom: 12px; }
+.cotizador-seccion-header h3 { font-size: 15px; }
+.cotizador-seccion-header h4 { font-size: 13px; }
+.cotizador-seccion-header p { font-size: 10px; }
+.btn-agregar-extra { padding: 8px 12px; border-radius: 7px; font-size: 10px; }
+.cotizador-extra-modos { margin-bottom: 14px; padding: 3px; border-radius: 8px; }
+.cotizador-extra-modo { min-height: 34px; padding: 7px 10px; font-size: 10px; }

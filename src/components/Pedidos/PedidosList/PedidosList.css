@@ -1,0 +1,178 @@
+.pedidos-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #e3dce9;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.pedidos-table {
+  width: 100%;
+  min-width: 880px;
+  border-collapse: collapse;
+}
+
+.pedidos-table th,
+.pedidos-table td {
+  padding: 14px 15px;
+  border-bottom: 1px solid #eee8f2;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.pedidos-table th {
+  background: #faf7fc;
+  color: #776d7d;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.pedidos-table td {
+  color: #5c5265;
+  font-size: 13px;
+}
+
+.pedidos-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.pedidos-table tbody tr:hover {
+  background: #fcfaff;
+}
+
+.pedido-number {
+  color: #6d4c8d;
+  font-weight: 800;
+}
+
+.pedido-client {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.pedido-client strong {
+  color: #352d3a;
+  font-size: 13px;
+}
+
+.pedido-client span {
+  color: #a097a8;
+  font-size: 11px;
+}
+
+.pedido-total-cell {
+  color: #352d3a !important;
+  font-weight: 800;
+}
+
+.pedido-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.pedido-status--pendiente {
+  background: #fff0df;
+  color: #b86f24;
+}
+
+.pedido-status--preparacion {
+  background: #e9efff;
+  color: #5570b5;
+}
+
+.pedido-status--listo {
+  background: #e9f3ff;
+  color: #3d6d9d;
+}
+
+.pedido-status--entregado {
+  background: #e5f6eb;
+  color: #3f8a59;
+}
+
+.pedido-status--cancelado {
+  background: #ffe9e9;
+  color: #bd5d5d;
+}
+
+.pedido-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pedido-actions button {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #e3dce9;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #776d7d;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.pedido-actions button:hover {
+  border-color: #d8c8f2;
+  background: #faf7fc;
+  color: #6d4c8d;
+}
+
+.pedido-actions button svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pedido-actions .pedido-action-danger:hover {
+  border-color: #efcaca;
+  background: #fff3f3;
+  color: #c95c5c;
+}
+
+.pedidos-empty {
+  padding: 65px 25px;
+  border: 1px dashed #d9cde8;
+  border-radius: 12px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.pedidos-empty-icon {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 14px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #d8c8f2;
+  color: #6d4c8d;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.pedidos-empty h3 {
+  margin: 0 0 7px;
+  color: #352d3a;
+  font-size: 16px;
+}
+
+.pedidos-empty p {
+  margin: 0;
+  color: #776d7d;
+  font-size: 13px;
+}

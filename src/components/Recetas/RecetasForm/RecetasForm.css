@@ -343,3 +343,22 @@
     width: 100%;
   }
 }
+/* Ajuste visual Sweet Cost / mockup */
+.recetas-form { max-width: 100%; margin: 0; padding: 20px; border-color: var(--sc-border); border-radius: 12px; box-shadow: var(--sc-shadow); }
+.recetas-form-header { margin-bottom: 17px; }
+.recetas-form-header h2 { font-size: 19px; color: var(--sc-text); }
+.recetas-form-header p { margin-top: 5px; font-size: 11px; color: var(--sc-text-soft); }
+.recetas-form form { gap: 13px; }
+.receta-form-group { gap: 5px; }
+.receta-form-group label { color: var(--sc-text-soft); font-size: 10px; }
+.receta-form-group input, .receta-form-group select { padding: 9px 10px; border-color: var(--sc-border-strong); border-radius: 7px; background: #fff; font-size: 11px; }
+.receta-ingredientes { margin-top: 6px; padding-top: 18px; border-color: var(--sc-border); }
+.receta-ingredientes-header { margin-bottom: 12px; }
+.receta-ingredientes-header h3 { font-size: 15px; }
+.receta-ingredientes-header p { font-size: 10px; }
+.btn-agregar-ingrediente { padding: 8px 11px; border-color: var(--sc-primary); font-size: 10px; }
+.ingrediente-item { grid-template-columns: 2fr 1fr .8fr auto; gap: 8px; padding: 10px; border-color: var(--sc-border); background: #fbf8fc; }
+.ingrediente-campo { gap: 4px; }
+.ingrediente-campo label { font-size: 9px; }
+.ingrediente-campo input, .ingrediente-campo select { padding: 8px 9px; border-color: var(--sc-border-strong); font-size: 10px; }
+.btn-eliminar-ingrediente { height: 34px; font-size: 10px; }

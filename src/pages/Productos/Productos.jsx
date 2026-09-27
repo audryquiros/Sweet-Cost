@@ -71,7 +71,7 @@ function Productos() {
     useState("todas");
 
   const [vista, setVista] =
-    useState("cards");
+    useState("lista");
 
   const [cargando, setCargando] =
     useState(true);

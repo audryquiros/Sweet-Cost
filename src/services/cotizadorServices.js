@@ -47,3 +47,18 @@ export const deleteCotizacion = async (id) => {
 
   return true;
 };
+export const updateCotizacion = async (id, cotizacion) => {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(cotizacion),
+  });
+
+  if (!response.ok) {
+    throw new Error("Error al actualizar la cotización");
+  }
+
+  return response.json();
+};

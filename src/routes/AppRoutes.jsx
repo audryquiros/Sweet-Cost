@@ -9,6 +9,7 @@ import Productos from "../pages/Productos/Productos";
 import Insumos from "../pages/Insumos/Insumos";
 import Recetas from "../pages/Recetas/Recetas";
 import Cotizador from "../pages/Cotizador/Cotizador";
+import Pedidos from "../pages/Pedidos/Pedidos";
 
 import Nav from "../components/Nav/Nav";
 
@@ -38,15 +39,7 @@ function AppRoutes() {
           <Route path="/recetas" element={<Recetas />} />
           <Route path="/cotizaciones" element={<Cotizador />} />
 
-          <Route
-            path="/pedidos"
-            element={
-              <ComingSoon
-                title="Pedidos"
-                description="Gestiona pedidos, estados, clientes y fechas de entrega del negocio."
-              />
-            }
-          />
+          <Route path="/pedidos" element={<Pedidos />} />
           <Route
             path="/calendario"
             element={

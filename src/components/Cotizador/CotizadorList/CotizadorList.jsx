@@ -6,6 +6,7 @@ function CotizadorList({
   cotizaciones,
   insumos,
   onEliminar,
+  onConvertirPedido,
 }) {
   if (cotizaciones.length === 0) {
     return (
@@ -31,6 +32,7 @@ function CotizadorList({
             cotizacion={cotizacion}
             insumos={insumos}
             onEliminar={onEliminar}
+            onConvertirPedido={onConvertirPedido}
           />
         )
       )}

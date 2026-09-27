@@ -364,3 +364,16 @@
     min-width: 0;
   }
 }
+/* Ajuste visual Sweet Cost / mockup */
+.productos-form { max-width: 100%; margin: 0; padding: 20px; border: 1px solid var(--sc-border); border-radius: 12px; box-shadow: var(--sc-shadow); }
+.productos-form-header { margin-bottom: 18px; }
+.productos-form-header h2 { font-size: 19px; color: var(--sc-text); }
+.productos-form-header p { font-size: 11px; color: var(--sc-text-soft); }
+.productos-form-grid { gap: 13px; }
+.productos-form .form-group { gap: 5px; }
+.productos-form .form-group label { color: var(--sc-text-soft); font-size: 10px; }
+.productos-form .form-group input,
+.productos-form .form-group select { min-height: 36px; padding: 0 10px; border-color: var(--sc-border-strong); border-radius: 7px; font-size: 11px; }
+.productos-form .form-group small { font-size: 9px; }
+.productos-form .producto-porcion { padding: 13px; border-color: var(--sc-border); border-radius: 9px; background: #fbf8fc; }
+.productos-form .productos-form-nota { margin-top: 17px; padding: 11px 13px; border-left-width: 3px; background: #fbf8fc; font-size: 11px; }

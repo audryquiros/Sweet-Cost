@@ -9,6 +9,8 @@ import { getRecetas } from "../../services/recetaServices";
 import { getProductos } from "../../services/productoServices";
 import { getInsumos } from "../../services/insumoServices";
 
+import ConvertirPedidoModal from "../../components/Pedidos/ConvertirPedidoModal/ConvertirPedidoModal";
+
 import CotizadorForm from "../../components/Cotizador/CotizadorForm/CotizadorForm";
 import CotizadorList from "../../components/Cotizador/CotizadorList/CotizadorList";
 import Confirmacion from "../../components/Confirmacion/Confirmacion";
@@ -44,6 +46,9 @@ function Cotizador() {
 
   const [cargando, setCargando] =
     useState(true);
+
+  const [cotizacionParaPedido, setCotizacionParaPedido] =
+    useState(null);
 
   useEffect(() => {
     cargarDatos();
@@ -120,6 +125,30 @@ function Cotizador() {
     setTimeout(() => {
       setMensajeExito("");
     }, 3000);
+  };
+
+
+  const handleAbrirConversion = (cotizacion) => {
+    setError("");
+    setMensajeExito("");
+    setCotizacionParaPedido(cotizacion);
+  };
+
+  const handlePedidoCreado = (pedido, cotizacionActualizada) => {
+    setCotizaciones((actuales) =>
+      actuales.map((item) =>
+        item.id === cotizacionActualizada.id
+          ? cotizacionActualizada
+          : item
+      )
+    );
+
+    setCotizacionParaPedido(null);
+    setMensajeExito(`Pedido #${pedido.id} creado correctamente desde la cotización.`);
+
+    setTimeout(() => {
+      setMensajeExito("");
+    }, 4000);
   };
 
   const handleEliminar = (
@@ -269,6 +298,9 @@ function Cotizador() {
           onEliminar={
             handleEliminar
           }
+          onConvertirPedido={
+            handleAbrirConversion
+          }
         />
       </section>
 
@@ -283,6 +315,14 @@ function Cotizador() {
           onCancelar={
             cancelarEliminacion
           }
+        />
+      )}
+
+      {cotizacionParaPedido && (
+        <ConvertirPedidoModal
+          cotizacion={cotizacionParaPedido}
+          onCreado={handlePedidoCreado}
+          onCancelar={() => setCotizacionParaPedido(null)}
         />
       )}
     </main>

@@ -150,3 +150,14 @@
     width: 100%;
   }
 }
+/* Ajuste visual Sweet Cost / mockup */
+.insumos-form { max-width: 100%; margin: 0; padding: 20px; border-color: var(--sc-border); border-radius: 12px; box-shadow: var(--sc-shadow); }
+.insumos-form-header { margin-bottom: 17px; }
+.insumos-form-header h2 { font-size: 19px; color: var(--sc-text); }
+.insumos-form-header p { margin-top: 5px; font-size: 11px; color: var(--sc-text-soft); }
+.insumos-form form { gap: 13px; }
+.insumo-form-group { gap: 5px; }
+.insumo-form-group label { color: var(--sc-text-soft); font-size: 10px; }
+.insumo-form-group input, .insumo-form-group select { padding: 9px 10px; border-color: var(--sc-border-strong); border-radius: 7px; background: #fff; font-size: 11px; }
+.insumos-form-actions button { min-height: 35px; padding: 8px 14px; font-size: 11px; }
+.insumos-form-error { margin-bottom: 13px; padding: 10px 12px; font-size: 11px; }

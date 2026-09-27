@@ -6,6 +6,7 @@ function CotizadorCard({
   cotizacion,
   insumos = [],
   onEliminar,
+  onConvertirPedido,
 }) {
   const [mostrarDetalles, setMostrarDetalles] =
     useState(false);
@@ -100,9 +101,14 @@ function CotizadorCard({
             </p>
           </div>
 
-          <span className="cotizador-card-fecha">
-            {fecha}
-          </span>
+          <div className="cotizador-card-meta">
+            <span className="cotizador-card-fecha">
+              {fecha}
+            </span>
+            <span className={`cotizador-card-estado ${String(cotizacion.estado || "Pendiente").toLowerCase()}`}>
+              {cotizacion.estado || "Pendiente"}
+            </span>
+          </div>
         </div>
 
         {/* DATOS PRINCIPALES */}
@@ -259,6 +265,22 @@ function CotizadorCard({
           >
             Ver detalles
           </button>
+
+          {cotizacion.pedidoId ? (
+            <span className="cotizador-card-pedido-creado">
+              Pedido creado
+            </span>
+          ) : (
+            <button
+              type="button"
+              className="cotizador-card-pedido"
+              onClick={() =>
+                onConvertirPedido(cotizacion)
+              }
+            >
+              Convertir en pedido
+            </button>
+          )}
 
           <button
             type="button"

@@ -1,0 +1,254 @@
+.pedido-form-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  padding: 24px;
+  display: grid;
+  place-items: center;
+  background: rgba(53, 45, 58, 0.35);
+  backdrop-filter: blur(2px);
+}
+
+.pedido-form-modal {
+  width: min(860px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  border: 1px solid #e3dce9;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 24px 70px rgba(53, 45, 58, 0.2);
+}
+
+.pedido-form-header {
+  padding: 24px 26px 18px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #eee8f2;
+}
+
+.pedido-form-eyebrow {
+  color: #9b7ede;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pedido-form-header h2 {
+  margin: 5px 0 5px;
+  color: #352d3a;
+  font-size: 24px;
+}
+
+.pedido-form-header p {
+  margin: 0;
+  color: #776d7d;
+  font-size: 13px;
+}
+
+.pedido-form-close {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #e3dce9;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #776d7d;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.pedido-form-close:hover {
+  border-color: #d8c8f2;
+  background: #faf7fc;
+  color: #6d4c8d;
+}
+
+.pedido-form {
+  padding: 24px 26px 26px;
+}
+
+.pedido-form-section {
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #eee8f2;
+}
+
+.pedido-form-section h3 {
+  margin: 0 0 15px;
+  color: #4d3d61;
+  font-size: 14px;
+}
+
+.pedido-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.pedido-form-grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pedido-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #5c5265;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pedido-form input,
+.pedido-form select,
+.pedido-form textarea {
+  width: 100%;
+  border: 1px solid #d9cde8;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #352d3a;
+  font: inherit;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pedido-form input,
+.pedido-form select {
+  min-height: 42px;
+  padding: 0 12px;
+}
+
+.pedido-form textarea {
+  min-height: 82px;
+  padding: 11px 12px;
+  resize: vertical;
+}
+
+.pedido-form input:focus,
+.pedido-form select:focus,
+.pedido-form textarea:focus {
+  border-color: #9b7ede;
+  box-shadow: 0 0 0 3px rgba(155, 126, 222, 0.13);
+}
+
+.pedido-form-full {
+  margin-top: 16px;
+}
+
+.pedido-form-error {
+  color: #c95c5c;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.pedido-total-preview {
+  margin-top: 16px;
+  padding: 15px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border: 1px solid #e8def0;
+  border-radius: 11px;
+  background: #faf7fc;
+}
+
+.pedido-total-preview span {
+  color: #776d7d;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pedido-total-preview strong {
+  color: #6d4c8d;
+  font-size: 18px;
+}
+
+.pedido-form-summary {
+  margin-bottom: 20px;
+  padding: 15px 16px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  border-radius: 12px;
+  background: #f7f2fb;
+}
+
+.pedido-form-summary div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pedido-form-summary span {
+  color: #776d7d;
+  font-size: 11px;
+}
+
+.pedido-form-summary strong {
+  color: #352d3a;
+  font-size: 16px;
+}
+
+.pedido-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.pedido-btn-primary,
+.pedido-btn-secondary {
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pedido-btn-primary {
+  border: 1px solid #9b7ede;
+  background: #9b7ede;
+  color: #ffffff;
+}
+
+.pedido-btn-primary:hover {
+  background: #6d4c8d;
+  border-color: #6d4c8d;
+}
+
+.pedido-btn-secondary {
+  border: 1px solid #d9cde8;
+  background: #ffffff;
+  color: #6d4c8d;
+}
+
+.pedido-btn-secondary:hover {
+  background: #faf7fc;
+}
+
+@media (max-width: 760px) {
+  .pedido-form-overlay {
+    padding: 12px;
+  }
+
+  .pedido-form-modal {
+    max-height: calc(100vh - 24px);
+  }
+
+  .pedido-form-grid,
+  .pedido-form-grid--three,
+  .pedido-form-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .pedido-form-header,
+  .pedido-form {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}

@@ -372,8 +372,10 @@
       "precioSugerido": 22616.957820915824,
       "precioPorUnidadVenta": 1507.797188061055,
       "fecha": "2026-09-10T05:19:33.801Z",
-      "id": "uLtb1lnK_7A"
+      "id": "uLtb1lnK_7A",
+      "estado": "Pendiente"
     }
   ],
-  "$schema": "./node_modules/json-server/schema.json"
+  "$schema": "./node_modules/json-server/schema.json",
+  "pedidos": []
 }

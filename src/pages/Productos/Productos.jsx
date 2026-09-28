@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import ProductoList from "../../components/Productos/ProductoList/ProductoList";
 import ViewToggle from "../../components/common/ViewToggle/ViewToggle";
+import FilterSelect from "../../components/common/FilterSelect";
 
 import ProductosForm from "../../components/Productos/ProductosForm/ProductosForm";
 
@@ -345,77 +346,22 @@ function Productos() {
           ================================================= */}
 
       <div className="productos-controles">
-
         <div className="productos-filtros">
+          <FilterSelect
+            id="filtroCategoriaProductos"
+            label="Categoría"
+            value={filtroCategoria}
+            options={CATEGORIAS}
+            onChange={setFiltroCategoria}
+          />
 
-          <div className="productos-filtro">
-            <label htmlFor="filtroCategoria">
-              Categoría
-            </label>
-
-            <select
-              id="filtroCategoria"
-              value={filtroCategoria}
-              onChange={(e) =>
-                setFiltroCategoria(
-                  e.target.value
-                )
-              }
-            >
-              {CATEGORIAS.map(
-                (categoria) => (
-                  <option
-                    key={categoria.valor}
-                    value={categoria.valor}
-                  >
-                    {categoria.nombre}
-                  </option>
-                )
-              )}
-            </select>
-          </div>
-
-          <div className="productos-filtro">
-            <label htmlFor="filtroTipo">
-              Tipo
-            </label>
-
-            <select
-              id="filtroTipo"
-              value={filtroTipo}
-              onChange={(e) =>
-                setFiltroTipo(
-                  e.target.value
-                )
-              }
-            >
-              {TIPOS.map((tipo) => (
-                <option
-                  key={tipo.valor}
-                  value={tipo.valor}
-                >
-                  {tipo.nombre}
-                </option>
-              ))}
-            </select>
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* =================================================
-          RESUMEN Y CAMBIO DE VISTA
-          ================================================= */}
-
-      <div className="productos-resumen">
-        <div className="productos-contador">
-          <span>
-            {productosFiltrados.length}{" "}
-            {productosFiltrados.length === 1
-              ? "producto"
-              : "productos"}
-          </span>
+          <FilterSelect
+            id="filtroTipoProductos"
+            label="Tipo"
+            value={filtroTipo}
+            options={TIPOS}
+            onChange={setFiltroTipo}
+          />
         </div>
 
         <ViewToggle
@@ -428,6 +374,13 @@ function Productos() {
             );
           }}
         />
+      </div>
+
+      <div className="productos-contador">
+        <span>
+          {productosFiltrados.length}{" "}
+          {productosFiltrados.length === 1 ? "producto" : "productos"}
+        </span>
       </div>
 
       {/* =================================================

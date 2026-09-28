@@ -86,3 +86,42 @@
 .receta-card { background: var(--sc-surface); }
 .receta-costo-item.destacado { background: var(--sc-primary-pale); border: 1px solid #eee4f5; border-radius: 8px; }
 
+
+/* ===== Filtros armonizados con Productos ===== */
+.recetas-controles {
+  width: min(100%, 1220px);
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.recetas-controles .view-toggle {
+  margin-bottom: 0;
+}
+
+.recetas-lista {
+  margin-top: 18px;
+}
+
+.recetas-lista-header {
+  align-items: flex-end;
+}
+
+@media (max-width: 700px) {
+  .recetas-controles {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .recetas-controles .filter-select {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .recetas-controles .view-toggle {
+    align-self: flex-start;
+  }
+}

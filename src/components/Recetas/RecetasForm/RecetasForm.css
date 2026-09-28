@@ -391,3 +391,130 @@
 .btn-agregar-ingrediente,
 .btn-eliminar-ingrediente { border-radius: 8px; font-size: 11px; }
 
+
+
+/* ===== Ingredientes en tabla: mantiene estable el alto del formulario ===== */
+.ingredientes-tabla-contenedor {
+  height: 260px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid var(--sc-border);
+  border-radius: 9px;
+  background: #fbf8fc;
+}
+
+.ingredientes-tabla {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+.ingredientes-tabla th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--sc-border);
+  background: #f8f3fb;
+  color: var(--sc-text-soft);
+  font-size: 9px;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ingredientes-tabla th:nth-child(1) { width: 45%; }
+.ingredientes-tabla th:nth-child(2) { width: 20%; }
+.ingredientes-tabla th:nth-child(3) { width: 18%; }
+.ingredientes-tabla th:nth-child(4) { width: 17%; }
+
+.ingredientes-tabla td {
+  padding: 7px 8px;
+  border-bottom: 1px solid #eee6f2;
+  background: #fbf8fc;
+  vertical-align: middle;
+}
+
+.ingredientes-tabla tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.ingredientes-tabla tbody tr.ingrediente-activo td {
+  background: #f7f0fb;
+}
+
+.ingredientes-tabla select,
+.ingredientes-tabla input {
+  width: 100%;
+  min-width: 0;
+  height: 34px;
+  padding: 7px 9px;
+  border: 1px solid var(--sc-border-strong);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--sc-text);
+  font-family: inherit;
+  font-size: 10px;
+  outline: none;
+}
+
+.ingredientes-tabla select:focus,
+.ingredientes-tabla input:focus {
+  border-color: var(--sc-primary);
+  box-shadow: 0 0 0 3px rgba(155, 126, 222, .10);
+}
+
+.ingredientes-tabla input[readonly] {
+  background: #f3eef7;
+  color: var(--sc-primary-dark);
+  font-weight: 600;
+}
+
+.ingredientes-tabla .tabla-accion {
+  text-align: center;
+}
+
+.ingredientes-tabla .btn-eliminar-ingrediente {
+  width: 100%;
+  height: 34px;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+
+.tabla-label-mobile {
+  display: none;
+}
+
+.ingredientes-tabla-vacia {
+  height: 210px;
+  text-align: center;
+  vertical-align: middle !important;
+}
+
+.ingredientes-tabla-vacia strong,
+.ingredientes-tabla-vacia span {
+  display: block;
+}
+
+.ingredientes-tabla-vacia strong {
+  margin-bottom: 5px;
+  color: var(--sc-primary-dark);
+  font-size: 11px;
+}
+
+.ingredientes-tabla-vacia span {
+  color: var(--sc-text-soft);
+  font-size: 10px;
+}
+
+@media (max-width: 750px) {
+  .ingredientes-tabla-contenedor {
+    height: 280px;
+  }
+
+  .ingredientes-tabla {
+    min-width: 650px;
+  }
+}

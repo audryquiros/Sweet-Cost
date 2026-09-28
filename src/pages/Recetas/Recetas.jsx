@@ -16,6 +16,7 @@ import RecetasForm from "../../components/Recetas/RecetasForm/RecetasForm";
 
 import RecetaList from "../../components/Recetas/RecetaList/RecetaList";
 import ViewToggle from "../../components/common/ViewToggle/ViewToggle";
+import FilterSelect from "../../components/common/FilterSelect";
 
 import ConversorMedidas from "../../components/ConversorMedidas/ConversorMedidas";
 
@@ -399,6 +400,24 @@ function Recetas() {
         </div>
       )}
 
+      <div className="recetas-controles">
+        <FilterSelect
+          id="filtroCategoriaRecetas"
+          label="Categoría"
+          value={filtroCategoria}
+          options={CATEGORIAS}
+          onChange={setFiltroCategoria}
+        />
+
+        <ViewToggle
+          value={vista}
+          onChange={(nuevaVista) => {
+            setVista(nuevaVista);
+            localStorage.setItem("sweetcost-view-recetas", nuevaVista);
+          }}
+        />
+      </div>
+
       <section
         className="recetas-lista"
         ref={recetasListaRef}
@@ -416,41 +435,6 @@ function Recetas() {
                 : "recetas registradas"}
             </p>
           </div>
-
-          <div className="recetas-filtro">
-            <label htmlFor="filtroCategoria">
-              Categoría
-            </label>
-
-            <select
-              id="filtroCategoria"
-              value={filtroCategoria}
-              onChange={(e) =>
-                setFiltroCategoria(
-                  e.target.value
-                )
-              }
-            >
-              {CATEGORIAS.map(
-                (categoria) => (
-                  <option
-                    key={categoria.valor}
-                    value={categoria.valor}
-                  >
-                    {categoria.nombre}
-                  </option>
-                )
-              )}
-            </select>
-          </div>
-
-          <ViewToggle
-            value={vista}
-            onChange={(nuevaVista) => {
-              setVista(nuevaVista);
-              localStorage.setItem("sweetcost-view-recetas", nuevaVista);
-            }}
-          />
         </div>
 
         <RecetaList

@@ -662,166 +662,109 @@ function RecetasForm({
             </button>
           </div>
 
-          {formulario.ingredientes
-            .length === 0 && (
-            <div className="ingredientes-vacio">
-              <p>
-                Todavía no has agregado
-                ingredientes.
-              </p>
+          <div className="ingredientes-tabla-contenedor">
+            <table className="ingredientes-tabla">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Unidad</th>
+                  <th aria-label="Acciones"></th>
+                </tr>
+              </thead>
 
-              <span>
-                Agrega los productos utilizados
-                en esta receta.
-              </span>
-            </div>
-          )}
+              <tbody>
+                {formulario.ingredientes.length === 0 ? (
+                  <tr>
+                    <td colSpan="4" className="ingredientes-tabla-vacia">
+                      <strong>Todavía no has agregado ingredientes.</strong>
+                      <span>Agrega los productos utilizados en esta receta.</span>
+                    </td>
+                  </tr>
+                ) : (
+                  formulario.ingredientes.map((ingrediente, indice) => {
+                    const productoSeleccionado = productos.find(
+                      (producto) =>
+                        String(producto.id) ===
+                        String(ingrediente.productoId)
+                    );
 
-          <div className="ingredientes-lista">
-            {formulario.ingredientes.map(
-              (
-                ingrediente,
-                indice
-              ) => {
-                const productoSeleccionado =
-                  productos.find(
-                    (producto) =>
-                      String(
-                        producto.id
-                      ) ===
-                      String(
-                        ingrediente.productoId
-                      )
-                  );
+                    const unidad =
+                      ingrediente.unidad ||
+                      (productoSeleccionado
+                        ? obtenerUnidadBase(productoSeleccionado.unidad)
+                        : "");
 
-                const unidad =
-                  ingrediente.unidad ||
-                  (productoSeleccionado
-                    ? obtenerUnidadBase(
-                        productoSeleccionado.unidad
-                      )
-                    : "");
+                    const activo = ingredienteActivo === indice;
 
-                const activo =
-                  ingredienteActivo ===
-                  indice;
-
-                return (
-                  <div
-                    className={`ingrediente-item ${
-                      activo
-                        ? "ingrediente-activo"
-                        : ""
-                    }`}
-                    key={indice}
-                  >
-                    <div className="ingrediente-campo producto">
-                      <label>
-                        Producto
-                      </label>
-
-                      <select
-                        value={
-                          ingrediente.productoId
-                        }
-                        onChange={(e) =>
-                          seleccionarProducto(
-                            indice,
-                            e.target.value
-                          )
-                        }
-                        onFocus={() =>
-                          seleccionarIngrediente(
-                            indice
-                          )
-                        }
-                        required
+                    return (
+                      <tr
+                        className={activo ? "ingrediente-activo" : ""}
+                        key={indice}
                       >
-                        <option value="">
-                          Seleccionar producto
-                        </option>
+                        <td>
+                          <label className="tabla-label-mobile">Producto</label>
+                          <select
+                            value={ingrediente.productoId}
+                            onChange={(e) =>
+                              seleccionarProducto(indice, e.target.value)
+                            }
+                            onFocus={() => seleccionarIngrediente(indice)}
+                            required
+                          >
+                            <option value="">Seleccionar producto</option>
+                            {productos.map((producto) => (
+                              <option key={producto.id} value={producto.id}>
+                                {producto.nombre}
+                                {producto.marca ? ` - ${producto.marca}` : ""}
+                              </option>
+                            ))}
+                          </select>
+                        </td>
 
-                        {productos.map(
-                          (producto) => (
-                            <option
-                              key={
-                                producto.id
-                              }
-                              value={
-                                producto.id
-                              }
-                            >
-                              {
-                                producto.nombre
-                              }
+                        <td>
+                          <label className="tabla-label-mobile">Cantidad</label>
+                          <input
+                            type="number"
+                            value={ingrediente.cantidad}
+                            onChange={(e) =>
+                              actualizarIngrediente(
+                                indice,
+                                "cantidad",
+                                e.target.value
+                              )
+                            }
+                            onFocus={() => seleccionarIngrediente(indice)}
+                            placeholder="Ej. 300"
+                            min="0"
+                            step="any"
+                            required
+                          />
+                        </td>
 
-                              {producto.marca
-                                ? ` - ${producto.marca}`
-                                : ""}
-                            </option>
-                          )
-                        )}
-                      </select>
-                    </div>
+                        <td>
+                          <label className="tabla-label-mobile">Unidad</label>
+                          <input type="text" value={unidad} readOnly />
+                        </td>
 
-                    <div className="ingrediente-campo cantidad">
-                      <label>
-                        Cantidad
-                      </label>
-
-                      <input
-                        type="number"
-                        value={
-                          ingrediente.cantidad
-                        }
-                        onChange={(e) =>
-                          actualizarIngrediente(
-                            indice,
-                            "cantidad",
-                            e.target.value
-                          )
-                        }
-                        onFocus={() =>
-                          seleccionarIngrediente(
-                            indice
-                          )
-                        }
-                        placeholder="Ej. 300"
-                        min="0"
-                        step="any"
-                        required
-                      />
-                    </div>
-
-                    <div className="ingrediente-campo unidad">
-                      <label>
-                        Unidad
-                      </label>
-
-                      <input
-                        type="text"
-                        value={unidad}
-                        readOnly
-                      />
-                    </div>
-
-                    <button
-                      type="button"
-                      className="btn-eliminar-ingrediente"
-                      onClick={(e) => {
-                        e.stopPropagation();
-
-                        eliminarIngrediente(
-                          indice
-                        );
-                      }}
-                    >
-                      Eliminar
-                    </button>
-                  </div>
-                );
-              }
-            )}
+                        <td className="tabla-accion">
+                          <button
+                            type="button"
+                            className="btn-eliminar-ingrediente"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              eliminarIngrediente(indice);
+                            }}
+                          >
+                            Eliminar
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
 

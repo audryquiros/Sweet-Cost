@@ -299,3 +299,34 @@
 .productos-lista-header { min-height: 42px; }
 .producto-lista-item { min-height: 70px; }
 
+
+/* ===== Filtros armonizados ===== */
+.productos-controles {
+  align-items: flex-end;
+  margin-bottom: 0;
+}
+
+.productos-filtros {
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.productos-contador {
+  margin-top: 18px;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 700px) {
+  .productos-controles {
+    align-items: flex-end;
+    gap: 14px;
+  }
+
+  .productos-filtros {
+    width: 100%;
+  }
+
+  .productos-controles .view-toggle {
+    align-self: flex-start;
+  }
+}

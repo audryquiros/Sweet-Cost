@@ -1,3 +1,4 @@
+import Icon from "../../common/Icon/Icon";
 import RecetaCard from "../RecetaCard/RecetaCard";
 import EmptyState from "../../common/EmptyState/EmptyState";
 import { calcularCostoReceta, calcularCostoPorRendimiento } from "../../../utils/calculosCostos";
@@ -26,7 +27,7 @@ function RecetaList({ recetas, productos, onEditar, onEliminar, vista = "cards" 
           <div>{receta.rendimiento} {receta.unidadRendimiento}</div>
           <div>₡{total.toFixed(2)}</div>
           <div className="receta-lista-costo">₡{porRendimiento.toFixed(2)}</div>
-          <div className="receta-lista-actions"><button type="button" onClick={() => onEditar(receta)}>Editar</button><button type="button" className="danger" onClick={() => onEliminar(receta)}>Eliminar</button></div>
+          <div className="receta-lista-actions"><button type="button" onClick={() => onEditar(receta)}><Icon type="edit" size={13} /><span>Editar</span></button><button type="button" className="danger" onClick={() => onEliminar(receta)}><Icon type="trash" size={13} /><span>Eliminar</span></button></div>
         </article>;
       })}
     </div>;

@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import Icon from "../../common/Icon/Icon";
+
 import "./CotizadorCard.css";
 
 function CotizadorCard({
@@ -263,7 +265,8 @@ function CotizadorCard({
               setMostrarDetalles(true)
             }
           >
-            Ver detalles
+            <Icon type="eye" size={14} />
+            <span>Ver detalles</span>
           </button>
 
           {cotizacion.pedidoId ? (
@@ -278,7 +281,8 @@ function CotizadorCard({
                 onConvertirPedido(cotizacion)
               }
             >
-              Convertir en pedido
+              <Icon type="orders" size={14} />
+              <span>Convertir en pedido</span>
             </button>
           )}
 
@@ -289,7 +293,8 @@ function CotizadorCard({
               onEliminar(cotizacion)
             }
           >
-            Eliminar
+            <Icon type="trash" size={14} />
+            <span>Eliminar</span>
           </button>
         </div>
       </article>
@@ -327,7 +332,7 @@ function CotizadorCard({
                   setMostrarDetalles(false)
                 }
               >
-                ×
+                <Icon type="close" size={17} />
               </button>
             </div>
 

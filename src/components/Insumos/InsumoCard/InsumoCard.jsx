@@ -3,6 +3,8 @@ import {
   obtenerUnidadCostoInsumo,
 } from "../../../utils/calculosCostos";
 
+import Icon from "../../common/Icon/Icon";
+
 import "./InsumoCard.css";
 
 function InsumoCard({
@@ -68,7 +70,8 @@ function InsumoCard({
           className="insumo-btn-editar"
           onClick={() => onEditar(insumo)}
         >
-          Editar
+          <Icon type="edit" size={14} />
+          <span>Editar</span>
         </button>
 
         <button
@@ -76,7 +79,8 @@ function InsumoCard({
           className="insumo-btn-eliminar"
           onClick={() => onEliminar(insumo)}
         >
-          Eliminar
+          <Icon type="trash" size={14} />
+          <span>Eliminar</span>
         </button>
       </div>
     </article>

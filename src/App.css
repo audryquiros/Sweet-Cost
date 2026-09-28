@@ -1,0 +1,9 @@
+
+
+/* Sistema de iconos: acciones compactas y consistentes */
+.producto-card-actions button, .insumo-card-actions button, .receta-card-actions button, .receta-lista-actions button, .cotizador-card-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}

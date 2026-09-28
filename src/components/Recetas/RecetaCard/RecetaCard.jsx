@@ -6,6 +6,8 @@ import {
   calcularCostoReceta,
 } from "../../../utils/calculosCostos";
 
+import Icon from "../../common/Icon/Icon";
+
 import "./RecetaCard.css";
 
 function RecetaCard({
@@ -99,7 +101,8 @@ function RecetaCard({
               setMostrarIngredientes(true)
             }
           >
-            Ver ingredientes
+            <Icon type="eye" size={14} />
+            <span>Ver ingredientes</span>
           </button>
         </div>
 
@@ -130,7 +133,8 @@ function RecetaCard({
             className="receta-btn-editar"
             onClick={() => onEditar(receta)}
           >
-            Editar
+            <Icon type="edit" size={14} />
+            <span>Editar</span>
           </button>
 
           <button
@@ -138,7 +142,8 @@ function RecetaCard({
             className="receta-btn-eliminar"
             onClick={() => onEliminar(receta)}
           >
-            Eliminar
+            <Icon type="trash" size={14} />
+            <span>Eliminar</span>
           </button>
         </div>
       </article>

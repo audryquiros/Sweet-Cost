@@ -447,3 +447,6 @@
     min-width: 850px;
   }
 }
+
+/* Iconos del sistema Sweet Cost */
+button svg { flex: 0 0 auto; }

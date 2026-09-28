@@ -160,3 +160,7 @@
 }
 .insumo-card-actions button { border-radius: 8px; }
 
+
+
+/* Iconos del sistema Sweet Cost */
+button svg { flex: 0 0 auto; }

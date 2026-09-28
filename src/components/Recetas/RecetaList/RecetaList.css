@@ -56,3 +56,7 @@
 .receta-lista-actions { display: flex; gap: 6px; }
 .receta-lista-actions button { border: 1px solid #ded2e7; background: #fff; color: #6d4c8d; border-radius: 7px; padding: 6px 9px; font: inherit; font-size: 10px; font-weight: 600; cursor: pointer; }
 .receta-lista-actions button.danger { color: #9b5968; border-color: #edd7dd; }
+
+
+/* Iconos del sistema Sweet Cost */
+button svg { flex: 0 0 auto; }

@@ -1,3 +1,4 @@
+import Icon from "../../common/Icon/Icon";
 import ProductoCard from "../ProductoCard/ProductoCard";
 import EmptyState from "../../common/EmptyState/EmptyState";
 
@@ -247,7 +248,8 @@ function ProductoList({
                 className="btn-editar"
                 onClick={() => onEditar(producto)}
               >
-                Editar
+                <Icon type="edit" size={13} />
+                <span>Editar</span>
               </button>
 
               <button
@@ -255,7 +257,8 @@ function ProductoList({
                 className="btn-eliminar"
                 onClick={() => onEliminar(producto)}
               >
-                Eliminar
+                <Icon type="trash" size={13} />
+                <span>Eliminar</span>
               </button>
             </div>
           </article>

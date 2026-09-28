@@ -1,3 +1,4 @@
+import Icon from "../Icon/Icon";
 import "./ViewToggle.css";
 
 function ViewToggle({ value, onChange }) {
@@ -9,7 +10,7 @@ function ViewToggle({ value, onChange }) {
         onClick={() => onChange("cards")}
         aria-pressed={value === "cards"}
       >
-        <span aria-hidden="true">▦</span>
+        <Icon type="grid" size={15} />
         <span>Tarjetas</span>
       </button>
       <button
@@ -18,7 +19,7 @@ function ViewToggle({ value, onChange }) {
         onClick={() => onChange("lista")}
         aria-pressed={value === "lista"}
       >
-        <span aria-hidden="true">☷</span>
+        <Icon type="list" size={15} />
         <span>Lista</span>
       </button>
     </div>

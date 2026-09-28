@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { getPedidos } from "../../services/pedidoServices";
 import "./Calendario.css";
+import Icon from "../../components/common/Icon/Icon";
 
 const VISTAS = ["Mes", "Semana", "Día"];
 const DIAS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
@@ -185,7 +186,6 @@ function Calendario() {
     <main className="calendario-page">
       <header className="calendario-header">
         <div>
-          <span className="calendario-eyebrow">Gestión del negocio</span>
           <h1>Calendario de entregas</h1>
           <p>Organiza las fechas y horarios de entrega de tus pedidos.</p>
         </div>
@@ -194,11 +194,11 @@ function Calendario() {
       {error && <div className="calendario-error">{error}</div>}
 
       <section className="calendario-toolbar">
-        <button type="button" className="calendario-hoy" onClick={irHoy}>Hoy</button>
+        <button type="button" className="calendario-hoy" onClick={irHoy}><Icon type="calendar" size={15} /> Hoy</button>
         <div className="calendario-navegacion">
-          <button type="button" onClick={() => cambiarPeriodo(-1)} aria-label="Periodo anterior">‹</button>
+          <button type="button" onClick={() => cambiarPeriodo(-1)} aria-label="Periodo anterior"><span aria-hidden="true">‹</span></button>
           <h2>{encabezadoPeriodo}</h2>
-          <button type="button" onClick={() => cambiarPeriodo(1)} aria-label="Periodo siguiente">›</button>
+          <button type="button" onClick={() => cambiarPeriodo(1)} aria-label="Periodo siguiente"><span aria-hidden="true">›</span></button>
         </div>
         <div className="calendario-vistas" role="tablist" aria-label="Vista del calendario">
           {VISTAS.map((opcion) => (
@@ -210,7 +210,10 @@ function Calendario() {
               role="tab"
               aria-selected={vista === opcion}
             >
-              {opcion}
+              {opcion === "Mes" && <Icon type="calendar" size={14} />}
+              {opcion === "Semana" && <Icon type="dashboard" size={14} />}
+              {opcion === "Día" && <Icon type="profile" size={14} />}
+              <span>{opcion}</span>
             </button>
           ))}
         </div>
@@ -231,7 +234,7 @@ function Calendario() {
 
       {pedidosConFecha.length === 0 && (
         <div className="calendario-aviso">
-          <span className="calendario-aviso-icon">i</span>
+          <span className="calendario-aviso-icon"><Icon type="orders" size={13} /></span>
           <div>
             <strong>No hay entregas programadas todavía</strong>
             <p>Cuando conviertas una cotización aceptada en pedido y le asignes una fecha y hora de entrega, aparecerá automáticamente en este calendario.</p>
@@ -245,7 +248,7 @@ function Calendario() {
               <div className="calendario-dias-semana">
                 {DIAS.map((dia) => <span key={dia}>{dia}</span>)}
               </div>
-              <div className="calendario-grid">
+              <div className="calendario-grid" style={{ gridTemplateRows: `repeat(${diasMes.length / 7}, minmax(0, 1fr))` }}>
                 {diasMes.map(({ fecha, otroMes }) => {
                   const clave = fechaClave(fecha);
                   const pedidosDia = pedidosPorFecha[clave] || [];

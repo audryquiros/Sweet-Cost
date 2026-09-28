@@ -1,3 +1,4 @@
+import Icon from "../../common/Icon/Icon";
 import "./PedidosList.css";
 
 const estados = {
@@ -27,31 +28,6 @@ const formatearMoneda = (valor) =>
     maximumFractionDigits: 0,
   })}`;
 
-function EyeIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" />
-      <circle cx="12" cy="12" r="2.5" />
-    </svg>
-  );
-}
-
-function EditIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M4 20h4L19 9l-4-4L4 16v4Z" />
-      <path d="m13.5 6.5 4 4" />
-    </svg>
-  );
-}
-
-function TrashIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M5 7h14M10 11v6M14 11v6M9 7V4h6v3M7 7l1 14h8l1-14" />
-    </svg>
-  );
-}
 
 function PedidosList({ pedidos, onVer, onEditar, onEliminar }) {
   if (!pedidos.length) {
@@ -104,13 +80,13 @@ function PedidosList({ pedidos, onVer, onEditar, onEliminar }) {
                 <td>
                   <div className="pedido-actions">
                     <button type="button" onClick={() => onVer(pedido)} aria-label={`Ver pedido de ${pedido.cliente}`} title="Ver">
-                      <EyeIcon />
+                      <Icon type="eye" size={16} />
                     </button>
                     <button type="button" onClick={() => onEditar(pedido)} aria-label={`Editar pedido de ${pedido.cliente}`} title="Editar">
-                      <EditIcon />
+                      <Icon type="edit" size={16} />
                     </button>
                     <button type="button" className="pedido-action-danger" onClick={() => onEliminar(pedido)} aria-label={`Eliminar pedido de ${pedido.cliente}`} title="Eliminar">
-                      <TrashIcon />
+                      <Icon type="trash" size={16} />
                     </button>
                   </div>
                 </td>

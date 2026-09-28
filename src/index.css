@@ -137,13 +137,116 @@ a:focus-visible {
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 777px) {
   .app-shell {
     margin-left: 0;
+    padding-top: 64px;
   }
 
   .module-placeholder {
     min-height: calc(100vh - 68px);
     padding: 28px 18px;
+  }
+}
+
+
+body.sidebar-open { overflow: hidden; }
+
+
+/* Sweet Cost · mobile layout guard · <= 777px */
+@media (max-width: 777px) {
+  .app-shell {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .productos-page,
+  .insumos-page,
+  .recetas-page,
+  .cotizador-page,
+  .pedidos-page {
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .productos-header,
+  .insumos-header,
+  .recetas-header,
+  .cotizador-header,
+  .pedidos-header {
+    gap: 14px;
+  }
+
+  .productos-header h1,
+  .insumos-header h1,
+  .recetas-header h1,
+  .cotizador-header h1,
+  .pedidos-header h1 {
+    font-size: 25px;
+  }
+
+  .productos-grid,
+  .recetas-grid {
+    gap: 14px;
+  }
+
+  .productos-controles {
+    gap: 12px;
+  }
+
+  .productos-filtros {
+    width: 100%;
+  }
+
+  .productos-filtro {
+    min-width: 0;
+  }
+
+  .productos-vista,
+  .view-toggle {
+    max-width: 100%;
+  }
+
+  .insumos-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cotizador-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pedidos-tabla-wrap,
+  .productos-lista-vista,
+  .recetas-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .home-page {
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .module-placeholder {
+    min-height: calc(100dvh - 64px);
+    padding: 24px 16px 32px;
+  }
+}
+
+@media (max-width: 540px) {
+  .insumos-grid,
+  .productos-grid,
+  .recetas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .productos-filtros {
+    grid-template-columns: 1fr;
+  }
+
+  .home-kpis {
+    grid-template-columns: 1fr;
   }
 }

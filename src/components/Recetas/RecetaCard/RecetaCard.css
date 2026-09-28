@@ -430,7 +430,7 @@
    RESPONSIVE
    ========================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 777px) {
   .receta-card {
     min-height: 0;
   }

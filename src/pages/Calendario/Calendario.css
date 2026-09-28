@@ -543,8 +543,8 @@
   .agenda-dia { min-height: 420px; }
 }
 
-@media (max-width: 760px) {
-  .calendario-page { height: auto; min-height: calc(100vh - 68px); padding: 24px 16px 32px; overflow: visible; }
+@media (max-width: 777px) {
+  .calendario-page { height: auto; min-height: calc(100dvh - 64px); padding: 24px 16px 32px; overflow: visible; }
   .calendario-header h1 { font-size: 25px; }
   .calendario-toolbar { grid-template-columns: 1fr; gap: 9px; }
   .calendario-hoy, .calendario-vistas { justify-self: stretch; }
@@ -659,7 +659,7 @@
 .calendario-celda.otro-mes:hover { background: #faf8fb; }
 .calendario-celda.hoy .calendario-numero { box-shadow: 0 0 0 3px var(--sc-primary-pale); }
 
-@media (max-width: 760px) {
+@media (max-width: 777px) {
   .calendario-meta {
     align-items: flex-start;
     flex-direction: column;
@@ -667,4 +667,32 @@
 
   .calendario-contador { align-self: flex-end; }
   .calendario-aviso { padding: 10px 12px; }
+}
+
+
+@media (max-width: 777px) {
+  .calendario-page {
+    min-height: calc(100dvh - 64px);
+    padding: 20px 12px 28px;
+  }
+
+  .calendario-header h1 {
+    font-size: 24px;
+  }
+
+  .calendario-toolbar {
+    gap: 8px;
+  }
+
+  .calendario-meta {
+    gap: 8px;
+  }
+
+  .calendario-aviso {
+    font-size: 10px;
+  }
+
+  .calendario-celda {
+    min-height: 88px;
+  }
 }

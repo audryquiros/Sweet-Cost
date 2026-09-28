@@ -66,7 +66,7 @@
 .receta-card-actions button { min-height: 35px; padding: 7px 9px; font-size: 10px; }
 
 @media (max-width: 1000px) { .recetas-form-layout { grid-template-columns: 1fr; } .recetas-conversor { position: static; } }
-@media (max-width: 700px) {
+@media (max-width: 777px) {
   .recetas-page { padding: 22px 16px 34px; }
   .recetas-header { align-items: stretch; flex-direction: column; }
   .btn-agregar-receta { width: 100%; }
@@ -109,7 +109,7 @@
   align-items: flex-end;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 777px) {
   .recetas-controles {
     align-items: flex-start;
     flex-direction: column;

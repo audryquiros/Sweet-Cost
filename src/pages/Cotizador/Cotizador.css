@@ -44,7 +44,7 @@
 .cotizador-vacio-lista p { margin: 6px 0 0; color: var(--sc-text-soft); font-size: 12px; }
 
 @media (max-width: 900px) { .cotizador-grid { grid-template-columns: 1fr; } }
-@media (max-width: 700px) {
+@media (max-width: 777px) {
   .cotizador-page { padding: 22px 16px 34px; }
   .cotizador-header { align-items: stretch; flex-direction: column; }
   .btn-nueva-cotizacion { width: 100%; }

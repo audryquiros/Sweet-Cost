@@ -34,6 +34,7 @@ const PATHS = {
   truck: (<><path d="M3 6h11v11H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></>),
   info: (<><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></>),
   logout: (<><path d="M10 5H5v14h5"/><path d="M13 8l4 4-4 4M8 12h9"/></>),
+  menu: (<><path d="M4 7h16M4 12h16M4 17h16"/></>),
   download: (<><path d="M12 4v11M8 11l4 4 4-4M5 20h14"/></>),
   upload: (<><path d="M12 20V9M8 13l4-4 4 4M5 4h14"/></>),
 };

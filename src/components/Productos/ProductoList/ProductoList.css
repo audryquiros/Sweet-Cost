@@ -432,7 +432,7 @@
    MÓVIL
    ========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 777px) {
   .productos-grid {
     grid-template-columns: 1fr;
     gap: 16px;

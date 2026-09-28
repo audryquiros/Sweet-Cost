@@ -231,7 +231,7 @@
   background: #faf7fc;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 777px) {
   .pedido-form-overlay {
     padding: 12px;
   }

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Icon from "../common/Icon/Icon";
 import "./Nav.css";
@@ -34,16 +35,30 @@ const iconImages = {
 
 function SidebarIcon({ type }) {
   const src = iconImages[type];
-  if (!src) return <Icon type={type} />;
-  return <img className="sidebar-illustration-icon" src={src} alt="" aria-hidden="true" />;
+
+  if (!src) {
+    return <Icon type={type} />;
+  }
+
+  return (
+    <img
+      className="sidebar-illustration-icon"
+      src={src}
+      alt=""
+      aria-hidden="true"
+    />
+  );
 }
 
-function SidebarLink({ item }) {
+function SidebarLink({ item, onNavigate }) {
   return (
     <NavLink
       to={item.to}
       end={item.to === "/"}
-      className={({ isActive }) => `sidebar-link${isActive ? " active" : ""}`}
+      onClick={onNavigate}
+      className={({ isActive }) =>
+        `sidebar-link${isActive ? " active" : ""}`
+      }
     >
       <SidebarIcon type={item.icon} />
       <span>{item.label}</span>
@@ -52,54 +67,177 @@ function SidebarLink({ item }) {
 }
 
 function Nav() {
-  return (
-    <aside className="sidebar">
-      <div className="sidebar-top">
-        <NavLink to="/" className="sidebar-brand" aria-label="Sweet Cost - Dashboard">
-          <img
-            src="/logo-principal.png"
-            alt="Sweet Cost"
-            className="sidebar-logo"
-          />
-        </NavLink>
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-        <div className="business-switcher" role="button" tabIndex={0}>
-          <div className="business-avatar">SC</div>
-          <div className="business-info">
-            <strong>Dulces Momentos</strong>
-            <span>Repostería</span>
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 777) {
+        setIsMobileOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    if (isMobileOpen && window.innerWidth <= 777) {
+      document.body.classList.add("sidebar-open");
+    } else {
+      document.body.classList.remove("sidebar-open");
+    }
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      document.body.classList.remove("sidebar-open");
+    };
+  }, [isMobileOpen]);
+
+  const closeMobileMenu = () => {
+    setIsMobileOpen(false);
+  };
+
+  return (
+    <>
+      {/* Botón para abrir el menú en mobile */}
+      <button
+        type="button"
+        className="mobile-menu-trigger"
+        aria-label="Abrir menú"
+        aria-expanded={isMobileOpen}
+        onClick={() => setIsMobileOpen(true)}
+      >
+        <img
+          src="/illustrations/menu.png"
+          alt=""
+          aria-hidden="true"
+          className="mobile-menu-icon"
+        />
+      </button>
+
+      {/* Fondo para cerrar el menú */}
+      {isMobileOpen && (
+        <button
+          type="button"
+          className="mobile-menu-backdrop"
+          aria-label="Cerrar menú"
+          onClick={closeMobileMenu}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`sidebar${isMobileOpen ? " sidebar-open" : ""}`}
+      >
+        {/* Botón X */}
+        <button
+          type="button"
+          className="mobile-menu-close"
+          aria-label="Cerrar menú"
+          onClick={closeMobileMenu}
+        >
+          <Icon type="close" size={20} />
+        </button>
+
+        <div className="sidebar-top">
+          {/* Logo */}
+          <NavLink
+            to="/"
+            className="sidebar-brand"
+            aria-label="Sweet Cost - Dashboard"
+            onClick={closeMobileMenu}
+          >
+            <img
+              src="/logo-principal.png"
+              alt="Sweet Cost"
+              className="sidebar-logo"
+            />
+          </NavLink>
+
+          {/* Negocio */}
+          <div
+            className="business-switcher"
+            role="button"
+            tabIndex={0}
+          >
+            <div className="business-avatar">SC</div>
+
+            <div className="business-info">
+              <strong>Dulces Momentos</strong>
+              <span>Repostería</span>
+            </div>
+
+            <span
+              className="business-chevron"
+              aria-hidden="true"
+            >
+              ⌄
+            </span>
           </div>
-          <span className="business-chevron" aria-hidden="true">⌄</span>
+
+          {/* Principal */}
+          <div className="sidebar-section-label">
+            Principal
+          </div>
+
+          <nav
+            className="sidebar-nav"
+            aria-label="Navegación principal"
+          >
+            <SidebarLink
+              item={menuPrincipal[0]}
+              onNavigate={closeMobileMenu}
+            />
+          </nav>
+
+          {/* Gestión */}
+          <div className="sidebar-section-label sidebar-section-label--spaced">
+            Gestión del negocio
+          </div>
+
+          <nav
+            className="sidebar-nav"
+            aria-label="Gestión del negocio"
+          >
+            {menuPrincipal.slice(1).map((item) => (
+              <SidebarLink
+                key={item.to}
+                item={item}
+                onNavigate={closeMobileMenu}
+              />
+            ))}
+          </nav>
         </div>
 
-        <div className="sidebar-section-label">Principal</div>
-        <nav className="sidebar-nav" aria-label="Navegación principal">
-          <SidebarLink item={menuPrincipal[0]} />
-        </nav>
+        {/* Cuenta */}
+        <div className="sidebar-bottom">
+          <div className="sidebar-divider" />
 
-        <div className="sidebar-section-label sidebar-section-label--spaced">Gestión del negocio</div>
-        <nav className="sidebar-nav" aria-label="Gestión del negocio">
-          {menuPrincipal.slice(1).map((item) => (
-            <SidebarLink key={item.to} item={item} />
-          ))}
-        </nav>
-      </div>
+          <div className="sidebar-section-label">
+            Cuenta
+          </div>
 
-      <div className="sidebar-bottom">
-        <div className="sidebar-divider" />
-        <div className="sidebar-section-label">Cuenta</div>
-        <nav className="sidebar-nav" aria-label="Cuenta y preferencias">
-          {menuCuenta.map((item) => (
-            <SidebarLink key={item.to} item={item} />
-          ))}
-        </nav>
+          <nav
+            className="sidebar-nav"
+            aria-label="Cuenta y preferencias"
+          >
+            {menuCuenta.map((item) => (
+              <SidebarLink
+                key={item.to}
+                item={item}
+                onNavigate={closeMobileMenu}
+              />
+            ))}
+          </nav>
 
-        <button className="sidebar-logout" type="button">
-          <SidebarIcon type="logout" />
-          <span>Cerrar sesión</span>
-        </button>
-      </div>
-    </aside>
+          {/* Cerrar sesión */}
+          <button
+            className="sidebar-logout"
+            type="button"
+          >
+            <SidebarIcon type="logout" />
+            <span>Cerrar sesión</span>
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }
 

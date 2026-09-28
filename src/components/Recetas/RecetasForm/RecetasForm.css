@@ -286,7 +286,7 @@
 
 /* RESPONSIVE */
 
-@media (max-width: 750px) {
+@media (max-width: 777px) {
   .recetas-form {
     padding: 20px;
   }
@@ -509,7 +509,7 @@
   font-size: 10px;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 777px) {
   .ingredientes-tabla-contenedor {
     height: 280px;
   }

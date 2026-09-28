@@ -18,6 +18,26 @@ const menuCuenta = [
   { to: "/perfil", label: "Mi perfil", icon: "profile" },
 ];
 
+const iconImages = {
+  products: "/illustrations/productos-cupcake.png",
+  supplies: "/illustrations/insumos-frasco.png",
+  recipes: "/illustrations/recetas-batidor.png",
+  quotes: "/illustrations/cotizaciones-recibo.png",
+  orders: "/illustrations/pedidos-portapapeles.png",
+  calendar: "/illustrations/calendario.png",
+  employees: "/illustrations/empleados.png",
+  settings: "/illustrations/configuracion.png",
+  profile: "/illustrations/perfil.png",
+  dashboard: "/illustrations/dashboard.png",
+  logout: "/illustrations/cerrar-sesion.png",
+};
+
+function SidebarIcon({ type }) {
+  const src = iconImages[type];
+  if (!src) return <Icon type={type} />;
+  return <img className="sidebar-illustration-icon" src={src} alt="" aria-hidden="true" />;
+}
+
 function SidebarLink({ item }) {
   return (
     <NavLink
@@ -25,7 +45,7 @@ function SidebarLink({ item }) {
       end={item.to === "/"}
       className={({ isActive }) => `sidebar-link${isActive ? " active" : ""}`}
     >
-      <Icon type={item.icon} />
+      <SidebarIcon type={item.icon} />
       <span>{item.label}</span>
     </NavLink>
   );
@@ -75,7 +95,7 @@ function Nav() {
         </nav>
 
         <button className="sidebar-logout" type="button">
-          <Icon type="logout" size={17} />
+          <SidebarIcon type="logout" />
           <span>Cerrar sesión</span>
         </button>
       </div>

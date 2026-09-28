@@ -132,10 +132,17 @@
   transition: background-color .18s ease, color .18s ease, border-color .18s ease;
 }
 
-.sidebar-link svg {
-  width: 16px;
-  height: 16px;
+.sidebar-link svg,
+.sidebar-illustration-icon {
+  width: 23px;
+  height: 23px;
+  flex: 0 0 23px;
+  object-fit: contain;
   flex-shrink: 0;
+}
+
+.sidebar-illustration-icon {
+  display: block;
 }
 
 .sidebar-link:hover {
@@ -153,6 +160,10 @@
 
 .sidebar-link.active svg {
   color: #ffffff;
+}
+
+.sidebar-link.active .sidebar-illustration-icon {
+  filter: saturate(0.9) brightness(1.03);
 }
 
 .sidebar-divider {

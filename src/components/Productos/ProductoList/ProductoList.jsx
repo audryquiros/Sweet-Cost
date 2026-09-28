@@ -248,7 +248,7 @@ function ProductoList({
                 className="btn-editar"
                 onClick={() => onEditar(producto)}
               >
-                <Icon type="edit" size={13} />
+                <Icon type="edit" size={18} />
                 <span>Editar</span>
               </button>
 
@@ -257,7 +257,7 @@ function ProductoList({
                 className="btn-eliminar"
                 onClick={() => onEliminar(producto)}
               >
-                <Icon type="trash" size={13} />
+                <Icon type="trash" size={18} />
                 <span>Eliminar</span>
               </button>
             </div>

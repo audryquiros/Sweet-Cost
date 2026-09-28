@@ -30,7 +30,7 @@ function CotizadorList({ cotizaciones, insumos, onEliminar, onConvertirPedido, v
           <div><span className={`cotizador-lista-estado estado-${String(estado).toLowerCase().replace(/\s+/g, "-")}`}>{estado}</span></div>
           <div className="cotizador-lista-actions">
             {puedeConvertir && <button type="button" onClick={() => onConvertirPedido(cotizacion)}>Crear pedido</button>}
-            <button type="button" className="danger" onClick={() => onEliminar(cotizacion)}><Icon type="trash" size={15} /><span>Eliminar</span></button>
+            <button type="button" className="danger" onClick={() => onEliminar(cotizacion)}><Icon type="trash" size={18} /><span>Eliminar</span></button>
           </div>
         </article>;
       })}

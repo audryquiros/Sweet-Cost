@@ -252,7 +252,7 @@ function ProductoCard({
             onEditar(producto)
           }
         >
-          <Icon type="edit" size={14} />
+          <Icon type="edit" size={19} />
           <span>Editar</span>
         </button>
 
@@ -263,7 +263,7 @@ function ProductoCard({
             onEliminar(producto)
           }
         >
-          <Icon type="trash" size={14} />
+          <Icon type="trash" size={19} />
           <span>Eliminar</span>
         </button>
       </div>

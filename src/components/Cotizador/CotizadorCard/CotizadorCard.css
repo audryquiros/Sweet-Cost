@@ -211,36 +211,61 @@
 }
 
 /* =========================================
-   ACCIONES
+   ACCIONES DE COTIZACIÓN
    ========================================= */
 
 .cotizador-card-actions {
   display: flex;
-
+  align-items: center;
   justify-content: flex-end;
-
-  gap: 9px;
-
+  gap: 8px;
   margin-top: 16px;
+  flex-wrap: nowrap;
 }
 
-.cotizador-card-detalles,
-.cotizador-card-eliminar {
-  padding: 8px 13px;
+.cotizador-card-actions button,
+.cotizador-card-pedido {
+  height: 48px;
+  min-height: 48px;
+  box-sizing: border-box;
 
-  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
+  gap: 7px;
+  padding: 0 14px;
+
+  border-radius: 8px;
   font-family: inherit;
-
   font-size: 13px;
   font-weight: 600;
+  line-height: 1;
 
+  white-space: nowrap;
   cursor: pointer;
+}
+
+.cotizador-card-actions button svg,
+.cotizador-card-actions button img,
+.cotizador-card-pedido svg,
+.cotizador-card-pedido img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+  flex: 0 0 20px;
+}
+
+.cotizador-card-actions button span,
+.cotizador-card-pedido span {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
 }
 
 .cotizador-card-detalles {
   border: 1px solid #cdbbe2;
-
   background-color: #ffffff;
   color: #6d4c8d;
 }
@@ -251,13 +276,45 @@
 
 .cotizador-card-eliminar {
   border: 1px solid #e8baba;
-
   background-color: #ffffff;
   color: #c95c5c;
 }
 
 .cotizador-card-eliminar:hover {
   background-color: #fff1f1;
+}
+
+.cotizador-card-pedido {
+  border: 0;
+  background: #6d4c8d;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.cotizador-card-pedido:hover {
+  background: #5f407d;
+}
+
+.cotizador-card-pedido-creado {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  box-sizing: border-box;
+  padding: 0 11px;
+  border-radius: 10px;
+  background: #edf7ef;
+  color: #3e7a4d;
+  font-weight: 700;
+  font-size: 0.84rem;
+}
+
+.cotizador-action-icon {
+  width: 22px !important;
+  height: 22px !important;
+  object-fit: contain;
+  display: block;
+  flex: 0 0 22px !important;
 }
 
 /* =========================================
@@ -300,8 +357,31 @@
   box-shadow: 0 15px 45px rgba(45, 35, 55, 0.18);
 
   overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: thin;
+  scrollbar-color: #b99ad8 #f6f1fa;
 
   box-sizing: border-box;
+}
+
+.cotizador-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cotizador-modal::-webkit-scrollbar-track {
+  background: #f6f1fa;
+  border-radius: 999px;
+}
+
+.cotizador-modal::-webkit-scrollbar-thumb {
+  background: #b99ad8;
+  border-radius: 999px;
+  border: 2px solid #f6f1fa;
+}
+
+.cotizador-modal::-webkit-scrollbar-thumb:hover {
+  background: #9b7ede;
 }
 
 .cotizador-modal-header {
@@ -334,21 +414,27 @@
 }
 
 .cotizador-modal-cerrar {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
 
   flex-shrink: 0;
 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
 
   background-color: #f4effa;
   color: #6d4c8d;
 
-  font-size: 25px;
-  line-height: 1;
-
   cursor: pointer;
+}
+
+.cotizador-modal-cerrar svg {
+  width: 20px;
+  height: 20px;
 }
 
 .cotizador-modal-cerrar:hover {
@@ -779,14 +865,50 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) and (min-width: 601px) {
   .cotizador-card-actions {
-    flex-direction: column;
+    gap: 6px;
   }
 
-  .cotizador-card-detalles,
-  .cotizador-card-eliminar {
+  .cotizador-card-actions button,
+  .cotizador-card-pedido {
+    padding: 0 10px;
+    gap: 5px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cotizador-card-actions {
     width: 100%;
+    justify-content: stretch;
+    gap: 7px;
+  }
+
+  .cotizador-card-actions button,
+  .cotizador-card-pedido {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 46px;
+    min-height: 46px;
+    padding: 0 9px;
+    gap: 5px;
+    font-size: 11px;
+  }
+
+  .cotizador-card-actions button svg,
+  .cotizador-card-actions button img,
+  .cotizador-card-pedido svg,
+  .cotizador-card-pedido img {
+    width: 18px;
+    height: 18px;
+    flex-basis: 18px;
+  }
+
+  .cotizador-action-icon {
+    width: 20px !important;
+    height: 20px !important;
+    flex-basis: 20px !important;
   }
 
   .cotizador-modal-overlay {
@@ -810,7 +932,7 @@
     width: 100%;
   }
 }
-.cotizador-card-meta{display:flex;flex-direction:column;align-items:flex-end;gap:6px}.cotizador-card-estado{display:inline-flex;align-items:center;padding:4px 9px;border-radius:999px;font-size:.72rem;font-weight:700;background:#f2edf6;color:#6d4c8d}.cotizador-card-estado.aceptada{background:#edf7ef;color:#3e7a4d}.cotizador-card-estado.pendiente{background:#fff7e8;color:#936b20}.cotizador-card-pedido{border:0;border-radius:10px;padding:9px 12px;background:#6d4c8d;color:#fff;font-weight:700;cursor:pointer}.cotizador-card-pedido-creado{display:inline-flex;align-items:center;padding:8px 11px;border-radius:10px;background:#edf7ef;color:#3e7a4d;font-weight:700;font-size:.84rem}
+.cotizador-card-meta{display:flex;flex-direction:column;align-items:flex-end;gap:6px}.cotizador-card-estado{display:inline-flex;align-items:center;padding:4px 9px;border-radius:999px;font-size:.72rem;font-weight:700;background:#f2edf6;color:#6d4c8d}.cotizador-card-estado.aceptada{background:#edf7ef;color:#3e7a4d}.cotizador-card-estado.pendiente{background:#fff7e8;color:#936b20}
 
 
 /* ===== Sweet Cost · tarjeta armonizada ===== */

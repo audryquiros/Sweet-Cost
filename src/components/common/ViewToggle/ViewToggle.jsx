@@ -10,7 +10,7 @@ function ViewToggle({ value, onChange }) {
         onClick={() => onChange("cards")}
         aria-pressed={value === "cards"}
       >
-        <Icon type="grid" size={15} />
+        <Icon type="grid" size={20} />
         <span>Tarjetas</span>
       </button>
       <button
@@ -19,7 +19,7 @@ function ViewToggle({ value, onChange }) {
         onClick={() => onChange("lista")}
         aria-pressed={value === "lista"}
       >
-        <Icon type="list" size={15} />
+        <Icon type="list" size={20} />
         <span>Lista</span>
       </button>
     </div>

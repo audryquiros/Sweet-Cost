@@ -331,7 +331,7 @@ function Recetas() {
             className="btn-agregar-receta"
             onClick={handleMostrarFormulario}
           >
-            <Icon type="plus" size={18} />
+            <Icon type="plus" size={20} />
             <span>Agregar receta</span>
           </button>
         )}

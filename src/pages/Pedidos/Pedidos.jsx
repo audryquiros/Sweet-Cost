@@ -202,8 +202,8 @@ function Pedidos() {
                   </td>
                   <td>
                     <div className="pedido-acciones">
-                      <button type="button" onClick={() => setDetalle(pedido)} aria-label={`Ver pedido ${pedido.id}`}><Icon type="eye" size={16} /><span>Ver</span></button>
-                      <button type="button" className="pedido-eliminar" onClick={() => setPedidoAEliminar(pedido)} aria-label={`Eliminar pedido ${pedido.id}`}><Icon type="trash" size={16} /><span>Eliminar</span></button>
+                      <button type="button" onClick={() => setDetalle(pedido)} aria-label={`Ver pedido ${pedido.id}`}><Icon type="eye" size={19} /><span>Ver</span></button>
+                      <button type="button" className="pedido-eliminar" onClick={() => setPedidoAEliminar(pedido)} aria-label={`Eliminar pedido ${pedido.id}`}><Icon type="trash" size={19} /><span>Eliminar</span></button>
                     </div>
                   </td>
                 </tr>

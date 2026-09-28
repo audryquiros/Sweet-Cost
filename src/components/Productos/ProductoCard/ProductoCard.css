@@ -345,3 +345,19 @@
 
 /* Iconos del sistema Sweet Cost */
 button svg { flex: 0 0 auto; }
+
+
+/* Acciones: iconos más grandes y centrados */
+.producto-card-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 9px 14px;
+}
+
+.producto-card-actions .icon-illustration {
+  width: 19px;
+  height: 19px;
+}

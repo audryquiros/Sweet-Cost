@@ -8,7 +8,6 @@ const IMAGE_ICONS = {
   grid: "/illustrations/tarjetas.png",
   list: "/illustrations/lista.png",
   plus: "/illustrations/agregar.png",
-  close: "/illustrations/cerrar.png",
 };
 
 const PATHS = {

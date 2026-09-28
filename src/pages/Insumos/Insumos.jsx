@@ -166,7 +166,7 @@ function Insumos() {
             className="btn-agregar-insumo"
             onClick={handleMostrarFormulario}
           >
-            <Icon type="plus" size={18} />
+            <Icon type="plus" size={20} />
             <span>Agregar insumo</span>
           </button>
         )}

@@ -265,7 +265,7 @@ function CotizadorCard({
               setMostrarDetalles(true)
             }
           >
-            <Icon type="eye" size={14} />
+            <Icon type="eye" size={19} />
             <span>Ver detalles</span>
           </button>
 
@@ -281,7 +281,12 @@ function CotizadorCard({
                 onConvertirPedido(cotizacion)
               }
             >
-              <Icon type="orders" size={14} />
+              <img
+                src="/illustrations/pedidos-portapapeles.png"
+                alt=""
+                aria-hidden="true"
+                className="cotizador-action-icon"
+              />
               <span>Convertir en pedido</span>
             </button>
           )}
@@ -293,7 +298,7 @@ function CotizadorCard({
               onEliminar(cotizacion)
             }
           >
-            <Icon type="trash" size={14} />
+            <Icon type="trash" size={19} />
             <span>Eliminar</span>
           </button>
         </div>

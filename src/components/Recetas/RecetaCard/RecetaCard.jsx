@@ -101,7 +101,7 @@ function RecetaCard({
               setMostrarIngredientes(true)
             }
           >
-            <Icon type="eye" size={14} />
+            <Icon type="eye" size={19} />
             <span>Ver ingredientes</span>
           </button>
         </div>
@@ -133,7 +133,7 @@ function RecetaCard({
             className="receta-btn-editar"
             onClick={() => onEditar(receta)}
           >
-            <Icon type="edit" size={14} />
+            <Icon type="edit" size={19} />
             <span>Editar</span>
           </button>
 
@@ -142,7 +142,7 @@ function RecetaCard({
             className="receta-btn-eliminar"
             onClick={() => onEliminar(receta)}
           >
-            <Icon type="trash" size={14} />
+            <Icon type="trash" size={19} />
             <span>Eliminar</span>
           </button>
         </div>

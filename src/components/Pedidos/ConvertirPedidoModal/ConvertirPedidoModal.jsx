@@ -74,7 +74,12 @@ function DatePicker({ value, onChange }) {
         onClick={() => setOpen((current) => !current)}
       >
         <span>{displayValue}</span>
-        <span className="sc-picker-icon sc-calendar-icon" aria-hidden="true" />
+        <img
+          className="sc-picker-icon"
+          src="/illustrations/calendario.png"
+          alt=""
+          aria-hidden="true"
+        />
       </button>
 
       {open && (
@@ -168,7 +173,12 @@ function TimePicker({ value, onChange }) {
         onClick={() => setOpen((current) => !current)}
       >
         <span>{displayValue}</span>
-        <span className="sc-picker-icon sc-clock-icon" aria-hidden="true" />
+        <img
+          className="sc-picker-icon"
+          src="/illustrations/reloj.png"
+          alt=""
+          aria-hidden="true"
+        />
       </button>
 
       {open && (
@@ -201,13 +211,43 @@ function TimePicker({ value, onChange }) {
             </div>
           </div>
           <div className="sc-time-footer">
-            <button type="button" onClick={() => { onChange(""); setOpen(false); }}>Borrar</button>
-            <button type="button" onClick={() => {
-              const now = new Date();
-              const roundedMinutes = Math.floor(now.getMinutes() / 5) * 5;
-              onChange(`${String(now.getHours()).padStart(2, "0")}:${String(roundedMinutes).padStart(2, "0")}`);
-              setOpen(false);
-            }}>Ahora</button>
+            <button
+              type="button"
+              onClick={() => {
+                onChange("");
+                setOpen(false);
+              }}
+            >
+              Borrar
+            </button>
+
+            <div className="sc-time-footer-actions">
+              <button
+                type="button"
+                onClick={() => {
+                  const now = new Date();
+                  const roundedMinutes = Math.floor(now.getMinutes() / 5) * 5;
+
+                  onChange(
+                    `${String(now.getHours()).padStart(2, "0")}:${String(
+                      roundedMinutes
+                    ).padStart(2, "0")}`
+                  );
+
+                  setOpen(false);
+                }}
+              >
+                Ahora
+              </button>
+
+              <button
+                type="button"
+                className="sc-time-done"
+                onClick={() => setOpen(false)}
+              >
+                Listo
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -319,7 +359,6 @@ function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
             <h2>Convertir en pedido</h2>
             <p>{cotizacion.nombre}</p>
           </div>
-          <button type="button" className="convertir-pedido-cerrar" onClick={onCancelar}>×</button>
         </div>
 
         <div className="convertir-pedido-resumen">
@@ -333,22 +372,34 @@ function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
 
           <div className="convertir-pedido-grid">
             <div className="convertir-pedido-field">
-              <label htmlFor="cliente">Cliente *</label>
+              <label htmlFor="cliente" className="convertir-pedido-label-with-icon">
+                <img src="/illustrations/perfil.png" alt="" aria-hidden="true" />
+                <span>Cliente *</span>
+              </label>
               <input id="cliente" name="cliente" value={formulario.cliente} onChange={handleChange} placeholder="Nombre del cliente" />
             </div>
             <div className="convertir-pedido-field">
-              <label htmlFor="telefono">Teléfono</label>
+              <label htmlFor="telefono" className="convertir-pedido-label-with-icon">
+                <img src="/illustrations/telefono.png" alt="" aria-hidden="true" />
+                <span>Teléfono</span>
+              </label>
               <input id="telefono" name="telefono" value={formulario.telefono} onChange={handleChange} placeholder="8888-8888" />
             </div>
             <div className="convertir-pedido-field">
-              <label>Fecha de entrega *</label>
+              <label className="convertir-pedido-label-with-icon">
+                <img src="/illustrations/calendario.png" alt="" aria-hidden="true" />
+                <span>Fecha de entrega *</span>
+              </label>
               <DatePicker
                 value={formulario.fechaEntrega}
                 onChange={(value) => setFormulario((actual) => ({ ...actual, fechaEntrega: value }))}
               />
             </div>
             <div className="convertir-pedido-field">
-              <label>Hora de entrega *</label>
+              <label className="convertir-pedido-label-with-icon">
+                <img src="/illustrations/reloj.png" alt="" aria-hidden="true" />
+                <span>Hora de entrega *</span>
+              </label>
               <TimePicker
                 value={formulario.horaEntrega}
                 onChange={(value) => setFormulario((actual) => ({ ...actual, horaEntrega: value }))}
@@ -356,7 +407,7 @@ function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
             </div>
             <FilterSelect
               id="metodoPago"
-              label="Método de pago"
+              label={<span className="convertir-pedido-select-label-with-icon"><img src="/illustrations/billetera.png" alt="" aria-hidden="true" /><span>Método de pago</span></span>}
               value={formulario.metodoPago}
               options={[
                 { valor: "", nombre: "Seleccionar" },
@@ -369,15 +420,24 @@ function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
               className="convertir-pedido-select"
             />
             <div className="convertir-pedido-field">
-              <label htmlFor="deposito">Depósito</label>
+              <label htmlFor="deposito" className="convertir-pedido-label-with-icon">
+                <img src="/illustrations/moneda.png" alt="" aria-hidden="true" />
+                <span>Depósito</span>
+              </label>
               <input id="deposito" name="deposito" type="number" min="0" max={total} step="0.01" value={formulario.deposito} onChange={handleChange} />
             </div>
             <div className="convertir-pedido-field convertir-pedido-field-full">
-              <label>Saldo pendiente</label>
+              <label className="convertir-pedido-label-with-icon">
+                <img src="/illustrations/moneda.png" alt="" aria-hidden="true" />
+                <span>Saldo pendiente</span>
+              </label>
               <div className="convertir-pedido-saldo">₡{saldo.toFixed(2)}</div>
             </div>
             <div className="convertir-pedido-field convertir-pedido-field-full">
-              <label htmlFor="observaciones">Observaciones</label>
+              <label htmlFor="observaciones" className="convertir-pedido-label-with-icon">
+                <img src="/illustrations/recibo.png" alt="" aria-hidden="true" />
+                <span>Observaciones</span>
+              </label>
               <textarea id="observaciones" name="observaciones" rows="3" value={formulario.observaciones} onChange={handleChange} placeholder="Detalles importantes para la preparación o entrega" />
             </div>
           </div>

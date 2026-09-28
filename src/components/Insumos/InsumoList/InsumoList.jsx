@@ -29,7 +29,7 @@ function InsumoList({ insumos, onEditar, onEliminar, vista = "cards" }) {
               <div>{insumo.cantidad} {insumo.unidad}</div>
               <div>₡{Number(insumo.precio || 0).toFixed(2)}</div>
               <div className="insumo-lista-costo">₡{costo.toFixed(2)} / {unidad}</div>
-              <div className="insumo-lista-actions"><button type="button" onClick={() => onEditar(insumo)}><Icon type="edit" size={15} /><span>Editar</span></button><button type="button" className="danger" onClick={() => onEliminar(insumo)}><Icon type="trash" size={15} /><span>Eliminar</span></button></div>
+              <div className="insumo-lista-actions"><button type="button" onClick={() => onEditar(insumo)}><Icon type="edit" size={21} /><span>Editar</span></button><button type="button" className="danger" onClick={() => onEliminar(insumo)}><Icon type="trash" size={21} /><span>Eliminar</span></button></div>
             </article>
           );
         })}

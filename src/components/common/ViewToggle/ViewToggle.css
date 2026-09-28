@@ -51,3 +51,16 @@
     padding: 6px;
   }
 }
+
+
+/* Iconos ilustrados Sweet Cost: más visibles y mejor alineados */
+.view-toggle button {
+  gap: 8px;
+  min-height: 36px;
+  padding: 7px 13px;
+}
+
+.view-toggle .icon-illustration {
+  width: 18px;
+  height: 18px;
+}

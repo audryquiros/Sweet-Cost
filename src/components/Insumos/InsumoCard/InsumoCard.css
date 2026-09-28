@@ -111,15 +111,31 @@
 
 .insumo-card-actions button {
   flex: 1;
-  padding: 9px 12px;
-  border-radius: 7px;
+  min-height: 52px;
+  padding: 10px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 8px;
   font-family: inherit;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition:
     background-color 0.2s ease,
-    color 0.2s ease;
+    color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.insumo-card-actions button:hover {
+  transform: translateY(-1px);
+}
+
+.insumo-card-actions .icon-illustration {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
 }
 
 .insumo-btn-editar {

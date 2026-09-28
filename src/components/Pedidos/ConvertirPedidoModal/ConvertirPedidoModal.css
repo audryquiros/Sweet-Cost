@@ -416,3 +416,89 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+
+/* =========================================================
+   Sweet Cost · iconos ilustrados del formulario
+   ========================================================= */
+
+.convertir-pedido-label-with-icon {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+}
+
+.convertir-pedido-label-with-icon img,
+.convertir-pedido-select-label-with-icon img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  display: block;
+  flex: 0 0 15px;
+}
+
+.convertir-pedido-select-label-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sc-picker-icon {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+  display: block;
+  flex: 0 0 17px;
+}
+
+/* Los iconos anteriores se reemplazan por PNG. */
+.sc-calendar-icon::before,
+.sc-calendar-icon::after,
+.sc-clock-icon::before,
+.sc-clock-icon::after {
+  content: none;
+}
+
+/* Icono del selector de método de pago. */
+.convertir-pedido-select .filter-select-trigger {
+  padding-left: 10px;
+}
+
+/* Si el componente FilterSelect muestra el label como texto,
+   este estilo mantiene el icono del PNG alineado. */
+.convertir-pedido-select-label-with-icon {
+  line-height: 1;
+}
+
+/* =========================================================
+   Archivos esperados en /public/illustrations/
+   =========================================================
+   perfil.png
+   telefono-form.png
+   calendario.png
+   reloj.png
+   billetera.png
+   moneda.png
+   moneda.png
+   recibo.png
+   cerrar-form.png
+   ========================================================= */
+
+
+/* ===== Selector de hora · acciones ===== */
+.sc-time-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sc-time-done {
+  padding: 6px 10px !important;
+  border-radius: 7px !important;
+  background: var(--sc-primary-dark) !important;
+  color: #fff !important;
+}
+
+.sc-time-done:hover {
+  background: #5f407d !important;
+}

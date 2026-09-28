@@ -304,7 +304,7 @@ function Productos() {
               setError("");
             }}
           >
-            <Icon type="plus" size={18} />
+            <Icon type="plus" size={20} />
             <span>Nuevo producto</span>
           </button>
         )}

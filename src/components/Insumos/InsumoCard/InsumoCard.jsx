@@ -70,7 +70,7 @@ function InsumoCard({
           className="insumo-btn-editar"
           onClick={() => onEditar(insumo)}
         >
-          <Icon type="edit" size={14} />
+          <Icon type="edit" size={22} />
           <span>Editar</span>
         </button>
 
@@ -79,7 +79,7 @@ function InsumoCard({
           className="insumo-btn-eliminar"
           onClick={() => onEliminar(insumo)}
         >
-          <Icon type="trash" size={14} />
+          <Icon type="trash" size={22} />
           <span>Eliminar</span>
         </button>
       </div>

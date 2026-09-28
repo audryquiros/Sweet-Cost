@@ -80,13 +80,13 @@ function PedidosList({ pedidos, onVer, onEditar, onEliminar }) {
                 <td>
                   <div className="pedido-actions">
                     <button type="button" onClick={() => onVer(pedido)} aria-label={`Ver pedido de ${pedido.cliente}`} title="Ver">
-                      <Icon type="eye" size={16} />
+                      <Icon type="eye" size={19} />
                     </button>
                     <button type="button" onClick={() => onEditar(pedido)} aria-label={`Editar pedido de ${pedido.cliente}`} title="Editar">
-                      <Icon type="edit" size={16} />
+                      <Icon type="edit" size={19} />
                     </button>
                     <button type="button" className="pedido-action-danger" onClick={() => onEliminar(pedido)} aria-label={`Eliminar pedido de ${pedido.cliente}`} title="Eliminar">
-                      <Icon type="trash" size={16} />
+                      <Icon type="trash" size={19} />
                     </button>
                   </div>
                 </td>

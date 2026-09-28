@@ -1,0 +1,53 @@
+.view-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px;
+  background: #f5f0f8;
+  border: 1px solid #e7dff0;
+  border-radius: 10px;
+}
+
+.view-toggle button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 6px 11px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #756b7c;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+.view-toggle button span:first-child {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.view-toggle button:hover {
+  color: #6d4c8d;
+}
+
+.view-toggle .view-toggle-active {
+  background: #ffffff;
+  color: #6d4c8d;
+  box-shadow: 0 2px 7px rgba(109, 76, 141, .12);
+}
+
+@media (max-width: 620px) {
+  .view-toggle button span:last-child {
+    display: none;
+  }
+
+  .view-toggle button {
+    width: 34px;
+    padding: 6px;
+  }
+}

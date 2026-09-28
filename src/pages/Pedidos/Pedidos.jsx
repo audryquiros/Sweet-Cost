@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { getPedidos, updatePedido, deletePedido } from "../../services/pedidoServices";
 import { getCotizaciones } from "../../services/cotizadorServices";
 import Confirmacion from "../../components/Confirmacion/Confirmacion";
+import EmptyState from "../../components/common/EmptyState/EmptyState";
 import "./Pedidos.css";
 
 const ESTADOS = ["Pendiente", "En preparación", "Listo", "Entregado", "Cancelado"];
@@ -10,6 +11,15 @@ function formatearFecha(fecha) {
   if (!fecha) return "-";
   const valor = String(fecha).includes("T") ? fecha : `${fecha}T00:00:00`;
   return new Date(valor).toLocaleDateString("es-CR");
+}
+
+function formatearHora(hora) {
+  if (!hora) return "Sin hora";
+  const [hours, minutes] = String(hora).split(":").map(Number);
+  if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return hora;
+  const periodo = hours >= 12 ? "PM" : "AM";
+  const hora12 = hours % 12 || 12;
+  return `${hora12}:${String(minutes).padStart(2, "0")} ${periodo}`;
 }
 
 function Pedidos() {
@@ -142,10 +152,12 @@ function Pedidos() {
       </section>
 
       {pedidosFiltrados.length === 0 ? (
-        <section className="pedidos-vacio">
-          <h2>No hay pedidos para mostrar</h2>
-          <p>Los pedidos se crean desde una cotización aceptada mediante “Convertir en pedido”.</p>
-        </section>
+        <EmptyState
+          className="pedidos-vacio"
+          illustration="pedidos-portapapeles"
+          title="No hay pedidos para mostrar"
+          description="Los pedidos se crean desde una cotización aceptada mediante “Convertir en pedido”."
+        />
       ) : (
         <section className="pedidos-tabla-wrap">
           <table className="pedidos-tabla">
@@ -155,6 +167,7 @@ function Pedidos() {
                 <th>Cliente</th>
                 <th>Fecha</th>
                 <th>Entrega</th>
+                <th>Hora</th>
                 <th>Total</th>
                 <th>Estado</th>
                 <th>Acciones</th>
@@ -172,7 +185,8 @@ function Pedidos() {
                     <span>{pedido.telefono || "Sin teléfono"}</span>
                   </td>
                   <td>{formatearFecha(pedido.fechaPedido)}</td>
-                  <td>{formatearFecha(pedido.fechaEntrega)}</td>
+                  <td><span>{formatearFecha(pedido.fechaEntrega)}</span></td>
+                  <td><strong>{formatearHora(pedido.horaEntrega)}</strong></td>
                   <td><strong>₡{Number(pedido.precioSugerido || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></td>
                   <td>
                     <select
@@ -209,6 +223,7 @@ function Pedidos() {
               <div><span>Receta</span><strong>{detalle.recetaNombre || "-"}</strong></div>
               <div><span>Fecha del pedido</span><strong>{formatearFecha(detalle.fechaPedido)}</strong></div>
               <div><span>Fecha de entrega</span><strong>{formatearFecha(detalle.fechaEntrega)}</strong></div>
+              <div><span>Hora de entrega</span><strong>{formatearHora(detalle.horaEntrega)}</strong></div>
               <div><span>Cantidad</span><strong>{detalle.cantidadAVender || 0}</strong></div>
               <div><span>Productos totales</span><strong>{detalle.cantidadTotalProductos || 0}</strong></div>
               <div><span>Método de pago</span><strong>{detalle.metodoPago || "-"}</strong></div>

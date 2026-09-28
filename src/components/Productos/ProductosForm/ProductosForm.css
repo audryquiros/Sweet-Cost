@@ -377,3 +377,35 @@
 .productos-form .form-group small { font-size: 9px; }
 .productos-form .producto-porcion { padding: 13px; border-color: var(--sc-border); border-radius: 9px; background: #fbf8fc; }
 .productos-form .productos-form-nota { margin-top: 17px; padding: 11px 13px; border-left-width: 3px; background: #fbf8fc; font-size: 11px; }
+
+
+/* ===== Sweet Cost · formulario armonizado ===== */
+.productos-form {
+  border-color: var(--sc-border);
+  border-radius: 12px;
+  box-shadow: var(--sc-shadow);
+  background: var(--sc-surface);
+  padding: 20px;
+}
+.productos-form h2,
+.productos-form-header h2 { color: var(--sc-text); font-size: 19px; }
+.productos-form p,
+.productos-form-header p { color: var(--sc-text-soft); font-size: 11px; }
+.productos-form label { color: var(--sc-text-soft); font-size: 10px; }
+.productos-form input,
+.productos-form select,
+.productos-form textarea {
+  border-color: var(--sc-border-strong);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--sc-text);
+  font-size: 11px;
+}
+.productos-form input:focus,
+.productos-form select:focus,
+.productos-form textarea:focus {
+  border-color: var(--sc-primary);
+  box-shadow: 0 0 0 3px rgba(155,126,222,.12);
+}
+.productos-form button { border-radius: 8px; font-size: 11px; }
+

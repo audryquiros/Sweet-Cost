@@ -7,12 +7,15 @@ import {
 
 import InsumosForm from "../../components/Insumos/InsumosForm/InsumosForm";
 import InsumoList from "../../components/Insumos/InsumoList/InsumoList";
+import ViewToggle from "../../components/common/ViewToggle/ViewToggle";
 import Confirmacion from "../../components/Confirmacion/Confirmacion";
 
 import "./Insumos.css";
 
 function Insumos() {
   const [insumos, setInsumos] = useState([]);
+
+  const [vista, setVista] = useState(() => localStorage.getItem("sweetcost-view-insumos") || "lista");
 
   const [mostrarFormulario, setMostrarFormulario] =
     useState(false);
@@ -201,12 +204,21 @@ function Insumos() {
                 : "insumos registrados"}
             </p>
           </div>
+
+          <ViewToggle
+            value={vista}
+            onChange={(nuevaVista) => {
+              setVista(nuevaVista);
+              localStorage.setItem("sweetcost-view-insumos", nuevaVista);
+            }}
+          />
         </div>
 
         <InsumoList
           insumos={insumos}
           onEditar={handleEditar}
           onEliminar={handleEliminar}
+          vista={vista}
         />
       </section>
 

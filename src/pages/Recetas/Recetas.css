@@ -74,3 +74,15 @@
   .recetas-filtro { justify-content: space-between; }
   .recetas-filtro select { flex: 1; max-width: 220px; }
 }
+
+
+/* ===== Sweet Cost · página armonizada ===== */
+.recetas-page { padding: 30px 34px 44px; }
+.recetas-header { margin-bottom: 22px; }
+.recetas-header h1 { font-size: 28px; line-height: 1.15; }
+.recetas-header p { font-size: 13px; }
+.recetas-lista { margin-top: 22px; }
+.recetas-grid { gap: 14px; }
+.receta-card { background: var(--sc-surface); }
+.receta-costo-item.destacado { background: var(--sc-primary-pale); border: 1px solid #eee4f5; border-radius: 8px; }
+

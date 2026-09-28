@@ -13,6 +13,7 @@ import ConvertirPedidoModal from "../../components/Pedidos/ConvertirPedidoModal/
 
 import CotizadorForm from "../../components/Cotizador/CotizadorForm/CotizadorForm";
 import CotizadorList from "../../components/Cotizador/CotizadorList/CotizadorList";
+import ViewToggle from "../../components/common/ViewToggle/ViewToggle";
 import Confirmacion from "../../components/Confirmacion/Confirmacion";
 
 import "./Cotizador.css";
@@ -46,6 +47,8 @@ function Cotizador() {
 
   const [cargando, setCargando] =
     useState(true);
+
+  const [vista, setVista] = useState(() => localStorage.getItem("sweetcost-view-cotizaciones") || "cards");
 
   const [cotizacionParaPedido, setCotizacionParaPedido] =
     useState(null);
@@ -282,12 +285,22 @@ function Cotizador() {
 
       <section className="cotizador-lista">
         <div className="cotizador-lista-header">
-          <p>
+          <div>
+            <p>
             {cotizaciones.length}{" "}
             {cotizaciones.length === 1
               ? "cotización realizada"
               : "cotizaciones realizadas"}
-          </p>
+            </p>
+          </div>
+
+          <ViewToggle
+            value={vista}
+            onChange={(nuevaVista) => {
+              setVista(nuevaVista);
+              localStorage.setItem("sweetcost-view-cotizaciones", nuevaVista);
+            }}
+          />
         </div>
 
         <CotizadorList
@@ -301,6 +314,7 @@ function Cotizador() {
           onConvertirPedido={
             handleAbrirConversion
           }
+          vista={vista}
         />
       </section>
 

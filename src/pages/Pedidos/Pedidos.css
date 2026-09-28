@@ -390,3 +390,29 @@
   .pedidos-limpiar { grid-column: auto; justify-self: stretch; }
   .pedido-detalle-grid { grid-template-columns: 1fr; }
 }
+
+
+/* ===== Sweet Cost · página armonizada ===== */
+.pedidos-page { padding: 30px 34px 44px; }
+.pedidos-header { margin-bottom: 22px; }
+.pedidos-header h1 { font-size: 28px; line-height: 1.15; }
+.pedidos-header p { font-size: 13px; }
+.pedidos-tabs { margin-bottom: 12px; }
+.pedidos-tabs button { border-radius: 8px; }
+.pedidos-tabs button.activo { background: var(--sc-primary-pale); border-color: var(--sc-primary-soft); }
+.pedidos-filtros { margin-bottom: 14px; }
+.pedidos-tabla-wrap { border-radius: 12px; }
+.pedidos-tabla th { font-size: 10px; }
+.pedidos-tabla td { font-size: 11px; }
+.pedido-acciones button { border-radius: 8px; }
+
+
+.pedidos-tabla td > span {
+  display: block;
+  color: var(--sc-text-soft);
+  font-size: 10px;
+}
+
+.pedidos-tabla td strong {
+  color: var(--sc-text);
+}

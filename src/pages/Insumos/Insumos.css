@@ -60,3 +60,16 @@
   .btn-agregar-insumo { width: 100%; }
   .insumos-lista-header { align-items: flex-start; flex-direction: column; gap: 10px; }
 }
+
+
+/* ===== Sweet Cost · página armonizada ===== */
+.insumos-page { padding: 30px 34px 44px; }
+.insumos-header { margin-bottom: 22px; }
+.insumos-header h1 { font-size: 28px; line-height: 1.15; }
+.insumos-header p { font-size: 13px; }
+.insumos-lista { margin-top: 22px; }
+.insumos-lista-header h2 { font-size: 17px; }
+.insumos-grid { gap: 14px; }
+.insumo-card { min-height: 100%; background: var(--sc-surface); }
+.insumo-costo { background: var(--sc-primary-pale); border: 1px solid #eee4f5; }
+

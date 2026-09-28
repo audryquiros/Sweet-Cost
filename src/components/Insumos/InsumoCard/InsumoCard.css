@@ -150,3 +150,13 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== Sweet Cost · tarjeta armonizada ===== */
+.insumo-card {
+  background: var(--sc-surface);
+  border-color: var(--sc-border);
+  border-radius: 12px;
+  box-shadow: var(--sc-shadow);
+}
+.insumo-card-actions button { border-radius: 8px; }
+

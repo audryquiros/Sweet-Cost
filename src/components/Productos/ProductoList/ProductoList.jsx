@@ -1,4 +1,5 @@
 import ProductoCard from "../ProductoCard/ProductoCard";
+import EmptyState from "../../common/EmptyState/EmptyState";
 
 import {
   calcularCantidadTotalProducto,
@@ -47,14 +48,11 @@ function ProductoList({
 
   if (productos.length === 0) {
     return (
-      <div className="productos-vacio">
-        <h3>No hay productos registrados</h3>
-
-        <p>
-          Agrega tu primer producto para comenzar a
-          gestionar tus costos.
-        </p>
-      </div>
+      <EmptyState
+        illustration="productos-cupcake"
+        title="No hay productos registrados"
+        description="Agrega tu primer producto para comenzar a gestionar tus costos."
+      />
     );
   }
 

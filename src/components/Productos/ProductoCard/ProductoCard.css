@@ -26,9 +26,9 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 15px;
-  min-height: 64px;
-  margin-bottom: 20px;
+  gap: 12px;
+  min-height: 58px;
+  margin-bottom: 16px;
 }
 
 .producto-card-header > div:first-child {
@@ -38,8 +38,8 @@
 .producto-card h3 {
   margin: 0;
   color: #352d3a;
-  font-size: 18px;
-  line-height: 1.25;
+  font-size: 19px;
+  line-height: 1.2;
 }
 
 .producto-marca {
@@ -57,7 +57,8 @@
   align-items: center;
   justify-content: flex-end;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 5px;
+  max-width: 48%;
   flex-shrink: 0;
 }
 
@@ -68,8 +69,8 @@
 .producto-tipo {
   display: inline-flex;
   align-items: center;
-  min-height: 24px;
-  padding: 0 10px;
+  min-height: 23px;
+  padding: 0 9px;
   border-radius: 20px;
   background-color: #d8c8f2;
   color: #6d4c8d;
@@ -97,8 +98,8 @@
 .producto-categoria {
   display: inline-flex;
   align-items: center;
-  min-height: 24px;
-  padding: 0 10px;
+  min-height: 23px;
+  padding: 0 9px;
   border: 1px solid #e3d8f0;
   border-radius: 20px;
   background-color: #faf7fd;
@@ -120,8 +121,8 @@
     minmax(0, 1fr)
   );
   align-content: start;
-  gap: 16px 18px;
-  padding: 17px 0;
+  gap: 15px 22px;
+  padding: 16px 0;
   border-top: 1px solid #e3dce9;
   border-bottom: 1px solid #e3dce9;
 }
@@ -135,13 +136,13 @@
 
 .producto-info-item span {
   color: #776d7d;
-  font-size: 12px;
-  line-height: 1.25;
+  font-size: 11px;
+  line-height: 1.3;
 }
 
 .producto-info-item strong {
   color: #352d3a;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.3;
 }
 
@@ -154,8 +155,8 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-top: 1px;
-  padding: 14px 16px;
+  margin-top: 0;
+  padding: 13px 15px;
   border-radius: 9px;
   background-color: #f6f1fb;
 }
@@ -167,7 +168,7 @@
 
 .producto-costo strong {
   color: #6d4c8d;
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.2;
 }
 
@@ -240,13 +241,13 @@
   display: flex;
   gap: 10px;
   margin-top: auto;
-  padding-top: 18px;
+  padding-top: 16px;
 }
 
 .producto-card-actions button {
   flex: 1;
-  min-height: 38px;
-  padding: 9px 12px;
+  min-height: 36px;
+  padding: 8px 12px;
   border-radius: 7px;
   font-family: inherit;
   font-size: 13px;
@@ -314,5 +315,29 @@
 
   .producto-porcion strong {
     text-align: left;
+  }
+}
+
+/* ===== Sweet Cost · tarjeta armonizada ===== */
+.producto-card {
+  border-color: var(--sc-border);
+  border-radius: 12px;
+  box-shadow: var(--sc-shadow);
+}
+.producto-card button,
+.producto-card a { border-radius: 8px; font-size: 10px; }
+
+
+
+/* ===== Distribución de tarjetas: 3 por fila en escritorio ===== */
+@media (min-width: 1051px) {
+  .producto-card {
+    min-height: 100%;
+  }
+}
+
+@media (max-width: 1050px) and (min-width: 701px) {
+  .producto-card-etiquetas {
+    max-width: 52%;
   }
 }

@@ -362,3 +362,32 @@
 .ingrediente-campo label { font-size: 9px; }
 .ingrediente-campo input, .ingrediente-campo select { padding: 8px 9px; border-color: var(--sc-border-strong); font-size: 10px; }
 .btn-eliminar-ingrediente { height: 34px; font-size: 10px; }
+
+
+/* ===== Sweet Cost · formulario armonizado ===== */
+.recetas-form {
+  background: var(--sc-surface);
+  border-color: var(--sc-border);
+  border-radius: 12px;
+  box-shadow: var(--sc-shadow);
+  padding: 20px;
+}
+.recetas-form-header h2 { color: var(--sc-text); font-size: 19px; }
+.recetas-form-header p { color: var(--sc-text-soft); font-size: 11px; }
+.receta-form-group label,
+.ingrediente-campo label { color: var(--sc-text-soft); font-size: 10px; }
+.receta-form-group input,
+.receta-form-group select,
+.ingrediente-campo input,
+.ingrediente-campo select {
+  border-color: var(--sc-border-strong);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--sc-text);
+  font-size: 11px;
+}
+.receta-btn-cancelar,
+.receta-btn-guardar,
+.btn-agregar-ingrediente,
+.btn-eliminar-ingrediente { border-radius: 8px; font-size: 11px; }
+

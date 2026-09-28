@@ -63,7 +63,7 @@ a:focus-visible {
 
 .app-shell {
   min-height: 100vh;
-  margin-left: 232px;
+  margin-left: 244px;
   background: var(--sc-bg);
 }
 
@@ -83,6 +83,24 @@ a:focus-visible {
   border-radius: 18px;
   box-shadow: var(--sc-shadow);
   text-align: center;
+}
+
+
+.module-placeholder-illustration {
+  width: 104px;
+  height: 92px;
+  margin: 0 auto 16px;
+  display: grid;
+  place-items: center;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #faf5fd 0%, #f5effa 100%);
+}
+
+.module-placeholder-illustration img {
+  width: auto;
+  height: 78px;
+  max-width: 88px;
+  object-fit: contain;
 }
 
 .module-placeholder-label {
@@ -115,7 +133,7 @@ a:focus-visible {
 
 @media (max-width: 1100px) {
   .app-shell {
-    margin-left: 208px;
+    margin-left: 220px;
   }
 }
 

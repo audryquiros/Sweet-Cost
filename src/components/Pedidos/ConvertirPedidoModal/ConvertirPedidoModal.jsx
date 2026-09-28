@@ -8,6 +8,7 @@ function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
     cliente: cotizacion.cliente || "",
     telefono: cotizacion.telefono || "",
     fechaEntrega: "",
+    horaEntrega: "",
     metodoPago: "",
     deposito: "0",
     observaciones: cotizacion.observaciones || "",
@@ -35,6 +36,11 @@ function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
 
     if (!formulario.fechaEntrega) {
       setError("Debes indicar la fecha de entrega.");
+      return;
+    }
+
+    if (!formulario.horaEntrega) {
+      setError("Debes indicar la hora de entrega.");
       return;
     }
 
@@ -67,6 +73,7 @@ function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
         saldo,
         fechaPedido: new Date().toISOString(),
         fechaEntrega: formulario.fechaEntrega,
+        horaEntrega: formulario.horaEntrega,
         metodoPago: formulario.metodoPago,
         estado: "Pendiente",
         observaciones: formulario.observaciones.trim(),
@@ -124,6 +131,10 @@ function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
             <div className="convertir-pedido-field">
               <label htmlFor="fechaEntrega">Fecha de entrega *</label>
               <input id="fechaEntrega" name="fechaEntrega" type="date" value={formulario.fechaEntrega} onChange={handleChange} />
+            </div>
+            <div className="convertir-pedido-field">
+              <label htmlFor="horaEntrega">Hora de entrega *</label>
+              <input id="horaEntrega" name="horaEntrega" type="time" value={formulario.horaEntrega} onChange={handleChange} />
             </div>
             <div className="convertir-pedido-field">
               <label htmlFor="metodoPago">Método de pago</label>

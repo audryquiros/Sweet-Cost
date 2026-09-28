@@ -40,6 +40,7 @@ const estadoInicial = {
   telefono: "",
   fecha: fechaLocal(),
   fechaEntrega: fechaLocal(3),
+  horaEntrega: "",
   productoId: "",
   cantidad: 1,
   precioUnitario: 0,
@@ -224,6 +225,17 @@ function PedidosForm({ pedidoEditar, onGuardar, onCancelar }) {
                   name="fechaEntrega"
                   value={formulario.fechaEntrega}
                   min={formulario.fecha}
+                  onChange={manejarCambio}
+                  required
+                />
+              </label>
+
+              <label>
+                Hora de entrega *
+                <input
+                  type="time"
+                  name="horaEntrega"
+                  value={formulario.horaEntrega}
                   onChange={manejarCambio}
                   required
                 />

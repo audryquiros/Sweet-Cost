@@ -10,13 +10,19 @@ import Insumos from "../pages/Insumos/Insumos";
 import Recetas from "../pages/Recetas/Recetas";
 import Cotizador from "../pages/Cotizador/Cotizador";
 import Pedidos from "../pages/Pedidos/Pedidos";
+import Calendario from "../pages/Calendario/Calendario";
 
 import Nav from "../components/Nav/Nav";
 
-function ComingSoon({ title, description }) {
+function ComingSoon({ title, description, illustration }) {
   return (
     <main className="module-placeholder">
       <div className="module-placeholder-card">
+        {illustration && (
+          <div className="module-placeholder-illustration" aria-hidden="true">
+            <img src={`/illustrations/${illustration}.png`} alt="" />
+          </div>
+        )}
         <p className="module-placeholder-label">Sweet Cost</p>
         <h1>{title}</h1>
         <p>{description}</p>
@@ -40,21 +46,14 @@ function AppRoutes() {
           <Route path="/cotizaciones" element={<Cotizador />} />
 
           <Route path="/pedidos" element={<Pedidos />} />
-          <Route
-            path="/calendario"
-            element={
-              <ComingSoon
-                title="Calendario"
-                description="Visualiza y organiza las fechas de entrega de tus pedidos."
-              />
-            }
-          />
+          <Route path="/calendario" element={<Calendario />} />
           <Route
             path="/empleados"
             element={
               <ComingSoon
                 title="Empleados"
                 description="Administra los empleados asociados al negocio seleccionado."
+                illustration="empleados"
               />
             }
           />
@@ -64,6 +63,7 @@ function AppRoutes() {
               <ComingSoon
                 title="Configuración"
                 description="Configura el negocio, categorías, unidades, márgenes de ganancia y opciones de accesibilidad."
+                illustration="configuracion"
               />
             }
           />
@@ -73,6 +73,7 @@ function AppRoutes() {
               <ComingSoon
                 title="Mi perfil"
                 description="Consulta y actualiza la información de tu cuenta."
+                illustration="perfil"
               />
             }
           />

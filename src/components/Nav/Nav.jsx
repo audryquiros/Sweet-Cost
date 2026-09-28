@@ -2,14 +2,14 @@ import { NavLink } from "react-router-dom";
 import "./Nav.css";
 
 const menuPrincipal = [
-  { to: "/", label: "Dashboard", icon: "grid" },
-  { to: "/productos", label: "Productos", icon: "box" },
-  { to: "/insumos", label: "Insumos", icon: "package" },
-  { to: "/recetas", label: "Recetas", icon: "recipe" },
-  { to: "/cotizaciones", label: "Cotizaciones", icon: "quote" },
+  { to: "/", label: "Dashboard", icon: "dashboard" },
+  { to: "/productos", label: "Productos", icon: "products" },
+  { to: "/insumos", label: "Insumos", icon: "supplies" },
+  { to: "/recetas", label: "Recetas", icon: "recipes" },
+  { to: "/cotizaciones", label: "Cotizaciones", icon: "quotes" },
   { to: "/pedidos", label: "Pedidos", icon: "orders" },
   { to: "/calendario", label: "Calendario", icon: "calendar" },
-  { to: "/empleados", label: "Empleados", icon: "users" },
+  { to: "/empleados", label: "Empleados", icon: "employees" },
 ];
 
 const menuCuenta = [
@@ -31,16 +31,55 @@ function Icon({ type }) {
   };
 
   const paths = {
-    grid: <><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></>,
-    box: <><path d="m4 7 8-4 8 4-8 4-8-4Z"/><path d="M4 7v10l8 4 8-4V7"/><path d="M12 11v10"/></>,
-    package: <><path d="m3.5 7.5 8.5-4 8.5 4-8.5 4-8.5-4Z"/><path d="M3.5 7.5v9l8.5 4 8.5-4v-9"/><path d="M12 11.5v9"/></>,
-    recipe: <><path d="M6 3h9l3 3v15H6z"/><path d="M15 3v4h4"/><path d="M9 11h6M9 15h6M9 19h4"/></>,
-    quote: <><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></>,
-    orders: <><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></>,
-    calendar: <><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></>,
-    users: <><circle cx="9" cy="8" r="3"/><path d="M3.5 20c.5-3.3 2.4-5 5.5-5s5 1.7 5.5 5"/><path d="M16 5.5a3 3 0 0 1 0 5.8M17 15c2.1.5 3.5 2 4 5"/></>,
-    settings: <><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 1.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V20h-2.6v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1-1.8-1.8.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H6v-2.6h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1L9 6.7l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5V5h2.6v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.8 1.8-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.1v2.6h-.1a1.7 1.7 0 0 0-1.1 1.4Z"/></>,
-    profile: <><circle cx="12" cy="8" r="3.5"/><path d="M5 21c.8-4 3.1-6 7-6s6.2 2 7 6"/></>,
+    dashboard: (<>
+      <path d="M4 19V9"/>
+      <path d="M10 19V5"/>
+      <path d="M16 19v-7"/>
+      <path d="M22 19V3"/>
+    </>),
+    products: (<>
+      <path d="M3.5 7.5 12 3l8.5 4.5L12 12 3.5 7.5Z"/>
+      <path d="M3.5 7.5V17L12 21l8.5-4V7.5"/>
+      <path d="M12 12v9"/>
+    </>),
+    supplies: (<>
+      <path d="M7 4h10"/>
+      <path d="M8 4v3l-2 3v7a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3v-7l-2-3V4"/>
+      <path d="M8 10h8"/>
+    </>),
+    recipes: (<>
+      <path d="M6 3.5h8.5L18 7v13.5H6z"/>
+      <path d="M14.5 3.5V7H18"/>
+      <path d="M9 11h6M9 14.5h6M9 18h4"/>
+    </>),
+    quotes: (<>
+      <path d="M5 4.5h14v15H5z"/>
+      <path d="M8 8h8M8 11.5h8M8 15h5"/>
+      <path d="M8 19.5v1"/>
+    </>),
+    orders: (<>
+      <path d="M6 3.5h12v17H6z"/>
+      <path d="M9 3.5v3h6v-3"/>
+      <path d="m9 13 2 2 4-4"/>
+    </>),
+    calendar: (<>
+      <rect x="3.5" y="5" width="17" height="16" rx="2"/>
+      <path d="M8 3v4M16 3v4M3.5 10h17"/>
+      <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
+    </>),
+    employees: (<>
+      <circle cx="9" cy="8" r="3"/>
+      <path d="M3.5 20c.6-3.2 2.5-5 5.5-5s4.9 1.8 5.5 5"/>
+      <path d="M16 6.5a2.5 2.5 0 0 1 0 4.9M17 15.5c2 .7 3.2 2.1 3.5 4.5"/>
+    </>),
+    settings: (<>
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.4 15a1.8 1.8 0 0 0 .4 2l-1.8 1.8a1.8 1.8 0 0 0-2-.4 1.8 1.8 0 0 0-1.1 1.6v.5h-2.6V20a1.8 1.8 0 0 0-1.1-1.6 1.8 1.8 0 0 0-2 .4L7.4 17a1.8 1.8 0 0 0 .4-2 1.8 1.8 0 0 0-1.6-1.1H5.5v-2.6h.7a1.8 1.8 0 0 0 1.6-1.1 1.8 1.8 0 0 0-.4-2l1.8-1.8a1.8 1.8 0 0 0 2 .4 1.8 1.8 0 0 0 1.1-1.6v-.5h2.6v.5a1.8 1.8 0 0 0 1.1 1.6 1.8 1.8 0 0 0 2-.4l1.8 1.8a1.8 1.8 0 0 0-.4 2 1.8 1.8 0 0 0 1.6 1.1h.7v2.6h-.7a1.8 1.8 0 0 0-1.6 1.1Z"/>
+    </>),
+    profile: (<>
+      <circle cx="12" cy="8" r="3.5"/>
+      <path d="M5 20.5c.8-3.7 3.1-5.5 7-5.5s6.2 1.8 7 5.5"/>
+    </>),
   };
 
   return <svg {...common}>{paths[type]}</svg>;
@@ -64,7 +103,11 @@ function Nav() {
     <aside className="sidebar">
       <div className="sidebar-top">
         <NavLink to="/" className="sidebar-brand" aria-label="Sweet Cost - Dashboard">
-          <img src="/logoSC.png" alt="Sweet Cost" className="sidebar-logo" />
+          <img
+            src="/logo-principal.png"
+            alt="Sweet Cost"
+            className="sidebar-logo"
+          />
         </NavLink>
 
         <div className="business-switcher" role="button" tabIndex={0}>

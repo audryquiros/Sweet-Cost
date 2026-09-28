@@ -987,3 +987,46 @@
 .btn-agregar-extra { padding: 8px 12px; border-radius: 7px; font-size: 10px; }
 .cotizador-extra-modos { margin-bottom: 14px; padding: 3px; border-radius: 8px; }
 .cotizador-extra-modo { min-height: 34px; padding: 7px 10px; font-size: 10px; }
+
+
+/* ===== Sweet Cost · formulario armonizado ===== */
+.cotizador-form {
+  max-width: 1220px;
+  padding: 20px;
+  background: var(--sc-surface);
+  border: 1px solid var(--sc-border);
+  border-radius: 12px;
+  box-shadow: var(--sc-shadow);
+}
+.cotizador-form-header { margin-bottom: 18px; }
+.cotizador-form-header h2 { margin-bottom: 5px; color: var(--sc-text); font-size: 19px; }
+.cotizador-form-header p { color: var(--sc-text-soft); font-size: 11px; }
+.cotizador-field { gap: 5px; }
+.cotizador-field label { color: var(--sc-text-soft); font-size: 10px; }
+.cotizador-field input,
+.cotizador-field select,
+.cotizador-field textarea {
+  min-height: 36px;
+  padding: 8px 10px;
+  border-color: var(--sc-border-strong);
+  border-radius: 7px;
+  color: var(--sc-text);
+  font-size: 11px;
+}
+.cotizador-field small { color: var(--sc-muted); font-size: 10px; }
+.cotizador-seccion {
+  margin-top: 18px;
+  padding: 16px;
+  border-color: var(--sc-border);
+  border-radius: 10px;
+  background: var(--sc-surface-soft);
+}
+.cotizador-seccion-header { margin-bottom: 14px; }
+.cotizador-seccion-header h3 { font-size: 15px; }
+.cotizador-seccion-header h4 { font-size: 13px; }
+.cotizador-seccion-header p { font-size: 10px; }
+.btn-agregar-extra { padding: 8px 12px; border-radius: 8px; background: var(--sc-primary); font-size: 10px; }
+.cotizador-extra-modos { margin-bottom: 16px; padding: 3px; border-radius: 8px; background: var(--sc-primary-pale); }
+.cotizador-extra-modo { min-height: 34px; padding: 7px 10px; border-radius: 7px; font-size: 10px; }
+.cotizador-subseccion { padding: 14px; border-color: var(--sc-border); border-radius: 9px; }
+

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import ProductoList from "../../components/Productos/ProductoList/ProductoList";
+import ViewToggle from "../../components/common/ViewToggle/ViewToggle";
 
 import ProductosForm from "../../components/Productos/ProductosForm/ProductosForm";
 
@@ -70,8 +71,7 @@ function Productos() {
   const [filtroCategoria, setFiltroCategoria] =
     useState("todas");
 
-  const [vista, setVista] =
-    useState("lista");
+  const [vista, setVista] = useState(() => localStorage.getItem("sweetcost-view-productos") || "lista");
 
   const [cargando, setCargando] =
     useState(true);
@@ -402,61 +402,32 @@ function Productos() {
 
         </div>
 
-        {/* =================================================
-            CAMBIO DE VISTA
-            ================================================= */}
-
-        <div
-          className="productos-vista"
-          aria-label="Cambiar vista"
-        >
-          <button
-            type="button"
-            className={
-              vista === "cards"
-                ? "vista-activa"
-                : ""
-            }
-            onClick={() =>
-              setVista("cards")
-            }
-            aria-pressed={
-              vista === "cards"
-            }
-          >
-            Tarjetas
-          </button>
-
-          <button
-            type="button"
-            className={
-              vista === "lista"
-                ? "vista-activa"
-                : ""
-            }
-            onClick={() =>
-              setVista("lista")
-            }
-            aria-pressed={
-              vista === "lista"
-            }
-          >
-            Lista
-          </button>
-        </div>
       </div>
 
       {/* =================================================
-          CONTADOR
+          RESUMEN Y CAMBIO DE VISTA
           ================================================= */}
 
-      <div className="productos-contador">
-        <span>
-          {productosFiltrados.length}{" "}
-          {productosFiltrados.length === 1
-            ? "producto"
-            : "productos"}
-        </span>
+      <div className="productos-resumen">
+        <div className="productos-contador">
+          <span>
+            {productosFiltrados.length}{" "}
+            {productosFiltrados.length === 1
+              ? "producto"
+              : "productos"}
+          </span>
+        </div>
+
+        <ViewToggle
+          value={vista}
+          onChange={(nuevaVista) => {
+            setVista(nuevaVista);
+            localStorage.setItem(
+              "sweetcost-view-productos",
+              nuevaVista
+            );
+          }}
+        />
       </div>
 
       {/* =================================================

@@ -28,3 +28,15 @@
   font-size: 14px;
   line-height: 1.5;
 }
+.insumos-table-wrap { width: 100%; overflow-x: auto; background: #fff; border: 1px solid #e8e0ed; border-radius: 14px; }
+.insumos-table-header, .insumo-lista-item { min-width: 780px; display: grid; grid-template-columns: 1.35fr 1.2fr .9fr .9fr 1.15fr 1.25fr; align-items: center; }
+.insumos-table-header { padding: 12px 16px; background: #faf7fc; border-bottom: 1px solid #e8e0ed; color: #776d7d; font-size: 10px; font-weight: 700; }
+.insumo-lista-item { padding: 14px 16px; border-bottom: 1px solid #eee8f2; color: #51485a; font-size: 11px; }
+.insumo-lista-item:last-child { border-bottom: 0; }
+.insumo-lista-item > div { min-width: 0; padding-right: 12px; }
+.insumo-lista-item strong { display: block; color: #352d3d; font-size: 12px; }
+.insumo-lista-item small { display: block; margin-top: 3px; color: #8a8090; font-size: 9px; }
+.insumo-lista-costo { color: #6d4c8d; font-weight: 700; }
+.insumo-lista-actions { display: flex; gap: 6px; }
+.insumo-lista-actions button { border: 1px solid #ded2e7; background: #fff; color: #6d4c8d; border-radius: 7px; padding: 6px 9px; font: inherit; font-size: 10px; font-weight: 600; cursor: pointer; }
+.insumo-lista-actions button.danger { color: #9b5968; border-color: #edd7dd; }

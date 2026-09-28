@@ -161,3 +161,25 @@
 .insumo-form-group input, .insumo-form-group select { padding: 9px 10px; border-color: var(--sc-border-strong); border-radius: 7px; background: #fff; font-size: 11px; }
 .insumos-form-actions button { min-height: 35px; padding: 8px 14px; font-size: 11px; }
 .insumos-form-error { margin-bottom: 13px; padding: 10px 12px; font-size: 11px; }
+
+
+/* ===== Sweet Cost · formulario armonizado ===== */
+.insumos-form {
+  background: var(--sc-surface);
+  border-color: var(--sc-border);
+  border-radius: 12px;
+  box-shadow: var(--sc-shadow);
+}
+.insumos-form-header h2 { color: var(--sc-text); font-size: 19px; }
+.insumos-form-header p { color: var(--sc-text-soft); font-size: 11px; }
+.insumo-form-group label { color: var(--sc-text-soft); font-size: 10px; }
+.insumo-form-group input,
+.insumo-form-group select {
+  border-color: var(--sc-border-strong);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--sc-text);
+  font-size: 11px;
+}
+.insumos-form-actions button { border-radius: 8px; font-size: 11px; }
+

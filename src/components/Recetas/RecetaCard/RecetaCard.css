@@ -502,3 +502,13 @@
     width: 100%;
   }
 }
+
+/* ===== Sweet Cost · tarjeta armonizada ===== */
+.receta-card {
+  background: var(--sc-surface);
+  border-color: var(--sc-border);
+  border-radius: 12px;
+  box-shadow: var(--sc-shadow);
+}
+.receta-card-actions button { border-radius: 8px; }
+

@@ -49,3 +49,17 @@
   .cotizador-header { align-items: stretch; flex-direction: column; }
   .btn-nueva-cotizacion { width: 100%; }
 }
+
+
+/* ===== Sweet Cost · página armonizada ===== */
+.cotizador-page { padding: 30px 34px 44px; }
+.cotizador-header { margin-bottom: 22px; }
+.cotizador-header h1 { font-size: 28px; line-height: 1.15; }
+.cotizador-header p { font-size: 13px; }
+.cotizador-lista { margin-top: 22px; }
+.cotizador-lista-header { margin-bottom: 12px; }
+.cotizador-lista-header p { color: var(--sc-muted); font-size: 11px; }
+.cotizador-grid { gap: 14px; }
+.cotizador-card { background: var(--sc-surface); border-radius: 12px; }
+.cotizador-card-header { border-color: #f0e9f2; }
+

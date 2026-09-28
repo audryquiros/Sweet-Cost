@@ -15,6 +15,7 @@ import { getProductos } from "../../services/productoServices";
 import RecetasForm from "../../components/Recetas/RecetasForm/RecetasForm";
 
 import RecetaList from "../../components/Recetas/RecetaList/RecetaList";
+import ViewToggle from "../../components/common/ViewToggle/ViewToggle";
 
 import ConversorMedidas from "../../components/ConversorMedidas/ConversorMedidas";
 
@@ -79,6 +80,8 @@ function Recetas() {
 
   const [filtroCategoria, setFiltroCategoria] =
     useState("todas");
+
+  const [vista, setVista] = useState(() => localStorage.getItem("sweetcost-view-recetas") || "cards");
 
   const recetasListaRef = useRef(null);
 
@@ -440,6 +443,14 @@ function Recetas() {
               )}
             </select>
           </div>
+
+          <ViewToggle
+            value={vista}
+            onChange={(nuevaVista) => {
+              setVista(nuevaVista);
+              localStorage.setItem("sweetcost-view-recetas", nuevaVista);
+            }}
+          />
         </div>
 
         <RecetaList
@@ -447,6 +458,7 @@ function Recetas() {
           productos={productos}
           onEditar={handleEditar}
           onEliminar={handleEliminar}
+          vista={vista}
         />
       </section>
 

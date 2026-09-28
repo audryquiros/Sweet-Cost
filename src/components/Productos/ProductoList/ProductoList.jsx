@@ -254,7 +254,7 @@ function ProductoList({
               <button
                 type="button"
                 className="btn-eliminar"
-                onClick={() => onEliminar(producto.id)}
+                onClick={() => onEliminar(producto)}
               >
                 <img src="/illustrations/eliminar.png" alt="" aria-hidden="true" />
                 <span>Eliminar</span>

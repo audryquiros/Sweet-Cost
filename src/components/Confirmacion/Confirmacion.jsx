@@ -1,18 +1,37 @@
 import "./Confirmacion.css";
 
 function Confirmacion({
-  titulo = "Confirmar eliminación",
-  mensaje,
+  titulo = "¿Eliminar elemento?",
+  mensaje = "Esta acción no se puede deshacer.",
   onConfirmar,
   onCancelar,
+  textoConfirmar = "Eliminar",
+  icono = "/illustrations/eliminar.png",
 }) {
   return (
-    <div className="confirmacion-overlay">
-      <div className="confirmacion-modal">
-        <div className="confirmacion-contenido">
-          <h3>{titulo}</h3>
+    <div
+      className="confirmacion-overlay"
+      role="presentation"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) {
+          onCancelar();
+        }
+      }}
+    >
+      <div
+        className="confirmacion-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="confirmacion-titulo"
+        aria-describedby="confirmacion-mensaje"
+      >
+        <div className="confirmacion-icono">
+          <img src={icono} alt="" aria-hidden="true" />
+        </div>
 
-          <p>{mensaje}</p>
+        <div className="confirmacion-contenido">
+          <h3 id="confirmacion-titulo">{titulo}</h3>
+          <p id="confirmacion-mensaje">{mensaje}</p>
         </div>
 
         <div className="confirmacion-acciones">
@@ -29,7 +48,12 @@ function Confirmacion({
             className="btn-confirmacion-eliminar"
             onClick={onConfirmar}
           >
-            Eliminar
+            <img
+              src="/illustrations/eliminar.png"
+              alt=""
+              aria-hidden="true"
+            />
+            <span>{textoConfirmar}</span>
           </button>
         </div>
       </div>

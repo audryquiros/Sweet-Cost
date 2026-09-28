@@ -1049,16 +1049,16 @@
 /* ===== Sweet Cost · iconos variados por campo ===== */
 .cotizador-field > label[for="nombre"]::before { background-image: url("/illustrations/cotizaciones-recibo.png"); }
 .cotizador-field > label[for="recetaId"]::before { background-image: url("/illustrations/recetas-batidor.png"); }
-.cotizador-field > label[for="cantidadAVender"]::before { background-image: url("/illustrations/pedidos-portapapeles.png"); }
+.cotizador-field > label[for="cantidadAVender"]::before { background-image: url("/illustrations/bascula.png"); }
 .cotizador-field > label[for="unidadesIncluidas"]::before { background-image: url("/illustrations/productos-cupcake.png"); }
-.cotizador-field > label[for="toppingsPorEnvase"]::before { background-image: url("/illustrations/tarjetas.png"); }
-.cotizador-field > label[for="salsasPorEnvase"]::before { background-image: url("/illustrations/recibo.png"); }
+.cotizador-field > label[for="toppingsPorEnvase"]::before { background-image: url("/illustrations/productos-cupcake.png"); }
+.cotizador-field > label[for="salsasPorEnvase"]::before { background-image: url("/illustrations/manga.png"); }
 .cotizador-field > label[for="tiempoPreparacion"]::before,
 .cotizador-field > label[for="tiempoCoccion"]::before,
 .cotizador-field > label[for="tiempoDecoracion"]::before,
 .cotizador-field > label[for="tiempoEmpaque"]::before { background-image: url("/illustrations/reloj.png"); }
 .cotizador-field > label[for="tarifaHora"]::before { background-image: url("/illustrations/moneda.png"); }
-.cotizador-field > label[for="margen"]::before { background-image: url("/illustrations/billetera.png"); }
+.cotizador-field > label[for="margen"]::before { background-image: url("/illustrations/dashboard.png"); }
 .cotizador-seccion-header h3::before,
 .cotizador-seccion-header h4::before {
   content: "";
@@ -1093,4 +1093,40 @@
   height: 17px;
   flex: 0 0 17px;
   background: url("/illustrations/agregar.png") center / contain no-repeat;
+}
+
+/* Campos dinámicos: iconos según el tipo de dato */
+.cotizador-subseccion .cotizador-field > label::before {
+  background-image: url("/illustrations/productos-cupcake.png");
+}
+
+.cotizador-seccion:nth-of-type(2) .cotizador-item .cotizador-field:nth-child(1) > label::before {
+  background-image: url("/illustrations/insumos-frasco.png");
+}
+
+.cotizador-seccion:nth-of-type(2) .cotizador-item .cotizador-field:nth-child(2) > label::before {
+  background-image: url("/illustrations/insumos-frasco.png");
+}
+
+.cotizador-seccion:nth-of-type(2) .cotizador-item .cotizador-field:nth-child(3) > label::before {
+  background-image: url("/illustrations/insumos-frasco.png");
+}
+
+.cotizador-seccion:nth-of-type(2) .cotizador-item .cotizador-field:nth-child(4) > label::before {
+  background-image: url("/illustrations/moneda.png");
+}
+
+/* Sweet Cost · ajustes semánticos de iconografía */
+.cotizador-seccion:nth-of-type(1) > .cotizador-subseccion:nth-child(5) .cotizador-field > label::before {
+  background-image: url("/illustrations/manga.png");
+}
+.cotizador-seccion:nth-of-type(2) .cotizador-item .cotizador-field:nth-child(2) > label::before,
+.cotizador-seccion:nth-of-type(2) .cotizador-item .cotizador-field:nth-child(3) > label::before {
+  background-image: url("/illustrations/bascula.png");
+}
+.cotizador-seccion:nth-of-type(3) .cotizador-field:nth-child(6) > label::before {
+  background-image: url("/illustrations/reloj.png");
+}
+.cotizador-seccion:nth-of-type(3) .cotizador-field:nth-child(7) > label::before {
+  background-image: url("/illustrations/moneda.png");
 }

@@ -14,6 +14,7 @@ import {
 } from "../../services/productoServices";
 
 import Icon from "../../components/common/Icon/Icon";
+import Confirmacion from "../../components/Confirmacion/Confirmacion";
 
 import "./Productos.css";
 
@@ -66,6 +67,9 @@ function Productos() {
     useState(false);
 
   const [productoEditar, setProductoEditar] =
+    useState(null);
+
+  const [productoAEliminar, setProductoAEliminar] =
     useState(null);
 
   const [filtroTipo, setFiltroTipo] =
@@ -189,28 +193,34 @@ function Productos() {
    * =====================================================
    */
 
-  const manejarEliminar = async (id) => {
-    const confirmar =
-      window.confirm(
-        "¿Estás seguro de que deseas eliminar este producto?"
-      );
+  const manejarEliminar = (producto) => {
+    setProductoAEliminar(producto);
+    setError("");
+  };
 
-    if (!confirmar) {
+  const cancelarEliminacion = () => {
+    setProductoAEliminar(null);
+  };
+
+  const confirmarEliminacion = async () => {
+    if (!productoAEliminar) {
       return;
     }
 
     try {
       setError("");
 
-      await deleteProducto(id);
+      await deleteProducto(productoAEliminar.id);
 
       setProductos((actuales) =>
         actuales.filter(
           (producto) =>
             String(producto.id) !==
-            String(id)
+            String(productoAEliminar.id)
         )
       );
+
+      setProductoAEliminar(null);
     } catch (error) {
       console.error(error);
 
@@ -403,6 +413,16 @@ function Productos() {
         />
       )}
 
+
+
+      {productoAEliminar && (
+        <Confirmacion
+          titulo="¿Eliminar producto?"
+          mensaje={`¿Deseas eliminar "${productoAEliminar.nombre}"? Esta acción no se puede deshacer.`}
+          onConfirmar={confirmarEliminacion}
+          onCancelar={cancelarEliminacion}
+        />
+      )}
     </main>
   );
 }

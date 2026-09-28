@@ -67,12 +67,27 @@
   justify-self: start;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   min-height: 36px;
   padding: 0 13px;
   border-radius: 8px;
   font-size: 12px;
   font-weight: 700;
+}
+
+.calendario-hoy img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+  display: block;
+}
+
+.calendario-vistas button img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  display: block;
+  flex: 0 0 16px;
 }
 
 .calendario-hoy:hover,

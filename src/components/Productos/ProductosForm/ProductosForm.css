@@ -429,9 +429,9 @@
 .productos-form .form-group > label[for="nombre"]::before { background-image: url("/illustrations/productos-cupcake.png"); }
 .productos-form .form-group > label[for="marca"]::before { background-image: url("/illustrations/recibo.png"); }
 .productos-form .form-group > label[for="tipo"]::before { background-image: url("/illustrations/recetas-batidor.png"); }
-.productos-form .form-group > label[for="categoria"]::before { background-image: url("/illustrations/cotizaciones-recibo.png"); }
-.productos-form .form-group > label[for="cantidadPresentaciones"]::before { background-image: url("/illustrations/pedidos-portapapeles.png"); }
-.productos-form .form-group > label[for="cantidadPorPresentacion"]::before { background-image: url("/illustrations/insumos-frasco.png"); }
+.productos-form .form-group > label[for="categoria"]::before { background-image: url("/illustrations/etiqueta.png"); }
+.productos-form .form-group > label[for="cantidadPresentaciones"]::before { background-image: url("/illustrations/bascula.png"); }
+.productos-form .form-group > label[for="cantidadPorPresentacion"]::before { background-image: url("/illustrations/bascula.png"); }
 .productos-form .form-group > label[for="precioPorPresentacion"]::before { background-image: url("/illustrations/moneda.png"); }
-.productos-form .form-group > label[for="densidad"]::before { background-image: url("/illustrations/recibo.png"); }
-.productos-form .form-group > label[for="cantidadPorPorcion"]::before { background-image: url("/illustrations/tarjetas.png"); }
+.productos-form .form-group > label[for="densidad"]::before { background-image: url("/illustrations/bascula.png"); }
+.productos-form .form-group > label[for="cantidadPorPorcion"]::before { background-image: url("/illustrations/bascula.png"); }

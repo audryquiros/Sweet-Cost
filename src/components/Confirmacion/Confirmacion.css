@@ -1,86 +1,157 @@
+/* =========================================================
+   SWEET COST · MODAL DE CONFIRMACIÓN
+   ========================================================= */
+
 .confirmacion-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(53, 45, 58, 0.45);
-
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 20px;
-  z-index: 1000;
+  background: rgba(53, 45, 58, 0.42);
+  backdrop-filter: blur(2px);
+  animation: confirmacion-fade-in 0.18s ease;
 }
 
 .confirmacion-modal {
-  width: 100%;
-  max-width: 430px;
-
+  width: min(430px, 100%);
+  box-sizing: border-box;
+  padding: 28px 28px 24px;
+  border: 1px solid #eadff0;
+  border-radius: 18px;
   background: #ffffff;
-  border: 1px solid #e3dce9;
-  border-radius: 14px;
+  box-shadow: 0 22px 55px rgba(53, 45, 58, 0.2);
+  text-align: center;
+  animation: confirmacion-scale-in 0.18s ease;
+}
 
-  padding: 28px;
+.confirmacion-icono {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: #f8edf2;
+}
 
-  box-shadow: 0 12px 35px rgba(53, 45, 58, 0.18);
+.confirmacion-icono img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  display: block;
 }
 
 .confirmacion-contenido h3 {
-  margin: 0 0 12px;
-
+  margin: 0 0 8px;
   color: #352d3a;
-  font-size: 20px;
+  font-size: 19px;
+  line-height: 1.25;
+  font-weight: 700;
 }
 
 .confirmacion-contenido p {
-  margin: 0;
-
+  margin: 0 auto;
+  max-width: 350px;
   color: #776d7d;
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 12px;
+  line-height: 1.55;
 }
 
 .confirmacion-acciones {
   display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-
-  margin-top: 25px;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 22px;
 }
 
 .confirmacion-acciones button {
-  border: none;
+  min-width: 118px;
+  min-height: 40px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 15px;
   border-radius: 8px;
-
-  padding: 10px 18px;
-
-  font-size: 14px;
-  font-weight: 600;
-
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.confirmacion-acciones button:active {
+  transform: scale(0.98);
 }
 
 .btn-confirmacion-cancelar {
-  background: #d8c8f2;
+  border: 1px solid #e3d5eb;
+  background: #ffffff;
   color: #6d4c8d;
 }
 
 .btn-confirmacion-cancelar:hover {
-  background: #cbb8eb;
+  border-color: #d8c8f2;
+  background: #faf7fc;
 }
 
 .btn-confirmacion-eliminar {
-  background: #c95c5c;
+  border: 1px solid #c95c70;
+  background: #c95c70;
   color: #ffffff;
 }
 
 .btn-confirmacion-eliminar:hover {
-  background: #b94d4d;
+  border-color: #b84d61;
+  background: #b84d61;
+}
+
+.btn-confirmacion-eliminar img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
+}
+
+@keyframes confirmacion-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes confirmacion-scale-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @media (max-width: 480px) {
+  .confirmacion-overlay {
+    padding: 14px;
+  }
+
   .confirmacion-modal {
-    padding: 22px;
+    padding: 24px 20px 20px;
+    border-radius: 16px;
   }
 
   .confirmacion-acciones {
@@ -91,19 +162,3 @@
     width: 100%;
   }
 }
-
-/* ===== Sweet Cost · confirmación armonizada ===== */
-.confirmacion-modal {
-  max-width: 430px;
-  border-color: var(--sc-border);
-  border-radius: 14px;
-  padding: 22px;
-  box-shadow: 0 18px 45px rgba(31,24,39,.18);
-}
-.confirmacion-contenido h3 { color: var(--sc-text); font-size: 19px; }
-.confirmacion-contenido p { color: var(--sc-text-soft); font-size: 12px; }
-.confirmacion-acciones { gap: 8px; margin-top: 20px; }
-.confirmacion-acciones button { border-radius: 8px; padding: 9px 14px; font-size: 11px; }
-.btn-confirmacion-cancelar { background: #fff; border: 1px solid var(--sc-border) !important; color: var(--sc-text-soft); }
-.btn-confirmacion-eliminar { background: var(--sc-danger); }
-

@@ -201,7 +201,7 @@
 
 /* ===== Sweet Cost · iconos variados por campo ===== */
 .insumo-form-group > label[for="nombre"]::before { background-image: url("/illustrations/insumos-frasco.png"); }
-.insumo-form-group > label[for="presentacion"]::before { background-image: url("/illustrations/pedidos-portapapeles.png"); }
-.insumo-form-group > label[for="cantidad"]::before { background-image: url("/illustrations/cotizaciones-recibo.png"); }
-.insumo-form-group > label[for="unidad"]::before { background-image: url("/illustrations/tarjetas.png"); }
+.insumo-form-group > label[for="presentacion"]::before { background-image: url("/illustrations/insumos-frasco.png"); }
+.insumo-form-group > label[for="cantidad"]::before { background-image: url("/illustrations/bascula.png"); }
+.insumo-form-group > label[for="unidad"]::before { background-image: url("/illustrations/unidad.png"); }
 .insumo-form-group > label[for="precio"]::before { background-image: url("/illustrations/moneda.png"); }

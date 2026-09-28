@@ -194,7 +194,10 @@ function Calendario() {
       {error && <div className="calendario-error">{error}</div>}
 
       <section className="calendario-toolbar">
-        <button type="button" className="calendario-hoy" onClick={irHoy}><Icon type="calendar" size={15} /> Hoy</button>
+        <button type="button" className="calendario-hoy" onClick={irHoy}>
+          <img src="/illustrations/calendario.png" alt="" aria-hidden="true" />
+          Hoy
+        </button>
         <div className="calendario-navegacion">
           <button type="button" onClick={() => cambiarPeriodo(-1)} aria-label="Periodo anterior"><span aria-hidden="true">‹</span></button>
           <h2>{encabezadoPeriodo}</h2>
@@ -210,9 +213,15 @@ function Calendario() {
               role="tab"
               aria-selected={vista === opcion}
             >
-              {opcion === "Mes" && <Icon type="calendar" size={14} />}
-              {opcion === "Semana" && <Icon type="dashboard" size={14} />}
-              {opcion === "Día" && <Icon type="profile" size={14} />}
+              {opcion === "Mes" && (
+                <img src="/illustrations/calendario.png" alt="" aria-hidden="true" />
+              )}
+              {opcion === "Semana" && (
+                <img src="/illustrations/semana.png" alt="" aria-hidden="true" />
+              )}
+              {opcion === "Día" && (
+                <img src="/illustrations/dia.png" alt="" aria-hidden="true" />
+              )}
               <span>{opcion}</span>
             </button>
           ))}

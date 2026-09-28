@@ -252,3 +252,72 @@
     padding-right: 18px;
   }
 }
+
+/* ===== Sweet Cost · iconos de formulario ===== */
+.pedido-form-grid > label,
+.pedido-form-full {
+  position: relative;
+}
+
+.pedido-form-grid > label,
+.pedido-form-full {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.pedido-form-grid > label::before,
+.pedido-form-full::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  margin-bottom: -2px;
+  background: url("/illustrations/pedidos-portapapeles.png") center / contain no-repeat;
+}
+
+/* Iconos específicos para los campos del pedido */
+.pedido-form-section:first-of-type .pedido-form-grid > label:nth-child(1)::before {
+  background-image: url("/illustrations/perfil.png");
+}
+
+.pedido-form-section:first-of-type .pedido-form-grid > label:nth-child(2)::before {
+  background-image: url("/illustrations/telefono.png");
+}
+
+.pedido-form-section:first-of-type .pedido-form-grid > label:nth-child(3)::before,
+.pedido-form-section:first-of-type .pedido-form-grid > label:nth-child(4)::before {
+  background-image: url("/illustrations/calendario.png");
+}
+
+.pedido-form-section:first-of-type .pedido-form-grid > label:nth-child(5)::before {
+  background-image: url("/illustrations/reloj.png");
+}
+
+.pedido-form-section:nth-of-type(2) .pedido-form-grid > label:nth-child(1)::before {
+  background-image: url("/illustrations/productos-cupcake.png");
+}
+
+.pedido-form-section:nth-of-type(2) .pedido-form-grid > label:nth-child(2)::before {
+  background-image: url("/illustrations/insumos-frasco.png");
+}
+
+.pedido-form-section:nth-of-type(2) .pedido-form-grid > label:nth-child(3)::before {
+  background-image: url("/illustrations/moneda.png");
+}
+
+.pedido-form-section:nth-of-type(3) .pedido-form-grid > label:nth-child(1)::before {
+  background-image: url("/illustrations/pedidos-portapapeles.png");
+}
+
+.pedido-form-section:nth-of-type(3) .pedido-form-grid > label:nth-child(2)::before {
+  background-image: url("/illustrations/billetera.png");
+}
+
+.pedido-form-section:nth-of-type(3) .pedido-form-grid > label:nth-child(3)::before {
+  background-image: url("/illustrations/moneda.png");
+}
+
+.pedido-form-full::before {
+  background-image: url("/illustrations/recibo.png");
+}

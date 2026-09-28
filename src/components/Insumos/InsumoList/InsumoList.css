@@ -48,3 +48,52 @@
   justify-content: center;
   gap: 6px;
 }
+
+/* =========================================================
+   ACCIONES · MISMO SISTEMA VISUAL QUE PRODUCTOS
+   ========================================================= */
+.insumos-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.insumos-table-header,
+.insumo-lista-item {
+  grid-template-columns: 1.45fr 1.15fr .9fr .9fr 1.15fr 1.35fr;
+}
+
+.insumo-lista-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.insumo-lista-actions button {
+  width: 88px;
+  min-width: 88px;
+  height: 38px;
+  min-height: 38px;
+  padding: 0 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  line-height: 1;
+}
+
+.insumo-lista-actions button .icon-illustration {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 19px;
+  display: block;
+}
+
+.insumo-lista-actions button span {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}

@@ -6,7 +6,6 @@ import {
   obtenerNombreUnidad,
 } from "../../../utils/calculosCostos";
 
-import Icon from "../../common/Icon/Icon";
 
 import "./ProductoCard.css";
 
@@ -252,7 +251,7 @@ function ProductoCard({
             onEditar(producto)
           }
         >
-          <Icon type="edit" size={19} />
+          <img src="/illustrations/editar.png" alt="" aria-hidden="true" />
           <span>Editar</span>
         </button>
 
@@ -263,7 +262,7 @@ function ProductoCard({
             onEliminar(producto)
           }
         >
-          <Icon type="trash" size={19} />
+          <img src="/illustrations/eliminar.png" alt="" aria-hidden="true" />
           <span>Eliminar</span>
         </button>
       </div>

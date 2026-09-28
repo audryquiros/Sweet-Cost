@@ -1030,3 +1030,67 @@
 .cotizador-extra-modo { min-height: 34px; padding: 7px 10px; border-radius: 7px; font-size: 10px; }
 .cotizador-subseccion { padding: 14px; border-color: var(--sc-border); border-radius: 9px; }
 
+
+/* ===== Sweet Cost · iconos de formulario ===== */
+.cotizador-field > label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cotizador-field > label::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  background: url("/illustrations/cotizaciones-recibo.png") center / contain no-repeat;
+}
+
+/* ===== Sweet Cost · iconos variados por campo ===== */
+.cotizador-field > label[for="nombre"]::before { background-image: url("/illustrations/cotizaciones-recibo.png"); }
+.cotizador-field > label[for="recetaId"]::before { background-image: url("/illustrations/recetas-batidor.png"); }
+.cotizador-field > label[for="cantidadAVender"]::before { background-image: url("/illustrations/pedidos-portapapeles.png"); }
+.cotizador-field > label[for="unidadesIncluidas"]::before { background-image: url("/illustrations/productos-cupcake.png"); }
+.cotizador-field > label[for="toppingsPorEnvase"]::before { background-image: url("/illustrations/tarjetas.png"); }
+.cotizador-field > label[for="salsasPorEnvase"]::before { background-image: url("/illustrations/recibo.png"); }
+.cotizador-field > label[for="tiempoPreparacion"]::before,
+.cotizador-field > label[for="tiempoCoccion"]::before,
+.cotizador-field > label[for="tiempoDecoracion"]::before,
+.cotizador-field > label[for="tiempoEmpaque"]::before { background-image: url("/illustrations/reloj.png"); }
+.cotizador-field > label[for="tarifaHora"]::before { background-image: url("/illustrations/moneda.png"); }
+.cotizador-field > label[for="margen"]::before { background-image: url("/illustrations/billetera.png"); }
+.cotizador-seccion-header h3::before,
+.cotizador-seccion-header h4::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  margin-right: 6px;
+  vertical-align: -4px;
+  background: url("/illustrations/cotizaciones-recibo.png") center / contain no-repeat;
+}
+.cotizador-seccion:nth-of-type(1) .cotizador-seccion-header h3::before { background-image: url("/illustrations/cotizaciones-recibo.png"); }
+.cotizador-seccion:nth-of-type(2) .cotizador-seccion-header h3::before { background-image: url("/illustrations/insumos-frasco.png"); }
+.cotizador-seccion:nth-of-type(3) .cotizador-seccion-header h3::before { background-image: url("/illustrations/reloj.png"); }
+.cotizador-resumen h3::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  vertical-align: -4px;
+  background: url("/illustrations/moneda.png") center / contain no-repeat;
+}
+.btn-agregar-extra {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.btn-agregar-extra::before {
+  content: "";
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  background: url("/illustrations/agregar.png") center / contain no-repeat;
+}

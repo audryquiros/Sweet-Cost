@@ -259,6 +259,22 @@
     transform 0.2s ease;
 }
 
+
+.producto-card-actions button img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+  flex: 0 0 20px;
+}
+
+.producto-card-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
 .producto-card-actions button:hover {
   transform: translateY(-1px);
 }

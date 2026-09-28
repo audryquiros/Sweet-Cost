@@ -52,7 +52,7 @@
     minmax(110px, 0.9fr)
     minmax(120px, 1fr)
     minmax(100px, 0.8fr)
-    150px;
+    184px;
 
   align-items: center;
 
@@ -85,7 +85,7 @@
     minmax(110px, 0.9fr)
     minmax(120px, 1fr)
     minmax(100px, 0.8fr)
-    150px;
+    184px;
 
   align-items: center;
 
@@ -282,29 +282,47 @@
 
 .producto-lista-acciones {
   display: flex;
-
   align-items: center;
   justify-content: flex-end;
-
-  gap: 7px;
-
-  padding-left: 10px;
+  gap: 8px;
+  padding-left: 8px;
 }
 
 .producto-lista-acciones button {
-  min-width: 68px;
-  height: 34px;
+  width: 82px;
+  min-width: 82px;
+  height: 38px;
+  min-height: 38px;
+  padding: 0 9px;
 
-  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 
-  border-radius: 7px;
-
+  box-sizing: border-box;
+  border-radius: 8px;
   background: #ffffff;
-
+  font-family: inherit;
   font-size: 11px;
   font-weight: 600;
-
+  line-height: 1;
+  white-space: nowrap;
   cursor: pointer;
+}
+
+.producto-lista-acciones button img {
+  width: 19px;
+  height: 19px;
+  object-fit: contain;
+  display: block;
+  flex: 0 0 19px;
+}
+
+.producto-lista-acciones button span {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
 }
 
 
@@ -395,7 +413,7 @@
       minmax(100px, 0.9fr)
       minmax(110px, 1fr)
       minmax(90px, 0.8fr)
-      135px;
+      160px;
   }
 
   .producto-lista-acciones {
@@ -408,6 +426,7 @@
 
   .producto-lista-acciones button {
     width: 100%;
+    min-width: 0;
   }
 }
 

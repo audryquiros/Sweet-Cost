@@ -231,18 +231,6 @@
       "precioPorPresentacion": 1600,
       "densidad": null,
       "id": "ANwmn3ICVtc"
-    },
-    {
-      "nombre": "KitKat",
-      "marca": "Kitkat",
-      "tipo": "ingrediente",
-      "categoria": "reposteria",
-      "cantidadPresentaciones": 1,
-      "cantidadPorPresentacion": 60,
-      "unidad": "g",
-      "precioPorPresentacion": 1600,
-      "densidad": null,
-      "id": "m8qLBijgN9U"
     }
   ],
   "insumos": [
@@ -376,6 +364,6 @@
       "estado": "Pendiente"
     }
   ],
-  "$schema": "./node_modules/json-server/schema.json",
-  "pedidos": []
+  "pedidos": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }

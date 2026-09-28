@@ -518,3 +518,38 @@
     min-width: 650px;
   }
 }
+
+/* ===== Sweet Cost · iconos de formulario ===== */
+.receta-form-group > label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.receta-form-group > label::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  background: url("/illustrations/recetas-batidor.png") center / contain no-repeat;
+}
+
+.btn-agregar-ingrediente::before {
+  content: "";
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  margin-right: 6px;
+  vertical-align: middle;
+  background: url("/illustrations/agregar.png") center / contain no-repeat;
+}
+
+/* ===== Sweet Cost · iconos variados por campo ===== */
+.receta-form-group > label[for="nombre"]::before { background-image: url("/illustrations/recetas-batidor.png"); }
+.receta-form-group > label[for="descripcion"]::before { background-image: url("/illustrations/recibo.png"); }
+.receta-form-group > label[for="categoria"]::before { background-image: url("/illustrations/cotizaciones-recibo.png"); }
+.receta-form-group > label[for="rendimiento"]::before { background-image: url("/illustrations/productos-cupcake.png"); }
+.receta-form-group > label[for="unidadRendimiento"]::before { background-image: url("/illustrations/tarjetas.png"); }
+.receta-form-group .tabla-label-mobile:nth-of-type(1)::before { background-image: url("/illustrations/productos-cupcake.png"); }
+.receta-form-group .tabla-label-mobile:nth-of-type(2)::before { background-image: url("/illustrations/insumos-frasco.png"); }
+.receta-form-group .tabla-label-mobile:nth-of-type(3)::before { background-image: url("/illustrations/tarjetas.png"); }

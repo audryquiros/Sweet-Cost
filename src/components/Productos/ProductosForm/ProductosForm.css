@@ -409,3 +409,29 @@
 }
 .productos-form button { border-radius: 8px; font-size: 11px; }
 
+
+/* ===== Sweet Cost · iconos de formulario ===== */
+.productos-form .form-group > label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.productos-form .form-group > label::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  background: url("/illustrations/productos-cupcake.png") center / contain no-repeat;
+}
+
+/* ===== Sweet Cost · iconos variados por campo ===== */
+.productos-form .form-group > label[for="nombre"]::before { background-image: url("/illustrations/productos-cupcake.png"); }
+.productos-form .form-group > label[for="marca"]::before { background-image: url("/illustrations/recibo.png"); }
+.productos-form .form-group > label[for="tipo"]::before { background-image: url("/illustrations/recetas-batidor.png"); }
+.productos-form .form-group > label[for="categoria"]::before { background-image: url("/illustrations/cotizaciones-recibo.png"); }
+.productos-form .form-group > label[for="cantidadPresentaciones"]::before { background-image: url("/illustrations/pedidos-portapapeles.png"); }
+.productos-form .form-group > label[for="cantidadPorPresentacion"]::before { background-image: url("/illustrations/insumos-frasco.png"); }
+.productos-form .form-group > label[for="precioPorPresentacion"]::before { background-image: url("/illustrations/moneda.png"); }
+.productos-form .form-group > label[for="densidad"]::before { background-image: url("/illustrations/recibo.png"); }
+.productos-form .form-group > label[for="cantidadPorPorcion"]::before { background-image: url("/illustrations/tarjetas.png"); }

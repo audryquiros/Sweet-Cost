@@ -183,3 +183,25 @@
 }
 .insumos-form-actions button { border-radius: 8px; font-size: 11px; }
 
+
+/* ===== Sweet Cost · iconos de formulario ===== */
+.insumo-form-group > label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.insumo-form-group > label::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  background: url("/illustrations/insumos-frasco.png") center / contain no-repeat;
+}
+
+/* ===== Sweet Cost · iconos variados por campo ===== */
+.insumo-form-group > label[for="nombre"]::before { background-image: url("/illustrations/insumos-frasco.png"); }
+.insumo-form-group > label[for="presentacion"]::before { background-image: url("/illustrations/pedidos-portapapeles.png"); }
+.insumo-form-group > label[for="cantidad"]::before { background-image: url("/illustrations/cotizaciones-recibo.png"); }
+.insumo-form-group > label[for="unidad"]::before { background-image: url("/illustrations/tarjetas.png"); }
+.insumo-form-group > label[for="precio"]::before { background-image: url("/illustrations/moneda.png"); }

@@ -1,4 +1,15 @@
 import React from "react";
+import "./Icon.css";
+
+const IMAGE_ICONS = {
+  eye: "/illustrations/ver.png",
+  edit: "/illustrations/editar.png",
+  trash: "/illustrations/eliminar.png",
+  grid: "/illustrations/tarjetas.png",
+  list: "/illustrations/lista.png",
+  plus: "/illustrations/agregar.png",
+  close: "/illustrations/cerrar.png",
+};
 
 const PATHS = {
   dashboard: (<><path d="M4 19V9"/><path d="M10 19V5"/><path d="M16 19v-7"/><path d="M22 19V3"/></>),
@@ -40,6 +51,21 @@ const PATHS = {
 };
 
 export default function Icon({ type, size = 18, strokeWidth = 1.8, className = "" }) {
+  const imageSrc = IMAGE_ICONS[type];
+
+  if (imageSrc) {
+    return (
+      <img
+        src={imageSrc}
+        width={size}
+        height={size}
+        className={`icon-illustration ${className}`.trim()}
+        alt=""
+        aria-hidden="true"
+      />
+    );
+  }
+
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       {PATHS[type] || PATHS.calendar}

@@ -330,3 +330,14 @@
     align-self: flex-start;
   }
 }
+
+
+/* Iconos ilustrados de Sweet Cost en botones principales */
+.btn-primary,
+.btn-agregar-insumo,
+.btn-agregar-receta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}

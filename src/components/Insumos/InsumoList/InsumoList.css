@@ -40,3 +40,11 @@
 .insumo-lista-actions { display: flex; gap: 6px; }
 .insumo-lista-actions button { border: 1px solid #ded2e7; background: #fff; color: #6d4c8d; border-radius: 7px; padding: 6px 9px; font: inherit; font-size: 10px; font-weight: 600; cursor: pointer; }
 .insumo-lista-actions button.danger { color: #9b5968; border-color: #edd7dd; }
+
+
+.insumo-lista-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}

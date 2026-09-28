@@ -3,6 +3,8 @@ import { getPedidos, updatePedido, deletePedido } from "../../services/pedidoSer
 import { getCotizaciones } from "../../services/cotizadorServices";
 import Confirmacion from "../../components/Confirmacion/Confirmacion";
 import EmptyState from "../../components/common/EmptyState/EmptyState";
+import Icon from "../../components/common/Icon/Icon";
+
 import "./Pedidos.css";
 
 const ESTADOS = ["Pendiente", "En preparación", "Listo", "Entregado", "Cancelado"];
@@ -200,8 +202,8 @@ function Pedidos() {
                   </td>
                   <td>
                     <div className="pedido-acciones">
-                      <button type="button" onClick={() => setDetalle(pedido)}>Ver</button>
-                      <button type="button" className="pedido-eliminar" onClick={() => setPedidoAEliminar(pedido)}>Eliminar</button>
+                      <button type="button" onClick={() => setDetalle(pedido)} aria-label={`Ver pedido ${pedido.id}`}><Icon type="eye" size={16} /><span>Ver</span></button>
+                      <button type="button" className="pedido-eliminar" onClick={() => setPedidoAEliminar(pedido)} aria-label={`Eliminar pedido ${pedido.id}`}><Icon type="trash" size={16} /><span>Eliminar</span></button>
                     </div>
                   </td>
                 </tr>

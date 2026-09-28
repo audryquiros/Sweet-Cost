@@ -10,6 +10,8 @@ import InsumoList from "../../components/Insumos/InsumoList/InsumoList";
 import ViewToggle from "../../components/common/ViewToggle/ViewToggle";
 import Confirmacion from "../../components/Confirmacion/Confirmacion";
 
+import Icon from "../../components/common/Icon/Icon";
+
 import "./Insumos.css";
 
 function Insumos() {
@@ -164,7 +166,8 @@ function Insumos() {
             className="btn-agregar-insumo"
             onClick={handleMostrarFormulario}
           >
-            Agregar insumo
+            <Icon type="plus" size={18} />
+            <span>Agregar insumo</span>
           </button>
         )}
       </header>

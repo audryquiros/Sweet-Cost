@@ -24,6 +24,8 @@ import Confirmacion from "../../components/Confirmacion/Confirmacion";
 
 import { obtenerUnidadBase } from "../../utils/calculosCostos";
 
+import Icon from "../../components/common/Icon/Icon";
+
 import "./Recetas.css";
 
 const CATEGORIAS = [
@@ -329,7 +331,8 @@ function Recetas() {
             className="btn-agregar-receta"
             onClick={handleMostrarFormulario}
           >
-            Agregar receta
+            <Icon type="plus" size={18} />
+            <span>Agregar receta</span>
           </button>
         )}
       </header>

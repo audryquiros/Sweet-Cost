@@ -73,3 +73,14 @@
 .insumo-card { min-height: 100%; background: var(--sc-surface); }
 .insumo-costo { background: var(--sc-primary-pale); border: 1px solid #eee4f5; }
 
+
+
+/* Iconos ilustrados de Sweet Cost en botones principales */
+.btn-primary,
+.btn-agregar-insumo,
+.btn-agregar-receta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}

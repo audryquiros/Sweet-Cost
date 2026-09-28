@@ -416,3 +416,11 @@
 .pedidos-tabla td strong {
   color: var(--sc-text);
 }
+
+
+.pedido-acciones button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}

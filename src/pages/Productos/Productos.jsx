@@ -13,6 +13,8 @@ import {
   deleteProducto,
 } from "../../services/productoServices";
 
+import Icon from "../../components/common/Icon/Icon";
+
 import "./Productos.css";
 
 const CATEGORIAS = [
@@ -302,7 +304,8 @@ function Productos() {
               setError("");
             }}
           >
-            Nuevo producto
+            <Icon type="plus" size={18} />
+            <span>Nuevo producto</span>
           </button>
         )}
       </header>

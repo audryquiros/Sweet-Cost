@@ -60,3 +60,11 @@
 
 /* Iconos del sistema Sweet Cost */
 button svg { flex: 0 0 auto; }
+
+
+.receta-lista-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}

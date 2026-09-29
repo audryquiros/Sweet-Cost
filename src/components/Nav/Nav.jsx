@@ -136,7 +136,7 @@ function Nav() {
         aria-expanded={isMobileOpen}
         onClick={() => setIsMobileOpen(true)}
       >
-        <Icon type="menu" size={22} strokeWidth={2} className="mobile-menu-icon" />
+        <img src="/illustrations/menu.png" alt="" className="mobile-menu-icon" />
       </button>
 
       {/* Fondo para cerrar el menú */}

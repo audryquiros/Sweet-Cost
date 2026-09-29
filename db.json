@@ -361,57 +361,35 @@
       "precioPorUnidadVenta": 1507.797188061055,
       "fecha": "2026-09-10T05:19:33.801Z",
       "id": "uLtb1lnK_7A",
-      "estado": "Aceptada",
-      "pedidoId": "MHUZ7-84C0c",
-      "cliente": "Audry Quirós",
-      "telefono": "61151187"
+      "estado": "Pendiente"
     }
   ],
-  "pedidos": [
+  "pedidos": [],
+  "$schema": "./node_modules/json-server/schema.json",
+  "empleados": [
     {
-      "cotizacionId": "uLtb1lnK_7A",
-      "cotizacionNombre": "Combo del dia del niño",
-      "cliente": "Audry Quirós",
-      "telefono": "61151187",
-      "recetaId": "Iw41VSxxpIk",
-      "recetaNombre": "Mini donas",
-      "cantidadAVender": 15,
-      "unidadesIncluidas": 10,
-      "cantidadTotalProductos": 150,
-      "extrasModo": "estandar",
-      "toppings": [],
-      "salsas": [],
-      "extras": [],
-      "insumos": [
-        {
-          "insumoId": "-_NDPxfEJ3M",
-          "cantidadPorEnvase": 1,
-          "cantidadTotal": 15
-        },
-        {
-          "insumoId": "5YxIMLmkmOE",
-          "cantidadPorEnvase": 2,
-          "cantidadTotal": 30
-        },
-        {
-          "insumoId": "P3TNtweyFtw",
-          "cantidadPorEnvase": 2,
-          "cantidadTotal": 30
-        }
-      ],
-      "costoTotal": 17397.65986224294,
-      "precioSugerido": 22616.957820915824,
-      "deposito": 9046.783128366329,
-      "depositoPorcentaje": 40,
-      "saldo": 13570.174692549495,
-      "fechaPedido": "2026-09-29T14:41:19.228Z",
-      "fechaEntrega": "2026-10-07",
-      "horaEntrega": "19:00",
-      "metodoPago": "Efectivo",
-      "estado": "Pendiente",
-      "observaciones": "",
-      "id": "MHUZ7-84C0c"
+      "id": "emp-001",
+      "nombre": "María Rodríguez",
+      "correo": "maria.rodriguez@sweetcost.demo",
+      "telefono": "8888-1001",
+      "rol": "administrador",
+      "estado": "activo"
+    },
+    {
+      "id": "emp-002",
+      "nombre": "Laura Méndez",
+      "correo": "laura.mendez@sweetcost.demo",
+      "telefono": "8888-1002",
+      "rol": "empleado",
+      "estado": "activo"
+    },
+    {
+      "id": "emp-003",
+      "nombre": "Sofía Vargas",
+      "correo": "sofia.vargas@sweetcost.demo",
+      "telefono": "8888-1003",
+      "rol": "empleado",
+      "estado": "inactivo"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }

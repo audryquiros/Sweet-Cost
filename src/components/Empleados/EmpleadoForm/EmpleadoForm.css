@@ -1,0 +1,97 @@
+.empleados-form-contenedor {
+  width: 100%;
+  padding: 20px;
+  background: var(--sc-surface);
+  border: 1px solid var(--sc-border);
+  border-radius: 12px;
+  box-shadow: var(--sc-shadow);
+}
+
+.empleados-form-header { margin-bottom: 19px; }
+
+.empleados-form-section {
+  grid-column: 1 / -1;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--sc-border);
+}
+
+.empleados-form-section--laboral {
+  margin-top: 5px;
+}
+
+.empleados-form-section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.empleados-form-section-title span {
+  color: var(--sc-text);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.empleados-form-section-title small {
+  color: var(--sc-muted);
+  font-size: 10px;
+  font-weight: 400;
+}
+.empleados-form-header h2 { margin: 0; color: var(--sc-text); font-size: 19px; }
+.empleados-form-header p { margin: 5px 0 0; color: var(--sc-text-soft); font-size: 11px; }
+.empleados-form-error { margin-bottom: 13px; padding: 10px 12px; border: 1px solid #f0cdd2; border-radius: 8px; background: var(--sc-danger-bg); color: #a74752; font-size: 11px; }
+
+.empleados-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 14px;
+}
+
+.empleado-form-group { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.empleado-form-group--wide { grid-column: 1 / -1; }
+.empleado-label { display: inline-flex; align-items: center; gap: 5px; color: var(--sc-text-soft); font-size: 10px; }
+.empleado-label::before { content: ""; width: 16px; height: 16px; flex: 0 0 16px; background-position: center; background-repeat: no-repeat; background-size: contain; }
+.empleado-label--perfil::before { background-image: url("/illustrations/perfil.png"); }
+.empleado-label--correo::before { background-image: url("/illustrations/recibo.png"); }
+.empleado-label--telefono::before { background-image: url("/illustrations/telefono.png"); }
+.empleado-label--rol::before { background-image: url("/illustrations/etiqueta.png"); }
+.empleado-label--estado::before { background-image: url("/illustrations/editar.png"); }
+
+.empleado-form-group input {
+  width: 100%;
+  min-height: 39px;
+  padding: 9px 10px;
+  border: 1px solid var(--sc-border-strong);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--sc-text);
+  font-size: 11px;
+  outline: none;
+}
+.empleado-form-group input:focus { border-color: var(--sc-primary); box-shadow: 0 0 0 3px rgba(155,126,222,.12); }
+.empleado-form-group input::placeholder { color: var(--sc-muted); }
+.empleado-form-group .filter-select { width: 100%; }
+.empleado-form-group .filter-select-trigger { min-height: 39px; }
+
+.empleados-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  margin-top: 6px;
+  padding-top: 14px;
+  border-top: 1px solid var(--sc-border);
+}
+.empleados-form-actions button { min-height: 35px; padding: 8px 15px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
+.empleado-btn-cancelar { border: 1px solid var(--sc-border-strong); background: #fff; color: var(--sc-text-soft); }
+.empleado-btn-cancelar:hover { background: var(--sc-primary-pale); }
+.empleado-btn-guardar { border: 1px solid var(--sc-primary); background: var(--sc-primary); color: #fff; }
+.empleado-btn-guardar:hover { background: var(--sc-primary-dark); border-color: var(--sc-primary-dark); }
+.empleados-form-actions button:disabled { opacity: .6; cursor: not-allowed; }
+
+@media (max-width: 650px) {
+  .empleados-form { grid-template-columns: 1fr; }
+  .empleado-form-group--wide, .empleados-form-actions { grid-column: auto; }
+  .empleados-form-actions { flex-direction: column-reverse; }
+  .empleados-form-actions button { width: 100%; }
+}

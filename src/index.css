@@ -164,7 +164,8 @@ body.sidebar-open { overflow: hidden; }
   .insumos-page,
   .recetas-page,
   .cotizador-page,
-  .pedidos-page {
+  .pedidos-page,
+  .empleados-page {
     width: 100%;
     padding-left: 16px;
     padding-right: 16px;

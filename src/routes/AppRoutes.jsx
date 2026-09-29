@@ -11,6 +11,7 @@ import Recetas from "../pages/Recetas/Recetas";
 import Cotizador from "../pages/Cotizador/Cotizador";
 import Pedidos from "../pages/Pedidos/Pedidos";
 import Calendario from "../pages/Calendario/Calendario";
+import Empleados from "../pages/Empleados/Empleados";
 
 import Nav from "../components/Nav/Nav";
 
@@ -48,16 +49,7 @@ function AppRoutes() {
 
           <Route path="/pedidos" element={<Pedidos />} />
           <Route path="/calendario" element={<Calendario />} />
-          <Route
-            path="/empleados"
-            element={
-              <ComingSoon
-                title="Empleados"
-                description="Administra los empleados asociados al negocio seleccionado."
-                illustration="empleados"
-              />
-            }
-          />
+          <Route path="/empleados" element={<Empleados />} />
           <Route
             path="/configuracion"
             element={

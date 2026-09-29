@@ -1,0 +1,2135 @@
+/* =========================================================
+   SWEET COST · RESPONSIVE SYSTEM
+   Tablet: 778–1024px
+   Mobile: <=777px
+   Extra small: <=420px
+   ========================================================= */
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+}
+
+html,
+body {
+  min-width: 0;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+/* ---------- TABLET ---------- */
+/* Tablet uses the same off-canvas sidebar pattern as mobile.
+   The sidebar must never consume layout width. */
+@media (max-width: 1024px) and (min-width: 778px) {
+  .app-shell {
+    margin-left: 0 !important;
+    width: 100% !important;
+    min-width: 0;
+  }
+
+  .mobile-menu-trigger {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 1100;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--sc-border);
+    border-radius: 12px;
+    background: var(--sc-surface);
+    color: var(--sc-primary-dark);
+    box-shadow: 0 7px 20px rgba(91, 65, 112, .12);
+    cursor: pointer;
+  }
+
+  .mobile-menu-trigger:hover {
+    background: var(--sc-primary-pale);
+    border-color: var(--sc-primary-soft);
+  }
+
+  .mobile-menu-icon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+
+  .mobile-menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1090;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: rgba(47, 39, 55, .36);
+    cursor: pointer;
+  }
+
+  .sidebar {
+    position: fixed !important;
+    inset: 0 auto 0 0;
+    z-index: 1100;
+    width: min(286px, 82vw) !important;
+    height: 100dvh;
+    min-height: 100dvh;
+    padding: 12px 15px;
+    overflow: hidden;
+    transform: translateX(-105%);
+    transition: transform .24s ease, box-shadow .24s ease;
+    box-shadow: 8px 0 30px rgba(47, 39, 55, .14);
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+
+  .mobile-menu-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 3;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--sc-border);
+    border-radius: 9px;
+    background: var(--sc-primary-pale);
+    color: var(--sc-primary-dark);
+    cursor: pointer;
+  }
+
+  .sidebar-brand {
+    height: 78px;
+    margin-bottom: 10px;
+  }
+
+  .sidebar-logo {
+    width: 174px;
+    max-height: 64px;
+  }
+
+  .business-switcher,
+  .sidebar-section-label,
+  .sidebar-bottom {
+    display: flex;
+  }
+
+  .sidebar-section-label {
+    display: block;
+  }
+
+  .sidebar-bottom {
+    display: block;
+  }
+
+  .sidebar-nav {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .sidebar-link {
+    min-height: 36px;
+    padding: 6px 10px;
+  }
+
+  .sidebar-link svg,
+  .sidebar-illustration-icon {
+    width: 21px;
+    height: 21px;
+    flex-basis: 21px;
+  }
+
+  .sidebar-logout {
+    min-height: 36px;
+  }
+
+  .productos-page,
+  .insumos-page,
+  .recetas-page,
+  .cotizador-page,
+  .pedidos-page,
+  .empleados-page,
+  .home-page,
+  .calendario-page {
+    width: 100%;
+    min-width: 0;
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .productos-header,
+  .insumos-header,
+  .recetas-header,
+  .cotizador-header,
+  .pedidos-header,
+  .empleados-header {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 777px) {
+  .app-shell {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+    padding-top: 64px;
+    overflow-x: clip;
+  }
+
+  .productos-page,
+  .insumos-page,
+  .recetas-page,
+  .cotizador-page,
+  .pedidos-page,
+  .empleados-page,
+  .home-page {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding: 22px 16px 34px;
+  }
+
+  .calendario-page {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    min-height: calc(100dvh - 64px);
+    padding: 20px 12px 18px;
+    overflow: visible;
+  }
+
+  /* Page headers */
+  .productos-header,
+  .insumos-header,
+  .recetas-header,
+  .cotizador-header,
+  .pedidos-header,
+  .empleados-header,
+  .home-header {
+    width: 100%;
+    min-width: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .productos-header h1,
+  .insumos-header h1,
+  .recetas-header h1,
+  .cotizador-header h1,
+  .pedidos-header h1,
+  .empleados-header h1 {
+    font-size: calc(25px * var(--sc-font-scale, 1));
+    line-height: 1.15;
+  }
+
+  .productos-header p,
+  .insumos-header p,
+  .recetas-header p,
+  .cotizador-header p,
+  .pedidos-header p,
+  .empleados-header p {
+    font-size: calc(12px * var(--sc-font-scale, 1));
+    line-height: 1.45;
+  }
+
+  /* Action bars and filters */
+  .productos-controles,
+  .empleados-controles {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .productos-controles {
+    grid-template-columns: 1fr;
+  }
+
+  .productos-filtros {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .productos-filtro,
+  .productos-filtro select,
+  .empleados-busqueda,
+  .empleados-controles > * {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .productos-vista,
+  .view-toggle {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .productos-vista button,
+  .view-toggle button {
+    flex: 1 1 0;
+  }
+
+  /* Grids */
+  .productos-grid,
+  .insumos-grid,
+  .recetas-grid,
+  .empleados-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .productos-grid > *,
+  .insumos-grid > *,
+  .recetas-grid > *,
+  .empleados-grid > * {
+    min-width: 0;
+  }
+
+  /* Tables become deliberate horizontal scrollers rather than breaking the page. */
+  .pedidos-tabla-wrap,
+  .productos-lista-vista,
+  .recetas-table-wrap,
+  .cotizador-lista-wrap,
+  .empleados-lista-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .pedidos-tabla,
+  .productos-lista,
+  .recetas-table,
+  .cotizador-lista,
+  .empleados-lista {
+    min-width: 620px;
+  }
+
+  /* Forms */
+  .cotizador-grid,
+  .recetas-form-layout,
+  .convertir-pedido-grid,
+  .pedido-form-grid,
+  .empleado-form-grid,
+  .insumos-form-grid,
+  .productos-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pedido-form-section,
+  .convertir-pedido-section {
+    min-width: 0;
+  }
+
+  /* Calendar */
+  .calendario-header {
+    margin-bottom: 12px;
+  }
+
+  .calendario-header h1 {
+    font-size: calc(25px * var(--sc-font-scale, 1));
+  }
+
+  .calendario-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    min-height: 0;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+
+  .calendario-hoy {
+    flex: 1 1 auto;
+  }
+
+  .calendario-vistas {
+    order: 3;
+    width: 100%;
+  }
+
+  .calendario-vistas button {
+    flex: 1 1 0;
+  }
+
+  .calendario-navegacion {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .calendario-navegacion h2 {
+    font-size: calc(18px * var(--sc-font-scale, 1));
+    white-space: nowrap;
+  }
+
+  .calendario-mes {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .calendario-grid,
+  .calendario-dias-semana {
+    min-width: 620px;
+  }
+
+  .calendario-meta,
+  .calendario-leyenda {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+
+  /* All modal overlays: use viewport, not the page content box. */
+  .empleado-detalle-overlay,
+  .confirmacion-overlay,
+  .pedido-form-overlay,
+  .pedido-modal-overlay,
+  .calendario-modal-overlay,
+  .cotizador-modal-overlay,
+  .ingredientes-modal-overlay,
+  .convertir-pedido-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    max-width: none !important;
+    height: 100dvh !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+    overflow: auto !important;
+    overscroll-behavior: contain;
+    z-index: 2000;
+  }
+
+  .empleado-detalle-overlay,
+  .confirmacion-overlay,
+  .pedido-form-overlay,
+  .pedido-modal-overlay,
+  .calendario-modal-overlay,
+  .cotizador-modal-overlay,
+  .ingredientes-modal-overlay,
+  .convertir-pedido-overlay {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .empleado-detalle-modal,
+  .confirmacion-modal,
+  .pedido-form-modal,
+  .pedido-modal,
+  .calendario-modal,
+  .cotizador-modal,
+  .ingredientes-modal,
+  .convertir-pedido-modal {
+    width: min(100%, 760px) !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    max-height: calc(100dvh - 24px) !important;
+    height: auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+    flex: 0 1 auto;
+  }
+
+  .empleado-detalle-grid,
+  .calendario-detalle-grid,
+  .cotizador-modal-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .empleado-detalle-header,
+  .pedido-form-header,
+  .convertir-pedido-header,
+  .cotizador-modal-header {
+    gap: 12px;
+  }
+
+  .empleado-detalle-header h2,
+  .pedido-form-header h2,
+  .convertir-pedido-header h2,
+  .cotizador-modal-header h2 {
+    font-size: calc(20px * var(--sc-font-scale, 1));
+    overflow-wrap: anywhere;
+  }
+
+  .empleado-detalle-item {
+    min-width: 0;
+  }
+
+  .empleado-detalle-item strong,
+  .empleado-detalle-item span {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .confirmacion-acciones,
+  .pedido-form-actions,
+  .convertir-pedido-actions,
+  .cotizador-modal-actions {
+    flex-wrap: wrap;
+  }
+
+  .confirmacion-acciones button,
+  .pedido-form-actions button,
+  .convertir-pedido-actions button {
+    flex: 1 1 180px;
+    min-width: 0;
+  }
+
+  /* Dropdowns must stay inside the viewport on small screens. */
+  .filter-select-menu,
+  .sc-filter-select-menu {
+    max-width: calc(100vw - 24px) !important;
+  }
+}
+
+/* ---------- SMALL MOBILE ---------- */
+@media (max-width: 480px) {
+  .app-shell {
+    padding-top: 60px;
+  }
+
+  .productos-page,
+  .insumos-page,
+  .recetas-page,
+  .cotizador-page,
+  .pedidos-page,
+  .empleados-page,
+  .home-page {
+    padding: 18px 12px 28px;
+  }
+
+  .calendario-page {
+    padding: 16px 8px 14px;
+  }
+
+  .productos-header h1,
+  .insumos-header h1,
+  .recetas-header h1,
+  .cotizador-header h1,
+  .pedidos-header h1,
+  .empleados-header h1,
+  .calendario-header h1 {
+    font-size: calc(22px * var(--sc-font-scale, 1));
+  }
+
+  .mobile-menu-trigger {
+    top: 9px;
+    left: 9px;
+    width: 42px;
+    height: 42px;
+  }
+
+  .mobile-menu-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .empleado-detalle-overlay,
+  .confirmacion-overlay,
+  .pedido-form-overlay,
+  .pedido-modal-overlay,
+  .calendario-modal-overlay,
+  .cotizador-modal-overlay,
+  .ingredientes-modal-overlay,
+  .convertir-pedido-overlay {
+    padding: 8px !important;
+  }
+
+  .empleado-detalle-modal,
+  .confirmacion-modal,
+  .pedido-form-modal,
+  .pedido-modal,
+  .calendario-modal,
+  .cotizador-modal,
+  .ingredientes-modal,
+  .convertir-pedido-modal {
+    max-height: calc(100dvh - 16px) !important;
+    border-radius: 14px !important;
+  }
+
+  .empleado-detalle-modal {
+    padding: 18px 14px 14px !important;
+  }
+
+  .empleado-detalle-header {
+    align-items: flex-start;
+  }
+
+  .empleado-detalle-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+
+  .empleado-detalle-avatar img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .empleado-detalle-grid {
+    gap: 8px !important;
+    margin-top: 12px !important;
+  }
+
+  .empleado-detalle-item {
+    min-height: 68px;
+    padding: 10px 11px;
+    gap: 9px;
+  }
+
+  .empleado-detalle-item .empleado-detalle-icon,
+  .empleado-detalle-item > img {
+    width: 30px;
+    height: 30px;
+    flex-basis: 30px;
+  }
+
+  .empleado-detalle-item strong {
+    font-size: calc(11px * var(--sc-font-scale, 1));
+  }
+
+  .empleado-detalle-item span {
+    font-size: calc(9px * var(--sc-font-scale, 1));
+  }
+
+  .empleado-detalle-actions,
+  .confirmacion-acciones,
+  .pedido-form-actions,
+  .convertir-pedido-actions {
+    flex-direction: column;
+  }
+
+  .empleado-detalle-actions button,
+  .confirmacion-acciones button,
+  .pedido-form-actions button,
+  .convertir-pedido-actions button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .calendario-detalle-grid > div,
+  .cotizador-modal-dato {
+    min-width: 0;
+  }
+
+  .calendario-detalle-grid strong,
+  .cotizador-modal strong {
+    overflow-wrap: anywhere;
+  }
+
+  .convertir-pedido-modal,
+  .pedido-form-modal {
+    padding: 0 !important;
+  }
+
+  .convertir-pedido-header,
+  .pedido-form-header,
+  .pedido-form {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
+/* ---------- EXTRA SMALL DEVICES ---------- */
+@media (max-width: 340px) {
+  .productos-page,
+  .insumos-page,
+  .recetas-page,
+  .cotizador-page,
+  .pedidos-page,
+  .empleados-page,
+  .home-page {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .empleado-detalle-overlay,
+  .confirmacion-overlay,
+  .pedido-form-overlay,
+  .pedido-modal-overlay,
+  .calendario-modal-overlay,
+  .cotizador-modal-overlay,
+  .ingredientes-modal-overlay,
+  .convertir-pedido-overlay {
+    padding: 5px !important;
+  }
+
+  .empleado-detalle-modal,
+  .confirmacion-modal,
+  .pedido-form-modal,
+  .pedido-modal,
+  .calendario-modal,
+  .cotizador-modal,
+  .ingredientes-modal,
+  .convertir-pedido-modal {
+    border-radius: 11px !important;
+  }
+}
+
+/* =========================================================
+   CARD ACTIONS · RESPONSIVE
+   Evita que textos y botones se compriman o se corten.
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  .cotizador-card-actions,
+  .producto-card-actions,
+  .insumo-card-actions,
+  .receta-card-actions,
+  .empleado-card-actions {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    align-items: stretch;
+  }
+
+  .cotizador-card-actions button,
+  .cotizador-card-pedido,
+  .producto-card-actions button,
+  .insumo-card-actions button,
+  .receta-card-actions button,
+  .empleado-card-actions button {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    flex: none;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  /* Cotizaciones: el botón principal tiene más texto y ocupa toda la fila. */
+  .cotizador-card-actions .cotizador-card-pedido,
+  .cotizador-card-actions .cotizador-card-pedido-creado {
+    grid-column: 1 / -1;
+  }
+
+  .cotizador-card-actions button span,
+  .cotizador-card-pedido span,
+  .producto-card-actions button span,
+  .insumo-card-actions button span,
+  .receta-card-actions button span,
+  .empleado-card-actions button span {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+}
+
+@media (max-width: 777px) {
+  .cotizador-card-actions,
+  .producto-card-actions,
+  .insumo-card-actions,
+  .receta-card-actions,
+  .empleado-card-actions {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .cotizador-card-actions .cotizador-card-pedido,
+  .cotizador-card-actions .cotizador-card-pedido-creado {
+    grid-column: auto;
+  }
+
+  .cotizador-card-actions button,
+  .cotizador-card-pedido,
+  .producto-card-actions button,
+  .insumo-card-actions button,
+  .receta-card-actions button,
+  .empleado-card-actions button {
+    min-height: 42px;
+    height: auto;
+    padding: 9px 10px;
+    font-size: calc(11px * var(--sc-font-scale, 1));
+  }
+}
+
+@media (max-width: 420px) {
+  .cotizador-card-actions,
+  .producto-card-actions,
+  .insumo-card-actions,
+  .receta-card-actions,
+  .empleado-card-actions {
+    gap: 6px;
+  }
+
+  .cotizador-card-actions button,
+  .cotizador-card-pedido,
+  .producto-card-actions button,
+  .insumo-card-actions button,
+  .receta-card-actions button,
+  .empleado-card-actions button {
+    min-height: 40px;
+    padding: 8px 9px;
+    font-size: calc(10.5px * var(--sc-font-scale, 1));
+  }
+}
+
+/* =========================================================
+   SWEET COST · MOBILE/TABLET FINAL PASS
+   ========================================================= */
+
+/* En tablet y mobile el sidebar NO forma parte del layout.
+   Al entrar en el breakpoint solo queda visible el botón de menú. */
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: min(286px, 86vw) !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    margin: 0 !important;
+    transform: translate3d(-110%, 0, 0) !important;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 1100 !important;
+    transition: transform .24s ease, visibility 0s linear .24s;
+  }
+
+  .sidebar.sidebar-open {
+    transform: translate3d(0, 0, 0) !important;
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform .24s ease, visibility 0s linear 0s;
+  }
+
+  .mobile-menu-trigger {
+    display: grid !important;
+    position: fixed !important;
+    top: 12px !important;
+    left: 12px !important;
+    z-index: 1200 !important;
+  }
+
+  .mobile-menu-backdrop {
+    z-index: 1090 !important;
+  }
+
+  body.sidebar-open {
+    overflow: hidden;
+  }
+}
+
+/* ---------- Cotizaciones: acciones que nunca se aplastan ---------- */
+@media (max-width: 1024px) {
+  .cotizador-card-actions {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+  }
+
+  .cotizador-card-actions > * {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+  }
+
+  .cotizador-card-actions button,
+  .cotizador-card-pedido,
+  .cotizador-card-pedido-creado {
+    min-height: 42px !important;
+    height: auto !important;
+    padding: 9px 8px !important;
+    box-sizing: border-box !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+
+  .cotizador-card-actions button span,
+  .cotizador-card-pedido span,
+  .cotizador-card-pedido-creado span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    line-height: 1.15 !important;
+  }
+
+  .cotizador-card-actions > :last-child {
+    grid-column: 2;
+  }
+
+  .cotizador-card-actions > .cotizador-card-pedido,
+  .cotizador-card-actions > .cotizador-card-pedido-creado {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .cotizador-action-icon,
+  .cotizador-card-actions button svg,
+  .cotizador-card-actions button img {
+    width: 19px !important;
+    height: 19px !important;
+    flex: 0 0 19px !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .cotizador-card {
+    padding: 15px !important;
+  }
+
+  .cotizador-card-header {
+    gap: 8px;
+    padding-bottom: 12px;
+  }
+
+  .cotizador-card-header h3 {
+    font-size: calc(16px * var(--sc-font-scale, 1));
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  .cotizador-card-header p {
+    font-size: calc(11px * var(--sc-font-scale, 1));
+  }
+
+  .cotizador-card-datos {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .cotizador-card-costos div,
+  .cotizador-card-total,
+  .cotizador-card-precio,
+  .cotizador-card-precio-total {
+    min-width: 0;
+  }
+
+  .cotizador-card-costos div {
+    gap: 8px;
+  }
+
+  .cotizador-card-costos span,
+  .cotizador-card-costos strong,
+  .cotizador-card-total span,
+  .cotizador-card-total strong,
+  .cotizador-card-precio span,
+  .cotizador-card-precio strong,
+  .cotizador-card-precio-total span,
+  .cotizador-card-precio-total strong {
+    overflow-wrap: anywhere;
+  }
+
+  .cotizador-card-actions {
+    grid-template-columns: 1fr !important;
+  }
+
+  .cotizador-card-actions > * {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+  }
+
+  .cotizador-card-actions button,
+  .cotizador-card-pedido,
+  .cotizador-card-pedido-creado {
+    width: 100% !important;
+  }
+}
+
+/* ---------- Convertir cotización en pedido ---------- */
+@media (max-width: 1024px) {
+  .convertir-pedido-overlay {
+    padding: 12px !important;
+    align-items: center !important;
+  }
+
+  .convertir-pedido-modal {
+    width: min(760px, calc(100vw - 24px)) !important;
+    max-width: calc(100vw - 24px) !important;
+    height: auto !important;
+    max-height: calc(100dvh - 24px) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    padding: 18px !important;
+    border-radius: 14px !important;
+    box-sizing: border-box !important;
+  }
+
+  .convertir-pedido-header {
+    margin-bottom: 14px;
+    gap: 10px;
+  }
+
+  .convertir-pedido-header h2 {
+    font-size: calc(18px * var(--sc-font-scale, 1)) !important;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  .convertir-pedido-header p {
+    font-size: calc(10px * var(--sc-font-scale, 1)) !important;
+    overflow-wrap: anywhere;
+  }
+
+  .convertir-pedido-resumen {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    padding: 10px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .convertir-pedido-resumen div {
+    min-width: 0;
+  }
+
+  .convertir-pedido-resumen span,
+  .convertir-pedido-resumen strong {
+    overflow-wrap: anywhere;
+  }
+
+  .convertir-pedido-grid {
+    gap: 10px !important;
+  }
+
+  .convertir-pedido-field input,
+  .convertir-pedido-field textarea,
+  .convertir-pedido-select .filter-select-trigger,
+  .sc-picker-trigger {
+    min-height: 40px;
+    box-sizing: border-box;
+  }
+
+  .convertir-pedido-field textarea {
+    min-height: 76px;
+  }
+
+  .convertir-pedido-actions {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px !important;
+    margin-top: 16px !important;
+  }
+
+  .convertir-pedido-actions button {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 40px;
+    padding: 9px 10px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .convertir-pedido-overlay {
+    padding: 8px !important;
+    align-items: center !important;
+  }
+
+  .convertir-pedido-modal {
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    max-height: calc(100dvh - 16px) !important;
+    padding: 15px !important;
+    border-radius: 13px !important;
+  }
+
+  .convertir-pedido-resumen {
+    grid-template-columns: 1fr !important;
+  }
+
+  .convertir-pedido-actions {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sc-date-popover,
+  .sc-time-popover {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    width: min(calc(100vw - 24px), 320px) !important;
+    min-width: 0 !important;
+    max-width: calc(100vw - 24px) !important;
+    max-height: calc(100dvh - 24px) !important;
+    transform: translate(-50%, -50%) !important;
+    overflow-y: auto !important;
+    z-index: 2200 !important;
+  }
+}
+
+/* ---------- Empleados ---------- */
+@media (max-width: 1024px) {
+  .empleados-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+
+  .empleado-card {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .empleado-card-info span,
+  .empleado-lista-contacto span {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .empleado-card-actions {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px !important;
+  }
+
+  .empleado-card-actions button {
+    width: 100% !important;
+    min-width: 0 !important;
+    white-space: normal;
+  }
+
+  .empleado-card-actions button:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .empleados-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .empleado-card {
+    padding: 14px !important;
+  }
+
+  .empleado-card-actions {
+    grid-template-columns: 1fr !important;
+  }
+
+  .empleado-card-actions button:last-child {
+    grid-column: auto;
+  }
+
+  .empleados-lista-vista {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+
+/* =========================================================
+   SWEET COST · FINAL RESPONSIVE CARD SYSTEM
+   Cards must never force horizontal overflow.
+   Action buttons become icon-only on tablet/mobile.
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  html,
+  body,
+  #root,
+  .app-shell,
+  main {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0 !important;
+  }
+
+  /* All card containers stay inside their grid column. */
+  .productos-grid,
+  .insumos-grid,
+  .recetas-grid,
+  .cotizador-grid,
+  .empleados-grid,
+  .producto-card,
+  .insumo-card,
+  .receta-card,
+  .cotizador-card,
+  .empleado-card {
+    min-width: 0 !important;
+    max-width: 100%;
+  }
+
+  .producto-card,
+  .insumo-card,
+  .receta-card,
+  .cotizador-card,
+  .empleado-card {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Keep card internals from creating a wider intrinsic size. */
+  .producto-card-header,
+  .insumo-card-header,
+  .receta-card-header,
+  .cotizador-card-header,
+  .empleado-card-header,
+  .cotizador-card-costos,
+  .cotizador-card-total,
+  .cotizador-card-precio,
+  .cotizador-card-precio-total {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .cotizador-card-header > *,
+  .producto-card-header > *,
+  .receta-card-header > * {
+    min-width: 0;
+  }
+
+  .cotizador-card-header h3,
+  .producto-card-header h3,
+  .receta-card-header h3,
+  .empleado-card h3 {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .cotizador-card-fecha,
+  .cotizador-card-costos span,
+  .cotizador-card-costos strong,
+  .cotizador-card-total span,
+  .cotizador-card-total strong,
+  .cotizador-card-precio span,
+  .cotizador-card-precio strong,
+  .cotizador-card-precio-total span,
+  .cotizador-card-precio-total strong {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* Every card action area uses a stable grid instead of squeezing buttons. */
+  .cotizador-card-actions,
+  .producto-card-actions,
+  .insumo-card-actions,
+  .receta-card-actions,
+  .empleado-card-actions {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+    gap: 8px !important;
+  }
+
+  .cotizador-card-actions > button,
+  .producto-card-actions > button,
+  .insumo-card-actions > button,
+  .receta-card-actions > button,
+  .empleado-card-actions > button {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100%;
+    min-height: 42px;
+    height: 42px;
+    padding: 7px !important;
+    gap: 0 !important;
+    white-space: nowrap;
+  }
+
+  /* Icon only: text remains accessible to assistive technology. */
+  .cotizador-card-actions > button > span:not(.cotizador-card-pedido-creado),
+  .producto-card-actions > button > span,
+  .insumo-card-actions > button > span,
+  .receta-card-actions > button > span,
+  .empleado-card-actions > button > span {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  .cotizador-card-actions > button img,
+  .producto-card-actions > button img,
+  .insumo-card-actions > button img,
+  .receta-card-actions > button img,
+  .empleado-card-actions > button svg,
+  .empleado-card-actions > button img {
+    width: 21px !important;
+    height: 21px !important;
+    flex: 0 0 21px !important;
+  }
+
+  /* Three-action cards: primary action spans the second row. */
+  .cotizador-card-actions > button:nth-child(3):last-child,
+  .empleado-card-actions > button:nth-child(3):last-child {
+    grid-column: 1 / -1;
+  }
+
+  /* View switch: icons only and never wider than its container. */
+  .cotizador-lista-header {
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+
+  .view-toggle {
+    width: auto !important;
+    max-width: 100%;
+    flex: 0 0 auto;
+  }
+
+  .view-toggle button {
+    width: 40px !important;
+    min-width: 40px !important;
+    max-width: 40px !important;
+    padding: 7px !important;
+  }
+
+  .view-toggle button > span {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+  }
+}
+
+@media (max-width: 777px) {
+  /* One card per row on phones. */
+  .productos-grid,
+  .insumos-grid,
+  .recetas-grid,
+  .cotizador-grid,
+  .empleados-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100%;
+  }
+
+  /* Cotizaciones header must stack instead of pushing the view toggle out. */
+  .cotizador-lista-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .cotizador-lista-header p {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .cotizador-lista-header .view-toggle {
+    flex: 0 0 auto;
+  }
+
+  .cotizador-card {
+    padding: 14px !important;
+  }
+
+  .cotizador-card-datos {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .cotizador-card-dato,
+  .cotizador-card-precio,
+  .cotizador-card-precio-total {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .cotizador-card-costos div {
+    align-items: flex-start;
+  }
+
+  .cotizador-card-actions,
+  .producto-card-actions,
+  .insumo-card-actions,
+  .receta-card-actions,
+  .empleado-card-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .cotizador-card-actions,
+  .producto-card-actions,
+  .insumo-card-actions,
+  .receta-card-actions,
+  .empleado-card-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .cotizador-card-actions > button,
+  .producto-card-actions > button,
+  .insumo-card-actions > button,
+  .receta-card-actions > button,
+  .empleado-card-actions > button {
+    min-height: 40px;
+    height: 40px;
+  }
+
+  /* Three icon buttons fit without forcing the card wider. */
+  .cotizador-card-actions > button:nth-child(3):last-child,
+  .empleado-card-actions > button:nth-child(3):last-child {
+    grid-column: auto;
+  }
+
+  .cotizador-lista-header {
+    align-items: center;
+  }
+
+  .view-toggle button {
+    width: 38px !important;
+    min-width: 38px !important;
+    max-width: 38px !important;
+  }
+}
+
+
+/* =========================================================
+   FINAL MOBILE/TABLET CARD POLISH
+   - Never allow a card to exceed its grid/viewport.
+   - Action buttons become compact icon-only controls.
+   - The mobile menu trigger is a real menu icon, never a brand illustration.
+   ========================================================= */
+@media (max-width: 1024px) {
+  .cotizador-page,
+  .productos-page,
+  .insumos-page,
+  .recetas-page,
+  .pedidos-page,
+  .empleados-page {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: clip;
+  }
+
+  .cotizador-lista,
+  .cotizador-grid,
+  .productos-grid,
+  .insumos-grid,
+  .recetas-grid,
+  .empleados-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .cotizador-grid > *,
+  .productos-grid > *,
+  .insumos-grid > *,
+  .recetas-grid > *,
+  .empleados-grid > * {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .cotizador-card,
+  .producto-card,
+  .insumo-card,
+  .receta-card,
+  .empleado-card {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Compact icon-only actions. The accessible label remains in the DOM. */
+  .cotizador-card-actions,
+  .producto-card-actions,
+  .insumo-card-actions,
+  .receta-card-actions,
+  .empleado-card-actions {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    gap: 7px !important;
+  }
+
+  .cotizador-card-actions > button,
+  .producto-card-actions > button,
+  .insumo-card-actions > button,
+  .receta-card-actions > button,
+  .empleado-card-actions > button {
+    flex: 0 0 42px !important;
+    width: 42px !important;
+    min-width: 42px !important;
+    max-width: 42px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .cotizador-card-actions > button > span,
+  .producto-card-actions > button > span,
+  .insumo-card-actions > button > span,
+  .receta-card-actions > button > span,
+  .empleado-card-actions > button > span {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  .cotizador-card-actions > button img,
+  .cotizador-card-actions > button svg,
+  .producto-card-actions > button img,
+  .producto-card-actions > button svg,
+  .insumo-card-actions > button img,
+  .insumo-card-actions > button svg,
+  .receta-card-actions > button img,
+  .receta-card-actions > button svg,
+  .empleado-card-actions > button img,
+  .empleado-card-actions > button svg {
+    width: 20px !important;
+    height: 20px !important;
+    flex: 0 0 20px !important;
+  }
+
+  /* A created-order status is not an action button. Keep it compact. */
+  .cotizador-card-actions > .cotizador-card-pedido-creado {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  .cotizador-card-actions > .cotizador-card-pedido-creado span {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    clip: auto !important;
+  }
+
+  /* Mobile menu trigger must never affect document flow. */
+  .mobile-menu-trigger {
+    position: fixed !important;
+    top: 10px !important;
+    left: 10px !important;
+    margin: 0 !important;
+    width: 42px !important;
+    height: 42px !important;
+    padding: 0 !important;
+    z-index: 1200 !important;
+  }
+
+  .mobile-menu-icon {
+    width: 22px !important;
+    height: 22px !important;
+    display: block !important;
+  }
+
+  /* The count + view switch must always fit together. */
+  .cotizador-lista-header {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .cotizador-lista-header > div:first-child {
+    min-width: 0 !important;
+  }
+
+  .cotizador-lista-header p {
+    min-width: 0 !important;
+    overflow-wrap: anywhere;
+  }
+
+  .cotizador-lista-header .view-toggle {
+    width: auto !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .cotizador-lista-header .view-toggle button {
+    width: 38px !important;
+    min-width: 38px !important;
+    max-width: 38px !important;
+    height: 36px !important;
+    padding: 6px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .cotizador-card,
+  .producto-card,
+  .insumo-card,
+  .receta-card,
+  .empleado-card {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .cotizador-card-actions,
+  .producto-card-actions,
+  .insumo-card-actions,
+  .receta-card-actions,
+  .empleado-card-actions {
+    gap: 6px !important;
+  }
+
+  .cotizador-card-actions > button,
+  .producto-card-actions > button,
+  .insumo-card-actions > button,
+  .receta-card-actions > button,
+  .empleado-card-actions > button {
+    flex-basis: 40px !important;
+    width: 40px !important;
+    min-width: 40px !important;
+    max-width: 40px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+  }
+
+  .cotizador-card-actions > button img,
+  .cotizador-card-actions > button svg,
+  .producto-card-actions > button img,
+  .producto-card-actions > button svg,
+  .insumo-card-actions > button img,
+  .insumo-card-actions > button svg,
+  .receta-card-actions > button img,
+  .receta-card-actions > button svg,
+  .empleado-card-actions > button img,
+  .empleado-card-actions > button svg {
+    width: 19px !important;
+    height: 19px !important;
+    flex-basis: 19px !important;
+  }
+}
+
+/* =========================================================
+   SWEET COST · RESPONSIVE CARDS / ACTIONS · FINAL
+   Regla: mostrar texto cuando realmente cabe; usar solo
+   el icono cuando el ancho ya no permite una acción legible.
+   No se modifican ni sustituyen los assets existentes.
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  /* Evita que ningún contenedor de página cree ancho intrínseco. */
+  .productos-page,
+  .insumos-page,
+  .recetas-page,
+  .cotizador-page,
+  .pedidos-page,
+  .empleados-page,
+  .home-page,
+  .calendario-page,
+  .cotizador-lista,
+  .cotizador-grid,
+  .productos-grid,
+  .insumos-grid,
+  .recetas-grid,
+  .empleados-grid {
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .cotizador-grid,
+  .productos-grid,
+  .insumos-grid,
+  .recetas-grid,
+  .empleados-grid {
+    width: 100% !important;
+  }
+
+  .cotizador-card,
+  .producto-card,
+  .insumo-card,
+  .receta-card,
+  .empleado-card {
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Tablet: hay espacio suficiente en una tarjeta normal para conservar texto. */
+  .cotizador-card-actions,
+  .producto-card-actions,
+  .insumo-card-actions,
+  .receta-card-actions,
+  .empleado-card-actions {
+    display: grid !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .cotizador-card-actions > button,
+  .producto-card-actions > button,
+  .insumo-card-actions > button,
+  .receta-card-actions > button,
+  .empleado-card-actions > button {
+    position: relative !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    min-height: 40px !important;
+    height: auto !important;
+    padding: 8px 9px !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* En tablet los textos siguen visibles. */
+  .cotizador-card-actions > button > span,
+  .producto-card-actions > button > span,
+  .insumo-card-actions > button > span,
+  .receta-card-actions > button > span,
+  .empleado-card-actions > button > span {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    clip: auto !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  .cotizador-card-actions > button img,
+  .producto-card-actions > button img,
+  .insumo-card-actions > button img,
+  .receta-card-actions > button img,
+  .empleado-card-actions > button img,
+  .cotizador-card-actions > button svg,
+  .producto-card-actions > button svg,
+  .insumo-card-actions > button svg,
+  .receta-card-actions > button svg,
+  .empleado-card-actions > button svg {
+    width: 19px !important;
+    height: 19px !important;
+    flex: 0 0 19px !important;
+  }
+
+  /* Cotizaciones: Ver + Eliminar / Convertir en pedido a toda la segunda fila. */
+  .cotizador-card-actions .cotizador-card-pedido,
+  .cotizador-card-actions .cotizador-card-pedido-creado {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* Tarjetas: 2 columnas en tablet; 1 en pantallas pequeñas. */
+  .cotizador-card-datos,
+  .producto-card-content,
+  .insumo-card-content,
+  .receta-card-content,
+  .empleado-card-info {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 777px) {
+  /* Mobile: una tarjeta por fila, sin overflow horizontal. */
+  .cotizador-grid,
+  .productos-grid,
+  .insumos-grid,
+  .recetas-grid,
+  .empleados-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 12px !important;
+  }
+
+  .cotizador-card,
+  .producto-card,
+  .insumo-card,
+  .receta-card,
+  .empleado-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* El contenido interno nunca puede determinar un ancho mayor al card. */
+  .cotizador-card > *,
+  .producto-card > *,
+  .insumo-card > *,
+  .receta-card > *,
+  .empleado-card > * {
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .cotizador-card-datos {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  /* A partir de aquí los botones conservan texto si el teléfono tiene espacio. */
+  .cotizador-card-actions,
+  .producto-card-actions,
+  .insumo-card-actions,
+  .receta-card-actions,
+  .empleado-card-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+  }
+
+  .cotizador-card-actions > button,
+  .producto-card-actions > button,
+  .insumo-card-actions > button,
+  .receta-card-actions > button,
+  .empleado-card-actions > button {
+    min-height: 40px !important;
+    height: 40px !important;
+    padding: 7px 8px !important;
+    font-size: calc(10px * var(--sc-font-scale, 1)) !important;
+  }
+
+  .cotizador-card-actions > button > span,
+  .producto-card-actions > button > span,
+  .insumo-card-actions > button > span,
+  .receta-card-actions > button > span,
+  .empleado-card-actions > button > span {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip: auto !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    border: 0 !important;
+  }
+
+  .cotizador-card-actions > button img,
+  .producto-card-actions > button img,
+  .insumo-card-actions > button img,
+  .receta-card-actions > button img,
+  .empleado-card-actions > button img,
+  .cotizador-card-actions > button svg,
+  .producto-card-actions > button svg,
+  .insumo-card-actions > button svg,
+  .receta-card-actions > button svg,
+  .empleado-card-actions > button svg {
+    width: 18px !important;
+    height: 18px !important;
+    flex: 0 0 18px !important;
+  }
+
+  /* Cotizaciones: la acción larga ocupa la fila completa. */
+  .cotizador-card-actions .cotizador-card-pedido,
+  .cotizador-card-actions .cotizador-card-pedido-creado {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* El selector Tarjetas/Lista no puede sacar el header del viewport. */
+  .cotizador-lista-header {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    gap: 8px !important;
+  }
+
+  .cotizador-lista-header p {
+    min-width: 0 !important;
+    overflow-wrap: anywhere;
+  }
+
+  .cotizador-lista-header .view-toggle {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Teléfonos pequeños: cuando ya no cabe el texto, solo icono. */
+@media (max-width: 340px) {
+  .cotizador-card-actions,
+  .producto-card-actions,
+  .insumo-card-actions,
+  .receta-card-actions,
+  .empleado-card-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .cotizador-card-actions > button,
+  .producto-card-actions > button,
+  .insumo-card-actions > button,
+  .receta-card-actions > button,
+  .empleado-card-actions > button {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 7px !important;
+    gap: 0 !important;
+    justify-content: center !important;
+  }
+
+  .cotizador-card-actions > button > span,
+  .producto-card-actions > button > span,
+  .insumo-card-actions > button > span,
+  .receta-card-actions > button > span,
+  .empleado-card-actions > button > span {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  .cotizador-card-actions .cotizador-card-pedido,
+  .cotizador-card-actions .cotizador-card-pedido-creado {
+    grid-column: auto !important;
+  }
+
+  .cotizador-card-actions > button img,
+  .producto-card-actions > button img,
+  .insumo-card-actions > button img,
+  .receta-card-actions > button img,
+  .empleado-card-actions > button img,
+  .cotizador-card-actions > button svg,
+  .producto-card-actions > button svg,
+  .insumo-card-actions > button svg,
+  .receta-card-actions > button svg,
+  .empleado-card-actions > button svg {
+    width: 20px !important;
+    height: 20px !important;
+    flex: 0 0 20px !important;
+  }
+
+  /* En pantallas de ~300px tres acciones se distribuyen en 3 columnas. */
+  .cotizador-card-actions:has(> button:nth-child(3)),
+  .empleado-card-actions:has(> button:nth-child(3)) {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .cotizador-card-actions:has(> button:nth-child(3)) > button,
+  .empleado-card-actions:has(> button:nth-child(3)) > button {
+    grid-column: auto !important;
+  }
+}
+
+/* Asegura que el viewport nunca reciba un overflow provocado por una card. */
+@media (max-width: 777px) {
+  html,
+  body,
+  #root {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+
+  .app-shell,
+  main,
+  .cotizador-page,
+  .productos-page,
+  .insumos-page,
+  .recetas-page,
+  .empleados-page {
+    max-width: 100vw !important;
+    overflow-x: clip !important;
+  }
+}
+
+/* Orden correcto de las tres acciones de Cotizaciones cuando el texto cabe. */
+@media (min-width: 341px) and (max-width: 1024px) {
+  .cotizador-card-actions .cotizador-card-detalles {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+  }
+
+  .cotizador-card-actions .cotizador-card-eliminar {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+  }
+
+  .cotizador-card-actions .cotizador-card-pedido {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+  }
+}
+
+/* =========================================================
+   EMPLEADOS · MOBILE FINAL
+   La vista Lista se transforma en tarjetas apiladas en móvil,
+   igual que el resto de módulos, sin scroll horizontal.
+   ========================================================= */
+@media (max-width: 777px) {
+  .empleados-lista-vista {
+    display: grid !important;
+    gap: 10px !important;
+    width: 100% !important;
+    overflow: visible !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .empleados-lista-header {
+    display: none !important;
+  }
+
+  .empleado-lista-item {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-areas:
+      "persona estado"
+      "contacto contacto"
+      "rol rol"
+      "acciones acciones" !important;
+    gap: 10px 12px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 14px !important;
+    background: var(--sc-surface) !important;
+    border: 1px solid var(--sc-border) !important;
+    border-radius: 12px !important;
+    box-shadow: var(--sc-shadow) !important;
+  }
+
+  .empleado-lista-item:hover {
+    background: var(--sc-surface) !important;
+  }
+
+  .empleado-lista-persona { grid-area: persona; }
+  .empleado-lista-contacto {
+    grid-area: contacto;
+    padding-top: 8px;
+    border-top: 1px solid var(--sc-border);
+  }
+  .empleado-lista-rol {
+    grid-area: rol;
+    color: var(--sc-text-soft) !important;
+    font-weight: 600;
+  }
+  .empleado-lista-estado {
+    grid-area: estado;
+    justify-self: end;
+    align-self: start;
+  }
+  .empleado-lista-actions {
+    grid-area: acciones;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+    padding-top: 10px;
+    border-top: 1px solid var(--sc-border);
+  }
+
+  .empleado-lista-actions button {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 38px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .empleado-lista-actions button {
+    padding: 7px 6px !important;
+  }
+  .empleado-lista-actions button .icon-illustration,
+  .empleado-lista-actions button svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+}
+
+
+/* =========================================================
+   Sweet Cost · Empleados mobile final harmony
+   ========================================================= */
+@media (max-width: 777px) {
+  .empleados-lista-top {
+    gap: 10px !important;
+  }
+  .empleados-lista-top .view-toggle {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .empleados-lista-top .view-toggle button {
+    flex: 1 1 0 !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+
+  .empleados-controles {
+    gap: 8px !important;
+  }
+
+  .empleado-card {
+    padding: 16px !important;
+    border-radius: 12px !important;
+  }
+  .empleado-card-info {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-top: 1px solid var(--sc-border) !important;
+    padding-top: 12px !important;
+  }
+  .empleado-card-actions {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+    gap: 7px !important;
+  }
+  .empleado-card-actions button,
+  .empleado-card-actions button:last-child {
+    grid-column: auto !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    min-height: 38px !important;
+    padding: 7px 6px !important;
+  }
+  .empleado-card-actions button span {
+    display: inline !important;
+    white-space: nowrap !important;
+  }
+
+  .empleado-lista-item {
+    box-shadow: none !important;
+  }
+}

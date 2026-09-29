@@ -11,6 +11,13 @@ import "./Pedidos.css";
 
 const ESTADOS = ["Pendiente", "En preparación", "Listo", "Entregado", "Pagado", "Cancelado"];
 
+const claseEstado = (estado = "Pendiente") =>
+  String(estado)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "-");
+
 function formatearFecha(fecha) {
   if (!fecha) return "-";
   const valor = String(fecha).includes("T") ? fecha : `${fecha}T00:00:00`;
@@ -217,7 +224,7 @@ function Pedidos() {
                       value={pedido.estado}
                       options={ESTADOS.map((estado) => ({ valor: estado, nombre: estado }))}
                       onChange={(estado) => cambiarEstado(pedido, estado)}
-                      className={`pedido-estado-filter pedido-estado-${String(pedido.estado || "Pendiente").toLowerCase().replaceAll(" ", "-")}`}
+                      className={`pedido-estado-filter pedido-estado-${claseEstado(pedido.estado)}`}
                       portalMenu
                     />
                   </td>

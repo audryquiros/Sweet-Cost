@@ -364,8 +364,52 @@
       "estado": "Pendiente"
     }
   ],
-  "pedidos": [],
-  "$schema": "./node_modules/json-server/schema.json",
+  "pedidos": [
+    {
+      "cotizacionId": "uLtb1lnK_7A",
+      "cotizacionNombre": "Combo del dia del niño",
+      "cliente": "Audry Quirós",
+      "telefono": "61151187",
+      "recetaId": "Iw41VSxxpIk",
+      "recetaNombre": "Mini donas",
+      "cantidadAVender": 15,
+      "unidadesIncluidas": 10,
+      "cantidadTotalProductos": 150,
+      "extrasModo": "estandar",
+      "toppings": [],
+      "salsas": [],
+      "extras": [],
+      "insumos": [
+        {
+          "insumoId": "-_NDPxfEJ3M",
+          "cantidadPorEnvase": 1,
+          "cantidadTotal": 15
+        },
+        {
+          "insumoId": "5YxIMLmkmOE",
+          "cantidadPorEnvase": 2,
+          "cantidadTotal": 30
+        },
+        {
+          "insumoId": "P3TNtweyFtw",
+          "cantidadPorEnvase": 2,
+          "cantidadTotal": 30
+        }
+      ],
+      "costoTotal": 17397.65986224294,
+      "precioSugerido": 22616.957820915824,
+      "deposito": 13570.174692549494,
+      "depositoPorcentaje": 60,
+      "saldo": 9046.78312836633,
+      "fechaPedido": "2026-09-29T20:48:29.478Z",
+      "fechaEntrega": "2026-10-08",
+      "horaEntrega": "14:45",
+      "metodoPago": "Transferencia",
+      "estado": "Entregado",
+      "observaciones": "",
+      "id": "Wva_uT71nhM"
+    }
+  ],
   "empleados": [
     {
       "id": "emp-001",
@@ -391,5 +435,6 @@
       "rol": "empleado",
       "estado": "inactivo"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

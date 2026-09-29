@@ -357,19 +357,20 @@ html[data-theme="oscuro"] .confirmacion-modal .btn-confirmacion-eliminar {
   border-color: #ff8794 !important;
 }
 
-/* Estados: conservar diferencia semántica sin depender de rojo/verde claro. */
-html[data-theme="oscuro"] .pedido-status--pendiente,
-html[data-theme="oscuro"] .pedido-estado-pendiente { background: #40321f !important; color: #ffd28e !important; border-color: #765b35 !important; }
-html[data-theme="oscuro"] .pedido-status--preparacion,
-html[data-theme="oscuro"] .pedido-estado-en-preparaci { background: #342b4a !important; color: #d9c7ff !important; border-color: #665487 !important; }
-html[data-theme="oscuro"] .pedido-status--listo,
-html[data-theme="oscuro"] .pedido-estado-listo { background: #21382c !important; color: #a8edc3 !important; border-color: #4b7e62 !important; }
-html[data-theme="oscuro"] .pedido-status--entregado,
-html[data-theme="oscuro"] .pedido-estado-entregado { background: #20373a !important; color: #a8e2e7 !important; border-color: #4e777b !important; }
-html[data-theme="oscuro"] .pedido-status--pagado,
-html[data-theme="oscuro"] .pedido-estado-pagado { background: #342a48 !important; color: #dcc9ff !important; border-color: #695184 !important; }
-html[data-theme="oscuro"] .pedido-status--cancelado,
-html[data-theme="oscuro"] .pedido-estado-cancelado { background: #40252c !important; color: #ffadb7 !important; border-color: #7b4a55 !important; }
+/* Estados de pedidos: el color vive en el selector, no en su contenedor. */
+html[data-theme="oscuro"] .pedido-estado-filter {
+  background: transparent !important;
+}
+html[data-theme="oscuro"] .pedido-estado-filter .filter-select-trigger {
+  border-width: 1px !important;
+  box-shadow: none !important;
+}
+html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-pendiente .filter-select-trigger { background: #40321f !important; color: #ffd28e !important; border-color: #765b35 !important; }
+html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-en-preparacion .filter-select-trigger { background: #342b4a !important; color: #d9c7ff !important; border-color: #665487 !important; }
+html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-listo .filter-select-trigger { background: #21382c !important; color: #a8edc3 !important; border-color: #4b7e62 !important; }
+html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-entregado .filter-select-trigger { background: #20373a !important; color: #a8e2e7 !important; border-color: #4e777b !important; }
+html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-pagado .filter-select-trigger { background: #342a48 !important; color: #dcc9ff !important; border-color: #695184 !important; }
+html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-cancelado .filter-select-trigger { background: #40252c !important; color: #ffadb7 !important; border-color: #7b4a55 !important; }
 
 html[data-theme="oscuro"] .cotizador-card-estado,
 html[data-theme="oscuro"] .cotizador-lista-estado {
@@ -1491,4 +1492,26 @@ html[data-theme="oscuro"] .campo-opcional {
   background: #3b2d49 !important;
   color: #e5d3f2 !important;
   border: 1px solid #6f5780 !important;
+}
+
+/* Detalle de pedido: jerarquía vertical y legibilidad del label/valor. */
+html[data-theme="oscuro"] .pedido-detalle-grid span {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px !important;
+  color: #d8c9df !important;
+}
+html[data-theme="oscuro"] .pedido-detalle-grid strong {
+  display: block !important;
+  color: #fffaff !important;
+  line-height: 1.35;
+}
+html[data-theme="oscuro"] .pedido-modal-header {
+  padding-bottom: 15px;
+  margin-bottom: 16px;
+}
+html[data-theme="oscuro"] .pedido-origen {
+  background: #30253a !important;
+  border: 1px solid #51405f !important;
 }

@@ -1,10 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { installAppearanceSync } from './themePreferences'
+import { installAppearanceSync } from './context/themePreferences'
 import './index.css'
-import './responsive.css'
-import './accessibility.css'
-import './dark-theme-complete.css'
+import './styles/responsive.css'
+import './styles/accessibility.css'
+import './styles/dark-theme-complete.css'
 import App from './App.jsx'
 
 installAppearanceSync()

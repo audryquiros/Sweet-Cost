@@ -4,7 +4,7 @@
   height: 100%;
   min-height: 350px;
   padding: 22px;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   border: 1px solid #e3dce9;
   border-radius: 14px;
   box-shadow: 0 3px 12px rgba(109, 76, 141, 0.07);
@@ -42,7 +42,7 @@
 .receta-card h3 {
   margin: 0;
   color: #352d3a;
-  font-size: 18px;
+  font-size: calc(18px * var(--sc-font-scale, 1));
   line-height: 1.3;
 }
 
@@ -54,7 +54,7 @@
   border-radius: 7px;
   background-color: #d8c8f2;
   color: #6d4c8d;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 600;
   line-height: 1.2;
 }
@@ -62,7 +62,7 @@
 .receta-descripcion {
   margin: 7px 0 0;
   color: #776d7d;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   line-height: 1.4;
 }
 
@@ -72,7 +72,7 @@
   border-radius: 20px;
   background-color: #d8c8f2;
   color: #6d4c8d;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 600;
   white-space: nowrap;
 }
@@ -96,13 +96,13 @@
 .receta-ingredientes-resumen h4 {
   margin: 0 0 5px;
   color: #6d4c8d;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 .receta-ingredientes-resumen p {
   margin: 0;
   color: #776d7d;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .btn-ver-ingredientes {
@@ -110,10 +110,10 @@
   padding: 8px 11px;
   border: 1px solid #9b7ede;
   border-radius: 7px;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #6d4c8d;
   font-family: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -146,12 +146,12 @@
 
 .receta-costo-item span {
   color: #776d7d;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .receta-costo-item strong {
   color: #352d3a;
-  font-size: 15px;
+  font-size: calc(15px * var(--sc-font-scale, 1));
 }
 
 .receta-costo-item.destacado {
@@ -163,7 +163,7 @@
 
 .receta-costo-item.destacado strong {
   color: #6d4c8d;
-  font-size: 17px;
+  font-size: calc(17px * var(--sc-font-scale, 1));
 }
 
 /* =========================================
@@ -183,7 +183,7 @@
   padding: 9px 12px;
   border-radius: 7px;
   font-family: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -193,7 +193,7 @@
 
 .receta-btn-editar {
   border: 1px solid #9b7ede;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #6d4c8d;
 }
 
@@ -203,7 +203,7 @@
 
 .receta-btn-eliminar {
   border: 1px solid #c95c5c;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #c95c5c;
 }
 
@@ -235,7 +235,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   border: 1px solid #e3dce9;
   border-radius: 16px;
   box-shadow: 0 12px 40px rgba(53, 45, 58, 0.2);
@@ -258,13 +258,13 @@
 .ingredientes-modal-header h3 {
   margin: 0;
   color: #352d3a;
-  font-size: 20px;
+  font-size: calc(20px * var(--sc-font-scale, 1));
 }
 
 .ingredientes-modal-header p {
   margin: 5px 0 0;
   color: #776d7d;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 .ingredientes-modal-cerrar {
@@ -273,10 +273,10 @@
   flex-shrink: 0;
   border: 1px solid #e3dce9;
   border-radius: 7px;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #776d7d;
   font-family: Arial, sans-serif;
-  font-size: 22px;
+  font-size: calc(22px * var(--sc-font-scale, 1));
   line-height: 1;
   cursor: pointer;
   transition:
@@ -320,25 +320,25 @@
 
 .modal-ingrediente-info strong {
   color: #352d3a;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 .modal-ingrediente-info span {
   color: #776d7d;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .modal-ingrediente-costo {
   flex-shrink: 0;
   color: #594044;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 .modal-sin-ingredientes {
   padding: 25px 0;
   text-align: center;
   color: #776d7d;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 /* =========================================
@@ -352,7 +352,7 @@
   gap: 20px;
   padding: 18px 22px;
   border-top: 1px solid #e3dce9;
-  background-color: #fff9f5;
+  background-color: var(--sc-bg);
 }
 
 .ingredientes-modal-footer div {
@@ -363,12 +363,12 @@
 
 .ingredientes-modal-footer span {
   color: #776d7d;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .ingredientes-modal-footer strong {
   color: #6d4c8d;
-  font-size: 16px;
+  font-size: calc(16px * var(--sc-font-scale, 1));
 }
 
 .modal-btn-cerrar {
@@ -378,7 +378,7 @@
   background-color: #9b7ede;
   color: #ffffff;
   font-family: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -421,7 +421,7 @@
   border-radius: 7px;
   background-color: #d8c8f2;
   color: #6d4c8d;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 600;
   line-height: 1.2;
 }
@@ -451,11 +451,11 @@
   }
 
   .receta-card h3 {
-    font-size: 17px;
+    font-size: calc(17px * var(--sc-font-scale, 1));
   }
 
   .receta-descripcion {
-    font-size: 12px;
+    font-size: calc(12px * var(--sc-font-scale, 1));
   }
 
   .receta-ingredientes-resumen {

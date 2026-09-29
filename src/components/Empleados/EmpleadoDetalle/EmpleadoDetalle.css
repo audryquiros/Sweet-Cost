@@ -19,7 +19,7 @@
   overflow: auto;
   padding: 26px 28px 22px;
   box-sizing: border-box;
-  background: #fff;
+  background: var(--sc-surface);
   border: 1px solid var(--sc-border);
   border-radius: 17px;
   box-shadow: 0 20px 50px rgba(53, 45, 58, 0.18);
@@ -36,7 +36,7 @@
 
 .empleado-detalle-header span {
   color: var(--sc-primary);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   font-weight: 800;
   letter-spacing: 0.08em;
 }
@@ -44,7 +44,7 @@
 .empleado-detalle-header h2 {
   margin: 5px 0 0;
   color: var(--sc-text);
-  font-size: 23px;
+  font-size: calc(23px * var(--sc-font-scale, 1));
   line-height: 1.15;
 }
 
@@ -111,14 +111,14 @@
   display: block;
   margin-bottom: 6px;
   color: var(--sc-muted);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   line-height: 1.2;
 }
 
 .empleado-detalle-item-content strong {
   display: block;
   color: var(--sc-text);
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   line-height: 1.35;
   overflow-wrap: anywhere;
 }
@@ -155,9 +155,9 @@
   padding: 8px 19px;
   border: 1px solid var(--sc-border-strong);
   border-radius: 8px;
-  background: #fff;
+  background: var(--sc-surface);
   color: var(--sc-primary-dark);
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 700;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease;
@@ -179,7 +179,7 @@
   }
 
   .empleado-detalle-header h2 {
-    font-size: 21px;
+    font-size: calc(21px * var(--sc-font-scale, 1));
   }
 
   .empleado-detalle-grid {

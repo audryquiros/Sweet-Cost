@@ -1,7 +1,7 @@
 .cotizador-card {
   padding: 22px;
 
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
 
   border: 1px solid #e3dce9;
   border-radius: 12px;
@@ -27,7 +27,7 @@
 
   color: #352d3a;
 
-  font-size: 18px;
+  font-size: calc(18px * var(--sc-font-scale, 1));
 }
 
 .cotizador-card-header p {
@@ -35,7 +35,7 @@
 
   color: #776d7d;
 
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 .cotizador-card-fecha {
@@ -43,7 +43,7 @@
 
   color: #776d7d;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 /* =========================================
@@ -63,7 +63,7 @@
 .cotizador-card-dato {
   padding: 11px;
 
-  background-color: #fff9f5;
+  background-color: var(--sc-bg);
 
   border-radius: 7px;
 }
@@ -75,13 +75,13 @@
 
   color: #776d7d;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .cotizador-card-dato strong {
   color: #352d3a;
 
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 /* =========================================
@@ -109,13 +109,13 @@
 .cotizador-card-costos span {
   color: #776d7d;
 
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 .cotizador-card-costos strong {
   color: #352d3a;
 
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 /* =========================================
@@ -137,14 +137,14 @@
 .cotizador-card-total span {
   color: #352d3a;
 
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
 .cotizador-card-total strong {
   color: #6d4c8d;
 
-  font-size: 17px;
+  font-size: calc(17px * var(--sc-font-scale, 1));
 }
 
 /* =========================================
@@ -170,12 +170,12 @@
 }
 
 .cotizador-card-precio span {
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
 .cotizador-card-precio strong {
-  font-size: 19px;
+  font-size: calc(19px * var(--sc-font-scale, 1));
 }
 
 /* =========================================
@@ -202,12 +202,12 @@
 }
 
 .cotizador-card-precio-total span {
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
 .cotizador-card-precio-total strong {
-  font-size: 16px;
+  font-size: calc(16px * var(--sc-font-scale, 1));
 }
 
 /* =========================================
@@ -238,7 +238,7 @@
 
   border-radius: 8px;
   font-family: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 600;
   line-height: 1;
 
@@ -266,7 +266,7 @@
 
 .cotizador-card-detalles {
   border: 1px solid #cdbbe2;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #6d4c8d;
 }
 
@@ -276,7 +276,7 @@
 
 .cotizador-card-eliminar {
   border: 1px solid #e8baba;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #c95c5c;
 }
 
@@ -349,7 +349,7 @@
 
   padding: 28px;
 
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
 
   border: 1px solid #e3dce9;
   border-radius: 16px;
@@ -402,7 +402,7 @@
 
   color: #352d3a;
 
-  font-size: 23px;
+  font-size: calc(23px * var(--sc-font-scale, 1));
 }
 
 .cotizador-modal-header p {
@@ -410,7 +410,7 @@
 
   color: #776d7d;
 
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 .cotizador-modal-cerrar {
@@ -454,7 +454,7 @@
 
   color: #352d3a;
 
-  font-size: 17px;
+  font-size: calc(17px * var(--sc-font-scale, 1));
 }
 
 .cotizador-modal-seccion h4 {
@@ -462,7 +462,7 @@
 
   color: #51455c;
 
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 /* =========================================
@@ -481,7 +481,7 @@
 .cotizador-modal-grid > div {
   padding: 12px;
 
-  background-color: #fff9f5;
+  background-color: var(--sc-bg);
 
   border-radius: 8px;
 }
@@ -493,13 +493,13 @@
 
   color: #776d7d;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .cotizador-modal-grid strong {
   color: #352d3a;
 
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 /* =========================================
@@ -534,13 +534,13 @@
 .cotizador-modal-desglose span {
   color: #776d7d;
 
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 .cotizador-modal-desglose strong {
   color: #352d3a;
 
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 /* =========================================
@@ -548,7 +548,7 @@
    ========================================= */
 
 .cotizador-modal-linea-principal {
-  background-color: #faf7fc;
+  background-color: var(--sc-surface-soft);
 }
 
 .cotizador-modal-linea-principal span {
@@ -574,7 +574,7 @@
 .cotizador-modal-linea-total strong {
   color: #6d55a8;
 
-  font-size: 17px;
+  font-size: calc(17px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -613,7 +613,7 @@
 .cotizador-modal-precio span {
   color: #4d3b69;
 
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 
   font-weight: 700;
 }
@@ -621,7 +621,7 @@
 .cotizador-modal-precio strong {
   color: #6d55a8;
 
-  font-size: 20px;
+  font-size: calc(20px * var(--sc-font-scale, 1));
 
   font-weight: 700;
 }
@@ -658,13 +658,13 @@
 .cotizador-modal-extra strong {
   color: #40364d;
 
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 .cotizador-modal-extra span {
   color: #776d7d;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 /* =========================================
@@ -704,7 +704,7 @@
 
   color: #51455c;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -713,7 +713,7 @@
 
   color: #776d7d;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .cotizador-modal-tabla-fila strong {
@@ -734,7 +734,7 @@
 
   color: #776d7d;
 
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 
   text-align: center;
 }
@@ -766,7 +766,7 @@
 
   font-family: inherit;
 
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 600;
 
   cursor: pointer;
@@ -775,7 +775,7 @@
 .cotizador-modal-btn-secundario {
   border: 1px solid #d5ccdf;
 
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #5d5368;
 }
 
@@ -817,7 +817,7 @@
 
     padding: 0;
 
-    background-color: #ffffff;
+    background-color: var(--sc-surface);
 
     overflow: visible;
   }
@@ -874,7 +874,7 @@
   .cotizador-card-pedido {
     padding: 0 10px;
     gap: 5px;
-    font-size: 12px;
+    font-size: calc(12px * var(--sc-font-scale, 1));
   }
 }
 
@@ -893,7 +893,7 @@
     min-height: 46px;
     padding: 0 9px;
     gap: 5px;
-    font-size: 11px;
+    font-size: calc(11px * var(--sc-font-scale, 1));
   }
 
   .cotizador-card-actions button svg,

@@ -29,7 +29,7 @@
 .productos-header h1 {
   margin: 0;
   color: var(--sc-text);
-  font-size: 28px;
+  font-size: calc(28px * var(--sc-font-scale, 1));
   line-height: 1.15;
   letter-spacing: -.02em;
 }
@@ -37,7 +37,7 @@
 .productos-header p {
   margin: 6px 0 0;
   color: var(--sc-text-soft);
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   line-height: 1.5;
 }
 
@@ -51,7 +51,7 @@
   border-radius: 8px;
   background: var(--sc-primary-dark);
   color: #fff;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(109, 76, 141, .12);
@@ -78,7 +78,7 @@
   margin-bottom: 16px;
   padding: 11px 14px;
   border-radius: 9px;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .productos-error { background: var(--sc-danger-bg); border: 1px solid #f0cdd2; color: #a74752; }
@@ -107,7 +107,7 @@
 
 .productos-filtro label {
   color: var(--sc-text-soft);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -117,9 +117,9 @@
   padding: 0 10px;
   border: 1px solid var(--sc-border-strong);
   border-radius: 8px;
-  background: #fff;
+  background: var(--sc-surface);
   color: #51465b;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   outline: none;
 }
 
@@ -134,7 +134,7 @@
   padding: 3px;
   border: 1px solid var(--sc-border);
   border-radius: 8px;
-  background: #fff;
+  background: var(--sc-surface);
 }
 
 .productos-vista button {
@@ -144,7 +144,7 @@
   border-radius: 6px;
   background: transparent;
   color: var(--sc-text-soft);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   font-weight: 700;
   cursor: pointer;
 }
@@ -157,7 +157,7 @@
 .productos-contador {
   margin-bottom: 8px;
   color: var(--sc-muted);
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
 }
 
 .productos-contador span { color: var(--sc-primary-dark); font-weight: 700; }
@@ -170,7 +170,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: #fff;
+  background: var(--sc-surface);
   border: 1px solid var(--sc-border);
   border-radius: 12px;
   box-shadow: var(--sc-shadow);
@@ -187,17 +187,17 @@
 .productos-lista-header {
   min-height: 40px;
   padding: 0 14px;
-  background: #fbf8fc;
+  background: var(--sc-surface-soft);
   border-bottom: 1px solid var(--sc-border);
   color: var(--sc-text-soft);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   font-weight: 800;
 }
 
 .producto-lista-item {
   min-height: 68px;
   padding: 9px 14px;
-  background: #fff;
+  background: var(--sc-surface);
   border-bottom: 1px solid #f1ebf3;
   transition: background .16s ease;
 }
@@ -206,11 +206,11 @@
 .producto-lista-item:hover { background: #fdfafd; }
 
 .producto-lista-producto { min-width: 0; padding-right: 12px; }
-.producto-lista-nombre { color: var(--sc-text); font-size: 12px; font-weight: 750; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.producto-lista-marca { margin-top: 2px; color: var(--sc-muted); font-size: 9px; }
+.producto-lista-nombre { color: var(--sc-text); font-size: calc(12px * var(--sc-font-scale, 1)); font-weight: 750; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.producto-lista-marca { margin-top: 2px; color: var(--sc-muted); font-size: calc(9px * var(--sc-font-scale, 1)); }
 .producto-lista-etiquetas { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
 .producto-lista-tipo,
-.producto-lista-categoria { display: inline-flex; align-items: center; min-height: 18px; padding: 1px 6px; border-radius: 999px; font-size: 8px; font-weight: 700; }
+.producto-lista-categoria { display: inline-flex; align-items: center; min-height: 18px; padding: 1px 6px; border-radius: 999px; font-size: calc(8px * var(--sc-font-scale, 1)); font-weight: 700; }
 .producto-lista-tipo { background: #f7e5eb; color: #99566c; }
 .producto-lista-tipo.tipo-salsa { background: #eee5f7; color: #6d4c8d; }
 .producto-lista-tipo.tipo-ingrediente { background: #f0ece4; color: #75654d; }
@@ -220,17 +220,17 @@
 .producto-lista-costo { min-width: 0; padding: 0 9px; }
 .producto-lista-label { display: none; }
 .producto-lista-dato strong,
-.producto-lista-costo strong { color: #413748; font-size: 11px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.producto-lista-costo strong { color: #413748; font-size: calc(11px * var(--sc-font-scale, 1)); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .producto-lista-costo { padding: 7px 9px; background: #f8f2fc; border-radius: 7px; }
 .producto-lista-costo strong { color: var(--sc-primary-dark); }
-.producto-lista-sin-dato { color: #aaa1ae; font-size: 11px; }
+.producto-lista-sin-dato { color: #aaa1ae; font-size: calc(11px * var(--sc-font-scale, 1)); }
 
 .producto-lista-acciones { display: flex; justify-content: flex-end; gap: 5px; padding-left: 5px; }
-.producto-lista-acciones button { width: 31px; height: 31px; padding: 0; border-radius: 7px; background: #fff; font-size: 0; cursor: pointer; }
+.producto-lista-acciones button { width: 31px; height: 31px; padding: 0; border-radius: 7px; background: var(--sc-surface); font-size: 0; cursor: pointer; }
 .producto-lista-acciones .btn-editar { border: 1px solid #ded1e9; color: var(--sc-primary-dark); }
-.producto-lista-acciones .btn-editar::before { content: "✎"; font-size: 13px; }
+.producto-lista-acciones .btn-editar::before { content: "✎"; font-size: calc(13px * var(--sc-font-scale, 1)); }
 .producto-lista-acciones .btn-eliminar { border: 1px solid #efd0d5; color: var(--sc-danger); }
-.producto-lista-acciones .btn-eliminar::before { content: "⌫"; font-size: 12px; }
+.producto-lista-acciones .btn-eliminar::before { content: "⌫"; font-size: calc(12px * var(--sc-font-scale, 1)); }
 .producto-lista-acciones button:hover { background: #f8f3fb; }
 
 .productos-grid {
@@ -255,10 +255,10 @@
 }
 
 .productos-mensaje,
-.productos-vacio { padding: 46px 20px; text-align: center; background: #fff; border: 1px dashed var(--sc-border-strong); border-radius: 12px; }
-.productos-mensaje { color: var(--sc-text-soft); font-size: 13px; }
-.productos-vacio h3 { margin: 0 0 6px; color: var(--sc-primary-dark); font-size: 16px; }
-.productos-vacio p { margin: 0; color: var(--sc-text-soft); font-size: 12px; }
+.productos-vacio { padding: 46px 20px; text-align: center; background: var(--sc-surface); border: 1px dashed var(--sc-border-strong); border-radius: 12px; }
+.productos-mensaje { color: var(--sc-text-soft); font-size: calc(13px * var(--sc-font-scale, 1)); }
+.productos-vacio h3 { margin: 0 0 6px; color: var(--sc-primary-dark); font-size: calc(16px * var(--sc-font-scale, 1)); }
+.productos-vacio p { margin: 0; color: var(--sc-text-soft); font-size: calc(12px * var(--sc-font-scale, 1)); }
 
 @media (max-width: 1050px) {
   .productos-grid {
@@ -291,8 +291,8 @@
 /* ===== Sweet Cost · página armonizada ===== */
 .productos-page { padding: 30px 34px 44px; }
 .productos-header { margin-bottom: 22px; }
-.productos-header h1 { font-size: 28px; line-height: 1.15; }
-.productos-header p { font-size: 13px; }
+.productos-header h1 { font-size: calc(28px * var(--sc-font-scale, 1)); line-height: 1.15; }
+.productos-header p { font-size: calc(13px * var(--sc-font-scale, 1)); }
 .productos-controles { margin-bottom: 12px; }
 .productos-contador { margin-bottom: 8px; }
 .productos-lista-vista { border-radius: 12px; }
@@ -388,7 +388,7 @@
   align-items: center !important;
   justify-content: center !important;
   gap: 6px !important;
-  font-size: 11px !important;
+  font-size: calc(11px * var(--sc-font-scale, 1)) !important;
   line-height: 1 !important;
   box-sizing: border-box !important;
 }

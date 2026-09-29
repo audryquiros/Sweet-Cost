@@ -15,7 +15,7 @@
   overflow-y: auto;
   border: 1px solid #e3dce9;
   border-radius: 18px;
-  background: #ffffff;
+  background: var(--sc-surface);
   box-shadow: 0 24px 70px rgba(53, 45, 58, 0.2);
 }
 
@@ -30,7 +30,7 @@
 
 .pedido-form-eyebrow {
   color: #9b7ede;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -39,13 +39,13 @@
 .pedido-form-header h2 {
   margin: 5px 0 5px;
   color: #352d3a;
-  font-size: 24px;
+  font-size: calc(24px * var(--sc-font-scale, 1));
 }
 
 .pedido-form-header p {
   margin: 0;
   color: #776d7d;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 .pedido-form-close {
@@ -53,16 +53,16 @@
   height: 34px;
   border: 1px solid #e3dce9;
   border-radius: 9px;
-  background: #ffffff;
+  background: var(--sc-surface);
   color: #776d7d;
-  font-size: 22px;
+  font-size: calc(22px * var(--sc-font-scale, 1));
   line-height: 1;
   cursor: pointer;
 }
 
 .pedido-form-close:hover {
   border-color: #d8c8f2;
-  background: #faf7fc;
+  background: var(--sc-surface-soft);
   color: #6d4c8d;
 }
 
@@ -79,7 +79,7 @@
 .pedido-form-section h3 {
   margin: 0 0 15px;
   color: #4d3d61;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 .pedido-form-grid {
@@ -97,7 +97,7 @@
   flex-direction: column;
   gap: 7px;
   color: #5c5265;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -107,10 +107,10 @@
   width: 100%;
   border: 1px solid #d9cde8;
   border-radius: 8px;
-  background: #ffffff;
+  background: var(--sc-surface);
   color: #352d3a;
   font: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -140,7 +140,7 @@
 
 .pedido-form-error {
   color: #c95c5c;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 500;
 }
 
@@ -153,18 +153,18 @@
   gap: 15px;
   border: 1px solid #e8def0;
   border-radius: 11px;
-  background: #faf7fc;
+  background: var(--sc-surface-soft);
 }
 
 .pedido-total-preview span {
   color: #776d7d;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
 .pedido-total-preview strong {
   color: #6d4c8d;
-  font-size: 18px;
+  font-size: calc(18px * var(--sc-font-scale, 1));
 }
 
 .pedido-form-summary {
@@ -185,12 +185,12 @@
 
 .pedido-form-summary span {
   color: #776d7d;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
 }
 
 .pedido-form-summary strong {
   color: #352d3a;
-  font-size: 16px;
+  font-size: calc(16px * var(--sc-font-scale, 1));
 }
 
 .pedido-form-actions {
@@ -205,7 +205,7 @@
   padding: 0 18px;
   border-radius: 8px;
   font: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 700;
   cursor: pointer;
 }
@@ -223,12 +223,12 @@
 
 .pedido-btn-secondary {
   border: 1px solid #d9cde8;
-  background: #ffffff;
+  background: var(--sc-surface);
   color: #6d4c8d;
 }
 
 .pedido-btn-secondary:hover {
-  background: #faf7fc;
+  background: var(--sc-surface-soft);
 }
 
 @media (max-width: 777px) {

@@ -21,7 +21,7 @@
   padding: 28px 28px 24px;
   border: 1px solid #eadff0;
   border-radius: 18px;
-  background: #ffffff;
+  background: var(--sc-surface);
   box-shadow: 0 22px 55px rgba(53, 45, 58, 0.2);
   text-align: center;
   animation: confirmacion-scale-in 0.18s ease;
@@ -48,7 +48,7 @@
 .confirmacion-contenido h3 {
   margin: 0 0 8px;
   color: #352d3a;
-  font-size: 19px;
+  font-size: calc(19px * var(--sc-font-scale, 1));
   line-height: 1.25;
   font-weight: 700;
 }
@@ -57,7 +57,7 @@
   margin: 0 auto;
   max-width: 350px;
   color: #776d7d;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   line-height: 1.55;
 }
 
@@ -79,7 +79,7 @@
   padding: 0 15px;
   border-radius: 8px;
   font-family: inherit;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
@@ -95,13 +95,13 @@
 
 .btn-confirmacion-cancelar {
   border: 1px solid #e3d5eb;
-  background: #ffffff;
+  background: var(--sc-surface);
   color: #6d4c8d;
 }
 
 .btn-confirmacion-cancelar:hover {
   border-color: #d8c8f2;
-  background: #faf7fc;
+  background: var(--sc-surface-soft);
 }
 
 .btn-confirmacion-eliminar {

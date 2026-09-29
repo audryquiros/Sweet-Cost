@@ -1,0 +1,642 @@
+/* =========================================================
+   Sweet Cost · Apariencia y accesibilidad global
+   ========================================================= */
+
+:root {
+  --sc-font-scale: 1;
+}
+
+/* ---------------- Tema oscuro ---------------- */
+html[data-theme="oscuro"] {
+  --sc-bg: #1c1820;
+  --sc-surface: #27212d;
+  --sc-surface-soft: #302938;
+  --sc-primary-pale: #382d43;
+  --sc-primary-soft: #4b3a5c;
+  --sc-border: #4a3d53;
+  --sc-border-strong: #65546f;
+  --sc-text: #f7f2fa;
+  --sc-text-soft: #d1c6d7;
+  --sc-muted: #a99daf;
+  --sc-shadow: 0 8px 24px rgba(0,0,0,.28);
+  --sc-success-bg: #243b2f;
+  --sc-warning-bg: #403526;
+  --sc-danger-bg: #422a30;
+}
+
+html[data-theme="oscuro"],
+html[data-theme="oscuro"] body {
+  background: var(--sc-bg) !important;
+  color: var(--sc-text) !important;
+}
+
+html[data-theme="oscuro"] .sidebar {
+  background: var(--sc-surface) !important;
+  border-color: var(--sc-border) !important;
+  box-shadow: 4px 0 18px rgba(0,0,0,.25) !important;
+}
+
+html[data-theme="oscuro"] .business-switcher,
+html[data-theme="oscuro"] .sidebar-link:hover,
+html[data-theme="oscuro"] .sidebar-logout:hover {
+  background: var(--sc-surface-soft) !important;
+  border-color: var(--sc-border) !important;
+}
+
+html[data-theme="oscuro"] .sidebar-section-label,
+html[data-theme="oscuro"] .sidebar-link,
+html[data-theme="oscuro"] .sidebar-logout {
+  color: var(--sc-text-soft) !important;
+}
+
+html[data-theme="oscuro"] .sidebar-link.active {
+  background: var(--sc-primary-dark) !important;
+  color: #fff !important;
+}
+
+html[data-theme="oscuro"] .sidebar-divider {
+  background: var(--sc-border) !important;
+}
+
+/* Superficies principales y formularios */
+html[data-theme="oscuro"] .configuracion-card,
+html[data-theme="oscuro"] .configuracion-nav,
+html[data-theme="oscuro"] .producto-card,
+html[data-theme="oscuro"] .insumo-card,
+html[data-theme="oscuro"] .receta-card,
+html[data-theme="oscuro"] .cotizador-card,
+html[data-theme="oscuro"] .empleado-card,
+html[data-theme="oscuro"] .cotizador-form,
+html[data-theme="oscuro"] .pedido-form-modal,
+html[data-theme="oscuro"] .convertir-pedido-modal,
+html[data-theme="oscuro"] .pedido-modal,
+html[data-theme="oscuro"] .calendario-modal,
+html[data-theme="oscuro"] .cotizador-modal,
+html[data-theme="oscuro"] .empleado-detalle-modal,
+html[data-theme="oscuro"] .confirmacion-modal,
+html[data-theme="oscuro"] .ingredientes-modal,
+html[data-theme="oscuro"] .module-placeholder-card {
+  background: var(--sc-surface) !important;
+  border-color: var(--sc-border) !important;
+  color: var(--sc-text) !important;
+  box-shadow: var(--sc-shadow) !important;
+}
+
+html[data-theme="oscuro"] input,
+html[data-theme="oscuro"] select,
+html[data-theme="oscuro"] textarea,
+html[data-theme="oscuro"] .filter-select-trigger,
+html[data-theme="oscuro"] .filter-select-menu,
+html[data-theme="oscuro"] .sc-picker-trigger {
+  background: var(--sc-surface-soft) !important;
+  color: var(--sc-text) !important;
+  border-color: var(--sc-border-strong) !important;
+}
+
+html[data-theme="oscuro"] .filter-select-menu,
+html[data-theme="oscuro"] .filter-select-option {
+  color: var(--sc-text) !important;
+}
+
+html[data-theme="oscuro"] .filter-select-option:hover,
+html[data-theme="oscuro"] .filter-select-option.selected {
+  background: var(--sc-primary-soft) !important;
+  color: #fff !important;
+}
+
+html[data-theme="oscuro"] .configuracion-info,
+html[data-theme="oscuro"] .configuracion-option-card.selected,
+html[data-theme="oscuro"] .configuracion-text-size.selected,
+html[data-theme="oscuro"] .configuracion-color-option.selected,
+html[data-theme="oscuro"] .convertir-pedido-saldo {
+  background: var(--sc-primary-pale) !important;
+}
+
+html[data-theme="oscuro"] .configuracion-theme-preview.claro {
+  background: #f8f4fa !important;
+}
+
+/* Modales y overlays: el panel cambia, no el overlay */
+html[data-theme="oscuro"] .pedido-modal-overlay,
+html[data-theme="oscuro"] .calendario-modal-overlay,
+html[data-theme="oscuro"] .cotizador-modal-overlay,
+html[data-theme="oscuro"] .empleado-detalle-overlay,
+html[data-theme="oscuro"] .confirmacion-overlay,
+html[data-theme="oscuro"] .pedido-form-overlay,
+html[data-theme="oscuro"] .convertir-pedido-overlay,
+html[data-theme="oscuro"] .ingredientes-modal-overlay {
+  background: rgba(8, 6, 10, .68) !important;
+}
+
+html[data-theme="oscuro"] .cotizador-modal-seccion,
+html[data-theme="oscuro"] .cotizador-modal-grid > div,
+html[data-theme="oscuro"] .pedido-modal > section,
+html[data-theme="oscuro"] .calendario-modal > section {
+  background: var(--sc-surface-soft) !important;
+  border-color: var(--sc-border) !important;
+}
+
+/* ---------------- Contraste alto ---------------- */
+html[data-contrast="alto"] {
+  --sc-border: #8b7798;
+  --sc-border-strong: #6d5a79;
+  --sc-text-soft: #4d4352;
+  --sc-muted: #665b6b;
+  --sc-shadow: 0 0 0 1px rgba(47,39,55,.16), 0 8px 22px rgba(47,39,55,.12);
+}
+
+html[data-theme="oscuro"][data-contrast="alto"] {
+  --sc-border: #aa98b6;
+  --sc-border-strong: #c0b0c9;
+  --sc-text-soft: #eee5f2;
+  --sc-muted: #d5c9da;
+}
+
+html[data-contrast="alto"] .configuracion-card,
+html[data-contrast="alto"] .configuracion-nav,
+html[data-contrast="alto"] input,
+html[data-contrast="alto"] select,
+html[data-contrast="alto"] textarea,
+html[data-contrast="alto"] button {
+  border-width: 1.5px;
+}
+
+/* ---------------- Tamaño de texto ----------------
+   Se aplica a todas las declaraciones font-size en CSS mediante
+   --sc-font-scale; aquí solo definimos las escalas. */
+html[data-font-size="pequeno"] { --sc-font-scale: .88; }
+html[data-font-size="medio"] { --sc-font-scale: 1; }
+html[data-font-size="grande"] { --sc-font-scale: 1.22; }
+
+/* Refuerzo para texto heredado y controles sin tamaño explícito */
+html[data-font-size="grande"] body { font-size: 18px; }
+html[data-font-size="pequeno"] body { font-size: 14px; }
+
+/* ---------------- Daltonismo ----------------
+   Paletas diferenciadas para estados, alertas y controles. */
+html[data-color-vision="protanopia"] {
+  --sc-success: #0072b2;
+  --sc-success-bg: #e4f1f8;
+  --sc-warning: #e69f00;
+  --sc-warning-bg: #fff3d6;
+  --sc-danger: #cc79a7;
+  --sc-danger-bg: #f9e8f2;
+  --sc-primary: #7b68ee;
+  --sc-primary-dark: #5143a6;
+  --sc-primary-soft: #cbc5f6;
+}
+
+html[data-color-vision="deuteranopia"] {
+  --sc-success: #0072b2;
+  --sc-success-bg: #e4f1f8;
+  --sc-warning: #e69f00;
+  --sc-warning-bg: #fff3d6;
+  --sc-danger: #d55e00;
+  --sc-danger-bg: #fce9dc;
+  --sc-primary: #8064c8;
+  --sc-primary-dark: #4e3b7d;
+  --sc-primary-soft: #cec3e8;
+}
+
+html[data-color-vision="tritanopia"] {
+  --sc-success: #009e73;
+  --sc-success-bg: #e1f4ed;
+  --sc-warning: #d55e00;
+  --sc-warning-bg: #fbe9dc;
+  --sc-danger: #cc79a7;
+  --sc-danger-bg: #f9e8f2;
+  --sc-primary: #8a5fbf;
+  --sc-primary-dark: #563878;
+  --sc-primary-soft: #d9c7ea;
+}
+
+/* Recolor common semantic/status elements even when their component had
+   previously used fixed status colors. */
+html[data-color-vision="protanopia"] .estado-activo,
+html[data-color-vision="deuteranopia"] .estado-activo,
+html[data-color-vision="tritanopia"] .estado-activo { color: var(--sc-success) !important; background: var(--sc-success-bg) !important; }
+
+html[data-color-vision="protanopia"] .estado-inactivo,
+html[data-color-vision="deuteranopia"] .estado-inactivo,
+html[data-color-vision="tritanopia"] .estado-inactivo { color: var(--sc-danger) !important; background: var(--sc-danger-bg) !important; }
+
+html[data-color-vision="protanopia"] .cotizador-card-estado.aceptada,
+html[data-color-vision="deuteranopia"] .cotizador-card-estado.aceptada,
+html[data-color-vision="tritanopia"] .cotizador-card-estado.aceptada { color: var(--sc-success) !important; background: var(--sc-success-bg) !important; }
+
+/* Las ilustraciones se mantienen originales; solo se modifica la interfaz. */
+
+/* Simulación visual: se aplica al contenedor de la app para que sidebar,
+   páginas y componentes compartan el mismo tratamiento. */
+html[data-color-vision="protanopia"] #root { filter: url(#sc-protanopia); }
+html[data-color-vision="deuteranopia"] #root { filter: url(#sc-deuteranopia); }
+html[data-color-vision="tritanopia"] #root { filter: url(#sc-tritanopia); }
+
+/* Previsualización de paletas de daltonismo */
+.configuracion-color-swatch.protanopia i:nth-child(1) { background: #0072b2; }
+.configuracion-color-swatch.protanopia i:nth-child(2) { background: #e69f00; }
+.configuracion-color-swatch.protanopia i:nth-child(3) { background: #cc79a7; }
+.configuracion-color-swatch.deuteranopia i:nth-child(1) { background: #0072b2; }
+.configuracion-color-swatch.deuteranopia i:nth-child(2) { background: #e69f00; }
+.configuracion-color-swatch.deuteranopia i:nth-child(3) { background: #d55e00; }
+.configuracion-color-swatch.tritanopia i:nth-child(1) { background: #009e73; }
+.configuracion-color-swatch.tritanopia i:nth-child(2) { background: #d55e00; }
+.configuracion-color-swatch.tritanopia i:nth-child(3) { background: #cc79a7; }
+
+html[data-theme="oscuro"] .configuracion-color-swatch {
+  background: var(--sc-surface-soft) !important;
+  border-color: var(--sc-border) !important;
+}
+
+/* =========================================================
+   TEMA OSCURO · CONTRASTE REAL Y COBERTURA GLOBAL
+   Este bloque sobrescribe colores fijos de componentes antiguos.
+   ========================================================= */
+html[data-theme="oscuro"] {
+  --sc-bg: #151219;
+  --sc-surface: #211b26;
+  --sc-surface-soft: #2c2533;
+  --sc-primary: #b58ce8;
+  --sc-primary-dark: #8b5bb8;
+  --sc-primary-soft: #4f3a60;
+  --sc-primary-pale: #382b43;
+  --sc-border: #574760;
+  --sc-border-strong: #756080;
+  --sc-text: #fffaff;
+  --sc-text-soft: #eadfec;
+  --sc-muted: #c2b5c8;
+  --sc-success: #72d39b;
+  --sc-success-bg: #20392c;
+  --sc-warning: #f1b96b;
+  --sc-warning-bg: #3d3020;
+  --sc-danger: #ff8794;
+  --sc-danger-bg: #40242a;
+  --sc-shadow: 0 10px 28px rgba(0,0,0,.38);
+}
+
+html[data-theme="oscuro"] #root {
+  background: var(--sc-bg) !important;
+  color: var(--sc-text) !important;
+}
+
+html[data-theme="oscuro"] #root h1,
+html[data-theme="oscuro"] #root h2,
+html[data-theme="oscuro"] #root h3,
+html[data-theme="oscuro"] #root h4,
+html[data-theme="oscuro"] #root h5,
+html[data-theme="oscuro"] #root h6,
+html[data-theme="oscuro"] #root p,
+html[data-theme="oscuro"] #root label,
+html[data-theme="oscuro"] #root span,
+html[data-theme="oscuro"] #root strong,
+html[data-theme="oscuro"] #root small,
+html[data-theme="oscuro"] #root td,
+html[data-theme="oscuro"] #root th,
+html[data-theme="oscuro"] #root dt,
+html[data-theme="oscuro"] #root dd {
+  color: var(--sc-text) !important;
+}
+
+/* Texto secundario: sigue siendo claramente legible sobre #211b26. */
+html[data-theme="oscuro"] #root .text-muted,
+html[data-theme="oscuro"] #root .muted,
+html[data-theme="oscuro"] #root [class*="subtitle"],
+html[data-theme="oscuro"] #root [class*="description"],
+html[data-theme="oscuro"] #root [class*="label"],
+html[data-theme="oscuro"] #root [class*="hint"],
+html[data-theme="oscuro"] #root [class*="secondary"] {
+  color: var(--sc-text-soft) !important;
+}
+
+/* Evita que las superficies blancas/fijas de componentes antiguos aparezcan en oscuro. */
+html[data-theme="oscuro"] #root .producto-card,
+html[data-theme="oscuro"] #root .insumo-card,
+html[data-theme="oscuro"] #root .receta-card,
+html[data-theme="oscuro"] #root .cotizador-card,
+html[data-theme="oscuro"] #root .empleado-card,
+html[data-theme="oscuro"] #root .productos-lista-vista,
+html[data-theme="oscuro"] #root .insumos-lista-vista,
+html[data-theme="oscuro"] #root .recetas-lista-vista,
+html[data-theme="oscuro"] #root .cotizador-lista-vista,
+html[data-theme="oscuro"] #root .pedidos-lista-vista,
+html[data-theme="oscuro"] #root .empleados-lista-vista,
+html[data-theme="oscuro"] #root .calendario-toolbar,
+html[data-theme="oscuro"] #root .calendario-mes,
+html[data-theme="oscuro"] #root .calendario-semana,
+html[data-theme="oscuro"] #root .calendario-dia,
+html[data-theme="oscuro"] #root .agenda-dia,
+html[data-theme="oscuro"] #root .dia-contenedor {
+  background: var(--sc-surface) !important;
+  color: var(--sc-text) !important;
+  border-color: var(--sc-border) !important;
+}
+
+/* Productos: la captura mostraba nombres, valores y etiquetas casi negros. */
+html[data-theme="oscuro"] .producto-card h3,
+html[data-theme="oscuro"] .producto-card .producto-info-item strong,
+html[data-theme="oscuro"] .producto-card .producto-costo strong,
+html[data-theme="oscuro"] .producto-card .producto-costo small,
+html[data-theme="oscuro"] .producto-card .producto-porcion strong,
+html[data-theme="oscuro"] .producto-card .producto-densidad strong {
+  color: #fffaff !important;
+}
+
+html[data-theme="oscuro"] .producto-card .producto-marca,
+html[data-theme="oscuro"] .producto-card .producto-info-item span,
+html[data-theme="oscuro"] .producto-card .producto-costo span,
+html[data-theme="oscuro"] .producto-card .producto-porcion span,
+html[data-theme="oscuro"] .producto-card .producto-densidad span {
+  color: #d8cadf !important;
+}
+
+html[data-theme="oscuro"] .producto-card,
+html[data-theme="oscuro"] .producto-card-info {
+  border-color: #574760 !important;
+}
+
+html[data-theme="oscuro"] .producto-card .producto-costo,
+html[data-theme="oscuro"] .producto-card .producto-porcion {
+  background: #302638 !important;
+  border-color: #695477 !important;
+}
+
+html[data-theme="oscuro"] .producto-card .producto-tipo {
+  background: #4a3455 !important;
+  color: #f6dff5 !important;
+}
+html[data-theme="oscuro"] .producto-card .tipo-topping {
+  background: #51303b !important;
+  color: #ffdce5 !important;
+}
+html[data-theme="oscuro"] .producto-card .tipo-salsa {
+  background: #463832 !important;
+  color: #f3d9c4 !important;
+}
+html[data-theme="oscuro"] .producto-card .producto-categoria {
+  background: #302b43 !important;
+  border-color: #675a82 !important;
+  color: #eee6ff !important;
+}
+
+html[data-theme="oscuro"] .producto-card .btn-editar {
+  background: #211b26 !important;
+  border-color: #9b7ede !important;
+  color: #d5baff !important;
+}
+html[data-theme="oscuro"] .producto-card .btn-editar:hover {
+  background: #4b3860 !important;
+}
+html[data-theme="oscuro"] .producto-card .btn-eliminar {
+  background: #211b26 !important;
+  border-color: #e27783 !important;
+  color: #ff9ba6 !important;
+}
+html[data-theme="oscuro"] .producto-card .btn-eliminar:hover {
+  background: #51272f !important;
+  color: #fff !important;
+}
+
+/* Listas y tablas */
+html[data-theme="oscuro"] .productos-lista-header,
+html[data-theme="oscuro"] .recetas-table-header,
+html[data-theme="oscuro"] .cotizador-table-header,
+html[data-theme="oscuro"] .pedidos-table-header,
+html[data-theme="oscuro"] .empleados-table-header,
+html[data-theme="oscuro"] .agenda-dia > header {
+  background: #2c2533 !important;
+  color: #eadfec !important;
+  border-color: var(--sc-border) !important;
+}
+
+html[data-theme="oscuro"] .producto-lista-item,
+html[data-theme="oscuro"] .receta-lista-item,
+html[data-theme="oscuro"] .cotizador-lista-item,
+html[data-theme="oscuro"] .pedido-lista-item,
+html[data-theme="oscuro"] .empleado-lista-item {
+  background: var(--sc-surface) !important;
+  color: #f8f1fa !important;
+  border-color: #3f3447 !important;
+}
+
+html[data-theme="oscuro"] .producto-lista-item:hover,
+html[data-theme="oscuro"] .receta-lista-item:hover,
+html[data-theme="oscuro"] .cotizador-lista-item:hover,
+html[data-theme="oscuro"] .pedido-lista-item:hover,
+html[data-theme="oscuro"] .empleado-lista-item:hover {
+  background: #2c2533 !important;
+}
+
+html[data-theme="oscuro"] .producto-lista-dato strong,
+html[data-theme="oscuro"] .producto-lista-costo strong,
+html[data-theme="oscuro"] .producto-lista-nombre,
+html[data-theme="oscuro"] .receta-lista-item strong,
+html[data-theme="oscuro"] .cotizador-lista-item strong,
+html[data-theme="oscuro"] .pedido-lista-item strong,
+html[data-theme="oscuro"] .empleado-lista-item strong {
+  color: #fffaff !important;
+}
+
+html[data-theme="oscuro"] .producto-lista-marca,
+html[data-theme="oscuro"] .producto-lista-sin-dato,
+html[data-theme="oscuro"] .receta-lista-item small,
+html[data-theme="oscuro"] .cotizador-lista-item small {
+  color: #c8bbcf !important;
+}
+
+html[data-theme="oscuro"] .producto-lista-costo {
+  background: #302638 !important;
+}
+
+/* Formularios, dropdowns y controles */
+html[data-theme="oscuro"] #root input,
+html[data-theme="oscuro"] #root select,
+html[data-theme="oscuro"] #root textarea {
+  background: #2c2533 !important;
+  color: #fffaff !important;
+  border-color: #756080 !important;
+}
+html[data-theme="oscuro"] #root input::placeholder,
+html[data-theme="oscuro"] #root textarea::placeholder {
+  color: #b7a9bf !important;
+  opacity: 1 !important;
+}
+html[data-theme="oscuro"] #root option {
+  background: #2c2533 !important;
+  color: #fffaff !important;
+}
+html[data-theme="oscuro"] #root button:not(.sidebar-link):not(.sidebar-logout) {
+  color: #f9f2fb;
+}
+
+/* Calendario: eliminar las celdas blancas y mejorar el contraste. */
+html[data-theme="oscuro"] .calendario-dias-semana,
+html[data-theme="oscuro"] .agenda-dia > header {
+  background: #302838 !important;
+  border-color: #5a4a62 !important;
+}
+html[data-theme="oscuro"] .calendario-dias-semana span,
+html[data-theme="oscuro"] .agenda-dia > header span {
+  color: #d9ccdf !important;
+}
+html[data-theme="oscuro"] .calendario-celda {
+  background: #211b26 !important;
+  border-color: #493b52 !important;
+}
+html[data-theme="oscuro"] .calendario-celda.otro-mes {
+  background: #18141c !important;
+}
+html[data-theme="oscuro"] .calendario-celda.otro-mes .calendario-numero {
+  color: #8f8197 !important;
+}
+html[data-theme="oscuro"] .calendario-celda.hoy {
+  background: #292132 !important;
+}
+html[data-theme="oscuro"] .calendario-numero {
+  color: #fffaff !important;
+}
+html[data-theme="oscuro"] .calendario-numero:hover {
+  background: #463653 !important;
+  color: #fffaff !important;
+}
+html[data-theme="oscuro"] .calendario-hoy,
+html[data-theme="oscuro"] .calendario-vistas button,
+html[data-theme="oscuro"] .calendario-navegacion button {
+  background: #2c2533 !important;
+  border-color: #756080 !important;
+  color: #eadfec !important;
+}
+html[data-theme="oscuro"] .calendario-hoy:hover,
+html[data-theme="oscuro"] .calendario-navegacion button:hover,
+html[data-theme="oscuro"] .calendario-vistas button:hover {
+  background: #443452 !important;
+}
+html[data-theme="oscuro"] .calendario-vistas {
+  background: #2c2533 !important;
+  border-color: #574760 !important;
+}
+html[data-theme="oscuro"] .calendario-vistas button.activo {
+  background: #8b5bb8 !important;
+  border-color: #a878d3 !important;
+  color: #fff !important;
+}
+
+/* Estados del calendario también conservan contraste en oscuro. */
+html[data-theme="oscuro"] .calendario-evento.pendiente,
+html[data-theme="oscuro"] .agenda-evento.pendiente,
+html[data-theme="oscuro"] .dia-evento.pendiente { background: #40321f !important; border-color: #765b35 !important; color: #ffd28e !important; }
+html[data-theme="oscuro"] .calendario-evento.preparacion,
+html[data-theme="oscuro"] .agenda-evento.preparacion,
+html[data-theme="oscuro"] .dia-evento.preparacion { background: #342b4a !important; border-color: #665487 !important; color: #d9c7ff !important; }
+html[data-theme="oscuro"] .calendario-evento.listo,
+html[data-theme="oscuro"] .agenda-evento.listo,
+html[data-theme="oscuro"] .dia-evento.listo { background: #21382c !important; border-color: #4b7e62 !important; color: #a8edc3 !important; }
+html[data-theme="oscuro"] .calendario-evento.entregado,
+html[data-theme="oscuro"] .agenda-evento.entregado,
+html[data-theme="oscuro"] .dia-evento.entregado { background: #20373a !important; border-color: #4e777b !important; color: #a8e2e7 !important; }
+html[data-theme="oscuro"] .calendario-evento.pagado,
+html[data-theme="oscuro"] .agenda-evento.pagado,
+html[data-theme="oscuro"] .dia-evento.pagado { background: #342a48 !important; border-color: #695184 !important; color: #dcc9ff !important; }
+html[data-theme="oscuro"] .calendario-evento.cancelado,
+html[data-theme="oscuro"] .agenda-evento.cancelado,
+html[data-theme="oscuro"] .dia-evento.cancelado { background: #40252c !important; border-color: #7b4a55 !important; color: #ffadb7 !important; }
+
+/* Encabezados y contadores de páginas */
+html[data-theme="oscuro"] .productos-header h1,
+html[data-theme="oscuro"] .insumos-header h1,
+html[data-theme="oscuro"] .recetas-header h1,
+html[data-theme="oscuro"] .cotizador-header h1,
+html[data-theme="oscuro"] .pedidos-header h1,
+html[data-theme="oscuro"] .empleados-header h1,
+html[data-theme="oscuro"] .calendario-header h1 {
+  color: #fffaff !important;
+}
+html[data-theme="oscuro"] .productos-header p,
+html[data-theme="oscuro"] .insumos-header p,
+html[data-theme="oscuro"] .recetas-header p,
+html[data-theme="oscuro"] .cotizador-header p,
+html[data-theme="oscuro"] .pedidos-header p,
+html[data-theme="oscuro"] .empleados-header p,
+html[data-theme="oscuro"] .calendario-header p {
+  color: #d8cadf !important;
+}
+
+/* Avisos y estados */
+html[data-theme="oscuro"] .productos-error,
+html[data-theme="oscuro"] .productos-exito,
+html[data-theme="oscuro"] .calendario-error {
+  color: #fffaff !important;
+  border-color: var(--sc-border) !important;
+}
+
+/* Sidebar: contraste de texto y separadores. */
+html[data-theme="oscuro"] .sidebar-section-label {
+  color: #c9bbd0 !important;
+}
+html[data-theme="oscuro"] .sidebar-link,
+html[data-theme="oscuro"] .sidebar-logout {
+  color: #e7ddea !important;
+}
+html[data-theme="oscuro"] .sidebar-link:hover,
+html[data-theme="oscuro"] .sidebar-logout:hover {
+  color: #fffaff !important;
+  background: #302638 !important;
+}
+html[data-theme="oscuro"] .business-switcher {
+  background: #2c2533 !important;
+  border-color: #574760 !important;
+}
+html[data-theme="oscuro"] .business-info strong {
+  color: #fffaff !important;
+}
+html[data-theme="oscuro"] .business-info span {
+  color: #c5b7cc !important;
+}
+html[data-theme="oscuro"] .sidebar-divider {
+  background: #574760 !important;
+}
+
+/* Tarjetas de configuración y opciones */
+html[data-theme="oscuro"] .configuracion-card,
+html[data-theme="oscuro"] .configuracion-nav,
+html[data-theme="oscuro"] .configuracion-option-card,
+html[data-theme="oscuro"] .configuracion-text-size,
+html[data-theme="oscuro"] .configuracion-color-option {
+  background: #211b26 !important;
+  color: #fffaff !important;
+  border-color: #574760 !important;
+}
+html[data-theme="oscuro"] .configuracion-option-card.selected,
+html[data-theme="oscuro"] .configuracion-text-size.selected,
+html[data-theme="oscuro"] .configuracion-color-option.selected {
+  background: #382b43 !important;
+  border-color: #a878d3 !important;
+}
+html[data-theme="oscuro"] .configuracion-card h2,
+html[data-theme="oscuro"] .configuracion-card h3,
+html[data-theme="oscuro"] .configuracion-option-card strong,
+html[data-theme="oscuro"] .configuracion-text-size strong,
+html[data-theme="oscuro"] .configuracion-color-option strong {
+  color: #fffaff !important;
+}
+html[data-theme="oscuro"] .configuracion-card p,
+html[data-theme="oscuro"] .configuracion-option-card p,
+html[data-theme="oscuro"] .configuracion-text-size span,
+html[data-theme="oscuro"] .configuracion-color-option span {
+  color: #d8cadf !important;
+}
+
+/* Alto contraste: aumentar todavía más los bordes y el texto. */
+html[data-theme="oscuro"][data-contrast="alto"] {
+  --sc-text: #ffffff;
+  --sc-text-soft: #f1e8f4;
+  --sc-muted: #ddd0e2;
+  --sc-border: #a995b3;
+  --sc-border-strong: #c8b7d1;
+}
+html[data-theme="oscuro"][data-contrast="alto"] #root .calendario-celda,
+html[data-theme="oscuro"][data-contrast="alto"] #root .producto-card,
+html[data-theme="oscuro"][data-contrast="alto"] #root input,
+html[data-theme="oscuro"][data-contrast="alto"] #root select,
+html[data-theme="oscuro"][data-contrast="alto"] #root textarea {
+  border-width: 2px !important;
+}

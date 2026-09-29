@@ -2,7 +2,7 @@
   width: 100%;
   padding: 22px;
 
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   border: 1px solid #e3dce9;
   border-radius: 14px;
 
@@ -17,14 +17,14 @@
   margin: 0;
 
   color: #6d4c8d;
-  font-size: 20px;
+  font-size: calc(20px * var(--sc-font-scale, 1));
 }
 
 .conversor-header p {
   margin: 6px 0 0;
 
   color: #776d7d;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   line-height: 1.4;
 }
 
@@ -42,7 +42,7 @@
 
 .conversor-group label {
   color: #352d3a;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
@@ -54,11 +54,11 @@
   border: 1px solid #e3dce9;
   border-radius: 7px;
 
-  background-color: #fff9f5;
+  background-color: var(--sc-bg);
   color: #352d3a;
 
   font-family: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 
   outline: none;
 
@@ -77,7 +77,7 @@
 
 .conversor-group small {
   color: #776d7d;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   line-height: 1.4;
 }
 
@@ -103,7 +103,7 @@
   background-color: #f3eef7;
   color: #6d4c8d;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
@@ -121,7 +121,7 @@
   border-radius: 7px;
 
   font-family: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 600;
 
   cursor: pointer;
@@ -133,7 +133,7 @@
 
 .conversor-btn-limpiar {
   border: 1px solid #e3dce9;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #776d7d;
 }
 
@@ -168,12 +168,12 @@
 
 .conversor-resultado span {
   color: #776d7d;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .conversor-resultado strong {
   color: #6d4c8d;
-  font-size: 24px;
+  font-size: calc(24px * var(--sc-font-scale, 1));
 }
 
 .conversor-btn-usar {
@@ -183,11 +183,11 @@
   border: 1px solid #9b7ede;
   border-radius: 7px;
 
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #6d4c8d;
 
   font-family: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 600;
 
   cursor: pointer;
@@ -207,7 +207,7 @@
   background-color: #fff1f1;
   color: #c95c5c;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   line-height: 1.4;
 }
 
@@ -220,7 +220,7 @@
   background-color: #eef6ef;
   color: #6fa47a;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .conversor-densidad-actual {
@@ -239,12 +239,12 @@
 
 .conversor-densidad-actual span {
   color: #776d7d;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
 }
 
 .conversor-densidad-actual strong {
   color: #6d4c8d;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 @media (max-width: 500px) {

@@ -1,21 +1,21 @@
 .empleados-page { min-height: 100vh; padding: 30px 34px 44px; background: var(--sc-bg); }
 .empleados-header, .empleados-exito, .empleados-error, .empleados-lista, .empleados-form-contenedor { width: min(100%, 1220px); margin-left: auto; margin-right: auto; }
 .empleados-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 22px; }
-.empleados-header h1 { margin: 0; color: var(--sc-text); font-size: 28px; letter-spacing: -.02em; }
-.empleados-header p { margin: 6px 0 0; color: var(--sc-text-soft); font-size: 13px; line-height: 1.5; }
-.btn-agregar-empleado { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 38px; padding: 8px 14px; border: 1px solid var(--sc-primary); border-radius: 8px; background: var(--sc-primary); color: #fff; font-size: 11px; font-weight: 700; cursor: pointer; }
+.empleados-header h1 { margin: 0; color: var(--sc-text); font-size: calc(28px * var(--sc-font-scale, 1)); letter-spacing: -.02em; }
+.empleados-header p { margin: 6px 0 0; color: var(--sc-text-soft); font-size: calc(13px * var(--sc-font-scale, 1)); line-height: 1.5; }
+.btn-agregar-empleado { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 38px; padding: 8px 14px; border: 1px solid var(--sc-primary); border-radius: 8px; background: var(--sc-primary); color: #fff; font-size: calc(11px * var(--sc-font-scale, 1)); font-weight: 700; cursor: pointer; }
 .btn-agregar-empleado:hover { background: var(--sc-primary-dark); border-color: var(--sc-primary-dark); }
-.empleados-exito, .empleados-error { margin-bottom: 16px; padding: 11px 14px; border-radius: 9px; font-size: 12px; }
+.empleados-exito, .empleados-error { margin-bottom: 16px; padding: 11px 14px; border-radius: 9px; font-size: calc(12px * var(--sc-font-scale, 1)); }
 .empleados-exito { border: 1px solid #cce8d6; background: var(--sc-success-bg); color: #367b54; }
 .empleados-error { border: 1px solid #f0cdd2; background: var(--sc-danger-bg); color: #a74752; }
 .empleados-lista { margin-top: 24px; }
 .empleados-lista-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 13px; }
-.empleados-lista-top h2 { margin: 0; color: var(--sc-text); font-size: 17px; }
-.empleados-lista-top p { margin: 4px 0 0; color: var(--sc-muted); font-size: 11px; }
+.empleados-lista-top h2 { margin: 0; color: var(--sc-text); font-size: calc(17px * var(--sc-font-scale, 1)); }
+.empleados-lista-top p { margin: 4px 0 0; color: var(--sc-muted); font-size: calc(11px * var(--sc-font-scale, 1)); }
 .empleados-controles { display: grid; grid-template-columns: minmax(260px, 1fr) 190px 190px; gap: 10px; margin-bottom: 13px; }
-.empleados-busqueda { min-height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 11px; border: 1px solid var(--sc-border-strong); border-radius: 8px; background: #fff; color: var(--sc-muted); }
+.empleados-busqueda { min-height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 11px; border: 1px solid var(--sc-border-strong); border-radius: 8px; background: var(--sc-surface); color: var(--sc-muted); }
 .empleados-busqueda:focus-within { border-color: var(--sc-primary); box-shadow: 0 0 0 3px rgba(155,126,222,.10); }
-.empleados-busqueda input { width: 100%; border: 0; outline: none; background: transparent; color: var(--sc-text); font-size: 11px; }
+.empleados-busqueda input { width: 100%; border: 0; outline: none; background: transparent; color: var(--sc-text); font-size: calc(11px * var(--sc-font-scale, 1)); }
 .empleados-busqueda input::placeholder { color: var(--sc-muted); }
 .empleados-controles .filter-select-trigger { min-height: 38px; }
 @media (max-width: 820px) { .empleados-controles { grid-template-columns: 1fr 1fr; } .empleados-busqueda { grid-column: 1 / -1; } }

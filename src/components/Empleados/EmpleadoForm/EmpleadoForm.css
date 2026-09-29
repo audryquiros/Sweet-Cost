@@ -27,18 +27,18 @@
 
 .empleados-form-section-title span {
   color: var(--sc-text);
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
 .empleados-form-section-title small {
   color: var(--sc-muted);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   font-weight: 400;
 }
-.empleados-form-header h2 { margin: 0; color: var(--sc-text); font-size: 19px; }
-.empleados-form-header p { margin: 5px 0 0; color: var(--sc-text-soft); font-size: 11px; }
-.empleados-form-error { margin-bottom: 13px; padding: 10px 12px; border: 1px solid #f0cdd2; border-radius: 8px; background: var(--sc-danger-bg); color: #a74752; font-size: 11px; }
+.empleados-form-header h2 { margin: 0; color: var(--sc-text); font-size: calc(19px * var(--sc-font-scale, 1)); }
+.empleados-form-header p { margin: 5px 0 0; color: var(--sc-text-soft); font-size: calc(11px * var(--sc-font-scale, 1)); }
+.empleados-form-error { margin-bottom: 13px; padding: 10px 12px; border: 1px solid #f0cdd2; border-radius: 8px; background: var(--sc-danger-bg); color: #a74752; font-size: calc(11px * var(--sc-font-scale, 1)); }
 
 .empleados-form {
   display: grid;
@@ -49,7 +49,7 @@
 
 .empleado-form-group { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
 .empleado-form-group--wide { grid-column: 1 / -1; }
-.empleado-label { display: inline-flex; align-items: center; gap: 5px; color: var(--sc-text-soft); font-size: 10px; }
+.empleado-label { display: inline-flex; align-items: center; gap: 5px; color: var(--sc-text-soft); font-size: calc(10px * var(--sc-font-scale, 1)); }
 .empleado-label::before { content: ""; width: 16px; height: 16px; flex: 0 0 16px; background-position: center; background-repeat: no-repeat; background-size: contain; }
 .empleado-label--perfil::before { background-image: url("/illustrations/perfil.png"); }
 .empleado-label--correo::before { background-image: url("/illustrations/recibo.png"); }
@@ -63,9 +63,9 @@
   padding: 9px 10px;
   border: 1px solid var(--sc-border-strong);
   border-radius: 7px;
-  background: #fff;
+  background: var(--sc-surface);
   color: var(--sc-text);
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   outline: none;
 }
 .empleado-form-group input:focus { border-color: var(--sc-primary); box-shadow: 0 0 0 3px rgba(155,126,222,.12); }
@@ -82,8 +82,8 @@
   padding-top: 14px;
   border-top: 1px solid var(--sc-border);
 }
-.empleados-form-actions button { min-height: 35px; padding: 8px 15px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
-.empleado-btn-cancelar { border: 1px solid var(--sc-border-strong); background: #fff; color: var(--sc-text-soft); }
+.empleados-form-actions button { min-height: 35px; padding: 8px 15px; border-radius: 8px; font-size: calc(11px * var(--sc-font-scale, 1)); font-weight: 700; cursor: pointer; }
+.empleado-btn-cancelar { border: 1px solid var(--sc-border-strong); background: var(--sc-surface); color: var(--sc-text-soft); }
 .empleado-btn-cancelar:hover { background: var(--sc-primary-pale); }
 .empleado-btn-guardar { border: 1px solid var(--sc-primary); background: var(--sc-primary); color: #fff; }
 .empleado-btn-guardar:hover { background: var(--sc-primary-dark); border-color: var(--sc-primary-dark); }

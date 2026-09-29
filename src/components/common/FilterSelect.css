@@ -8,7 +8,7 @@
 
 .filter-select label {
   color: var(--sc-text-soft);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   font-weight: 700;
   line-height: 1;
 }
@@ -23,10 +23,10 @@
   padding: 0 12px;
   border: 1px solid var(--sc-border-strong);
   border-radius: 9px;
-  background: #fff;
+  background: var(--sc-surface);
   color: #51465b;
   font: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   text-align: left;
   cursor: pointer;
   transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
@@ -68,7 +68,7 @@
   padding: 5px;
   border: 1px solid #e5d8ec;
   border-radius: 10px;
-  background: #fff;
+  background: var(--sc-surface);
   box-shadow: 0 12px 28px rgba(72, 49, 89, .14);
   animation: filter-select-open .14s ease-out;
 }
@@ -85,7 +85,7 @@
   background: transparent;
   color: #5c5065;
   font: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   text-align: left;
   cursor: pointer;
 }
@@ -103,7 +103,7 @@
 
 .filter-select-check {
   margin-left: 12px;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 800;
 }
 

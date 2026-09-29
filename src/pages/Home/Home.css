@@ -3,7 +3,7 @@
 
   padding: 50px 40px;
 
-  background-color: #fff9f5;
+  background-color: var(--sc-bg);
 }
 
 .home-header {
@@ -17,7 +17,7 @@
 
   color: #9b7ede;
 
-  font-size: 15px;
+  font-size: calc(15px * var(--sc-font-scale, 1));
 
   font-weight: 600;
 }
@@ -27,7 +27,7 @@
 
   color: #352d3a;
 
-  font-size: 36px;
+  font-size: calc(36px * var(--sc-font-scale, 1));
 
   line-height: 1.2;
 }
@@ -39,7 +39,7 @@
 
   color: #776d7d;
 
-  font-size: 16px;
+  font-size: calc(16px * var(--sc-font-scale, 1));
 
   line-height: 1.5;
 }
@@ -64,7 +64,7 @@
 .home-kpi {
   padding: 22px;
 
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
 
   border: 1px solid #e3dce9;
 
@@ -82,7 +82,7 @@
 
   color: #776d7d;
 
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 
   font-weight: 600;
 }
@@ -94,7 +94,7 @@
 
   color: #6d4c8d;
 
-  font-size: 30px;
+  font-size: calc(30px * var(--sc-font-scale, 1));
 
   line-height: 1;
 }
@@ -102,7 +102,7 @@
 .home-kpi small {
   color: #9b7ede;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 /* =========================
@@ -123,7 +123,7 @@
 }
 
 .home-panel {
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
 
   border: 1px solid #e3dce9;
 
@@ -158,7 +158,7 @@
 
   color: #9b7ede;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 
   font-weight: 600;
 
@@ -172,7 +172,7 @@
 
   color: #352d3a;
 
-  font-size: 21px;
+  font-size: calc(21px * var(--sc-font-scale, 1));
 }
 
 /* =========================
@@ -220,7 +220,7 @@
 .home-costo-item span {
   color: #352d3a;
 
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 
   font-weight: 600;
 }
@@ -228,13 +228,13 @@
 .home-costo-item small {
   color: #776d7d;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .home-costo-item > strong {
   color: #6d4c8d;
 
-  font-size: 18px;
+  font-size: calc(18px * var(--sc-font-scale, 1));
 
   white-space: nowrap;
 }
@@ -262,7 +262,7 @@
 
   padding: 13px 15px;
 
-  background-color: #faf7fc;
+  background-color: var(--sc-surface-soft);
 
   border: 1px solid transparent;
 
@@ -295,13 +295,13 @@
 .home-action strong {
   color: #6d4c8d;
 
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 .home-action span {
   color: #776d7d;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 
   line-height: 1.4;
 }
@@ -309,7 +309,7 @@
 .home-action-arrow {
   color: #9b7ede !important;
 
-  font-size: 18px !important;
+  font-size: calc(18px * var(--sc-font-scale, 1)) !important;
 
   font-weight: 600;
 
@@ -367,13 +367,13 @@
 .home-receta > div:first-child strong {
   color: #352d3a;
 
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 .home-receta > div:first-child span {
   color: #776d7d;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .home-receta-costos {
@@ -397,13 +397,13 @@
 .home-receta-costos span {
   color: #776d7d;
 
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
 }
 
 .home-receta-costos strong {
   color: #6d4c8d;
 
-  font-size: 15px;
+  font-size: calc(15px * var(--sc-font-scale, 1));
 }
 
 /* =========================
@@ -427,7 +427,7 @@
 
   padding: 18px;
 
-  background-color: #faf7fc;
+  background-color: var(--sc-surface-soft);
 
   border-radius: 10px;
 }
@@ -443,13 +443,13 @@
 .home-ultima-cotizacion span {
   color: #776d7d;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .home-ultima-cotizacion strong {
   color: #6d4c8d;
 
-  font-size: 15px;
+  font-size: calc(15px * var(--sc-font-scale, 1));
 }
 
 /* =========================
@@ -467,7 +467,7 @@
 
   color: #776d7d;
 
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 
   line-height: 1.5;
 }
@@ -487,7 +487,7 @@
 
   border-radius: 10px;
 
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 .home-loading {
@@ -523,7 +523,7 @@
   }
 
   .home-header h1 {
-    font-size: 30px;
+    font-size: calc(30px * var(--sc-font-scale, 1));
   }
 
   .home-kpis {

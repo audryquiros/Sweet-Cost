@@ -29,7 +29,7 @@
   display: flex;
   flex-direction: column;
 
-  background: #ffffff;
+  background: var(--sc-surface);
 
   border: 1px solid #e4dced;
   border-radius: 14px;
@@ -60,13 +60,13 @@
 
   padding: 0 18px;
 
-  background: #faf7fc;
+  background: var(--sc-surface-soft);
 
   border-bottom: 1px solid #e4dced;
 
   color: #6d4c8d;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -93,7 +93,7 @@
 
   padding: 12px 18px;
 
-  background: #ffffff;
+  background: var(--sc-surface);
 
   border-bottom: 1px solid #eee8f2;
 
@@ -123,7 +123,7 @@
 
   color: #25203a;
 
-  font-size: 15px;
+  font-size: calc(15px * var(--sc-font-scale, 1));
   font-weight: 700;
 
   white-space: nowrap;
@@ -136,7 +136,7 @@
 
   color: #806f8d;
 
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 
   white-space: nowrap;
   overflow: hidden;
@@ -167,7 +167,7 @@
 
   border-radius: 999px;
 
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   font-weight: 600;
 
   box-sizing: border-box;
@@ -226,7 +226,7 @@
 
   color: #8a7c91;
 
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
 }
 
 .producto-lista-dato strong,
@@ -235,7 +235,7 @@
 
   color: #2b243b;
 
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 700;
 
   white-space: nowrap;
@@ -272,7 +272,7 @@
 
 .producto-lista-sin-dato {
   color: #aaa1ae;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 
@@ -302,9 +302,9 @@
 
   box-sizing: border-box;
   border-radius: 8px;
-  background: #ffffff;
+  background: var(--sc-surface);
   font-family: inherit;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 600;
   line-height: 1;
   white-space: nowrap;
@@ -364,7 +364,7 @@
 
   text-align: center;
 
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
 
   border: 1px dashed #d8c8f2;
   border-radius: 14px;
@@ -377,7 +377,7 @@
 
   color: #6d4c8d;
 
-  font-size: 18px;
+  font-size: calc(18px * var(--sc-font-scale, 1));
 }
 
 .productos-vacio p {
@@ -387,7 +387,7 @@
 
   color: #776d7d;
 
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 
   line-height: 1.5;
 }

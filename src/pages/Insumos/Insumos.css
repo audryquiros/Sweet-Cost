@@ -22,37 +22,37 @@
   margin-bottom: 22px;
 }
 
-.insumos-header h1 { margin: 0; color: var(--sc-text); font-size: 28px; letter-spacing: -.02em; }
-.insumos-header p { margin: 6px 0 0; color: var(--sc-text-soft); font-size: 13px; line-height: 1.5; }
+.insumos-header h1 { margin: 0; color: var(--sc-text); font-size: calc(28px * var(--sc-font-scale, 1)); letter-spacing: -.02em; }
+.insumos-header p { margin: 6px 0 0; color: var(--sc-text-soft); font-size: calc(13px * var(--sc-font-scale, 1)); line-height: 1.5; }
 
 .insumos-error,
-.insumos-exito { margin-bottom: 16px; padding: 11px 14px; border-radius: 9px; font-size: 12px; }
+.insumos-exito { margin-bottom: 16px; padding: 11px 14px; border-radius: 9px; font-size: calc(12px * var(--sc-font-scale, 1)); }
 .insumos-error { background: var(--sc-danger-bg); border: 1px solid #f0cdd2; color: #a74752; }
 .insumos-exito { background: var(--sc-success-bg); border: 1px solid #cce8d6; color: #367b54; }
 
 .insumos-lista { margin-top: 24px; }
 .insumos-lista-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 12px; }
-.insumos-lista-header h2 { margin: 0; color: var(--sc-text); font-size: 17px; }
-.insumos-lista-header p { margin: 4px 0 0; color: var(--sc-muted); font-size: 11px; }
+.insumos-lista-header h2 { margin: 0; color: var(--sc-text); font-size: calc(17px * var(--sc-font-scale, 1)); }
+.insumos-lista-header p { margin: 4px 0 0; color: var(--sc-muted); font-size: calc(11px * var(--sc-font-scale, 1)); }
 
 .insumos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 13px; }
-.insumos-vacio { padding: 45px 20px; text-align: center; background: #fff; border: 1px dashed var(--sc-border-strong); border-radius: 12px; }
-.insumos-vacio h3 { margin: 0 0 7px; color: var(--sc-primary-dark); font-size: 16px; }
-.insumos-vacio p { margin: 0; color: var(--sc-text-soft); font-size: 12px; }
+.insumos-vacio { padding: 45px 20px; text-align: center; background: var(--sc-surface); border: 1px dashed var(--sc-border-strong); border-radius: 12px; }
+.insumos-vacio h3 { margin: 0 0 7px; color: var(--sc-primary-dark); font-size: calc(16px * var(--sc-font-scale, 1)); }
+.insumos-vacio p { margin: 0; color: var(--sc-text-soft); font-size: calc(12px * var(--sc-font-scale, 1)); }
 
 .insumos-form-contenedor { margin-bottom: 20px; }
 
 /* Harmoniza las tarjetas y formularios existentes con el mockup. */
 .insumo-card { padding: 17px; border: 1px solid var(--sc-border); border-radius: 11px; box-shadow: var(--sc-shadow); }
 .insumo-card:hover { transform: translateY(-1px); box-shadow: 0 9px 22px rgba(91,65,112,.09); }
-.insumo-card h3 { font-size: 15px; }
+.insumo-card h3 { font-size: calc(15px * var(--sc-font-scale, 1)); }
 .insumo-card-info { gap: 10px; padding: 12px 0; }
-.insumo-info-item span, .insumo-costo span { font-size: 10px; }
-.insumo-info-item strong { font-size: 13px; }
+.insumo-info-item span, .insumo-costo span { font-size: calc(10px * var(--sc-font-scale, 1)); }
+.insumo-info-item strong { font-size: calc(13px * var(--sc-font-scale, 1)); }
 .insumo-costo { padding: 10px 12px; border-radius: 8px; }
-.insumo-costo strong { font-size: 16px; }
+.insumo-costo strong { font-size: calc(16px * var(--sc-font-scale, 1)); }
 .insumo-card-actions { gap: 7px; margin-top: 12px; }
-.insumo-card-actions button { min-height: 34px; padding: 7px 9px; font-size: 11px; }
+.insumo-card-actions button { min-height: 34px; padding: 7px 9px; font-size: calc(11px * var(--sc-font-scale, 1)); }
 
 @media (max-width: 777px) {
   .insumos-page { padding: 22px 16px 34px; }
@@ -65,10 +65,10 @@
 /* ===== Sweet Cost · página armonizada ===== */
 .insumos-page { padding: 30px 34px 44px; }
 .insumos-header { margin-bottom: 22px; }
-.insumos-header h1 { font-size: 28px; line-height: 1.15; }
-.insumos-header p { font-size: 13px; }
+.insumos-header h1 { font-size: calc(28px * var(--sc-font-scale, 1)); line-height: 1.15; }
+.insumos-header p { font-size: calc(13px * var(--sc-font-scale, 1)); }
 .insumos-lista { margin-top: 22px; }
-.insumos-lista-header h2 { font-size: 17px; }
+.insumos-lista-header h2 { font-size: calc(17px * var(--sc-font-scale, 1)); }
 .insumos-grid { gap: 14px; }
 .insumo-card { min-height: 100%; background: var(--sc-surface); }
 .insumo-costo { background: var(--sc-primary-pale); border: 1px solid #eee4f5; }

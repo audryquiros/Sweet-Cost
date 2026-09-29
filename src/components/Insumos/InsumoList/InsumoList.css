@@ -10,7 +10,7 @@
 .insumos-vacio {
   padding: 55px 20px;
   text-align: center;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   border: 1px dashed #d8c8f2;
   border-radius: 14px;
 }
@@ -18,27 +18,27 @@
 .insumos-vacio h3 {
   margin: 0 0 8px;
   color: #6d4c8d;
-  font-size: 18px;
+  font-size: calc(18px * var(--sc-font-scale, 1));
 }
 
 .insumos-vacio p {
   max-width: 420px;
   margin: 0 auto;
   color: #776d7d;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   line-height: 1.5;
 }
-.insumos-table-wrap { width: 100%; overflow-x: auto; background: #fff; border: 1px solid #e8e0ed; border-radius: 14px; }
+.insumos-table-wrap { width: 100%; overflow-x: auto; background: var(--sc-surface); border: 1px solid #e8e0ed; border-radius: 14px; }
 .insumos-table-header, .insumo-lista-item { min-width: 780px; display: grid; grid-template-columns: 1.35fr 1.2fr .9fr .9fr 1.15fr 1.25fr; align-items: center; }
-.insumos-table-header { padding: 12px 16px; background: #faf7fc; border-bottom: 1px solid #e8e0ed; color: #776d7d; font-size: 10px; font-weight: 700; }
-.insumo-lista-item { padding: 14px 16px; border-bottom: 1px solid #eee8f2; color: #51485a; font-size: 11px; }
+.insumos-table-header { padding: 12px 16px; background: var(--sc-surface-soft); border-bottom: 1px solid #e8e0ed; color: #776d7d; font-size: calc(10px * var(--sc-font-scale, 1)); font-weight: 700; }
+.insumo-lista-item { padding: 14px 16px; border-bottom: 1px solid #eee8f2; color: #51485a; font-size: calc(11px * var(--sc-font-scale, 1)); }
 .insumo-lista-item:last-child { border-bottom: 0; }
 .insumo-lista-item > div { min-width: 0; padding-right: 12px; }
-.insumo-lista-item strong { display: block; color: #352d3d; font-size: 12px; }
-.insumo-lista-item small { display: block; margin-top: 3px; color: #8a8090; font-size: 9px; }
+.insumo-lista-item strong { display: block; color: #352d3d; font-size: calc(12px * var(--sc-font-scale, 1)); }
+.insumo-lista-item small { display: block; margin-top: 3px; color: #8a8090; font-size: calc(9px * var(--sc-font-scale, 1)); }
 .insumo-lista-costo { color: #6d4c8d; font-weight: 700; }
 .insumo-lista-actions { display: flex; gap: 6px; }
-.insumo-lista-actions button { border: 1px solid #ded2e7; background: #fff; color: #6d4c8d; border-radius: 7px; padding: 6px 9px; font: inherit; font-size: 10px; font-weight: 600; cursor: pointer; }
+.insumo-lista-actions button { border: 1px solid #ded2e7; background: var(--sc-surface); color: #6d4c8d; border-radius: 7px; padding: 6px 9px; font: inherit; font-size: calc(10px * var(--sc-font-scale, 1)); font-weight: 600; cursor: pointer; }
 .insumo-lista-actions button.danger { color: #9b5968; border-color: #edd7dd; }
 
 

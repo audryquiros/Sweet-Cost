@@ -20,14 +20,14 @@
   background: transparent;
   color: #756b7c;
   font: inherit;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 600;
   cursor: pointer;
   transition: background .18s ease, color .18s ease, box-shadow .18s ease;
 }
 
 .view-toggle button span:first-child {
-  font-size: 15px;
+  font-size: calc(15px * var(--sc-font-scale, 1));
   line-height: 1;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .view-toggle .view-toggle-active {
-  background: #ffffff;
+  background: var(--sc-surface);
   color: #6d4c8d;
   box-shadow: 0 2px 7px rgba(109, 76, 141, .12);
 }
@@ -63,4 +63,17 @@
 .view-toggle .icon-illustration {
   width: 18px;
   height: 18px;
+}
+
+/* Estado seleccionado claramente visible en tema claro. */
+.view-toggle .view-toggle-active {
+  background: var(--sc-primary-dark) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--sc-primary) !important;
+  box-shadow: 0 2px 8px rgba(109, 76, 141, .22), inset 0 0 0 1px rgba(255,255,255,.08) !important;
+}
+
+.view-toggle button:hover:not(.view-toggle-active) {
+  background: var(--sc-primary-pale);
+  color: var(--sc-primary-dark);
 }

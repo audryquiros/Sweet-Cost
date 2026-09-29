@@ -52,7 +52,7 @@ textarea {
     padding: 0;
     border: 1px solid var(--sc-border);
     border-radius: 12px;
-    background: #fff;
+    background: var(--sc-surface);
     color: var(--sc-primary-dark);
     box-shadow: 0 7px 20px rgba(91, 65, 112, .12);
     cursor: pointer;
@@ -240,7 +240,7 @@ textarea {
   .cotizador-header h1,
   .pedidos-header h1,
   .empleados-header h1 {
-    font-size: 25px;
+    font-size: calc(25px * var(--sc-font-scale, 1));
     line-height: 1.15;
   }
 
@@ -250,7 +250,7 @@ textarea {
   .cotizador-header p,
   .pedidos-header p,
   .empleados-header p {
-    font-size: 12px;
+    font-size: calc(12px * var(--sc-font-scale, 1));
     line-height: 1.45;
   }
 
@@ -349,7 +349,7 @@ textarea {
   }
 
   .calendario-header h1 {
-    font-size: 25px;
+    font-size: calc(25px * var(--sc-font-scale, 1));
   }
 
   .calendario-toolbar {
@@ -381,7 +381,7 @@ textarea {
   }
 
   .calendario-navegacion h2 {
-    font-size: 18px;
+    font-size: calc(18px * var(--sc-font-scale, 1));
     white-space: nowrap;
   }
 
@@ -476,7 +476,7 @@ textarea {
   .pedido-form-header h2,
   .convertir-pedido-header h2,
   .cotizador-modal-header h2 {
-    font-size: 20px;
+    font-size: calc(20px * var(--sc-font-scale, 1));
     overflow-wrap: anywhere;
   }
 
@@ -538,7 +538,7 @@ textarea {
   .pedidos-header h1,
   .empleados-header h1,
   .calendario-header h1 {
-    font-size: 22px;
+    font-size: calc(22px * var(--sc-font-scale, 1));
   }
 
   .mobile-menu-trigger {
@@ -614,11 +614,11 @@ textarea {
   }
 
   .empleado-detalle-item strong {
-    font-size: 11px;
+    font-size: calc(11px * var(--sc-font-scale, 1));
   }
 
   .empleado-detalle-item span {
-    font-size: 9px;
+    font-size: calc(9px * var(--sc-font-scale, 1));
   }
 
   .empleado-detalle-actions,
@@ -773,7 +773,7 @@ textarea {
     min-height: 42px;
     height: auto;
     padding: 9px 10px;
-    font-size: 11px;
+    font-size: calc(11px * var(--sc-font-scale, 1));
   }
 }
 
@@ -794,7 +794,7 @@ textarea {
   .empleado-card-actions button {
     min-height: 40px;
     padding: 8px 9px;
-    font-size: 10.5px;
+    font-size: calc(10.5px * var(--sc-font-scale, 1));
   }
 }
 
@@ -910,13 +910,13 @@ textarea {
   }
 
   .cotizador-card-header h3 {
-    font-size: 16px;
+    font-size: calc(16px * var(--sc-font-scale, 1));
     line-height: 1.2;
     overflow-wrap: anywhere;
   }
 
   .cotizador-card-header p {
-    font-size: 11px;
+    font-size: calc(11px * var(--sc-font-scale, 1));
   }
 
   .cotizador-card-datos {
@@ -986,13 +986,13 @@ textarea {
   }
 
   .convertir-pedido-header h2 {
-    font-size: 18px !important;
+    font-size: calc(18px * var(--sc-font-scale, 1)) !important;
     line-height: 1.2;
     overflow-wrap: anywhere;
   }
 
   .convertir-pedido-header p {
-    font-size: 10px !important;
+    font-size: calc(10px * var(--sc-font-scale, 1)) !important;
     overflow-wrap: anywhere;
   }
 
@@ -1820,7 +1820,7 @@ textarea {
     min-height: 40px !important;
     height: 40px !important;
     padding: 7px 8px !important;
-    font-size: 10px !important;
+    font-size: calc(10px * var(--sc-font-scale, 1)) !important;
   }
 
   .cotizador-card-actions > button > span,
@@ -1990,5 +1990,91 @@ textarea {
   .cotizador-card-actions .cotizador-card-pedido {
     grid-column: 1 / -1 !important;
     grid-row: 2 !important;
+  }
+}
+
+/* =========================================================
+   EMPLEADOS · MOBILE FINAL
+   La vista Lista se transforma en tarjetas apiladas en móvil,
+   igual que el resto de módulos, sin scroll horizontal.
+   ========================================================= */
+@media (max-width: 777px) {
+  .empleados-lista-vista {
+    display: grid !important;
+    gap: 10px !important;
+    width: 100% !important;
+    overflow: visible !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .empleados-lista-header {
+    display: none !important;
+  }
+
+  .empleado-lista-item {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-areas:
+      "persona estado"
+      "contacto contacto"
+      "rol rol"
+      "acciones acciones" !important;
+    gap: 10px 12px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 14px !important;
+    background: var(--sc-surface) !important;
+    border: 1px solid var(--sc-border) !important;
+    border-radius: 12px !important;
+    box-shadow: var(--sc-shadow) !important;
+  }
+
+  .empleado-lista-item:hover {
+    background: var(--sc-surface) !important;
+  }
+
+  .empleado-lista-persona { grid-area: persona; }
+  .empleado-lista-contacto {
+    grid-area: contacto;
+    padding-top: 8px;
+    border-top: 1px solid var(--sc-border);
+  }
+  .empleado-lista-rol {
+    grid-area: rol;
+    color: var(--sc-text-soft) !important;
+    font-weight: 600;
+  }
+  .empleado-lista-estado {
+    grid-area: estado;
+    justify-self: end;
+    align-self: start;
+  }
+  .empleado-lista-actions {
+    grid-area: acciones;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+    padding-top: 10px;
+    border-top: 1px solid var(--sc-border);
+  }
+
+  .empleado-lista-actions button {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 38px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .empleado-lista-actions button {
+    padding: 7px 6px !important;
+  }
+  .empleado-lista-actions button .icon-illustration,
+  .empleado-lista-actions button svg {
+    width: 18px !important;
+    height: 18px !important;
   }
 }

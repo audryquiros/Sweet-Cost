@@ -106,7 +106,7 @@ a:focus-visible {
 .module-placeholder-label {
   margin: 0 0 8px;
   color: var(--sc-primary);
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -115,19 +115,19 @@ a:focus-visible {
 .module-placeholder-card h1 {
   margin: 0 0 10px;
   color: var(--sc-text);
-  font-size: 28px;
+  font-size: calc(28px * var(--sc-font-scale, 1));
 }
 
 .module-placeholder-card p:not(.module-placeholder-label) {
   margin: 0 auto 14px;
   color: var(--sc-text-soft);
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   line-height: 1.6;
 }
 
 .module-placeholder-card span {
   color: var(--sc-primary-dark);
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
@@ -184,7 +184,7 @@ body.sidebar-open { overflow: hidden; }
   .recetas-header h1,
   .cotizador-header h1,
   .pedidos-header h1 {
-    font-size: 25px;
+    font-size: calc(25px * var(--sc-font-scale, 1));
   }
 
   .productos-grid,
@@ -251,3 +251,97 @@ body.sidebar-open { overflow: hidden; }
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== Preferencias globales de accesibilidad Sweet Cost ===== */
+html[data-theme="oscuro"] {
+  --sc-bg: #211d25;
+  --sc-surface: #2b2530;
+  --sc-surface-soft: #332c38;
+  --sc-border: #4a3e51;
+  --sc-border-strong: #62526b;
+  --sc-text: #f7f1fa;
+  --sc-text-soft: #d0c4d5;
+  --sc-muted: #aa9daf;
+  --sc-primary-pale: #3b3044;
+  --sc-shadow: 0 8px 24px rgba(0,0,0,.24);
+}
+
+html[data-theme="oscuro"] body,
+html[data-theme="oscuro"] .app-shell {
+  background: var(--sc-bg);
+  color: var(--sc-text);
+}
+
+html[data-theme="oscuro"] input,
+html[data-theme="oscuro"] select,
+html[data-theme="oscuro"] textarea {
+  background: #332c38;
+  color: var(--sc-text);
+  border-color: var(--sc-border-strong);
+}
+
+html[data-theme="oscuro"] .configuracion-nav,
+html[data-theme="oscuro"] .configuracion-card,
+html[data-theme="oscuro"] .module-placeholder-card,
+html[data-theme="oscuro"] .cotizador-card,
+html[data-theme="oscuro"] .receta-card,
+html[data-theme="oscuro"] .producto-card,
+html[data-theme="oscuro"] .insumo-card {
+  background: var(--sc-surface);
+}
+
+html[data-font-size="pequeno"] { font-size: 90%; }
+html[data-font-size="medio"] { font-size: 100%; }
+html[data-font-size="grande"] { font-size: 112.5%; }
+
+html[data-font-size="grande"] body { line-height: 1.45; }
+
+html[data-contrast="alto"] {
+  --sc-text: #17121b;
+  --sc-text-soft: #443b48;
+  --sc-muted: #5e5262;
+  --sc-border: #8d7897;
+  --sc-border-strong: #665270;
+  --sc-primary-dark: #4e2d69;
+}
+
+html[data-contrast="alto"] button:focus-visible,
+html[data-contrast="alto"] input:focus-visible,
+html[data-contrast="alto"] select:focus-visible,
+html[data-contrast="alto"] textarea:focus-visible,
+html[data-contrast="alto"] a:focus-visible {
+  outline: 3px solid #4e2d69;
+  outline-offset: 3px;
+}
+
+/* Paletas de apoyo para distinguir estados sin depender solo del color original. */
+html[data-color-vision="protanopia"] {
+  --sc-success: #0072b2;
+  --sc-success-bg: #e7f3fa;
+  --sc-danger: #d55e00;
+  --sc-danger-bg: #fff0e5;
+  --sc-warning: #e69f00;
+  --sc-warning-bg: #fff6df;
+}
+
+html[data-color-vision="deuteranopia"] {
+  --sc-success: #0072b2;
+  --sc-success-bg: #e7f3fa;
+  --sc-danger: #cc79a7;
+  --sc-danger-bg: #fbeef6;
+  --sc-warning: #e69f00;
+  --sc-warning-bg: #fff6df;
+}
+
+html[data-color-vision="tritanopia"] {
+  --sc-success: #009e73;
+  --sc-success-bg: #e7f7f1;
+  --sc-danger: #d55e00;
+  --sc-danger-bg: #fff0e5;
+  --sc-warning: #cc79a7;
+  --sc-warning-bg: #fbeef6;
+}
+
+html[data-color-vision]:not([data-color-vision="normal"]) .configuracion-color-swatch i:nth-child(1) { background: var(--sc-success); }
+html[data-color-vision]:not([data-color-vision="normal"]) .configuracion-color-swatch i:nth-child(2) { background: var(--sc-warning); }
+html[data-color-vision]:not([data-color-vision="normal"]) .configuracion-color-swatch i:nth-child(3) { background: var(--sc-danger); }

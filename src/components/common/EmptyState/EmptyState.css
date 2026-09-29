@@ -32,7 +32,7 @@
 .sc-empty-state-content h3 {
   margin: 0 0 7px;
   color: var(--sc-primary-dark);
-  font-size: 17px;
+  font-size: calc(17px * var(--sc-font-scale, 1));
   line-height: 1.3;
 }
 
@@ -40,7 +40,7 @@
   max-width: 430px;
   margin: 0 auto;
   color: var(--sc-text-soft);
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   line-height: 1.55;
 }
 

@@ -3,7 +3,7 @@
   overflow-x: auto;
   border: 1px solid #e3dce9;
   border-radius: 12px;
-  background: #ffffff;
+  background: var(--sc-surface);
 }
 
 .pedidos-table {
@@ -21,9 +21,9 @@
 }
 
 .pedidos-table th {
-  background: #faf7fc;
+  background: var(--sc-surface-soft);
   color: #776d7d;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 800;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -31,7 +31,7 @@
 
 .pedidos-table td {
   color: #5c5265;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 .pedidos-table tbody tr:last-child td {
@@ -55,12 +55,12 @@
 
 .pedido-client strong {
   color: #352d3a;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 .pedido-client span {
   color: #a097a8;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
 }
 
 .pedido-total-cell {
@@ -74,7 +74,7 @@
   min-height: 28px;
   padding: 0 10px;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -116,7 +116,7 @@
   place-items: center;
   border: 1px solid #e3dce9;
   border-radius: 7px;
-  background: #ffffff;
+  background: var(--sc-surface);
   color: #776d7d;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
@@ -124,7 +124,7 @@
 
 .pedido-actions button:hover {
   border-color: #d8c8f2;
-  background: #faf7fc;
+  background: var(--sc-surface-soft);
   color: #6d4c8d;
 }
 
@@ -148,7 +148,7 @@
   padding: 65px 25px;
   border: 1px dashed #d9cde8;
   border-radius: 12px;
-  background: #ffffff;
+  background: var(--sc-surface);
   text-align: center;
 }
 
@@ -161,18 +161,18 @@
   border-radius: 13px;
   background: #d8c8f2;
   color: #6d4c8d;
-  font-size: 24px;
+  font-size: calc(24px * var(--sc-font-scale, 1));
   font-weight: 400;
 }
 
 .pedidos-empty h3 {
   margin: 0 0 7px;
   color: #352d3a;
-  font-size: 16px;
+  font-size: calc(16px * var(--sc-font-scale, 1));
 }
 
 .pedidos-empty p {
   margin: 0;
   color: #776d7d;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }

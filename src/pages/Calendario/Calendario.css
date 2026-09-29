@@ -17,7 +17,7 @@
 .calendario-header h1 {
   margin: 0;
   color: var(--sc-text);
-  font-size: 30px;
+  font-size: calc(30px * var(--sc-font-scale, 1));
   line-height: 1.15;
   letter-spacing: -.02em;
 }
@@ -25,7 +25,7 @@
 .calendario-header p {
   margin: 6px 0 0;
   color: var(--sc-text-soft);
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 .calendario-error {
@@ -35,7 +35,7 @@
   border-radius: 9px;
   background: var(--sc-danger-bg);
   color: #ad4855;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .calendario-toolbar {
@@ -57,7 +57,7 @@
 .calendario-vistas button,
 .calendario-navegacion button {
   border: 1px solid var(--sc-border-strong);
-  background: #fff;
+  background: var(--sc-surface);
   color: var(--sc-primary-dark);
   cursor: pointer;
   transition: .18s ease;
@@ -71,7 +71,7 @@
   min-height: 36px;
   padding: 0 13px;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -108,7 +108,7 @@
   min-width: 235px;
   margin: 0;
   color: var(--sc-text);
-  font-size: 16px;
+  font-size: calc(16px * var(--sc-font-scale, 1));
   text-align: center;
 }
 
@@ -117,7 +117,7 @@
   height: 32px;
   padding: 0;
   border-radius: 8px;
-  font-size: 22px;
+  font-size: calc(22px * var(--sc-font-scale, 1));
   line-height: 1;
 }
 
@@ -141,7 +141,7 @@
   border-color: transparent;
   border-radius: 6px;
   background: transparent;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -175,7 +175,7 @@
 .calendario-dias-semana span {
   padding: 11px 10px;
   color: var(--sc-text-soft);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   font-weight: 800;
   text-align: right;
   text-transform: uppercase;
@@ -195,7 +195,7 @@
   overflow: hidden;
   border-right: 1px solid var(--sc-border);
   border-bottom: 1px solid var(--sc-border);
-  background: #fff;
+  background: var(--sc-surface);
 }
 
 .calendario-celda:nth-child(7n) {
@@ -229,7 +229,7 @@
   border-radius: 50%;
   background: transparent;
   color: var(--sc-text);
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 700;
   cursor: pointer;
 }
@@ -269,13 +269,13 @@
 }
 
 .calendario-evento strong {
-  font-size: 9px;
+  font-size: calc(9px * var(--sc-font-scale, 1));
   font-weight: 800;
 }
 
 .calendario-evento span {
   overflow: hidden;
-  font-size: 9px;
+  font-size: calc(9px * var(--sc-font-scale, 1));
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -302,7 +302,7 @@
 .calendario-mas {
   padding: 1px 5px;
   color: var(--sc-primary-dark);
-  font-size: 9px;
+  font-size: calc(9px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -335,14 +335,14 @@
 
 .agenda-dia > header span {
   color: var(--sc-text-soft);
-  font-size: 9px;
+  font-size: calc(9px * var(--sc-font-scale, 1));
   font-weight: 800;
   text-transform: uppercase;
 }
 
 .agenda-dia > header strong {
   color: var(--sc-text);
-  font-size: 18px;
+  font-size: calc(18px * var(--sc-font-scale, 1));
 }
 
 .agenda-dia.hoy > header strong {
@@ -374,14 +374,14 @@
   cursor: pointer;
 }
 
-.agenda-evento span { font-size: 9px; font-weight: 800; }
-.agenda-evento strong { font-size: 11px; }
-.agenda-evento small { font-size: 9px; opacity: .72; }
+.agenda-evento span { font-size: calc(9px * var(--sc-font-scale, 1)); font-weight: 800; }
+.agenda-evento strong { font-size: calc(11px * var(--sc-font-scale, 1)); }
+.agenda-evento small { font-size: calc(9px * var(--sc-font-scale, 1)); opacity: .72; }
 
 .agenda-sin-eventos {
   padding: 12px 6px;
   color: var(--sc-muted);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   text-align: center;
 }
 
@@ -404,14 +404,14 @@
 
 .dia-resumen span {
   color: var(--sc-text);
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 700;
   text-transform: capitalize;
 }
 
 .dia-resumen strong {
   color: var(--sc-primary-dark);
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
 }
 
 .dia-agenda {
@@ -435,19 +435,19 @@
   cursor: pointer;
 }
 
-.dia-hora { font-size: 12px; font-weight: 800; }
+.dia-hora { font-size: calc(12px * var(--sc-font-scale, 1)); font-weight: 800; }
 .dia-linea { width: 2px; height: 34px; background: currentColor; opacity: .25; }
 .dia-info { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
-.dia-info strong { font-size: 12px; }
-.dia-info small { font-size: 10px; opacity: .72; }
-.dia-estado { font-size: 10px; font-weight: 800; }
+.dia-info strong { font-size: calc(12px * var(--sc-font-scale, 1)); }
+.dia-info small { font-size: calc(10px * var(--sc-font-scale, 1)); opacity: .72; }
+.dia-estado { font-size: calc(10px * var(--sc-font-scale, 1)); font-weight: 800; }
 
 .dia-sin-eventos {
   min-height: 220px;
   display: grid;
   place-items: center;
   color: var(--sc-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .calendario-modal-overlay {
@@ -465,7 +465,7 @@
   max-height: calc(100vh - 40px);
   overflow: auto;
   padding: 22px;
-  background: #fff;
+  background: var(--sc-surface);
   border: 1px solid var(--sc-border);
   border-radius: 16px;
   box-shadow: 0 18px 55px rgba(47, 39, 55, .16);
@@ -481,7 +481,7 @@
 
 .calendario-modal > header span {
   color: var(--sc-primary);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   font-weight: 800;
   letter-spacing: .06em;
   text-transform: uppercase;
@@ -490,7 +490,7 @@
 .calendario-modal h2 {
   margin: 4px 0 0;
   color: var(--sc-text);
-  font-size: 21px;
+  font-size: calc(21px * var(--sc-font-scale, 1));
 }
 
 .calendario-modal > header button {
@@ -498,9 +498,9 @@
   height: 32px;
   border: 1px solid var(--sc-border);
   border-radius: 8px;
-  background: #fff;
+  background: var(--sc-surface);
   color: var(--sc-text-soft);
-  font-size: 20px;
+  font-size: calc(20px * var(--sc-font-scale, 1));
   cursor: pointer;
 }
 
@@ -522,12 +522,12 @@
   display: block;
   margin-bottom: 5px;
   color: var(--sc-text-soft);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
 }
 
 .calendario-detalle-grid strong {
   color: var(--sc-text);
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .calendario-detalle-observaciones {
@@ -540,7 +540,7 @@
 .calendario-detalle-observaciones p {
   margin: 0;
   color: var(--sc-text);
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   line-height: 1.5;
 }
 
@@ -549,7 +549,7 @@
   display: grid;
   place-items: center;
   color: var(--sc-primary-dark);
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -563,18 +563,18 @@
 
 @media (max-width: 777px) {
   .calendario-page { height: auto; min-height: calc(100dvh - 64px); padding: 24px 16px 32px; overflow: visible; }
-  .calendario-header h1 { font-size: 25px; }
+  .calendario-header h1 { font-size: calc(25px * var(--sc-font-scale, 1)); }
   .calendario-toolbar { grid-template-columns: 1fr; gap: 9px; }
   .calendario-hoy, .calendario-vistas { justify-self: stretch; }
   .calendario-hoy { text-align: center; }
   .calendario-vistas { justify-content: center; }
-  .calendario-navegacion h2 { min-width: 0; flex: 1; font-size: 14px; }
-  .calendario-dias-semana span { padding: 9px 3px; font-size: 8px; text-align: center; }
+  .calendario-navegacion h2 { min-width: 0; flex: 1; font-size: calc(14px * var(--sc-font-scale, 1)); }
+  .calendario-dias-semana span { padding: 9px 3px; font-size: calc(8px * var(--sc-font-scale, 1)); text-align: center; }
   .calendario-celda { min-height: 92px; padding: 5px; }
   .calendario-evento { padding: 4px; }
-  .calendario-evento span { font-size: 8px; }
-  .calendario-evento strong { font-size: 8px; }
-  .calendario-mas { font-size: 8px; }
+  .calendario-evento span { font-size: calc(8px * var(--sc-font-scale, 1)); }
+  .calendario-evento strong { font-size: calc(8px * var(--sc-font-scale, 1)); }
+  .calendario-mas { font-size: calc(8px * var(--sc-font-scale, 1)); }
   .calendario-semana { overflow-x: auto; grid-template-columns: repeat(7, minmax(130px, 1fr)); }
   .dia-evento { grid-template-columns: 28px 70px 2px minmax(0, 1fr) auto; }
   .dia-estado { grid-column: auto; }
@@ -605,7 +605,7 @@
   align-items: center;
   gap: 5px;
   color: var(--sc-text-soft);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
@@ -626,7 +626,7 @@
 .calendario-contador {
   flex: 0 0 auto;
   color: var(--sc-muted);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -651,7 +651,7 @@
   border-radius: 50%;
   background: var(--sc-primary-pale);
   color: var(--sc-primary-dark);
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 800;
 }
 
@@ -659,13 +659,13 @@
   display: block;
   margin-bottom: 2px;
   color: var(--sc-text);
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
 }
 
 .calendario-aviso p {
   margin: 0;
   color: var(--sc-text-soft);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   line-height: 1.45;
 }
 
@@ -696,7 +696,7 @@
   }
 
   .calendario-header h1 {
-    font-size: 24px;
+    font-size: calc(24px * var(--sc-font-scale, 1));
   }
 
   .calendario-toolbar {
@@ -708,7 +708,7 @@
   }
 
   .calendario-aviso {
-    font-size: 10px;
+    font-size: calc(10px * var(--sc-font-scale, 1));
   }
 
   .calendario-celda {
@@ -785,12 +785,12 @@
 }
 
 .calendario-modal > header span {
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
 }
 
 .calendario-modal h2 {
   margin-top: 5px;
-  font-size: 24px;
+  font-size: calc(24px * var(--sc-font-scale, 1));
   line-height: 1.2;
 }
 
@@ -801,7 +801,7 @@
   border-radius: 10px;
   background: #faf6fc;
   color: var(--sc-primary-dark);
-  font-size: 21px;
+  font-size: calc(21px * var(--sc-font-scale, 1));
   transition: .18s ease;
 }
 
@@ -836,7 +836,7 @@
   align-items: center;
   gap: 7px;
   color: var(--sc-text-soft);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   line-height: 1.2;
 }
 
@@ -850,7 +850,7 @@
 .calendario-detalle-grid strong {
   display: block;
   color: var(--sc-text);
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   line-height: 1.3;
 }
 

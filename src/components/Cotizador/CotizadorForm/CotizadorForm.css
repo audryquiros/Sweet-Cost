@@ -3,7 +3,7 @@
   max-width: 1100px;
   margin: 0 auto;
   padding: 32px;
-  background: #ffffff;
+  background: var(--sc-surface);
   border-radius: 16px;
   box-sizing: border-box;
 }
@@ -15,14 +15,14 @@
 .cotizador-form-header h2 {
   margin: 0 0 8px;
   color: #2f2540;
-  font-size: 28px;
+  font-size: calc(28px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
 .cotizador-form-header p {
   margin: 0;
   color: #6f657b;
-  font-size: 15px;
+  font-size: calc(15px * var(--sc-font-scale, 1));
 }
 
 /* =========================================================
@@ -36,7 +36,7 @@
   border-radius: 10px;
   background: #fdf0f0;
   color: #a33a3a;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 /* =========================================================
@@ -58,7 +58,7 @@
 
 .cotizador-field label {
   color: #40364d;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
@@ -69,10 +69,10 @@
   padding: 10px 12px;
   border: 1px solid #d8d0e2;
   border-radius: 9px;
-  background: #ffffff;
+  background: var(--sc-surface);
   color: #332a3d;
   font-family: inherit;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   box-sizing: border-box;
   outline: none;
   transition:
@@ -94,7 +94,7 @@
 
 .cotizador-field small {
   color: #766b82;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   line-height: 1.4;
 }
 
@@ -121,19 +121,19 @@
 .cotizador-seccion-header h3 {
   margin: 0 0 6px;
   color: #382d46;
-  font-size: 20px;
+  font-size: calc(20px * var(--sc-font-scale, 1));
 }
 
 .cotizador-seccion-header h4 {
   margin: 0 0 5px;
   color: #40364d;
-  font-size: 17px;
+  font-size: calc(17px * var(--sc-font-scale, 1));
 }
 
 .cotizador-seccion-header p {
   margin: 0;
   color: #746a80;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   line-height: 1.5;
 }
 
@@ -149,7 +149,7 @@
   background: #9b7ede;
   color: #ffffff;
   font-family: inherit;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -185,7 +185,7 @@
   background: transparent;
   color: #665a75;
   font-family: inherit;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -201,7 +201,7 @@
 
 .cotizador-extra-modo.activo {
   border-color: #d8c8f2;
-  background: #ffffff;
+  background: var(--sc-surface);
   color: #6d55a8;
   box-shadow: 0 1px 4px rgba(74, 53, 102, 0.08);
 }
@@ -239,7 +239,7 @@
   padding: 20px;
   border: 1px solid #e5deed;
   border-radius: 12px;
-  background: #ffffff;
+  background: var(--sc-surface);
   box-sizing: border-box;
 }
 
@@ -298,14 +298,14 @@
   .cotizador-resumen-extra
   span {
   color: #6b6076;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 .cotizador-seccion:has(.cotizador-extra-modos)
   .cotizador-resumen-extra
   strong {
   color: #40364d;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 600;
   white-space: nowrap;
 }
@@ -331,7 +331,7 @@
   > div:nth-child(2)
   span {
   color: #59466f;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -340,7 +340,7 @@
   > div:nth-child(2)
   strong {
   color: #6d55a8;
-  font-size: 17px;
+  font-size: calc(17px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -374,7 +374,7 @@
   > div:nth-child(4)
   span {
   color: #59466f;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -383,7 +383,7 @@
   > div:nth-child(4)
   strong {
   color: #6d55a8;
-  font-size: 17px;
+  font-size: calc(17px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -422,7 +422,7 @@
   > div:nth-child(6)
   span {
   color: #4b3b5f;
-  font-size: 15px;
+  font-size: calc(15px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -431,7 +431,7 @@
   > div:nth-child(6)
   strong {
   color: #6d55a8;
-  font-size: 20px;
+  font-size: calc(20px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -456,7 +456,7 @@
   > div:nth-child(5)
   span {
   color: #6b6076;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
@@ -465,7 +465,7 @@
   > div:nth-child(5)
   strong {
   color: #40364d;
-  font-size: 15px;
+  font-size: calc(15px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
@@ -489,7 +489,7 @@
 
   border: 1px solid #e5deed;
   border-radius: 12px;
-  background: #ffffff;
+  background: var(--sc-surface);
   box-sizing: border-box;
 }
 
@@ -566,9 +566,9 @@
   padding: 20px;
   border: 1px dashed #d7cde2;
   border-radius: 10px;
-  background: #ffffff;
+  background: var(--sc-surface);
   color: #7a7085;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   text-align: center;
 }
 
@@ -581,10 +581,10 @@
   padding: 10px 14px;
   border: 1px solid #d9b1b1;
   border-radius: 9px;
-  background: #ffffff;
+  background: var(--sc-surface);
   color: #a04b4b;
   font-family: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
@@ -646,7 +646,7 @@
   > div:last-child
   span {
   color: #4b3b5f;
-  font-size: 15px;
+  font-size: calc(15px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -655,7 +655,7 @@
   > div:last-child
   strong {
   color: #6d55a8;
-  font-size: 20px;
+  font-size: calc(20px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
@@ -678,7 +678,7 @@
   > div:first-child
   span {
   color: #6b6076;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
@@ -687,7 +687,7 @@
   > div:first-child
   strong {
   color: #40364d;
-  font-size: 15px;
+  font-size: calc(15px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
@@ -722,7 +722,7 @@
 .cotizador-resumen h3 {
   margin: 0 0 20px;
   color: #382d46;
-  font-size: 20px;
+  font-size: calc(20px * var(--sc-font-scale, 1));
 }
 
 .cotizador-resumen-linea {
@@ -736,7 +736,7 @@
   border-bottom: 1px solid #e8e1ef;
 
   color: #655b70;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 .cotizador-resumen-linea strong {
@@ -755,13 +755,13 @@
   padding: 16px 0;
 
   color: #382d46;
-  font-size: 17px;
+  font-size: calc(17px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
 .cotizador-resumen-total strong {
   color: #6d55a8;
-  font-size: 19px;
+  font-size: calc(19px * var(--sc-font-scale, 1));
 }
 
 .cotizador-precio {
@@ -777,12 +777,12 @@
   background: #d8c8f2;
 
   color: #4d3b69;
-  font-size: 17px;
+  font-size: calc(17px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
 .cotizador-precio strong {
-  font-size: 22px;
+  font-size: calc(22px * var(--sc-font-scale, 1));
 }
 
 /* =========================================================
@@ -803,7 +803,7 @@
   border-radius: 9px;
 
   font-family: inherit;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 600;
 
   cursor: pointer;
@@ -816,7 +816,7 @@
 
 .cotizador-btn-cancelar {
   border: 1px solid #d5ccdf;
-  background: #ffffff;
+  background: var(--sc-surface);
   color: #5d5368;
 }
 
@@ -885,7 +885,7 @@
   }
 
   .cotizador-form-header h2 {
-    font-size: 24px;
+    font-size: calc(24px * var(--sc-font-scale, 1));
   }
 
   .cotizador-form > .cotizador-form-grid {
@@ -972,21 +972,21 @@
 /* Ajuste visual Sweet Cost / mockup */
 .cotizador-form { max-width: 100%; margin: 0; padding: 20px; border: 1px solid var(--sc-border); border-radius: 12px; box-shadow: var(--sc-shadow); }
 .cotizador-form-header { margin-bottom: 18px; }
-.cotizador-form-header h2 { font-size: 19px; color: var(--sc-text); }
-.cotizador-form-header p { font-size: 11px; color: var(--sc-text-soft); }
+.cotizador-form-header h2 { font-size: calc(19px * var(--sc-font-scale, 1)); color: var(--sc-text); }
+.cotizador-form-header p { font-size: calc(11px * var(--sc-font-scale, 1)); color: var(--sc-text-soft); }
 .cotizador-form > .cotizador-form-grid { gap: 13px; }
 .cotizador-field { gap: 5px; }
-.cotizador-field label { color: var(--sc-text-soft); font-size: 10px; }
-.cotizador-field input, .cotizador-field select { min-height: 36px; padding: 8px 10px; border-color: var(--sc-border-strong); border-radius: 7px; font-size: 11px; }
-.cotizador-field small { font-size: 9px; }
-.cotizador-seccion { margin-top: 18px; padding: 15px; border-color: var(--sc-border); border-radius: 10px; background: #fbf8fc; }
+.cotizador-field label { color: var(--sc-text-soft); font-size: calc(10px * var(--sc-font-scale, 1)); }
+.cotizador-field input, .cotizador-field select { min-height: 36px; padding: 8px 10px; border-color: var(--sc-border-strong); border-radius: 7px; font-size: calc(11px * var(--sc-font-scale, 1)); }
+.cotizador-field small { font-size: calc(9px * var(--sc-font-scale, 1)); }
+.cotizador-seccion { margin-top: 18px; padding: 15px; border-color: var(--sc-border); border-radius: 10px; background: var(--sc-surface-soft); }
 .cotizador-seccion-header { margin-bottom: 12px; }
-.cotizador-seccion-header h3 { font-size: 15px; }
-.cotizador-seccion-header h4 { font-size: 13px; }
-.cotizador-seccion-header p { font-size: 10px; }
-.btn-agregar-extra { padding: 8px 12px; border-radius: 7px; font-size: 10px; }
+.cotizador-seccion-header h3 { font-size: calc(15px * var(--sc-font-scale, 1)); }
+.cotizador-seccion-header h4 { font-size: calc(13px * var(--sc-font-scale, 1)); }
+.cotizador-seccion-header p { font-size: calc(10px * var(--sc-font-scale, 1)); }
+.btn-agregar-extra { padding: 8px 12px; border-radius: 7px; font-size: calc(10px * var(--sc-font-scale, 1)); }
 .cotizador-extra-modos { margin-bottom: 14px; padding: 3px; border-radius: 8px; }
-.cotizador-extra-modo { min-height: 34px; padding: 7px 10px; font-size: 10px; }
+.cotizador-extra-modo { min-height: 34px; padding: 7px 10px; font-size: calc(10px * var(--sc-font-scale, 1)); }
 
 
 /* ===== Sweet Cost · formulario armonizado ===== */
@@ -999,10 +999,10 @@
   box-shadow: var(--sc-shadow);
 }
 .cotizador-form-header { margin-bottom: 18px; }
-.cotizador-form-header h2 { margin-bottom: 5px; color: var(--sc-text); font-size: 19px; }
-.cotizador-form-header p { color: var(--sc-text-soft); font-size: 11px; }
+.cotizador-form-header h2 { margin-bottom: 5px; color: var(--sc-text); font-size: calc(19px * var(--sc-font-scale, 1)); }
+.cotizador-form-header p { color: var(--sc-text-soft); font-size: calc(11px * var(--sc-font-scale, 1)); }
 .cotizador-field { gap: 5px; }
-.cotizador-field label { color: var(--sc-text-soft); font-size: 10px; }
+.cotizador-field label { color: var(--sc-text-soft); font-size: calc(10px * var(--sc-font-scale, 1)); }
 .cotizador-field input,
 .cotizador-field select,
 .cotizador-field textarea {
@@ -1011,9 +1011,9 @@
   border-color: var(--sc-border-strong);
   border-radius: 7px;
   color: var(--sc-text);
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
 }
-.cotizador-field small { color: var(--sc-muted); font-size: 10px; }
+.cotizador-field small { color: var(--sc-muted); font-size: calc(10px * var(--sc-font-scale, 1)); }
 .cotizador-seccion {
   margin-top: 18px;
   padding: 16px;
@@ -1022,12 +1022,12 @@
   background: var(--sc-surface-soft);
 }
 .cotizador-seccion-header { margin-bottom: 14px; }
-.cotizador-seccion-header h3 { font-size: 15px; }
-.cotizador-seccion-header h4 { font-size: 13px; }
-.cotizador-seccion-header p { font-size: 10px; }
-.btn-agregar-extra { padding: 8px 12px; border-radius: 8px; background: var(--sc-primary); font-size: 10px; }
+.cotizador-seccion-header h3 { font-size: calc(15px * var(--sc-font-scale, 1)); }
+.cotizador-seccion-header h4 { font-size: calc(13px * var(--sc-font-scale, 1)); }
+.cotizador-seccion-header p { font-size: calc(10px * var(--sc-font-scale, 1)); }
+.btn-agregar-extra { padding: 8px 12px; border-radius: 8px; background: var(--sc-primary); font-size: calc(10px * var(--sc-font-scale, 1)); }
 .cotizador-extra-modos { margin-bottom: 16px; padding: 3px; border-radius: 8px; background: var(--sc-primary-pale); }
-.cotizador-extra-modo { min-height: 34px; padding: 7px 10px; border-radius: 7px; font-size: 10px; }
+.cotizador-extra-modo { min-height: 34px; padding: 7px 10px; border-radius: 7px; font-size: calc(10px * var(--sc-font-scale, 1)); }
 .cotizador-subseccion { padding: 14px; border-color: var(--sc-border); border-radius: 9px; }
 
 

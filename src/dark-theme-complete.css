@@ -1,0 +1,763 @@
+/* =========================================================
+   Sweet Cost · Tema oscuro completo
+   Capa final sobre los estilos de cada módulo.
+   No cambia la lógica ni los componentes.
+   ========================================================= */
+
+html[data-theme="oscuro"] {
+  color-scheme: dark;
+}
+
+html[data-theme="oscuro"] body,
+html[data-theme="oscuro"] #root,
+html[data-theme="oscuro"] .app-shell,
+html[data-theme="oscuro"] .module-placeholder,
+html[data-theme="oscuro"] .productos-page,
+html[data-theme="oscuro"] .insumos-page,
+html[data-theme="oscuro"] .recetas-page,
+html[data-theme="oscuro"] .cotizador-page,
+html[data-theme="oscuro"] .pedidos-page,
+html[data-theme="oscuro"] .calendario-page,
+html[data-theme="oscuro"] .empleados-page,
+html[data-theme="oscuro"] .configuracion-page {
+  background: var(--sc-bg) !important;
+  color: var(--sc-text) !important;
+}
+
+/* Texto base: evita que los colores oscuros heredados de los módulos
+   antiguos queden ilegibles. Los estados y botones se redefinen abajo. */
+html[data-theme="oscuro"] #root h1,
+html[data-theme="oscuro"] #root h2,
+html[data-theme="oscuro"] #root h3,
+html[data-theme="oscuro"] #root h4,
+html[data-theme="oscuro"] #root h5,
+html[data-theme="oscuro"] #root h6,
+html[data-theme="oscuro"] #root p,
+html[data-theme="oscuro"] #root label,
+html[data-theme="oscuro"] #root span,
+html[data-theme="oscuro"] #root small,
+html[data-theme="oscuro"] #root strong,
+html[data-theme="oscuro"] #root li,
+html[data-theme="oscuro"] #root th,
+html[data-theme="oscuro"] #root td {
+  color: var(--sc-text) !important;
+}
+
+html[data-theme="oscuro"] #root p,
+html[data-theme="oscuro"] #root small,
+html[data-theme="oscuro"] #root .form-help,
+html[data-theme="oscuro"] #root .campo-ayuda,
+html[data-theme="oscuro"] #root .campo-descripcion,
+html[data-theme="oscuro"] #root .productos-form-nota p,
+html[data-theme="oscuro"] #root .recetas-form-nota p {
+  color: var(--sc-text-soft) !important;
+}
+
+/* Páginas y contenedores de formulario */
+html[data-theme="oscuro"] .productos-form,
+html[data-theme="oscuro"] .insumos-form,
+html[data-theme="oscuro"] .recetas-form,
+html[data-theme="oscuro"] .cotizador-form,
+html[data-theme="oscuro"] .pedido-form,
+html[data-theme="oscuro"] .empleados-form,
+html[data-theme="oscuro"] .conversor-form,
+html[data-theme="oscuro"] .productos-form-contenedor,
+html[data-theme="oscuro"] .insumos-form-contenedor,
+html[data-theme="oscuro"] .empleados-form-contenedor {
+  background: var(--sc-surface) !important;
+  color: var(--sc-text) !important;
+  border-color: var(--sc-border) !important;
+}
+
+html[data-theme="oscuro"] .productos-form-grid > div,
+html[data-theme="oscuro"] .insumos-form-grid > div,
+html[data-theme="oscuro"] .empleado-form-group,
+html[data-theme="oscuro"] .cotizador-field,
+html[data-theme="oscuro"] .pedido-form-section,
+html[data-theme="oscuro"] .empleados-form-section,
+html[data-theme="oscuro"] .cotizador-seccion,
+html[data-theme="oscuro"] .cotizador-subseccion,
+html[data-theme="oscuro"] .recetas-form-section,
+html[data-theme="oscuro"] .receta-form-section {
+  background: transparent !important;
+  color: var(--sc-text) !important;
+}
+
+/* Notas, avisos y bloques informativos */
+html[data-theme="oscuro"] .productos-form-nota,
+html[data-theme="oscuro"] .recetas-form-nota,
+html[data-theme="oscuro"] .cotizador-form-error,
+html[data-theme="oscuro"] .pedido-form-error,
+html[data-theme="oscuro"] .insumos-form-error,
+html[data-theme="oscuro"] .empleados-form-error,
+html[data-theme="oscuro"] .form-error,
+html[data-theme="oscuro"] .calendario-aviso,
+html[data-theme="oscuro"] .empty-state,
+html[data-theme="oscuro"] .productos-vacio,
+html[data-theme="oscuro"] .insumos-vacio,
+html[data-theme="oscuro"] .cotizador-vacio,
+html[data-theme="oscuro"] .pedidos-vacio,
+html[data-theme="oscuro"] .empleados-vacio {
+  background: var(--sc-surface-soft) !important;
+  color: var(--sc-text) !important;
+  border-color: var(--sc-border) !important;
+}
+
+/* Bloques de resumen que seguían siendo blancos en los formularios. */
+html[data-theme="oscuro"] .productos-resumen,
+html[data-theme="oscuro"] .recetas-resumen,
+html[data-theme="oscuro"] .cotizador-resumen,
+html[data-theme="oscuro"] .pedido-form-summary,
+html[data-theme="oscuro"] .cotizador-card-costos,
+html[data-theme="oscuro"] .cotizador-card-detalles,
+html[data-theme="oscuro"] .cotizador-card-total,
+html[data-theme="oscuro"] .cotizador-card-precio,
+html[data-theme="oscuro"] .cotizador-card-precio-total,
+html[data-theme="oscuro"] .producto-porcion,
+html[data-theme="oscuro"] .producto-card-info,
+html[data-theme="oscuro"] .insumo-card-info,
+html[data-theme="oscuro"] .receta-card-info,
+html[data-theme="oscuro"] .empleado-card-info {
+  background: var(--sc-surface-soft) !important;
+  color: var(--sc-text) !important;
+  border-color: var(--sc-border) !important;
+}
+
+html[data-theme="oscuro"] .productos-resumen .resumen-item,
+html[data-theme="oscuro"] .cotizador-resumen-linea,
+html[data-theme="oscuro"] .cotizador-resumen-total,
+html[data-theme="oscuro"] .cotizador-card-dato,
+html[data-theme="oscuro"] .pedido-form-summary > *,
+html[data-theme="oscuro"] .empleado-detalle-item,
+html[data-theme="oscuro"] .dia-resumen,
+html[data-theme="oscuro"] .calendario-detalle-grid > * {
+  background: #241e2a !important;
+  color: var(--sc-text) !important;
+  border-color: var(--sc-border) !important;
+}
+
+/* Campos */
+html[data-theme="oscuro"] #root input,
+html[data-theme="oscuro"] #root select,
+html[data-theme="oscuro"] #root textarea,
+html[data-theme="oscuro"] #root .input-with-unit,
+html[data-theme="oscuro"] #root .precio-input,
+html[data-theme="oscuro"] #root .filter-select-trigger,
+html[data-theme="oscuro"] #root .sc-picker-trigger,
+html[data-theme="oscuro"] #root .convertir-pedido-select {
+  background: #2c2533 !important;
+  color: #fffaff !important;
+  border-color: #756080 !important;
+  box-shadow: none;
+}
+
+html[data-theme="oscuro"] #root input:focus,
+html[data-theme="oscuro"] #root select:focus,
+html[data-theme="oscuro"] #root textarea:focus,
+html[data-theme="oscuro"] #root .input-with-unit:focus-within,
+html[data-theme="oscuro"] #root .precio-input:focus-within {
+  border-color: #b58ce8 !important;
+  box-shadow: 0 0 0 3px rgba(181, 140, 232, .22) !important;
+}
+
+html[data-theme="oscuro"] #root input::placeholder,
+html[data-theme="oscuro"] #root textarea::placeholder {
+  color: #b7a9bf !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="oscuro"] #root option {
+  background: #2c2533 !important;
+  color: #fffaff !important;
+}
+
+/* Select personalizado */
+html[data-theme="oscuro"] .filter-select-menu,
+html[data-theme="oscuro"] .filter-select-menu-portal,
+html[data-theme="oscuro"] .filter-select-option {
+  background: #2c2533 !important;
+  color: #fffaff !important;
+  border-color: #756080 !important;
+}
+html[data-theme="oscuro"] .filter-select-option:hover,
+html[data-theme="oscuro"] .filter-select-option.selected {
+  background: #4f3a60 !important;
+  color: #ffffff !important;
+}
+
+/* Botones secundarios: nunca blancos en oscuro. */
+html[data-theme="oscuro"] #root .btn-cancelar,
+html[data-theme="oscuro"] #root .btn-cancelar:hover,
+html[data-theme="oscuro"] #root .cotizador-btn-cancelar,
+html[data-theme="oscuro"] #root .insumo-btn-cancelar,
+html[data-theme="oscuro"] #root .receta-btn-cancelar,
+html[data-theme="oscuro"] #root .empleado-btn-cancelar,
+html[data-theme="oscuro"] #root .pedido-btn-secondary,
+html[data-theme="oscuro"] #root .convertir-pedido-secundario,
+html[data-theme="oscuro"] #root .cotizador-modal-btn-secundario,
+html[data-theme="oscuro"] #root .conversor-btn-limpiar {
+  background: #2c2533 !important;
+  color: #f4edf7 !important;
+  border-color: #756080 !important;
+}
+
+html[data-theme="oscuro"] #root .btn-guardar,
+html[data-theme="oscuro"] #root .btn-primary,
+html[data-theme="oscuro"] #root .btn-agregar-producto,
+html[data-theme="oscuro"] #root .btn-agregar-receta,
+html[data-theme="oscuro"] #root .btn-nueva-cotizacion,
+html[data-theme="oscuro"] #root .btn-agregar-empleado,
+html[data-theme="oscuro"] #root .cotizador-btn-guardar,
+html[data-theme="oscuro"] #root .insumo-btn-guardar,
+html[data-theme="oscuro"] #root .receta-btn-guardar,
+html[data-theme="oscuro"] #root .empleado-btn-guardar,
+html[data-theme="oscuro"] #root .pedido-btn-primary,
+html[data-theme="oscuro"] #root .convertir-pedido-principal,
+html[data-theme="oscuro"] #root .cotizador-card-pedido-creado {
+  background: #8b5bb8 !important;
+  border-color: #b58ce8 !important;
+  color: #ffffff !important;
+}
+
+/* Cards */
+html[data-theme="oscuro"] .producto-card,
+html[data-theme="oscuro"] .insumo-card,
+html[data-theme="oscuro"] .receta-card,
+html[data-theme="oscuro"] .cotizador-card,
+html[data-theme="oscuro"] .empleado-card {
+  background: #211b26 !important;
+  color: var(--sc-text) !important;
+  border-color: #574760 !important;
+}
+
+html[data-theme="oscuro"] .producto-card:hover,
+html[data-theme="oscuro"] .insumo-card:hover,
+html[data-theme="oscuro"] .receta-card:hover,
+html[data-theme="oscuro"] .cotizador-card:hover,
+html[data-theme="oscuro"] .empleado-card:hover {
+  border-color: #80698c !important;
+}
+
+html[data-theme="oscuro"] .producto-costo,
+html[data-theme="oscuro"] .insumo-costo,
+html[data-theme="oscuro"] .receta-costo,
+html[data-theme="oscuro"] .producto-lista-costo,
+html[data-theme="oscuro"] .insumo-lista-costo,
+html[data-theme="oscuro"] .cotizador-card-precio,
+html[data-theme="oscuro"] .cotizador-card-precio-total {
+  background: #33283d !important;
+  color: #f8f1fa !important;
+  border-color: #756080 !important;
+}
+
+/* Listas/tablas */
+html[data-theme="oscuro"] .productos-lista-header,
+html[data-theme="oscuro"] .insumos-lista-header,
+html[data-theme="oscuro"] .recetas-table-header,
+html[data-theme="oscuro"] .cotizador-table-header,
+html[data-theme="oscuro"] .pedidos-table-header,
+html[data-theme="oscuro"] .empleados-table-header,
+html[data-theme="oscuro"] .productos-table-header,
+html[data-theme="oscuro"] .insumos-table-header {
+  background: #2c2533 !important;
+  color: #f8f1fa !important;
+  border-color: #574760 !important;
+}
+
+html[data-theme="oscuro"] .producto-lista-item,
+html[data-theme="oscuro"] .insumo-lista-item,
+html[data-theme="oscuro"] .receta-lista-item,
+html[data-theme="oscuro"] .cotizador-lista-item,
+html[data-theme="oscuro"] .pedido-lista-item,
+html[data-theme="oscuro"] .empleado-lista-item,
+html[data-theme="oscuro"] .pedidos-tabla tr,
+html[data-theme="oscuro"] .ingredientes-tabla tr {
+  background: #211b26 !important;
+  color: #f8f1fa !important;
+  border-color: #433747 !important;
+}
+
+html[data-theme="oscuro"] .producto-lista-item:hover,
+html[data-theme="oscuro"] .insumo-lista-item:hover,
+html[data-theme="oscuro"] .receta-lista-item:hover,
+html[data-theme="oscuro"] .cotizador-lista-item:hover,
+html[data-theme="oscuro"] .pedido-lista-item:hover,
+html[data-theme="oscuro"] .empleado-lista-item:hover,
+html[data-theme="oscuro"] .pedidos-tabla tbody tr:hover {
+  background: #2c2533 !important;
+}
+
+/* Modales: panel, secciones, encabezados y pies */
+html[data-theme="oscuro"] .pedido-form-modal,
+html[data-theme="oscuro"] .pedido-modal,
+html[data-theme="oscuro"] .convertir-pedido-modal,
+html[data-theme="oscuro"] .cotizador-modal,
+html[data-theme="oscuro"] .calendario-modal,
+html[data-theme="oscuro"] .empleado-detalle-modal,
+html[data-theme="oscuro"] .confirmacion-modal,
+html[data-theme="oscuro"] .ingredientes-modal {
+  background: #211b26 !important;
+  color: #fffaff !important;
+  border-color: #66556f !important;
+}
+
+html[data-theme="oscuro"] .convertir-pedido-header h2,
+html[data-theme="oscuro"] .cotizador-modal-header h2,
+html[data-theme="oscuro"] .pedido-modal-header h2,
+html[data-theme="oscuro"] .empleado-detalle-header h2,
+html[data-theme="oscuro"] .ingredientes-modal-header h2 {
+  color: #fffaff !important;
+}
+
+html[data-theme="oscuro"] .convertir-pedido-header p,
+html[data-theme="oscuro"] .convertir-pedido-resumen,
+html[data-theme="oscuro"] .convertir-pedido-saldo,
+html[data-theme="oscuro"] .cotizador-modal-seccion,
+html[data-theme="oscuro"] .cotizador-modal-extra,
+html[data-theme="oscuro"] .pedido-modal > section,
+html[data-theme="oscuro"] .calendario-modal > section,
+html[data-theme="oscuro"] .ingredientes-modal-footer {
+  background: #2c2533 !important;
+  color: #eadfec !important;
+  border-color: #574760 !important;
+}
+
+html[data-theme="oscuro"] .convertir-pedido-field label,
+html[data-theme="oscuro"] .convertir-pedido-resumen span,
+html[data-theme="oscuro"] .cotizador-modal-dato,
+html[data-theme="oscuro"] .pedido-modal .label,
+html[data-theme="oscuro"] .empleado-detalle-item span {
+  color: #cfc1d6 !important;
+}
+
+/* Conversor */
+html[data-theme="oscuro"] .conversor-input-sufijo,
+html[data-theme="oscuro"] .conversor-btn-usar,
+html[data-theme="oscuro"] .conversor-btn-convertir {
+  background: #33283d !important;
+  color: #f8f1fa !important;
+  border-color: #756080 !important;
+}
+
+/* Confirmación / errores */
+html[data-theme="oscuro"] .confirmacion-modal {
+  background: #211b26 !important;
+}
+html[data-theme="oscuro"] .confirmacion-modal p,
+html[data-theme="oscuro"] .confirmacion-modal .confirmacion-mensaje {
+  color: #eadfec !important;
+}
+html[data-theme="oscuro"] .confirmacion-modal .btn-confirmacion-cancelar {
+  background: #2c2533 !important;
+  color: #f4edf7 !important;
+  border-color: #756080 !important;
+}
+html[data-theme="oscuro"] .confirmacion-modal .btn-confirmacion-eliminar {
+  background: #7e3946 !important;
+  color: #ffffff !important;
+  border-color: #ff8794 !important;
+}
+
+/* Estados: conservar diferencia semántica sin depender de rojo/verde claro. */
+html[data-theme="oscuro"] .pedido-status--pendiente,
+html[data-theme="oscuro"] .pedido-estado-pendiente { background: #40321f !important; color: #ffd28e !important; border-color: #765b35 !important; }
+html[data-theme="oscuro"] .pedido-status--preparacion,
+html[data-theme="oscuro"] .pedido-estado-en-preparaci { background: #342b4a !important; color: #d9c7ff !important; border-color: #665487 !important; }
+html[data-theme="oscuro"] .pedido-status--listo,
+html[data-theme="oscuro"] .pedido-estado-listo { background: #21382c !important; color: #a8edc3 !important; border-color: #4b7e62 !important; }
+html[data-theme="oscuro"] .pedido-status--entregado,
+html[data-theme="oscuro"] .pedido-estado-entregado { background: #20373a !important; color: #a8e2e7 !important; border-color: #4e777b !important; }
+html[data-theme="oscuro"] .pedido-status--pagado,
+html[data-theme="oscuro"] .pedido-estado-pagado { background: #342a48 !important; color: #dcc9ff !important; border-color: #695184 !important; }
+html[data-theme="oscuro"] .pedido-status--cancelado,
+html[data-theme="oscuro"] .pedido-estado-cancelado { background: #40252c !important; color: #ffadb7 !important; border-color: #7b4a55 !important; }
+
+html[data-theme="oscuro"] .cotizador-card-estado,
+html[data-theme="oscuro"] .cotizador-lista-estado {
+  background: #342a48 !important;
+  color: #dcc9ff !important;
+  border-color: #695184 !important;
+}
+html[data-theme="oscuro"] .cotizador-card-estado.aceptada,
+html[data-theme="oscuro"] .cotizador-lista-estado.aceptada {
+  background: #21382c !important;
+  color: #a8edc3 !important;
+  border-color: #4b7e62 !important;
+}
+html[data-theme="oscuro"] .cotizador-card-estado.pendiente,
+html[data-theme="oscuro"] .cotizador-lista-estado.pendiente {
+  background: #40321f !important;
+  color: #ffd28e !important;
+  border-color: #765b35 !important;
+}
+
+/* Calendario completo */
+html[data-theme="oscuro"] .calendario-toolbar,
+html[data-theme="oscuro"] .calendario-leyenda,
+html[data-theme="oscuro"] .calendario-grid,
+html[data-theme="oscuro"] .calendario-semana,
+html[data-theme="oscuro"] .dia-resumen {
+  background: #211b26 !important;
+  color: #fffaff !important;
+  border-color: #574760 !important;
+}
+html[data-theme="oscuro"] .calendario-dias-semana {
+  background: #302838 !important;
+  color: #eadfec !important;
+  border-color: #5a4a62 !important;
+}
+html[data-theme="oscuro"] .calendario-celda {
+  background: #211b26 !important;
+  color: #fffaff !important;
+  border-color: #493b52 !important;
+}
+html[data-theme="oscuro"] .calendario-celda.otro-mes {
+  background: #18141c !important;
+}
+html[data-theme="oscuro"] .calendario-celda.otro-mes .calendario-numero {
+  color: #a99daf !important;
+}
+html[data-theme="oscuro"] .calendario-celda.hoy {
+  background: #292132 !important;
+}
+html[data-theme="oscuro"] .calendario-numero {
+  color: #fffaff !important;
+}
+html[data-theme="oscuro"] .calendario-vistas,
+html[data-theme="oscuro"] .calendario-hoy,
+html[data-theme="oscuro"] .calendario-navegacion button {
+  background: #2c2533 !important;
+  color: #eadfec !important;
+  border-color: #756080 !important;
+}
+html[data-theme="oscuro"] .calendario-vistas button.activo {
+  background: #8b5bb8 !important;
+  color: #ffffff !important;
+  border-color: #b58ce8 !important;
+}
+html[data-theme="oscuro"] .calendario-evento,
+html[data-theme="oscuro"] .agenda-evento,
+html[data-theme="oscuro"] .dia-evento {
+  box-shadow: none !important;
+}
+
+/* Toggle Tarjetas/Lista */
+html[data-theme="oscuro"] .view-toggle,
+html[data-theme="oscuro"] .productos-lista-vista,
+html[data-theme="oscuro"] .insumos-lista-vista,
+html[data-theme="oscuro"] .cotizador-lista-vista,
+html[data-theme="oscuro"] .pedidos-lista-vista,
+html[data-theme="oscuro"] .empleados-lista-vista {
+  background: #2c2533 !important;
+  border-color: #756080 !important;
+}
+html[data-theme="oscuro"] .view-toggle button,
+html[data-theme="oscuro"] .productos-lista-vista button,
+html[data-theme="oscuro"] .insumos-lista-vista button,
+html[data-theme="oscuro"] .cotizador-lista-vista button,
+html[data-theme="oscuro"] .pedidos-lista-vista button,
+html[data-theme="oscuro"] .empleados-lista-vista button {
+  color: #d8cadf !important;
+  background: transparent !important;
+}
+html[data-theme="oscuro"] .view-toggle button.active,
+html[data-theme="oscuro"] .productos-lista-vista button.active,
+html[data-theme="oscuro"] .insumos-lista-vista button.active,
+html[data-theme="oscuro"] .cotizador-lista-vista button.active,
+html[data-theme="oscuro"] .pedidos-lista-vista button.active,
+html[data-theme="oscuro"] .empleados-lista-vista button.active {
+  background: #211b26 !important;
+  color: #fffaff !important;
+}
+
+/* Configuración */
+html[data-theme="oscuro"] .configuracion-subsection,
+html[data-theme="oscuro"] .configuracion-form-grid,
+html[data-theme="oscuro"] .configuracion-info {
+  background: transparent !important;
+  color: var(--sc-text) !important;
+}
+html[data-theme="oscuro"] .configuracion-theme-preview.claro {
+  background: #f8f4fa !important;
+  color: #2f2737 !important;
+}
+
+/* Imágenes no deben recibir colores de texto del reset. */
+html[data-theme="oscuro"] #root img {
+  background-color: transparent;
+}
+
+/* Alto contraste dentro de oscuro */
+html[data-theme="oscuro"][data-contrast="alto"] {
+  --sc-text: #ffffff;
+  --sc-text-soft: #f4eaf7;
+  --sc-muted: #ded0e3;
+  --sc-border: #b9a5c3;
+  --sc-border-strong: #d2bfd9;
+}
+html[data-theme="oscuro"][data-contrast="alto"] #root input,
+html[data-theme="oscuro"][data-contrast="alto"] #root select,
+html[data-theme="oscuro"][data-contrast="alto"] #root textarea,
+html[data-theme="oscuro"][data-contrast="alto"] #root button,
+html[data-theme="oscuro"][data-contrast="alto"] #root .producto-card,
+html[data-theme="oscuro"][data-contrast="alto"] #root .insumo-card,
+html[data-theme="oscuro"][data-contrast="alto"] #root .receta-card,
+html[data-theme="oscuro"][data-contrast="alto"] #root .cotizador-card,
+html[data-theme="oscuro"][data-contrast="alto"] #root .empleado-card {
+  border-width: 2px !important;
+}
+
+/* Dashboard */
+html[data-theme="oscuro"] .home-page,
+html[data-theme="oscuro"] .home-header,
+html[data-theme="oscuro"] .home-content {
+  background: var(--sc-bg) !important;
+  color: var(--sc-text) !important;
+}
+html[data-theme="oscuro"] .home-kpi,
+html[data-theme="oscuro"] .home-panel {
+  background: #211b26 !important;
+  color: var(--sc-text) !important;
+  border-color: #574760 !important;
+}
+html[data-theme="oscuro"] .home-header h1,
+html[data-theme="oscuro"] .home-panel-header h2,
+html[data-theme="oscuro"] .home-costo-item span,
+html[data-theme="oscuro"] .home-kpi-label {
+  color: #fffaff !important;
+}
+html[data-theme="oscuro"] .home-description,
+html[data-theme="oscuro"] .home-panel-subtitle,
+html[data-theme="oscuro"] .home-costo-item small,
+html[data-theme="oscuro"] .home-action span,
+html[data-theme="oscuro"] .home-kpi small {
+  color: #cfc1d6 !important;
+}
+html[data-theme="oscuro"] .home-action {
+  background: #2c2533 !important;
+  border-color: #574760 !important;
+  color: #fffaff !important;
+}
+html[data-theme="oscuro"] .home-action:hover {
+  background: #382b43 !important;
+  border-color: #8b5bb8 !important;
+}
+
+/* Badges de producto/receta que usaban fondos pastel claros. */
+html[data-theme="oscuro"] .producto-categoria,
+html[data-theme="oscuro"] .producto-tipo,
+html[data-theme="oscuro"] .producto-marca,
+html[data-theme="oscuro"] .receta-lista-badge,
+html[data-theme="oscuro"] .receta-card-badge,
+html[data-theme="oscuro"] .cotizador-card-meta .cotizador-card-estado {
+  background: #3a2d45 !important;
+  color: #eadfec !important;
+  border-color: #756080 !important;
+}
+html[data-theme="oscuro"] .producto-lista-tipo,
+html[data-theme="oscuro"] .producto-lista-categoria {
+  background: #342a3d !important;
+  color: #eadfec !important;
+  border-color: #695877 !important;
+}
+
+/* =========================================================
+   Pulido visual · superficies y badges del tema oscuro
+   Evita bloques grises innecesarios y mantiene la jerarquía
+   visual del diseño claro sin perder contraste.
+   ========================================================= */
+
+/* Los costos de una cotización son contenido continuo, no una tarjeta.
+   El fondo rectangular hacía que esta sección se viera como un bloque gris. */
+html[data-theme="oscuro"] .cotizador-card-costos {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* Datos individuales sí conservan una superficie sutil para separar cada dato. */
+html[data-theme="oscuro"] .cotizador-card-dato {
+  background: #211b26 !important;
+  border: 1px solid #3f3347 !important;
+  border-radius: 10px !important;
+}
+
+/* Categorías y etiquetas: menos gris, más morado y completamente redondeadas. */
+html[data-theme="oscuro"] .receta-categoria,
+html[data-theme="oscuro"] .receta-rendimiento,
+html[data-theme="oscuro"] .producto-categoria,
+html[data-theme="oscuro"] .producto-tipo,
+html[data-theme="oscuro"] .producto-marca,
+html[data-theme="oscuro"] .receta-lista-badge,
+html[data-theme="oscuro"] .receta-card-badge,
+html[data-theme="oscuro"] .producto-lista-tipo,
+html[data-theme="oscuro"] .producto-lista-categoria {
+  background: #352742 !important;
+  color: #eadcff !important;
+  border: 1px solid #6e4f87 !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+}
+
+/* Estado de cotización: mismo lenguaje de chip redondeado. */
+html[data-theme="oscuro"] .cotizador-card-estado,
+html[data-theme="oscuro"] .cotizador-lista-estado {
+  border-radius: 999px !important;
+  box-shadow: none !important;
+}
+
+/* El precio destacado debe ser una superficie de acción, no gris claro. */
+html[data-theme="oscuro"] .cotizador-card-precio {
+  background: #3b2c4b !important;
+  border: 1px solid #765a91 !important;
+  color: #f5edff !important;
+  border-radius: 10px !important;
+}
+
+html[data-theme="oscuro"] .cotizador-card-precio-total {
+  background: #2b2233 !important;
+  border: 1px solid #604a70 !important;
+  color: #f2eafa !important;
+  border-radius: 10px !important;
+}
+
+/* En receta, el costo destacado también debe seguir la superficie oscura. */
+html[data-theme="oscuro"] .receta-costo-item.destacado {
+  background: #33283d !important;
+  border: 1px solid #5f4b6d !important;
+  border-radius: 10px !important;
+}
+
+/* =========================================================
+   NORMALIZACIÓN FINAL · TARJETAS, BADGES Y VISTAS
+   Objetivo: evitar superficies grises accidentales y hacer
+   inequívoca la vista seleccionada en todo el sistema.
+   ========================================================= */
+
+/* Contenedores de información: la información pertenece a la tarjeta,
+   no necesita otra caja detrás. Se mantienen las líneas separadoras. */
+html[data-theme="oscuro"] .producto-card-info,
+html[data-theme="oscuro"] .insumo-card-info,
+html[data-theme="oscuro"] .receta-card-info,
+html[data-theme="oscuro"] .producto-card-info,
+html[data-theme="oscuro"] .insumo-card-info {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Costos de productos/insumos sí conservan una superficie propia,
+   porque son datos destacados y no un contenedor de toda la información. */
+html[data-theme="oscuro"] .producto-card .producto-costo,
+html[data-theme="oscuro"] .insumo-card .insumo-costo,
+html[data-theme="oscuro"] .receta-card .receta-costo-item.destacado {
+  background: #30243a !important;
+  border-color: #604b70 !important;
+  color: #f8f1fb !important;
+}
+
+/* La cantidad/porción es una sola pieza destacada, no una sección gris. */
+html[data-theme="oscuro"] .producto-card .producto-porcion {
+  background: #2a2131 !important;
+  border-color: #604b70 !important;
+}
+
+/* Cotizaciones: costo total sin banda rectangular. */
+html[data-theme="oscuro"] .cotizador-card-total {
+  background: transparent !important;
+  border-top-color: #604b70 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Badges de unidad/categoría/tipo: una única familia visual. */
+html[data-theme="oscuro"] .insumo-unidad,
+html[data-theme="oscuro"] .producto-categoria,
+html[data-theme="oscuro"] .producto-tipo,
+html[data-theme="oscuro"] .producto-marca,
+html[data-theme="oscuro"] .producto-lista-tipo,
+html[data-theme="oscuro"] .producto-lista-categoria,
+html[data-theme="oscuro"] .receta-categoria,
+html[data-theme="oscuro"] .receta-rendimiento,
+html[data-theme="oscuro"] .receta-lista-badge,
+html[data-theme="oscuro"] .receta-card-badge,
+html[data-theme="oscuro"] .modal-receta-categoria {
+  background: #39294a !important;
+  color: #f1e7ff !important;
+  border: 1px solid #765694 !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+}
+
+/* Variantes semánticas: siguen diferenciándose sin usar tonos pálidos. */
+html[data-theme="oscuro"] .producto-card .tipo-topping,
+html[data-theme="oscuro"] .producto-lista-tipo.tipo-topping {
+  background: #49303d !important;
+  border-color: #8c5b70 !important;
+  color: #ffe5ee !important;
+}
+html[data-theme="oscuro"] .producto-card .tipo-salsa,
+html[data-theme="oscuro"] .producto-lista-tipo.tipo-salsa {
+  background: #43352e !important;
+  border-color: #7c604d !important;
+  color: #f8e6d6 !important;
+}
+html[data-theme="oscuro"] .producto-lista-tipo.tipo-ingrediente {
+  background: #39362d !important;
+  border-color: #746b54 !important;
+  color: #f0ead8 !important;
+}
+
+/* Texto secundario dentro de tarjetas: nunca volver al gris oscuro del tema claro. */
+html[data-theme="oscuro"] .producto-card .producto-info-item span,
+html[data-theme="oscuro"] .insumo-card .insumo-info-item span,
+html[data-theme="oscuro"] .receta-card .receta-descripcion,
+html[data-theme="oscuro"] .receta-card .receta-ingredientes-resumen p,
+html[data-theme="oscuro"] .cotizador-card-costos span,
+html[data-theme="oscuro"] .cotizador-card-fecha {
+  color: #cdbfd6 !important;
+}
+
+/* =========================================================
+   SELECTOR TARJETAS / LISTA · ESTADO SELECCIONADO
+   ========================================================= */
+
+html[data-theme="oscuro"] .view-toggle {
+  background: #1d1722 !important;
+  border: 1px solid #665171 !important;
+  padding: 3px !important;
+  border-radius: 11px !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.025) !important;
+}
+
+html[data-theme="oscuro"] .view-toggle button {
+  background: transparent !important;
+  color: #bdaec7 !important;
+  border: 1px solid transparent !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="oscuro"] .view-toggle button:hover {
+  color: #f7effb !important;
+  background: #2d2334 !important;
+}
+
+html[data-theme="oscuro"] .view-toggle .view-toggle-active {
+  background: #8b5bb8 !important;
+  color: #ffffff !important;
+  border-color: #b58ce8 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.10) !important;
+}
+
+html[data-theme="oscuro"] .view-toggle .view-toggle-active .icon-illustration,
+html[data-theme="oscuro"] .view-toggle .view-toggle-active span {
+  opacity: 1 !important;
+}
+
+/* Estados activos equivalentes en controles que usan aria-pressed. */
+html[data-theme="oscuro"] [aria-pressed="true"] {
+  background: #8b5bb8 !important;
+  color: #ffffff !important;
+  border-color: #b58ce8 !important;
+}

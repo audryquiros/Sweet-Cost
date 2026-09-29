@@ -55,8 +55,8 @@ function EmpleadoList({ empleados, vista, onVer, onEditar, onEliminar }) {
             <div><strong>{empleado.nombre}</strong><span>ID #{empleado.id}</span></div>
           </div>
           <div className="empleado-lista-contacto"><span>{empleado.correo}</span>{empleado.telefono && <span>{formatearTelefono(empleado.telefono)}</span>}</div>
-          <div className="empleado-lista-dato">{rolNombre[empleado.rol] || empleado.rol}</div>
-          <div><span className={`empleado-status empleado-status--${empleado.estado}`}>{estadoNombre[empleado.estado] || empleado.estado}</span></div>
+          <div className="empleado-lista-dato empleado-lista-rol">{rolNombre[empleado.rol] || empleado.rol}</div>
+          <div className="empleado-lista-estado"><span className={`empleado-status empleado-status--${empleado.estado}`}>{estadoNombre[empleado.estado] || empleado.estado}</span></div>
           <div className="empleado-lista-actions">
             <button type="button" onClick={() => onVer(empleado)} aria-label={`Ver ${empleado.nombre}`}><Icon type="eye" size={18} /></button>
             <button type="button" onClick={() => onEditar(empleado)} aria-label={`Editar ${empleado.nombre}`}><Icon type="edit" size={18} /></button>

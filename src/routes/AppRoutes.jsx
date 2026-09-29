@@ -12,6 +12,7 @@ import Cotizador from "../pages/Cotizador/Cotizador";
 import Pedidos from "../pages/Pedidos/Pedidos";
 import Calendario from "../pages/Calendario/Calendario";
 import Empleados from "../pages/Empleados/Empleados";
+import Configuracion from "../pages/Configuracion/Configuracion";
 
 import Nav from "../components/Nav/Nav";
 
@@ -50,16 +51,7 @@ function AppRoutes() {
           <Route path="/pedidos" element={<Pedidos />} />
           <Route path="/calendario" element={<Calendario />} />
           <Route path="/empleados" element={<Empleados />} />
-          <Route
-            path="/configuracion"
-            element={
-              <ComingSoon
-                title="Configuración"
-                description="Configura el negocio, categorías, unidades, márgenes de ganancia y opciones de accesibilidad."
-                illustration="configuracion"
-              />
-            }
-          />
+<Route path="/configuracion" element={<Configuracion />} />
           <Route
             path="/perfil"
             element={

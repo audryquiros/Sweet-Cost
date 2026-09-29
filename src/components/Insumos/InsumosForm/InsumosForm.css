@@ -3,7 +3,7 @@
   max-width: 760px;
   margin: 0 auto;
   padding: 28px;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   border: 1px solid #e3dce9;
   border-radius: 16px;
   box-shadow: 0 4px 18px rgba(109, 76, 141, 0.08);
@@ -16,14 +16,14 @@
 .insumos-form-header h2 {
   margin: 0;
   color: #352d3a;
-  font-size: 24px;
+  font-size: calc(24px * var(--sc-font-scale, 1));
 }
 
 .insumos-form-header p {
   max-width: 550px;
   margin: 8px 0 0;
   color: #776d7d;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   line-height: 1.5;
 }
 
@@ -41,7 +41,7 @@
 
 .insumo-form-group label {
   color: #352d3a;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
@@ -51,10 +51,10 @@
   padding: 11px 13px;
   border: 1px solid #e3dce9;
   border-radius: 8px;
-  background-color: #fff9f5;
+  background-color: var(--sc-bg);
   color: #352d3a;
   font-family: inherit;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   outline: none;
   transition:
     border-color 0.2s ease,
@@ -84,7 +84,7 @@
   padding: 11px 20px;
   border-radius: 8px;
   font-family: inherit;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -95,7 +95,7 @@
 
 .insumo-btn-cancelar {
   border: 1px solid #e3dce9;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #776d7d;
 }
 
@@ -129,7 +129,7 @@
   border-radius: 8px;
   background-color: #fff1f1;
   color: #c95c5c;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 @media (max-width: 650px) {
@@ -153,14 +153,14 @@
 /* Ajuste visual Sweet Cost / mockup */
 .insumos-form { max-width: 100%; margin: 0; padding: 20px; border-color: var(--sc-border); border-radius: 12px; box-shadow: var(--sc-shadow); }
 .insumos-form-header { margin-bottom: 17px; }
-.insumos-form-header h2 { font-size: 19px; color: var(--sc-text); }
-.insumos-form-header p { margin-top: 5px; font-size: 11px; color: var(--sc-text-soft); }
+.insumos-form-header h2 { font-size: calc(19px * var(--sc-font-scale, 1)); color: var(--sc-text); }
+.insumos-form-header p { margin-top: 5px; font-size: calc(11px * var(--sc-font-scale, 1)); color: var(--sc-text-soft); }
 .insumos-form form { gap: 13px; }
 .insumo-form-group { gap: 5px; }
-.insumo-form-group label { color: var(--sc-text-soft); font-size: 10px; }
-.insumo-form-group input, .insumo-form-group select { padding: 9px 10px; border-color: var(--sc-border-strong); border-radius: 7px; background: #fff; font-size: 11px; }
-.insumos-form-actions button { min-height: 35px; padding: 8px 14px; font-size: 11px; }
-.insumos-form-error { margin-bottom: 13px; padding: 10px 12px; font-size: 11px; }
+.insumo-form-group label { color: var(--sc-text-soft); font-size: calc(10px * var(--sc-font-scale, 1)); }
+.insumo-form-group input, .insumo-form-group select { padding: 9px 10px; border-color: var(--sc-border-strong); border-radius: 7px; background: var(--sc-surface); font-size: calc(11px * var(--sc-font-scale, 1)); }
+.insumos-form-actions button { min-height: 35px; padding: 8px 14px; font-size: calc(11px * var(--sc-font-scale, 1)); }
+.insumos-form-error { margin-bottom: 13px; padding: 10px 12px; font-size: calc(11px * var(--sc-font-scale, 1)); }
 
 
 /* ===== Sweet Cost · formulario armonizado ===== */
@@ -170,18 +170,18 @@
   border-radius: 12px;
   box-shadow: var(--sc-shadow);
 }
-.insumos-form-header h2 { color: var(--sc-text); font-size: 19px; }
-.insumos-form-header p { color: var(--sc-text-soft); font-size: 11px; }
-.insumo-form-group label { color: var(--sc-text-soft); font-size: 10px; }
+.insumos-form-header h2 { color: var(--sc-text); font-size: calc(19px * var(--sc-font-scale, 1)); }
+.insumos-form-header p { color: var(--sc-text-soft); font-size: calc(11px * var(--sc-font-scale, 1)); }
+.insumo-form-group label { color: var(--sc-text-soft); font-size: calc(10px * var(--sc-font-scale, 1)); }
 .insumo-form-group input,
 .insumo-form-group select {
   border-color: var(--sc-border-strong);
   border-radius: 7px;
-  background: #fff;
+  background: var(--sc-surface);
   color: var(--sc-text);
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
 }
-.insumos-form-actions button { border-radius: 8px; font-size: 11px; }
+.insumos-form-actions button { border-radius: 8px; font-size: calc(11px * var(--sc-font-scale, 1)); }
 
 
 /* ===== Sweet Cost · iconos de formulario ===== */

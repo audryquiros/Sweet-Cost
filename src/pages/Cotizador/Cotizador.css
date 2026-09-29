@@ -15,33 +15,33 @@
 }
 
 .cotizador-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 22px; }
-.cotizador-header h1 { margin: 0; color: var(--sc-text); font-size: 28px; letter-spacing: -.02em; }
-.cotizador-header p { margin: 6px 0 0; color: var(--sc-text-soft); font-size: 13px; line-height: 1.5; }
+.cotizador-header h1 { margin: 0; color: var(--sc-text); font-size: calc(28px * var(--sc-font-scale, 1)); letter-spacing: -.02em; }
+.cotizador-header p { margin: 6px 0 0; color: var(--sc-text-soft); font-size: calc(13px * var(--sc-font-scale, 1)); line-height: 1.5; }
 
 .cotizador-exito,
-.cotizador-error { margin-bottom: 14px; padding: 11px 14px; border-radius: 9px; font-size: 12px; }
+.cotizador-error { margin-bottom: 14px; padding: 11px 14px; border-radius: 9px; font-size: calc(12px * var(--sc-font-scale, 1)); }
 .cotizador-exito { background: var(--sc-success-bg); border: 1px solid #cce8d6; color: #367b54; }
 .cotizador-error { background: var(--sc-danger-bg); border: 1px solid #f0cdd2; color: #a74752; }
 
 .cotizador-lista { margin-top: 22px; }
 .cotizador-lista-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 11px; }
-.cotizador-lista-header p { margin: 0; color: var(--sc-muted); font-size: 11px; }
+.cotizador-lista-header p { margin: 0; color: var(--sc-muted); font-size: calc(11px * var(--sc-font-scale, 1)); }
 .cotizador-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 
-.cotizador-card { padding: 16px; background: #fff; border: 1px solid var(--sc-border); border-radius: 11px; box-shadow: var(--sc-shadow); }
+.cotizador-card { padding: 16px; background: var(--sc-surface); border: 1px solid var(--sc-border); border-radius: 11px; box-shadow: var(--sc-shadow); }
 .cotizador-card:hover { box-shadow: 0 9px 22px rgba(91,65,112,.09); }
 .cotizador-card-header { padding-bottom: 10px; border-bottom: 1px solid #f0eaf2; }
-.cotizador-card-header h3 { font-size: 14px; }
+.cotizador-card-header h3 { font-size: calc(14px * var(--sc-font-scale, 1)); }
 .cotizador-card-meta { gap: 5px; }
-.cotizador-card-estado { padding: 4px 8px; font-size: 9px; }
-.cotizador-card-pedido { padding: 7px 9px; font-size: 10px; border-radius: 7px; background: var(--sc-primary-dark); }
-.cotizador-card-pedido-creado { padding: 7px 9px; font-size: 9px; border-radius: 7px; }
+.cotizador-card-estado { padding: 4px 8px; font-size: calc(9px * var(--sc-font-scale, 1)); }
+.cotizador-card-pedido { padding: 7px 9px; font-size: calc(10px * var(--sc-font-scale, 1)); border-radius: 7px; background: var(--sc-primary-dark); }
+.cotizador-card-pedido-creado { padding: 7px 9px; font-size: calc(9px * var(--sc-font-scale, 1)); border-radius: 7px; }
 .cotizador-card-actions { gap: 6px; margin-top: 12px; }
-.cotizador-card-detalles, .cotizador-card-eliminar { padding: 7px 10px; font-size: 10px; border-radius: 7px; }
+.cotizador-card-detalles, .cotizador-card-eliminar { padding: 7px 10px; font-size: calc(10px * var(--sc-font-scale, 1)); border-radius: 7px; }
 
-.cotizador-vacio-lista { padding: 45px 20px; background: #fff; border: 1px dashed var(--sc-border-strong); border-radius: 12px; text-align: center; }
-.cotizador-vacio-lista h3 { margin: 0; color: var(--sc-primary-dark); font-size: 16px; }
-.cotizador-vacio-lista p { margin: 6px 0 0; color: var(--sc-text-soft); font-size: 12px; }
+.cotizador-vacio-lista { padding: 45px 20px; background: var(--sc-surface); border: 1px dashed var(--sc-border-strong); border-radius: 12px; text-align: center; }
+.cotizador-vacio-lista h3 { margin: 0; color: var(--sc-primary-dark); font-size: calc(16px * var(--sc-font-scale, 1)); }
+.cotizador-vacio-lista p { margin: 6px 0 0; color: var(--sc-text-soft); font-size: calc(12px * var(--sc-font-scale, 1)); }
 
 @media (max-width: 900px) { .cotizador-grid { grid-template-columns: 1fr; } }
 @media (max-width: 777px) {
@@ -54,11 +54,11 @@
 /* ===== Sweet Cost · página armonizada ===== */
 .cotizador-page { padding: 30px 34px 44px; }
 .cotizador-header { margin-bottom: 22px; }
-.cotizador-header h1 { font-size: 28px; line-height: 1.15; }
-.cotizador-header p { font-size: 13px; }
+.cotizador-header h1 { font-size: calc(28px * var(--sc-font-scale, 1)); line-height: 1.15; }
+.cotizador-header p { font-size: calc(13px * var(--sc-font-scale, 1)); }
 .cotizador-lista { margin-top: 22px; }
 .cotizador-lista-header { margin-bottom: 12px; }
-.cotizador-lista-header p { color: var(--sc-muted); font-size: 11px; }
+.cotizador-lista-header p { color: var(--sc-muted); font-size: calc(11px * var(--sc-font-scale, 1)); }
 .cotizador-grid { gap: 14px; }
 .cotizador-card { background: var(--sc-surface); border-radius: 12px; }
 .cotizador-card-header { border-color: #f0e9f2; }

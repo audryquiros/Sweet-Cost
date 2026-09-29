@@ -3,7 +3,7 @@
   flex-direction: column;
   height: 100%;
   padding: 22px;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   border: 1px solid #e3dce9;
   border-radius: 14px;
   box-shadow: 0 3px 12px rgba(109, 76, 141, 0.07);
@@ -38,14 +38,14 @@
 .producto-card h3 {
   margin: 0;
   color: #352d3a;
-  font-size: 19px;
+  font-size: calc(19px * var(--sc-font-scale, 1));
   line-height: 1.2;
 }
 
 .producto-marca {
   margin: 5px 0 0;
   color: #776d7d;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 /* =====================================================
@@ -74,7 +74,7 @@
   border-radius: 20px;
   background-color: #d8c8f2;
   color: #6d4c8d;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 600;
   text-transform: capitalize;
   white-space: nowrap;
@@ -104,7 +104,7 @@
   border-radius: 20px;
   background-color: #faf7fd;
   color: #6d4c8d;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 600;
   white-space: nowrap;
   box-sizing: border-box;
@@ -136,13 +136,13 @@
 
 .producto-info-item span {
   color: #776d7d;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   line-height: 1.3;
 }
 
 .producto-info-item strong {
   color: #352d3a;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   line-height: 1.3;
 }
 
@@ -163,18 +163,18 @@
 
 .producto-costo span {
   color: #776d7d;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .producto-costo strong {
   color: #6d4c8d;
-  font-size: 17px;
+  font-size: calc(17px * var(--sc-font-scale, 1));
   line-height: 1.2;
 }
 
 .producto-costo small {
   color: #6d4c8d;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
@@ -196,13 +196,13 @@
 
 .producto-porcion span {
   color: #776d7d;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   line-height: 1.3;
 }
 
 .producto-porcion strong {
   color: #6d4c8d;
-  font-size: 15px;
+  font-size: calc(15px * var(--sc-font-scale, 1));
   font-weight: 700;
   text-align: right;
 }
@@ -219,18 +219,18 @@
   gap: 15px;
   padding: 10px 14px;
   border-radius: 9px;
-  background-color: #fff9f5;
+  background-color: var(--sc-bg);
   border: 1px solid #e3dce9;
 }
 
 .producto-densidad span {
   color: #776d7d;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .producto-densidad strong {
   color: #594044;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 /* =====================================================
@@ -250,7 +250,7 @@
   padding: 8px 12px;
   border-radius: 7px;
   font-family: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -281,7 +281,7 @@
 
 .btn-editar {
   border: 1px solid #9b7ede;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #6d4c8d;
 }
 
@@ -291,7 +291,7 @@
 
 .btn-eliminar {
   border: 1px solid #c95c5c;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #c95c5c;
 }
 
@@ -341,7 +341,7 @@
   box-shadow: var(--sc-shadow);
 }
 .producto-card button,
-.producto-card a { border-radius: 8px; font-size: 10px; }
+.producto-card a { border-radius: 8px; font-size: calc(10px * var(--sc-font-scale, 1)); }
 
 
 

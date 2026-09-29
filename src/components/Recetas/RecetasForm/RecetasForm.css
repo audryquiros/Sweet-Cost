@@ -3,7 +3,7 @@
   max-width: 900px;
   margin: 0 auto;
   padding: 28px;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   border: 1px solid #e3dce9;
   border-radius: 16px;
   box-shadow: 0 4px 18px rgba(109, 76, 141, 0.08);
@@ -16,14 +16,14 @@
 .recetas-form-header h2 {
   margin: 0;
   color: #352d3a;
-  font-size: 24px;
+  font-size: calc(24px * var(--sc-font-scale, 1));
 }
 
 .recetas-form-header p {
   max-width: 600px;
   margin: 8px 0 0;
   color: #776d7d;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   line-height: 1.5;
 }
 
@@ -41,7 +41,7 @@
 
 .receta-form-group label {
   color: #352d3a;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
@@ -51,10 +51,10 @@
   padding: 11px 13px;
   border: 1px solid #e3dce9;
   border-radius: 8px;
-  background-color: #fff9f5;
+  background-color: var(--sc-bg);
   color: #352d3a;
   font-family: inherit;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   outline: none;
   transition:
     border-color 0.2s ease,
@@ -91,13 +91,13 @@
 .receta-ingredientes-header h3 {
   margin: 0;
   color: #6d4c8d;
-  font-size: 20px;
+  font-size: calc(20px * var(--sc-font-scale, 1));
 }
 
 .receta-ingredientes-header p {
   margin: 5px 0 0;
   color: #776d7d;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 .btn-agregar-ingrediente {
@@ -105,10 +105,10 @@
   padding: 10px 15px;
   border: 1px solid #9b7ede;
   border-radius: 8px;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #6d4c8d;
   font-family: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -130,19 +130,19 @@
   text-align: center;
   border: 1px dashed #d8c8f2;
   border-radius: 10px;
-  background-color: #fff9f5;
+  background-color: var(--sc-bg);
 }
 
 .ingredientes-vacio p {
   margin: 0 0 5px;
   color: #6d4c8d;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
 .ingredientes-vacio span {
   color: #776d7d;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
 }
 
 .ingredientes-lista {
@@ -159,7 +159,7 @@
   padding: 15px;
   border: 1px solid #e3dce9;
   border-radius: 10px;
-  background-color: #fff9f5;
+  background-color: var(--sc-bg);
 }
 
 .ingrediente-campo {
@@ -170,7 +170,7 @@
 
 .ingrediente-campo label {
   color: #776d7d;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 600;
 }
 
@@ -180,10 +180,10 @@
   padding: 10px 11px;
   border: 1px solid #e3dce9;
   border-radius: 7px;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #352d3a;
   font-family: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   outline: none;
 }
 
@@ -204,10 +204,10 @@
   padding: 0 13px;
   border: 1px solid #c95c5c;
   border-radius: 7px;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #c95c5c;
   font-family: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -235,7 +235,7 @@
   padding: 11px 20px;
   border-radius: 8px;
   font-family: inherit;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -245,7 +245,7 @@
 
 .receta-btn-cancelar {
   border: 1px solid #e3dce9;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #776d7d;
 }
 
@@ -281,7 +281,7 @@
   border-radius: 8px;
   background-color: #fff1f1;
   color: #c95c5c;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 /* RESPONSIVE */
@@ -346,22 +346,22 @@
 /* Ajuste visual Sweet Cost / mockup */
 .recetas-form { max-width: 100%; margin: 0; padding: 20px; border-color: var(--sc-border); border-radius: 12px; box-shadow: var(--sc-shadow); }
 .recetas-form-header { margin-bottom: 17px; }
-.recetas-form-header h2 { font-size: 19px; color: var(--sc-text); }
-.recetas-form-header p { margin-top: 5px; font-size: 11px; color: var(--sc-text-soft); }
+.recetas-form-header h2 { font-size: calc(19px * var(--sc-font-scale, 1)); color: var(--sc-text); }
+.recetas-form-header p { margin-top: 5px; font-size: calc(11px * var(--sc-font-scale, 1)); color: var(--sc-text-soft); }
 .recetas-form form { gap: 13px; }
 .receta-form-group { gap: 5px; }
-.receta-form-group label { color: var(--sc-text-soft); font-size: 10px; }
-.receta-form-group input, .receta-form-group select { padding: 9px 10px; border-color: var(--sc-border-strong); border-radius: 7px; background: #fff; font-size: 11px; }
+.receta-form-group label { color: var(--sc-text-soft); font-size: calc(10px * var(--sc-font-scale, 1)); }
+.receta-form-group input, .receta-form-group select { padding: 9px 10px; border-color: var(--sc-border-strong); border-radius: 7px; background: var(--sc-surface); font-size: calc(11px * var(--sc-font-scale, 1)); }
 .receta-ingredientes { margin-top: 6px; padding-top: 18px; border-color: var(--sc-border); }
 .receta-ingredientes-header { margin-bottom: 12px; }
-.receta-ingredientes-header h3 { font-size: 15px; }
-.receta-ingredientes-header p { font-size: 10px; }
-.btn-agregar-ingrediente { padding: 8px 11px; border-color: var(--sc-primary); font-size: 10px; }
-.ingrediente-item { grid-template-columns: 2fr 1fr .8fr auto; gap: 8px; padding: 10px; border-color: var(--sc-border); background: #fbf8fc; }
+.receta-ingredientes-header h3 { font-size: calc(15px * var(--sc-font-scale, 1)); }
+.receta-ingredientes-header p { font-size: calc(10px * var(--sc-font-scale, 1)); }
+.btn-agregar-ingrediente { padding: 8px 11px; border-color: var(--sc-primary); font-size: calc(10px * var(--sc-font-scale, 1)); }
+.ingrediente-item { grid-template-columns: 2fr 1fr .8fr auto; gap: 8px; padding: 10px; border-color: var(--sc-border); background: var(--sc-surface-soft); }
 .ingrediente-campo { gap: 4px; }
-.ingrediente-campo label { font-size: 9px; }
-.ingrediente-campo input, .ingrediente-campo select { padding: 8px 9px; border-color: var(--sc-border-strong); font-size: 10px; }
-.btn-eliminar-ingrediente { height: 34px; font-size: 10px; }
+.ingrediente-campo label { font-size: calc(9px * var(--sc-font-scale, 1)); }
+.ingrediente-campo input, .ingrediente-campo select { padding: 8px 9px; border-color: var(--sc-border-strong); font-size: calc(10px * var(--sc-font-scale, 1)); }
+.btn-eliminar-ingrediente { height: 34px; font-size: calc(10px * var(--sc-font-scale, 1)); }
 
 
 /* ===== Sweet Cost · formulario armonizado ===== */
@@ -372,24 +372,24 @@
   box-shadow: var(--sc-shadow);
   padding: 20px;
 }
-.recetas-form-header h2 { color: var(--sc-text); font-size: 19px; }
-.recetas-form-header p { color: var(--sc-text-soft); font-size: 11px; }
+.recetas-form-header h2 { color: var(--sc-text); font-size: calc(19px * var(--sc-font-scale, 1)); }
+.recetas-form-header p { color: var(--sc-text-soft); font-size: calc(11px * var(--sc-font-scale, 1)); }
 .receta-form-group label,
-.ingrediente-campo label { color: var(--sc-text-soft); font-size: 10px; }
+.ingrediente-campo label { color: var(--sc-text-soft); font-size: calc(10px * var(--sc-font-scale, 1)); }
 .receta-form-group input,
 .receta-form-group select,
 .ingrediente-campo input,
 .ingrediente-campo select {
   border-color: var(--sc-border-strong);
   border-radius: 7px;
-  background: #fff;
+  background: var(--sc-surface);
   color: var(--sc-text);
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
 }
 .receta-btn-cancelar,
 .receta-btn-guardar,
 .btn-agregar-ingrediente,
-.btn-eliminar-ingrediente { border-radius: 8px; font-size: 11px; }
+.btn-eliminar-ingrediente { border-radius: 8px; font-size: calc(11px * var(--sc-font-scale, 1)); }
 
 
 
@@ -400,7 +400,7 @@
   overflow-x: auto;
   border: 1px solid var(--sc-border);
   border-radius: 9px;
-  background: #fbf8fc;
+  background: var(--sc-surface-soft);
 }
 
 .ingredientes-tabla {
@@ -419,7 +419,7 @@
   border-bottom: 1px solid var(--sc-border);
   background: #f8f3fb;
   color: var(--sc-text-soft);
-  font-size: 9px;
+  font-size: calc(9px * var(--sc-font-scale, 1));
   font-weight: 700;
   text-align: left;
   white-space: nowrap;
@@ -433,7 +433,7 @@
 .ingredientes-tabla td {
   padding: 7px 8px;
   border-bottom: 1px solid #eee6f2;
-  background: #fbf8fc;
+  background: var(--sc-surface-soft);
   vertical-align: middle;
 }
 
@@ -453,10 +453,10 @@
   padding: 7px 9px;
   border: 1px solid var(--sc-border-strong);
   border-radius: 7px;
-  background: #fff;
+  background: var(--sc-surface);
   color: var(--sc-text);
   font-family: inherit;
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
   outline: none;
 }
 
@@ -501,12 +501,12 @@
 .ingredientes-tabla-vacia strong {
   margin-bottom: 5px;
   color: var(--sc-primary-dark);
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
 }
 
 .ingredientes-tabla-vacia span {
   color: var(--sc-text-soft);
-  font-size: 10px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
 }
 
 @media (max-width: 777px) {

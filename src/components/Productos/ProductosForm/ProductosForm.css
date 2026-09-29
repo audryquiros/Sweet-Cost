@@ -3,7 +3,7 @@
   max-width: 1000px;
   margin: 0 auto 30px;
   padding: 32px;
-  background: #ffffff;
+  background: var(--sc-surface);
   border: 1px solid #e7def5;
   border-radius: 20px;
   box-sizing: border-box;
@@ -37,7 +37,7 @@
   border-radius: 8px;
   background: #fff1f1;
   color: #c95c5c;
-  font-size: 14px;
+  font-size: calc(14px * var(--sc-font-scale, 1));
 }
 
 /* GRID */
@@ -75,7 +75,7 @@
   padding: 0 14px;
   border: 1px solid #d9cde8;
   border-radius: 10px;
-  background: #ffffff;
+  background: var(--sc-surface);
   color: #3f3157;
   font-family: inherit;
   font-size: 0.95rem;
@@ -125,7 +125,7 @@
   min-height: 46px;
   border: 1px solid #d9cde8;
   border-radius: 10px;
-  background: #ffffff;
+  background: var(--sc-surface);
   overflow: hidden;
   transition:
     border-color 0.2s ease,
@@ -233,7 +233,7 @@
   gap: 7px;
   padding: 12px 14px;
   border-radius: 10px;
-  background: #ffffff;
+  background: var(--sc-surface);
 }
 
 .productos-form .resumen-item span {
@@ -367,16 +367,16 @@
 /* Ajuste visual Sweet Cost / mockup */
 .productos-form { max-width: 100%; margin: 0; padding: 20px; border: 1px solid var(--sc-border); border-radius: 12px; box-shadow: var(--sc-shadow); }
 .productos-form-header { margin-bottom: 18px; }
-.productos-form-header h2 { font-size: 19px; color: var(--sc-text); }
-.productos-form-header p { font-size: 11px; color: var(--sc-text-soft); }
+.productos-form-header h2 { font-size: calc(19px * var(--sc-font-scale, 1)); color: var(--sc-text); }
+.productos-form-header p { font-size: calc(11px * var(--sc-font-scale, 1)); color: var(--sc-text-soft); }
 .productos-form-grid { gap: 13px; }
 .productos-form .form-group { gap: 5px; }
-.productos-form .form-group label { color: var(--sc-text-soft); font-size: 10px; }
+.productos-form .form-group label { color: var(--sc-text-soft); font-size: calc(10px * var(--sc-font-scale, 1)); }
 .productos-form .form-group input,
-.productos-form .form-group select { min-height: 36px; padding: 0 10px; border-color: var(--sc-border-strong); border-radius: 7px; font-size: 11px; }
-.productos-form .form-group small { font-size: 9px; }
-.productos-form .producto-porcion { padding: 13px; border-color: var(--sc-border); border-radius: 9px; background: #fbf8fc; }
-.productos-form .productos-form-nota { margin-top: 17px; padding: 11px 13px; border-left-width: 3px; background: #fbf8fc; font-size: 11px; }
+.productos-form .form-group select { min-height: 36px; padding: 0 10px; border-color: var(--sc-border-strong); border-radius: 7px; font-size: calc(11px * var(--sc-font-scale, 1)); }
+.productos-form .form-group small { font-size: calc(9px * var(--sc-font-scale, 1)); }
+.productos-form .producto-porcion { padding: 13px; border-color: var(--sc-border); border-radius: 9px; background: var(--sc-surface-soft); }
+.productos-form .productos-form-nota { margin-top: 17px; padding: 11px 13px; border-left-width: 3px; background: var(--sc-surface-soft); font-size: calc(11px * var(--sc-font-scale, 1)); }
 
 
 /* ===== Sweet Cost · formulario armonizado ===== */
@@ -388,18 +388,18 @@
   padding: 20px;
 }
 .productos-form h2,
-.productos-form-header h2 { color: var(--sc-text); font-size: 19px; }
+.productos-form-header h2 { color: var(--sc-text); font-size: calc(19px * var(--sc-font-scale, 1)); }
 .productos-form p,
-.productos-form-header p { color: var(--sc-text-soft); font-size: 11px; }
-.productos-form label { color: var(--sc-text-soft); font-size: 10px; }
+.productos-form-header p { color: var(--sc-text-soft); font-size: calc(11px * var(--sc-font-scale, 1)); }
+.productos-form label { color: var(--sc-text-soft); font-size: calc(10px * var(--sc-font-scale, 1)); }
 .productos-form input,
 .productos-form select,
 .productos-form textarea {
   border-color: var(--sc-border-strong);
   border-radius: 7px;
-  background: #fff;
+  background: var(--sc-surface);
   color: var(--sc-text);
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
 }
 .productos-form input:focus,
 .productos-form select:focus,
@@ -407,7 +407,7 @@
   border-color: var(--sc-primary);
   box-shadow: 0 0 0 3px rgba(155,126,222,.12);
 }
-.productos-form button { border-radius: 8px; font-size: 11px; }
+.productos-form button { border-radius: 8px; font-size: calc(11px * var(--sc-font-scale, 1)); }
 
 
 /* ===== Sweet Cost · iconos de formulario ===== */

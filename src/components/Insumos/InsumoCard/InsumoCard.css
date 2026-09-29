@@ -1,6 +1,6 @@
 .insumo-card {
   padding: 22px;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   border: 1px solid #e3dce9;
   border-radius: 14px;
   box-shadow: 0 3px 12px rgba(109, 76, 141, 0.07);
@@ -27,13 +27,13 @@
 .insumo-card h3 {
   margin: 0;
   color: #352d3a;
-  font-size: 18px;
+  font-size: calc(18px * var(--sc-font-scale, 1));
 }
 
 .insumo-presentacion {
   margin: 5px 0 0;
   color: #776d7d;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   line-height: 1.4;
 }
 
@@ -42,7 +42,7 @@
   border-radius: 20px;
   background-color: #d8c8f2;
   color: #6d4c8d;
-  font-size: 11px;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 600;
   text-transform: capitalize;
   white-space: nowrap;
@@ -67,12 +67,12 @@
 
 .insumo-info-item span {
   color: #776d7d;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .insumo-info-item strong {
   color: #352d3a;
-  font-size: 15px;
+  font-size: calc(15px * var(--sc-font-scale, 1));
 }
 
 /* COSTO UNITARIO */
@@ -93,12 +93,12 @@
 
 .insumo-costo span {
   color: #776d7d;
-  font-size: 12px;
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
 .insumo-costo strong {
   color: #6d4c8d;
-  font-size: 18px;
+  font-size: calc(18px * var(--sc-font-scale, 1));
 }
 
 /* BOTONES */
@@ -119,7 +119,7 @@
   gap: 9px;
   border-radius: 8px;
   font-family: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--sc-font-scale, 1));
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -140,7 +140,7 @@
 
 .insumo-btn-editar {
   border: 1px solid #9b7ede;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #6d4c8d;
 }
 
@@ -150,7 +150,7 @@
 
 .insumo-btn-eliminar {
   border: 1px solid #c95c5c;
-  background-color: #ffffff;
+  background-color: var(--sc-surface);
   color: #c95c5c;
 }
 

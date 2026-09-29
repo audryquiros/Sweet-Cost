@@ -123,3 +123,8 @@
     width: 100%;
   }
 }
+
+.filter-select-menu-portal {
+  position: fixed;
+  margin: 0;
+}

@@ -44,6 +44,7 @@ function AppRoutes() {
           <Route path="/insumos" element={<Insumos />} />
           <Route path="/recetas" element={<Recetas />} />
           <Route path="/cotizaciones" element={<Cotizador />} />
+          <Route path="/cotizaciones/:id" element={<Cotizador />} />
 
           <Route path="/pedidos" element={<Pedidos />} />
           <Route path="/calendario" element={<Calendario />} />

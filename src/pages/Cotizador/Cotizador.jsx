@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import {
   getCotizaciones,
@@ -19,6 +20,7 @@ import Confirmacion from "../../components/Confirmacion/Confirmacion";
 import "./Cotizador.css";
 
 function Cotizador() {
+  const { id: cotizacionId } = useParams();
   const [cotizaciones, setCotizaciones] =
     useState([]);
 
@@ -315,6 +317,7 @@ function Cotizador() {
             handleAbrirConversion
           }
           vista={vista}
+          cotizacionIdParaAbrir={cotizacionId}
         />
       </section>
 

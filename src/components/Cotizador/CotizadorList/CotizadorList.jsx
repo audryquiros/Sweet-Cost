@@ -3,7 +3,7 @@ import Icon from "../../common/Icon/Icon";
 import EmptyState from "../../common/EmptyState/EmptyState";
 import "./CotizadorList.css";
 
-function CotizadorList({ cotizaciones, insumos, onEliminar, onConvertirPedido, vista = "cards" }) {
+function CotizadorList({ cotizaciones, insumos, onEliminar, onConvertirPedido, vista = "cards", cotizacionIdParaAbrir }) {
   if (cotizaciones.length === 0) {
     return (
       <EmptyState
@@ -37,7 +37,20 @@ function CotizadorList({ cotizaciones, insumos, onEliminar, onConvertirPedido, v
     </div>;
   }
 
-  return <div className="cotizador-grid">{cotizaciones.map((cotizacion) => <CotizadorCard key={cotizacion.id} cotizacion={cotizacion} insumos={insumos} onEliminar={onEliminar} onConvertirPedido={onConvertirPedido} />)}</div>;
+  return (
+    <div className="cotizador-grid">
+      {cotizaciones.map((cotizacion) => (
+        <CotizadorCard
+          key={cotizacion.id}
+          cotizacion={cotizacion}
+          insumos={insumos}
+          onEliminar={onEliminar}
+          onConvertirPedido={onConvertirPedido}
+          abrirDetalles={String(cotizacion.id) === String(cotizacionIdParaAbrir)}
+        />
+      ))}
+    </div>
+  );
 }
 
 export default CotizadorList;

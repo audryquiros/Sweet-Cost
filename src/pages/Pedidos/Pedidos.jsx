@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getPedidos, updatePedido, deletePedido } from "../../services/pedidoServices";
 import { getCotizaciones } from "../../services/cotizadorServices";
 import Confirmacion from "../../components/Confirmacion/Confirmacion";
 import EmptyState from "../../components/common/EmptyState/EmptyState";
 import Icon from "../../components/common/Icon/Icon";
+import FilterSelect from "../../components/common/FilterSelect";
 
 import "./Pedidos.css";
 
@@ -25,6 +27,7 @@ function formatearHora(hora) {
 }
 
 function Pedidos() {
+  const navigate = useNavigate();
   const [pedidos, setPedidos] = useState([]);
   const [cotizaciones, setCotizaciones] = useState([]);
   const [busqueda, setBusqueda] = useState("");
@@ -191,14 +194,15 @@ function Pedidos() {
                   <td><strong>{formatearHora(pedido.horaEntrega)}</strong></td>
                   <td><strong>₡{Number(pedido.precioSugerido || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></td>
                   <td>
-                    <select
-                      className={`pedido-estado-select ${String(pedido.estado).toLowerCase().replaceAll(" ", "-")}`}
+                    <FilterSelect
+                      id={`estado-${pedido.id}`}
+                      label=""
                       value={pedido.estado}
-                      onChange={(e) => cambiarEstado(pedido, e.target.value)}
-                      aria-label={`Estado del pedido ${pedido.id}`}
-                    >
-                      {ESTADOS.map((estado) => <option key={estado} value={estado}>{estado}</option>)}
-                    </select>
+                      options={ESTADOS.map((estado) => ({ valor: estado, nombre: estado }))}
+                      onChange={(estado) => cambiarEstado(pedido, estado)}
+                      className={`pedido-estado-filter pedido-estado-${String(pedido.estado || "Pendiente").toLowerCase().replaceAll(" ", "-")}`}
+                      portalMenu
+                    />
                   </td>
                   <td>
                     <div className="pedido-acciones">
@@ -233,7 +237,24 @@ function Pedidos() {
               <div><span>Saldo</span><strong>₡{Number(detalle.saldo || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>
               <div><span>Total</span><strong>₡{Number(detalle.precioSugerido || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>
             </div>
-            {cotizacionRelacionada(detalle) && <div className="pedido-origen">Este pedido fue generado desde la cotización <strong>{cotizacionRelacionada(detalle).nombre}</strong>.</div>}
+            {cotizacionRelacionada(detalle) && (
+              <>
+                <div className="pedido-origen">
+                  <div>
+                    <span>Origen del pedido</span>
+                    <strong>{cotizacionRelacionada(detalle).nombre}</strong>
+                  </div>
+                  <button
+                    type="button"
+                    className="pedido-ver-cotizacion"
+                    onClick={() => navigate(`/cotizaciones/${detalle.cotizacionId}`)}
+                  >
+                    <img src="/illustrations/cotizaciones-recibo.png" alt="" aria-hidden="true" />
+                    <span>Ver cotización</span>
+                  </button>
+                </div>
+              </>
+            )}
             {detalle.observaciones && <div className="pedido-observaciones"><span>Observaciones</span><p>{detalle.observaciones}</p></div>}
           </div>
         </div>

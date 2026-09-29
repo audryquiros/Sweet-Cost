@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Icon from "../../common/Icon/Icon";
 
@@ -9,9 +9,16 @@ function CotizadorCard({
   insumos = [],
   onEliminar,
   onConvertirPedido,
+  abrirDetalles = false,
 }) {
   const [mostrarDetalles, setMostrarDetalles] =
     useState(false);
+
+  useEffect(() => {
+    if (abrirDetalles) {
+      setMostrarDetalles(true);
+    }
+  }, [abrirDetalles]);
 
   const formatoMoneda = (valor) => {
     return `₡${Number(valor || 0).toFixed(2)}`;
@@ -330,15 +337,6 @@ function CotizadorCard({
                 </p>
               </div>
 
-              <button
-                type="button"
-                className="cotizador-modal-cerrar"
-                onClick={() =>
-                  setMostrarDetalles(false)
-                }
-              >
-                <Icon type="close" size={17} />
-              </button>
             </div>
 
             {/* INFORMACIÓN DE LA VENTA */}

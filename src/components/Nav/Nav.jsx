@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Icon from "../common/Icon/Icon";
 import "./Nav.css";
@@ -68,24 +68,56 @@ function SidebarLink({ item, onNavigate }) {
 
 function Nav() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const responsiveModeRef = useRef(
+    typeof window === "undefined"
+      ? "desktop"
+      : window.innerWidth <= 777
+        ? "mobile"
+        : window.innerWidth <= 1024
+          ? "tablet"
+          : "desktop"
+  );
 
   useEffect(() => {
+    const getMode = () => {
+      if (window.innerWidth <= 777) return "mobile";
+      if (window.innerWidth <= 1024) return "tablet";
+      return "desktop";
+    };
+
     const handleResize = () => {
-      if (window.innerWidth > 777) {
+      const nextMode = getMode();
+
+      // Al entrar/cambiar entre desktop, tablet y mobile el menú siempre
+      // comienza cerrado. Así nunca queda "pegado" sobre el contenido.
+      if (nextMode !== responsiveModeRef.current) {
         setIsMobileOpen(false);
+        responsiveModeRef.current = nextMode;
       }
     };
 
-    window.addEventListener("resize", handleResize);
+    const handleVisibilityChange = () => {
+      // Al volver a la pestaña no restauramos un sidebar abierto.
+      if (document.hidden) setIsMobileOpen(false);
+    };
 
-    if (isMobileOpen && window.innerWidth <= 777) {
-      document.body.classList.add("sidebar-open");
-    } else {
-      document.body.classList.remove("sidebar-open");
-    }
+    window.addEventListener("resize", handleResize);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      document.body.classList.remove("sidebar-open");
+    };
+  }, []);
+
+  useEffect(() => {
+    document.body.classList.toggle(
+      "sidebar-open",
+      isMobileOpen && window.innerWidth <= 1024
+    );
+
+    return () => {
       document.body.classList.remove("sidebar-open");
     };
   }, [isMobileOpen]);
@@ -104,12 +136,7 @@ function Nav() {
         aria-expanded={isMobileOpen}
         onClick={() => setIsMobileOpen(true)}
       >
-        <img
-          src="/illustrations/menu.png"
-          alt=""
-          aria-hidden="true"
-          className="mobile-menu-icon"
-        />
+        <Icon type="menu" size={22} strokeWidth={2} className="mobile-menu-icon" />
       </button>
 
       {/* Fondo para cerrar el menú */}

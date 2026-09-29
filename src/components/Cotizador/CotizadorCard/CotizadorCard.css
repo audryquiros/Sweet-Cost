@@ -948,3 +948,11 @@
 
 /* Iconos del sistema Sweet Cost */
 button svg { flex: 0 0 auto; }
+
+/* Responsive sizing is controlled centrally from responsive.css. */
+.cotizador-card,
+.cotizador-card-actions,
+.cotizador-card-actions > button {
+  min-width: 0;
+  box-sizing: border-box;
+}

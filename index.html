@@ -1,6 +1,17 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      (() => {
+        try {
+          const root = document.documentElement;
+          root.dataset.theme = localStorage.getItem("sweetcost-tema") || "claro";
+          root.dataset.fontSize = localStorage.getItem("sweetcost-tamano-texto") || "medio";
+          root.dataset.colorVision = localStorage.getItem("sweetcost-daltonismo") || "normal";
+          root.dataset.contrast = localStorage.getItem("sweetcost-alto-contraste") === "true" ? "alto" : "normal";
+        } catch (_) {}
+      })();
+    </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/logoSC.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

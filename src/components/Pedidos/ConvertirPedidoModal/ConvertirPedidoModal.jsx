@@ -426,21 +426,24 @@ function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
                 <img src="/illustrations/etiqueta.png" alt="" aria-hidden="true" />
                 <span>Pago inicial</span>
               </label>
-              <select
+              <FilterSelect
                 id="depositoPorcentaje"
-                name="depositoPorcentaje"
+                label=""
                 value={formulario.depositoPorcentaje}
-                onChange={handleChange}
-              >
-                <option value="30">Depósito del 30%</option>
-                <option value="40">Depósito del 40%</option>
-                <option value="50">Depósito del 50%</option>
-                <option value="60">Depósito del 60%</option>
-                <option value="70">Depósito del 70%</option>
-                <option value="80">Depósito del 80%</option>
-                <option value="90">Depósito del 90%</option>
-                <option value="100">Pago completo</option>
-              </select>
+                options={[
+                  { valor: "30", nombre: "Depósito del 30%" },
+                  { valor: "40", nombre: "Depósito del 40%" },
+                  { valor: "50", nombre: "Depósito del 50%" },
+                  { valor: "60", nombre: "Depósito del 60%" },
+                  { valor: "70", nombre: "Depósito del 70%" },
+                  { valor: "80", nombre: "Depósito del 80%" },
+                  { valor: "90", nombre: "Depósito del 90%" },
+                  { valor: "100", nombre: "Pago completo" },
+                ]}
+                onChange={(value) => setFormulario((actual) => ({ ...actual, depositoPorcentaje: value }))}
+                className="convertir-pedido-select convertir-pedido-deposito-select"
+                portalMenu
+              />
             </div>
             <div className="convertir-pedido-field">
               <label className="convertir-pedido-label-with-icon">

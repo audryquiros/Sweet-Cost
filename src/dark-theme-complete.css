@@ -252,7 +252,6 @@ html[data-theme="oscuro"] .cotizador-card-precio-total {
 
 /* Listas/tablas */
 html[data-theme="oscuro"] .productos-lista-header,
-html[data-theme="oscuro"] .insumos-lista-header,
 html[data-theme="oscuro"] .recetas-table-header,
 html[data-theme="oscuro"] .cotizador-table-header,
 html[data-theme="oscuro"] .pedidos-table-header,
@@ -760,4 +759,246 @@ html[data-theme="oscuro"] [aria-pressed="true"] {
   background: #8b5bb8 !important;
   color: #ffffff !important;
   border-color: #b58ce8 !important;
+}
+
+
+/* =========================================================
+   Sweet Cost · Correcciones finales de consistencia
+   ========================================================= */
+
+/* Empleados: la información no debe parecer una tarjeta dentro de la tarjeta. */
+html[data-theme="oscuro"] .empleado-card-info {
+  background: transparent !important;
+  border-top: 1px solid #4b3c54 !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="oscuro"] .empleado-card-info div {
+  background: transparent !important;
+  color: #ded2e5 !important;
+}
+
+/* La sombra de las cards debe ser sutil; nunca formar una segunda superficie. */
+html[data-theme="oscuro"] .empleado-card,
+html[data-theme="oscuro"] .empleado-lista-item {
+  box-shadow: 0 5px 14px rgba(0,0,0,.16) !important;
+}
+
+/* Dropdown universal dentro de Convertir en pedido. */
+html[data-theme="oscuro"] .convertir-pedido-deposito-select .filter-select-trigger,
+html[data-theme="oscuro"] .convertir-pedido-deposito-select .filter-select-menu {
+  background: #211b26 !important;
+  color: #f8f1fa !important;
+  border-color: #665171 !important;
+}
+html[data-theme="oscuro"] .convertir-pedido-deposito-select .filter-select-option {
+  color: #ded2e5 !important;
+  background: transparent !important;
+}
+html[data-theme="oscuro"] .convertir-pedido-deposito-select .filter-select-option:hover,
+html[data-theme="oscuro"] .convertir-pedido-deposito-select .filter-select-option.selected {
+  background: #39294a !important;
+  color: #ffffff !important;
+}
+html[data-theme="oscuro"] .convertir-pedido-deposito-select .filter-select-check {
+  color: #d9bdf4 !important;
+}
+
+/* Selectores comunes: misma apariencia en todos los módulos. */
+html[data-theme="oscuro"] .filter-select-trigger {
+  background: #211b26 !important;
+  color: #f8f1fa !important;
+  border-color: #665171 !important;
+}
+html[data-theme="oscuro"] .filter-select-trigger:hover {
+  background: #2c2333 !important;
+  border-color: #9b7ede !important;
+}
+html[data-theme="oscuro"] .filter-select-menu {
+  background: #211b26 !important;
+  border-color: #665171 !important;
+  box-shadow: 0 14px 30px rgba(0,0,0,.28) !important;
+}
+html[data-theme="oscuro"] .filter-select-option {
+  color: #ded2e5 !important;
+}
+html[data-theme="oscuro"] .filter-select-option:hover,
+html[data-theme="oscuro"] .filter-select-option.selected {
+  background: #39294a !important;
+  color: #ffffff !important;
+}
+
+/* Detalle de pedido: iconos de cada dato. */
+html[data-theme="oscuro"] .pedido-detalle-grid div {
+  background: #211b26 !important;
+  border: 1px solid #3f3447 !important;
+}
+html[data-theme="oscuro"] .pedido-detalle-grid span {
+  color: #cdbfd6 !important;
+}
+html[data-theme="oscuro"] .pedido-detalle-grid span img {
+  opacity: 1 !important;
+}
+
+/* Mensaje de pedido creado. */
+html[data-theme="oscuro"] .cotizador-exito {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  background: #243b2f !important;
+  border-color: #4d8a64 !important;
+  color: #ecfff3 !important;
+}
+html[data-theme="oscuro"] .cotizador-exito-ver-pedido {
+  background: #8b5bb8 !important;
+  border-color: #b58ce8 !important;
+  color: #ffffff !important;
+}
+
+/* Botón nueva cotización con el mismo lenguaje de acciones primarias. */
+html[data-theme="oscuro"] .btn-nueva-cotizacion {
+  background: #8b5bb8 !important;
+  color: #ffffff !important;
+  border-color: #b58ce8 !important;
+}
+
+
+/* =========================================================
+   Barras de búsqueda · una sola superficie visual
+   ========================================================= */
+html[data-theme="oscuro"] .empleados-busqueda,
+html[data-theme="oscuro"] .pedidos-busqueda {
+  background: #37303e !important;
+  border-color: #6f5d7b !important;
+  color: #efe7f3 !important;
+}
+
+html[data-theme="oscuro"] .empleados-busqueda input,
+html[data-theme="oscuro"] .pedidos-busqueda input {
+  background: transparent !important;
+  color: #fffaff !important;
+}
+
+html[data-theme="oscuro"] .empleados-busqueda input::placeholder,
+html[data-theme="oscuro"] .pedidos-busqueda input::placeholder {
+  color: #cfc2d7 !important;
+}
+
+html[data-theme="oscuro"] .empleados-busqueda:focus-within,
+html[data-theme="oscuro"] .pedidos-busqueda:focus-within {
+  background: #3c3444 !important;
+  border-color: #b58ce8 !important;
+  box-shadow: 0 0 0 3px rgba(181, 140, 232, .18) !important;
+}
+
+.search-bar-icon {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  object-fit: contain;
+  display: block;
+}
+
+html[data-theme="oscuro"] .search-bar-icon {
+  filter: brightness(1.08) saturate(.95);
+}
+
+/* Evita que la capa de tema pinte una superficie distinta en el contenido de búsqueda. */
+html[data-theme="oscuro"] .empleados-busqueda > input,
+html[data-theme="oscuro"] .pedidos-busqueda > input {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* =========================================================
+   Buscadores · una única superficie, sin franjas internas
+   ========================================================= */
+html[data-theme="oscuro"] .empleados-busqueda,
+html[data-theme="oscuro"] .empleados-busqueda input,
+html[data-theme="oscuro"] .pedidos-busqueda,
+html[data-theme="oscuro"] .pedidos-busqueda input {
+  background: #37303e !important;
+}
+
+html[data-theme="oscuro"] .empleados-busqueda,
+html[data-theme="oscuro"] .pedidos-busqueda {
+  overflow: hidden !important;
+}
+
+html[data-theme="oscuro"] .empleados-busqueda .search-bar-icon,
+html[data-theme="oscuro"] .pedidos-busqueda .search-bar-icon {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: brightness(1.08) saturate(.95);
+}
+
+html[data-theme="oscuro"] .empleados-busqueda:focus-within,
+html[data-theme="oscuro"] .pedidos-busqueda:focus-within {
+  background: #37303e !important;
+  box-shadow: 0 0 0 3px rgba(181, 140, 232, .18) !important;
+}
+
+html[data-theme="oscuro"] .empleados-busqueda:focus-within input,
+html[data-theme="oscuro"] .pedidos-busqueda:focus-within input {
+  background: #37303e !important;
+}
+
+/* El buscador debe conservar una sola superficie también en modo claro. */
+html:not([data-theme="oscuro"]) .empleados-busqueda,
+html:not([data-theme="oscuro"]) .empleados-busqueda input,
+html:not([data-theme="oscuro"]) .pedidos-busqueda,
+html:not([data-theme="oscuro"]) .pedidos-busqueda input {
+  background: var(--sc-surface) !important;
+}
+
+html:not([data-theme="oscuro"]) .empleados-busqueda .search-bar-icon,
+html:not([data-theme="oscuro"]) .pedidos-busqueda .search-bar-icon {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* =========================================================
+   Buscadores: una única superficie real
+   Evita que el navegador o estilos heredados creen una franja
+   interna distinta dentro del input de búsqueda.
+   ========================================================= */
+html[data-theme="oscuro"] .empleados-busqueda,
+html[data-theme="oscuro"] .empleados-busqueda input,
+html[data-theme="oscuro"] .empleados-busqueda input[type="search"],
+html[data-theme="oscuro"] .pedidos-busqueda,
+html[data-theme="oscuro"] .pedidos-busqueda input,
+html[data-theme="oscuro"] .pedidos-busqueda input[type="search"] {
+  background: #37303e !important;
+  background-color: #37303e !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="oscuro"] .empleados-busqueda input[type="search"],
+html[data-theme="oscuro"] .pedidos-busqueda input[type="search"] {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  color-scheme: dark;
+}
+
+html[data-theme="oscuro"] .empleados-busqueda input[type="search"]::-webkit-search-cancel-button,
+html[data-theme="oscuro"] .empleados-busqueda input[type="search"]::-webkit-search-decoration,
+html[data-theme="oscuro"] .pedidos-busqueda input[type="search"]::-webkit-search-cancel-button,
+html[data-theme="oscuro"] .pedidos-busqueda input[type="search"]::-webkit-search-decoration {
+  background: transparent !important;
+  filter: none !important;
+}
+
+html:not([data-theme="oscuro"]) .empleados-busqueda,
+html:not([data-theme="oscuro"]) .empleados-busqueda input,
+html:not([data-theme="oscuro"]) .empleados-busqueda input[type="search"],
+html:not([data-theme="oscuro"]) .pedidos-busqueda,
+html:not([data-theme="oscuro"]) .pedidos-busqueda input,
+html:not([data-theme="oscuro"]) .pedidos-busqueda input[type="search"] {
+  background: var(--sc-surface) !important;
+  background-color: var(--sc-surface) !important;
+  background-image: none !important;
+  box-shadow: none !important;
 }

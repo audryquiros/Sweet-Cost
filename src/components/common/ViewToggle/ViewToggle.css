@@ -77,3 +77,27 @@
   background: var(--sc-primary-pale);
   color: var(--sc-primary-dark);
 }
+
+
+/* Estado seleccionado universal: siempre debe ser inequívoco. */
+.view-toggle {
+  background: var(--sc-surface-soft) !important;
+  border-color: var(--sc-border-strong) !important;
+}
+.view-toggle .view-toggle-active {
+  background: var(--sc-primary-dark) !important;
+  color: #fff !important;
+  border: 1px solid var(--sc-primary) !important;
+  box-shadow: 0 2px 8px rgba(109,76,141,.24), inset 0 0 0 1px rgba(255,255,255,.10) !important;
+}
+.view-toggle .view-toggle-active .icon-illustration,
+.view-toggle .view-toggle-active svg {
+  opacity: 1 !important;
+}
+html[data-theme="oscuro"] .view-toggle {
+  background: #1d1722 !important;
+  border-color: #665171 !important;
+}
+html[data-theme="oscuro"] .view-toggle button:not(.view-toggle-active) {
+  color: #cdbfd6 !important;
+}

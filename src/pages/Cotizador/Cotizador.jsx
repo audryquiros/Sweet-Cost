@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import {
   getCotizaciones,
@@ -20,6 +20,7 @@ import Confirmacion from "../../components/Confirmacion/Confirmacion";
 import "./Cotizador.css";
 
 function Cotizador() {
+  const navigate = useNavigate();
   const { id: cotizacionId } = useParams();
   const [cotizaciones, setCotizaciones] =
     useState([]);
@@ -42,7 +43,7 @@ function Cotizador() {
   ] = useState(null);
 
   const [mensajeExito, setMensajeExito] =
-    useState("");
+    useState(null);
 
   const [error, setError] =
     useState("");
@@ -102,7 +103,7 @@ function Cotizador() {
   };
 
   const handleMostrarFormulario = () => {
-    setMensajeExito("");
+    setMensajeExito(null);
     setError("");
     setMostrarFormulario(true);
   };
@@ -123,19 +124,20 @@ function Cotizador() {
 
     setMostrarFormulario(false);
 
-    setMensajeExito(
-      "Cotización guardada correctamente."
-    );
+    setMensajeExito({
+      texto: "Cotización guardada correctamente.",
+      pedidoId: null,
+    });
 
     setTimeout(() => {
-      setMensajeExito("");
+      setMensajeExito(null);
     }, 3000);
   };
 
 
   const handleAbrirConversion = (cotizacion) => {
     setError("");
-    setMensajeExito("");
+    setMensajeExito(null);
     setCotizacionParaPedido(cotizacion);
   };
 
@@ -149,11 +151,14 @@ function Cotizador() {
     );
 
     setCotizacionParaPedido(null);
-    setMensajeExito(`Pedido #${pedido.id} creado correctamente desde la cotización.`);
+    setMensajeExito({
+      texto: `Pedido #${pedido.id} creado correctamente desde la cotización.`,
+      pedidoId: pedido.id,
+    });
 
     setTimeout(() => {
-      setMensajeExito("");
-    }, 4000);
+      setMensajeExito(null);
+    }, 7000);
   };
 
   const handleEliminar = (
@@ -192,12 +197,13 @@ function Cotizador() {
           null
         );
 
-        setMensajeExito(
-          "Cotización eliminada correctamente."
-        );
+        setMensajeExito({
+          texto: "Cotización eliminada correctamente.",
+          pedidoId: null,
+        });
 
         setTimeout(() => {
-          setMensajeExito("");
+          setMensajeExito(null);
         }, 3000);
       } catch (error) {
         setError(
@@ -244,11 +250,15 @@ function Cotizador() {
           <button
             type="button"
             className="btn-nueva-cotizacion"
-            onClick={
-              handleMostrarFormulario
-            }
+            onClick={handleMostrarFormulario}
           >
-            Nueva cotización
+            <img
+              src="/illustrations/agregar.png"
+              alt=""
+              aria-hidden="true"
+              className="btn-nueva-cotizacion-icon"
+            />
+            <span>Nueva cotización</span>
           </button>
         )}
       </header>
@@ -256,8 +266,18 @@ function Cotizador() {
       {/* MENSAJES */}
 
       {mensajeExito && (
-        <div className="cotizador-exito">
-          {mensajeExito}
+        <div className="cotizador-exito" role="status">
+          <span>{mensajeExito.texto}</span>
+          {mensajeExito.pedidoId && (
+            <button
+              type="button"
+              className="cotizador-exito-ver-pedido"
+              onClick={() => navigate(`/pedidos/${mensajeExito.pedidoId}`)}
+            >
+              <img src="/illustrations/pedidos-portapapeles.png" alt="" aria-hidden="true" />
+              <span>Ver pedido</span>
+            </button>
+          )}
         </div>
       )}
 

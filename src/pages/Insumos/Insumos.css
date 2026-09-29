@@ -84,3 +84,9 @@
   justify-content: center;
   gap: 7px;
 }
+
+
+/* Tema oscuro: el encabezado de Insumos no debe formar una franja independiente. */
+html[data-theme="oscuro"] .insumos-lista-header {
+  background: transparent !important;
+}

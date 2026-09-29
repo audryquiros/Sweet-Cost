@@ -63,3 +63,45 @@
 .cotizador-card { background: var(--sc-surface); border-radius: 12px; }
 .cotizador-card-header { border-color: #f0e9f2; }
 
+
+
+/* Acción primaria con icono y mensaje de creación de pedido. */
+.btn-nueva-cotizacion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-nueva-cotizacion-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex: 0 0 20px;
+}
+.cotizador-exito-ver-pedido {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 6px 11px;
+  border: 1px solid #b58ce8;
+  border-radius: 8px;
+  background: var(--sc-primary-dark);
+  color: #fff;
+  font: inherit;
+  font-size: calc(10px * var(--sc-font-scale, 1));
+  font-weight: 800;
+  cursor: pointer;
+}
+.cotizador-exito-ver-pedido img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+}
+.cotizador-exito-ver-pedido:hover { filter: brightness(1.05); }
+@media (max-width: 620px) {
+  .cotizador-exito { align-items: stretch; flex-direction: column; }
+  .cotizador-exito-ver-pedido { width: 100%; }
+}

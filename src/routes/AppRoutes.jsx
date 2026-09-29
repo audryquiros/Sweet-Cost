@@ -49,6 +49,7 @@ function AppRoutes() {
           <Route path="/cotizaciones/:id" element={<Cotizador />} />
 
           <Route path="/pedidos" element={<Pedidos />} />
+          <Route path="/pedidos/:id" element={<Pedidos />} />
           <Route path="/calendario" element={<Calendario />} />
           <Route path="/empleados" element={<Empleados />} />
 <Route path="/configuracion" element={<Configuracion />} />

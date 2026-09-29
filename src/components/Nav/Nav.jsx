@@ -96,17 +96,29 @@ function Nav() {
       }
     };
 
+    const closeSidebarOnReturn = () => {
+      // Al cambiar de pestaña o volver al navegador, el sidebar móvil
+      // siempre queda en un estado limpio y no arrastra el overlay.
+      setIsMobileOpen(false);
+      document.body.classList.remove("sidebar-open");
+    };
+
     const handleVisibilityChange = () => {
-      // Al volver a la pestaña no restauramos un sidebar abierto.
-      if (document.hidden) setIsMobileOpen(false);
+      if (document.hidden) closeSidebarOnReturn();
+    };
+
+    const handlePageShow = () => {
+      closeSidebarOnReturn();
     };
 
     window.addEventListener("resize", handleResize);
     document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("pageshow", handlePageShow);
 
     return () => {
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("pageshow", handlePageShow);
       document.body.classList.remove("sidebar-open");
     };
   }, []);

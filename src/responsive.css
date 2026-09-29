@@ -2078,3 +2078,58 @@ textarea {
     height: 18px !important;
   }
 }
+
+
+/* =========================================================
+   Sweet Cost · Empleados mobile final harmony
+   ========================================================= */
+@media (max-width: 777px) {
+  .empleados-lista-top {
+    gap: 10px !important;
+  }
+  .empleados-lista-top .view-toggle {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .empleados-lista-top .view-toggle button {
+    flex: 1 1 0 !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+
+  .empleados-controles {
+    gap: 8px !important;
+  }
+
+  .empleado-card {
+    padding: 16px !important;
+    border-radius: 12px !important;
+  }
+  .empleado-card-info {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-top: 1px solid var(--sc-border) !important;
+    padding-top: 12px !important;
+  }
+  .empleado-card-actions {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+    gap: 7px !important;
+  }
+  .empleado-card-actions button,
+  .empleado-card-actions button:last-child {
+    grid-column: auto !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    min-height: 38px !important;
+    padding: 7px 6px !important;
+  }
+  .empleado-card-actions button span {
+    display: inline !important;
+    white-space: nowrap !important;
+  }
+
+  .empleado-lista-item {
+    box-shadow: none !important;
+  }
+}

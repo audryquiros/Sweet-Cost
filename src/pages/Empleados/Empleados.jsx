@@ -109,7 +109,7 @@ function Empleados() {
         {!mostrarFormulario && (
           <div className="empleados-controles">
             <div className="empleados-busqueda">
-              <Icon type="search" size={17} />
+              <img src="/illustrations/buscar.png" alt="" aria-hidden="true" className="search-bar-icon" />
               <input type="search" value={busqueda} onChange={(event) => setBusqueda(event.target.value)} placeholder="Buscar empleado..." aria-label="Buscar empleado" />
             </div>
             <FilterSelect id="filtro-rol-empleados" value={filtroRol} options={ROLES} onChange={setFiltroRol} portalMenu />

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getPedidos, updatePedido, deletePedido } from "../../services/pedidoServices";
 import { getCotizaciones } from "../../services/cotizadorServices";
 import Confirmacion from "../../components/Confirmacion/Confirmacion";
@@ -28,6 +28,7 @@ function formatearHora(hora) {
 
 function Pedidos() {
   const navigate = useNavigate();
+  const { id: pedidoId } = useParams();
   const [pedidos, setPedidos] = useState([]);
   const [cotizaciones, setCotizaciones] = useState([]);
   const [busqueda, setBusqueda] = useState("");
@@ -39,7 +40,7 @@ function Pedidos() {
 
   useEffect(() => {
     cargarDatos();
-  }, []);
+  }, [pedidoId]);
 
   const cargarDatos = async () => {
     try {
@@ -48,6 +49,15 @@ function Pedidos() {
       setPedidos(pedidosData);
       setCotizaciones(cotizacionesData);
       setError("");
+
+      if (pedidoId) {
+        const pedidoSolicitado = pedidosData.find((item) => String(item.id) === String(pedidoId));
+        if (pedidoSolicitado) {
+          setDetalle(pedidoSolicitado);
+        } else {
+          setError(`No se encontró el pedido #${pedidoId}.`);
+        }
+      }
     } catch (err) {
       setError(err.message || "No se pudieron cargar los pedidos.");
     } finally {
@@ -98,6 +108,13 @@ function Pedidos() {
     }
   };
 
+  const cerrarDetalle = () => {
+    setDetalle(null);
+    if (pedidoId) {
+      navigate("/pedidos", { replace: true });
+    }
+  };
+
   const limpiarFiltros = () => {
     setBusqueda("");
     setEstadoFiltro("Todos");
@@ -139,7 +156,7 @@ function Pedidos() {
 
       <section className="pedidos-filtros">
         <div className="pedidos-busqueda">
-          <span aria-hidden="true">⌕</span>
+          <img src="/illustrations/buscar.png" alt="" aria-hidden="true" className="search-bar-icon" />
           <input
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
@@ -218,24 +235,24 @@ function Pedidos() {
       )}
 
       {detalle && (
-        <div className="pedido-modal-overlay" onMouseDown={(e) => e.target === e.currentTarget && setDetalle(null)}>
+        <div className="pedido-modal-overlay" onMouseDown={(e) => e.target === e.currentTarget && cerrarDetalle()}>
           <div className="pedido-modal">
             <div className="pedido-modal-header">
               <div><span>Pedido #{detalle.id}</span><h2>{detalle.cliente}</h2></div>
-              <button type="button" onClick={() => setDetalle(null)}>×</button>
+              <button type="button" onClick={cerrarDetalle} aria-label="Cerrar detalle">×</button>
             </div>
             <div className="pedido-detalle-grid">
-              <div><span>Cotización</span><strong>{detalle.cotizacionNombre || "-"}</strong></div>
-              <div><span>Receta</span><strong>{detalle.recetaNombre || "-"}</strong></div>
-              <div><span>Fecha del pedido</span><strong>{formatearFecha(detalle.fechaPedido)}</strong></div>
-              <div><span>Fecha de entrega</span><strong>{formatearFecha(detalle.fechaEntrega)}</strong></div>
-              <div><span>Hora de entrega</span><strong>{formatearHora(detalle.horaEntrega)}</strong></div>
-              <div><span>Cantidad</span><strong>{detalle.cantidadAVender || 0}</strong></div>
-              <div><span>Productos totales</span><strong>{detalle.cantidadTotalProductos || 0}</strong></div>
-              <div><span>Método de pago</span><strong>{detalle.metodoPago || "-"}</strong></div>
-              <div><span>Depósito</span><strong>₡{Number(detalle.deposito || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}{detalle.depositoPorcentaje != null ? ` (${Number(detalle.depositoPorcentaje)}%)` : ""}</strong></div>
-              <div><span>Saldo</span><strong>₡{Number(detalle.saldo || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>
-              <div><span>Total</span><strong>₡{Number(detalle.precioSugerido || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>
+              <div><span><img src="/illustrations/cotizaciones-recibo.png" alt="" aria-hidden="true" />Cotización</span><strong>{detalle.cotizacionNombre || "-"}</strong></div>
+              <div><span><img src="/illustrations/recetas-batidor.png" alt="" aria-hidden="true" />Receta</span><strong>{detalle.recetaNombre || "-"}</strong></div>
+              <div><span><img src="/illustrations/calendario.png" alt="" aria-hidden="true" />Fecha del pedido</span><strong>{formatearFecha(detalle.fechaPedido)}</strong></div>
+              <div><span><img src="/illustrations/calendario.png" alt="" aria-hidden="true" />Fecha de entrega</span><strong>{formatearFecha(detalle.fechaEntrega)}</strong></div>
+              <div><span><img src="/illustrations/reloj.png" alt="" aria-hidden="true" />Hora de entrega</span><strong>{formatearHora(detalle.horaEntrega)}</strong></div>
+              <div><span><img src="/illustrations/bascula.png" alt="" aria-hidden="true" />Cantidad</span><strong>{detalle.cantidadAVender || 0}</strong></div>
+              <div><span><img src="/illustrations/bascula.png" alt="" aria-hidden="true" />Productos totales</span><strong>{detalle.cantidadTotalProductos || 0}</strong></div>
+              <div><span><img src="/illustrations/billetera.png" alt="" aria-hidden="true" />Método de pago</span><strong>{detalle.metodoPago || "-"}</strong></div>
+              <div><span><img src="/illustrations/moneda.png" alt="" aria-hidden="true" />Depósito</span><strong>₡{Number(detalle.deposito || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}{detalle.depositoPorcentaje != null ? ` (${Number(detalle.depositoPorcentaje)}%)` : ""}</strong></div>
+              <div><span><img src="/illustrations/moneda.png" alt="" aria-hidden="true" />Saldo</span><strong>₡{Number(detalle.saldo || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>
+              <div><span><img src="/illustrations/recibo.png" alt="" aria-hidden="true" />Total</span><strong>₡{Number(detalle.precioSugerido || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>
             </div>
             {cotizacionRelacionada(detalle) && (
               <>

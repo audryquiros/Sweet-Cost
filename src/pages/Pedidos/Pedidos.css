@@ -234,6 +234,7 @@
 .pedido-estado-select.en-preparación { background: #f0edff; color: #6650a1; }
 .pedido-estado-select.listo { background: var(--sc-success-bg); color: #3e7a4d; }
 .pedido-estado-select.entregado { background: #eaf7f7; color: #397878; }
+.pedido-estado-select.pagado { background: #f0edff; color: #6d4c8d; }
 .pedido-estado-select.cancelado { background: var(--sc-danger-bg); color: #a03b3b; }
 
 .pedido-acciones {

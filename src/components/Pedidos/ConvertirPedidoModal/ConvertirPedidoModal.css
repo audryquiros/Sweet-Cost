@@ -502,3 +502,42 @@
 .sc-time-done:hover {
   background: #5f407d !important;
 }
+
+.convertir-pedido-percent-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.convertir-pedido-percent-input input {
+  width: 100%;
+  padding-right: 38px !important;
+}
+
+.convertir-pedido-percent-input span {
+  position: absolute;
+  right: 13px;
+  color: var(--sc-primary-dark);
+  font-size: 12px;
+  font-weight: 800;
+  pointer-events: none;
+}
+
+
+/* Selector de pago inicial */
+.convertir-pedido-field select[name="depositoPorcentaje"] {
+  width: 100%;
+  min-height: 37px;
+  padding: 0 10px;
+  border: 1px solid var(--sc-border-strong);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--sc-text);
+  font-size: 11px;
+  outline: none;
+}
+
+.convertir-pedido-field select[name="depositoPorcentaje"]:focus {
+  border-color: var(--sc-primary);
+  box-shadow: 0 0 0 3px rgba(155, 126, 222, 0.12);
+}

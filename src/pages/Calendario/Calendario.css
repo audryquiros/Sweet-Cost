@@ -292,6 +292,9 @@
 .calendario-evento.entregado,
 .agenda-evento.entregado,
 .dia-evento.entregado { background: #edf7f8; border-color: #cfe7e9; color: #3d8187; }
+.calendario-evento.pagado,
+.agenda-evento.pagado,
+.dia-evento.pagado { background: #f3eefc; border-color: #dfd1f2; color: #6d4c8d; }
 .calendario-evento.cancelado,
 .agenda-evento.cancelado,
 .dia-evento.cancelado { background: #fff0f2; border-color: #f2d0d5; color: #b24e5a; }
@@ -423,7 +426,7 @@
   width: 100%;
   padding: 12px 14px;
   display: grid;
-  grid-template-columns: 90px 2px minmax(0, 1fr) auto;
+  grid-template-columns: 28px 90px 2px minmax(0, 1fr) auto;
   align-items: center;
   gap: 12px;
   border: 1px solid transparent;
@@ -573,8 +576,8 @@
   .calendario-evento strong { font-size: 8px; }
   .calendario-mas { font-size: 8px; }
   .calendario-semana { overflow-x: auto; grid-template-columns: repeat(7, minmax(130px, 1fr)); }
-  .dia-evento { grid-template-columns: 70px 2px minmax(0, 1fr); }
-  .dia-estado { grid-column: 3; }
+  .dia-evento { grid-template-columns: 28px 70px 2px minmax(0, 1fr) auto; }
+  .dia-estado { grid-column: auto; }
   .calendario-detalle-grid { grid-template-columns: 1fr; }
 }
 
@@ -617,6 +620,7 @@
 .leyenda-dot.preparacion { background: #8d6ab5; }
 .leyenda-dot.listo { background: #55a976; }
 .leyenda-dot.entregado { background: #5d9ca2; }
+.leyenda-dot.pagado { background: #8d6ab5; }
 .leyenda-dot.cancelado { background: #c56b76; }
 
 .calendario-contador {
@@ -710,4 +714,59 @@
   .calendario-celda {
     min-height: 88px;
   }
+}
+
+.calendario-evento-contenido,
+.agenda-evento-cabecera {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.calendario-evento-contenido img,
+.agenda-evento-cabecera img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  flex: 0 0 14px;
+}
+
+.calendario-evento-contenido strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.agenda-evento-cabecera img {
+  width: 16px;
+  height: 16px;
+  flex-basis: 16px;
+}
+
+.dia-evento-icono {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: rgba(255,255,255,.55);
+}
+
+.dia-evento-icono img {
+  width: 19px;
+  height: 19px;
+  object-fit: contain;
+}
+
+.calendario-detalle-grid span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.calendario-detalle-grid span img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
 }

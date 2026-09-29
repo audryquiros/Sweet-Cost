@@ -7,7 +7,7 @@ import Icon from "../../components/common/Icon/Icon";
 
 import "./Pedidos.css";
 
-const ESTADOS = ["Pendiente", "En preparación", "Listo", "Entregado", "Cancelado"];
+const ESTADOS = ["Pendiente", "En preparación", "Listo", "Entregado", "Pagado", "Cancelado"];
 
 function formatearFecha(fecha) {
   if (!fecha) return "-";
@@ -229,7 +229,7 @@ function Pedidos() {
               <div><span>Cantidad</span><strong>{detalle.cantidadAVender || 0}</strong></div>
               <div><span>Productos totales</span><strong>{detalle.cantidadTotalProductos || 0}</strong></div>
               <div><span>Método de pago</span><strong>{detalle.metodoPago || "-"}</strong></div>
-              <div><span>Depósito</span><strong>₡{Number(detalle.deposito || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>
+              <div><span>Depósito</span><strong>₡{Number(detalle.deposito || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}{detalle.depositoPorcentaje != null ? ` (${Number(detalle.depositoPorcentaje)}%)` : ""}</strong></div>
               <div><span>Saldo</span><strong>₡{Number(detalle.saldo || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>
               <div><span>Total</span><strong>₡{Number(detalle.precioSugerido || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>
             </div>

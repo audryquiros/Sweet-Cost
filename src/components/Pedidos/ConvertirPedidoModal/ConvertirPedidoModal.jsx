@@ -262,14 +262,15 @@ function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
     fechaEntrega: "",
     horaEntrega: "",
     metodoPago: "",
-    deposito: "0",
+    depositoPorcentaje: "30",
     observaciones: cotizacion.observaciones || "",
   });
   const [error, setError] = useState("");
   const [guardando, setGuardando] = useState(false);
 
   const total = Number(cotizacion.precioSugerido || 0);
-  const deposito = Number(formulario.deposito || 0);
+  const depositoPorcentaje = Number(formulario.depositoPorcentaje || 0);
+  const deposito = Math.min(Math.max((total * depositoPorcentaje) / 100, 0), total);
   const saldo = Math.max(total - deposito, 0);
 
   const handleChange = (e) => {
@@ -296,8 +297,8 @@ function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
       return;
     }
 
-    if (deposito < 0 || deposito > total) {
-      setError("El depósito debe estar entre ₡0 y el total del pedido.");
+    if (![30, 40, 50, 60, 70, 80, 90, 100].includes(depositoPorcentaje)) {
+      setError("Selecciona una opción de pago válida.");
       return;
     }
 
@@ -322,12 +323,13 @@ function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
         costoTotal: cotizacion.costoTotal || 0,
         precioSugerido: total,
         deposito,
+        depositoPorcentaje,
         saldo,
         fechaPedido: new Date().toISOString(),
         fechaEntrega: formulario.fechaEntrega,
         horaEntrega: formulario.horaEntrega,
         metodoPago: formulario.metodoPago,
-        estado: "Pendiente",
+        estado: depositoPorcentaje >= 100 ? "Pagado" : "Pendiente",
         observaciones: formulario.observaciones.trim(),
       };
 
@@ -420,11 +422,32 @@ function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
               className="convertir-pedido-select"
             />
             <div className="convertir-pedido-field">
-              <label htmlFor="deposito" className="convertir-pedido-label-with-icon">
-                <img src="/illustrations/moneda.png" alt="" aria-hidden="true" />
-                <span>Depósito</span>
+              <label htmlFor="depositoPorcentaje" className="convertir-pedido-label-with-icon">
+                <img src="/illustrations/etiqueta.png" alt="" aria-hidden="true" />
+                <span>Pago inicial</span>
               </label>
-              <input id="deposito" name="deposito" type="number" min="0" max={total} step="0.01" value={formulario.deposito} onChange={handleChange} />
+              <select
+                id="depositoPorcentaje"
+                name="depositoPorcentaje"
+                value={formulario.depositoPorcentaje}
+                onChange={handleChange}
+              >
+                <option value="30">Depósito del 30%</option>
+                <option value="40">Depósito del 40%</option>
+                <option value="50">Depósito del 50%</option>
+                <option value="60">Depósito del 60%</option>
+                <option value="70">Depósito del 70%</option>
+                <option value="80">Depósito del 80%</option>
+                <option value="90">Depósito del 90%</option>
+                <option value="100">Pago completo</option>
+              </select>
+            </div>
+            <div className="convertir-pedido-field">
+              <label className="convertir-pedido-label-with-icon">
+                <img src="/illustrations/moneda.png" alt="" aria-hidden="true" />
+                <span>Depósito calculado</span>
+              </label>
+              <div className="convertir-pedido-saldo">₡{deposito.toFixed(2)}</div>
             </div>
             <div className="convertir-pedido-field convertir-pedido-field-full">
               <label className="convertir-pedido-label-with-icon">

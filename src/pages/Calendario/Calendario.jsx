@@ -15,6 +15,7 @@ const ESTADO_CLASE = {
   "En preparación": "preparacion",
   Listo: "listo",
   Entregado: "entregado",
+  Pagado: "pagado",
   Cancelado: "cancelado",
 };
 
@@ -234,6 +235,7 @@ function Calendario() {
           <span><i className="leyenda-dot preparacion" /> En preparación</span>
           <span><i className="leyenda-dot listo" /> Listo</span>
           <span><i className="leyenda-dot entregado" /> Entregado</span>
+          <span><i className="leyenda-dot pagado" /> Pagado</span>
           <span><i className="leyenda-dot cancelado" /> Cancelado</span>
         </div>
         <span className="calendario-contador">
@@ -278,7 +280,10 @@ function Calendario() {
                             onClick={() => setPedidoSeleccionado(pedido)}
                             title={`${pedido.cliente || "Cliente"} · ${formatearHora(pedido.horaEntrega)}`}
                           >
-                            <strong>{pedido.horaEntrega ? formatearHora(pedido.horaEntrega) : "Sin hora"}</strong>
+                            <span className="calendario-evento-contenido">
+                              <img src="/illustrations/pedidos-portapapeles.png" alt="" aria-hidden="true" />
+                              <strong>{pedido.horaEntrega ? formatearHora(pedido.horaEntrega) : "Sin hora"}</strong>
+                            </span>
                             <span>{pedido.cliente || `Pedido #${pedido.id}`}</span>
                           </button>
                         ))}
@@ -304,7 +309,10 @@ function Calendario() {
                     <div className="agenda-lista">
                       {pedidosDia.length ? pedidosDia.map((pedido) => (
                         <button key={pedido.id} type="button" className={`agenda-evento ${ESTADO_CLASE[pedido.estado] || "pendiente"}`} onClick={() => setPedidoSeleccionado(pedido)}>
-                          <span>{formatearHora(pedido.horaEntrega)}</span>
+                          <span className="agenda-evento-cabecera">
+                            <img src="/illustrations/pedidos-portapapeles.png" alt="" aria-hidden="true" />
+                            <span>{formatearHora(pedido.horaEntrega)}</span>
+                          </span>
                           <strong>{pedido.cliente || `Pedido #${pedido.id}`}</strong>
                           <small>#{pedido.id}</small>
                         </button>
@@ -325,6 +333,7 @@ function Calendario() {
               <div className="dia-agenda">
                 {pedidosDelDia(fechaActual).length ? pedidosDelDia(fechaActual).map((pedido) => (
                   <button key={pedido.id} type="button" className={`dia-evento ${ESTADO_CLASE[pedido.estado] || "pendiente"}`} onClick={() => setPedidoSeleccionado(pedido)}>
+                    <span className="dia-evento-icono"><img src="/illustrations/pedidos-portapapeles.png" alt="" aria-hidden="true" /></span>
                     <span className="dia-hora">{formatearHora(pedido.horaEntrega)}</span>
                     <span className="dia-linea" />
                     <span className="dia-info"><strong>{pedido.cliente || `Pedido #${pedido.id}`}</strong><small>Pedido #{pedido.id} · {pedido.cotizacionNombre || "Cotización"}</small></span>
@@ -349,12 +358,13 @@ function Calendario() {
               <button type="button" onClick={() => setPedidoSeleccionado(null)} aria-label="Cerrar detalle">×</button>
             </header>
             <div className="calendario-detalle-grid">
-              <div><span>Entrega</span><strong>{formatearFechaCompleta(fechaLocal(pedidoSeleccionado.fechaEntrega))}</strong></div>
-              <div><span>Hora</span><strong>{formatearHora(pedidoSeleccionado.horaEntrega)}</strong></div>
-              <div><span>Cotización</span><strong>{pedidoSeleccionado.cotizacionNombre || "-"}</strong></div>
-              <div><span>Estado</span><strong>{pedidoSeleccionado.estado}</strong></div>
-              <div><span>Total</span><strong>₡{Number(pedidoSeleccionado.precioSugerido || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>
-              <div><span>Saldo</span><strong>₡{Number(pedidoSeleccionado.saldo || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>
+              <div><span><img src="/illustrations/calendario.png" alt="" aria-hidden="true" />Entrega</span><strong>{formatearFechaCompleta(fechaLocal(pedidoSeleccionado.fechaEntrega))}</strong></div>
+              <div><span><img src="/illustrations/reloj.png" alt="" aria-hidden="true" />Hora</span><strong>{formatearHora(pedidoSeleccionado.horaEntrega)}</strong></div>
+              <div><span><img src="/illustrations/cotizaciones-recibo.png" alt="" aria-hidden="true" />Cotización</span><strong>{pedidoSeleccionado.cotizacionNombre || "-"}</strong></div>
+              <div><span><img src="/illustrations/pedidos-portapapeles.png" alt="" aria-hidden="true" />Estado</span><strong>{pedidoSeleccionado.estado}</strong></div>
+              <div><span><img src="/illustrations/moneda.png" alt="" aria-hidden="true" />Total</span><strong>₡{Number(pedidoSeleccionado.precioSugerido || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>
+              <div><span><img src="/illustrations/moneda.png" alt="" aria-hidden="true" />Saldo</span><strong>₡{Number(pedidoSeleccionado.saldo || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>
+              <div><span><img src="/illustrations/moneda.png" alt="" aria-hidden="true" />Depósito</span><strong>₡{Number(pedidoSeleccionado.deposito || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}{pedidoSeleccionado.depositoPorcentaje != null ? ` (${Number(pedidoSeleccionado.depositoPorcentaje)}%)` : ""}</strong></div>
             </div>
             {pedidoSeleccionado.observaciones && <div className="calendario-detalle-observaciones"><span>Observaciones</span><p>{pedidoSeleccionado.observaciones}</p></div>}
           </section>

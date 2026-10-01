@@ -300,7 +300,7 @@ function CotizadorCard({
 
           <button
             type="button"
-            className="cotizador-card-eliminar"
+            className="cotizador-card-eliminar sc-action-delete"
             onClick={() =>
               onEliminar(cotizacion)
             }

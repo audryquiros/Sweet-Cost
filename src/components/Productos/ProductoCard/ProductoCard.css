@@ -92,25 +92,6 @@
 }
 
 /* =====================================================
-   CATEGORÍA
-   ===================================================== */
-
-.producto-categoria {
-  display: inline-flex;
-  align-items: center;
-  min-height: 23px;
-  padding: 0 9px;
-  border: 1px solid #e3d8f0;
-  border-radius: 20px;
-  background-color: #faf7fd;
-  color: #6d4c8d;
-  font-size: calc(11px * var(--sc-font-scale, 1));
-  font-weight: 600;
-  white-space: nowrap;
-  box-sizing: border-box;
-}
-
-/* =====================================================
    INFORMACIÓN
    ===================================================== */
 

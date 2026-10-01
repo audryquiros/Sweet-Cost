@@ -4,7 +4,6 @@
       "nombre": "Chocolate",
       "marca": "M&M's",
       "tipo": "topping",
-      "categoria": "reposteria",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 256.5,
       "unidad": "g",
@@ -12,61 +11,61 @@
       "densidad": null,
       "cantidadPorPorcion": 10,
       "unidadPorPorcion": "g",
-      "id": "zWCpc_HqChM"
+      "id": "zWCpc_HqChM",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Chocolate con mani",
       "marca": "M&M's",
       "tipo": "topping",
-      "categoria": "reposteria",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 87,
       "unidad": "g",
       "precioPorPresentacion": 1000,
       "densidad": null,
-      "id": "gp8ejuoDbD8"
+      "id": "gp8ejuoDbD8",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Chocolate de leche",
       "marca": "M&M´s",
       "tipo": "topping",
-      "categoria": "reposteria",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 81,
       "unidad": "g",
       "precioPorPresentacion": 1000,
       "densidad": null,
-      "id": "w1ys_g8hh08"
+      "id": "w1ys_g8hh08",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Galleta original",
       "marca": "Oreo",
       "tipo": "topping",
-      "categoria": "reposteria",
       "cantidadPresentaciones": 2,
       "cantidadPorPresentacion": 135,
       "unidad": "g",
       "precioPorPresentacion": 750,
       "densidad": null,
-      "id": "trvSKhMtj3o"
+      "id": "trvSKhMtj3o",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Leche semidescremada",
       "marca": "Coronado",
       "tipo": "ingrediente",
-      "categoria": "general",
       "cantidadPresentaciones": 2,
       "cantidadPorPresentacion": 1,
       "unidad": "l",
       "precioPorPresentacion": 850,
       "densidad": null,
-      "id": "z_p5SDXDWLA"
+      "id": "z_p5SDXDWLA",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Sirope de chocolate",
       "marca": "Brooks",
       "tipo": "salsa",
-      "categoria": "reposteria",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 680,
       "unidad": "g",
@@ -74,163 +73,164 @@
       "densidad": null,
       "cantidadPorPorcion": 15,
       "unidadPorPorcion": "g",
-      "id": "dLjIJ1M1-gw"
+      "id": "dLjIJ1M1-gw",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Leche condensada sabor a fresa",
       "marca": "Angelito",
       "tipo": "salsa",
-      "categoria": "reposteria",
       "cantidadPresentaciones": 5,
       "cantidadPorPresentacion": 15,
       "unidad": "g",
       "precioPorPresentacion": 150,
       "densidad": null,
-      "id": "JRospH4vjBk"
+      "id": "JRospH4vjBk",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Lluvia de colores",
       "marca": "Sin Marca",
       "tipo": "topping",
-      "categoria": "reposteria",
       "cantidadPresentaciones": 6,
       "cantidadPorPresentacion": 125,
       "unidad": "g",
       "precioPorPresentacion": 250,
       "densidad": null,
-      "id": "vFP4wgfJSPk"
+      "id": "vFP4wgfJSPk",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Azucar",
       "marca": "Doña Maria",
       "tipo": "ingrediente",
-      "categoria": "general",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 2,
       "unidad": "kg",
       "precioPorPresentacion": 1350,
       "densidad": null,
-      "id": "bJ7xD8Dhk5E"
+      "id": "bJ7xD8Dhk5E",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Harina",
       "marca": "Nacarina",
       "tipo": "ingrediente",
-      "categoria": "reposteria",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 1000,
       "unidad": "g",
       "precioPorPresentacion": 950,
       "densidad": null,
-      "id": "Zg_nsMuRkfU"
+      "id": "Zg_nsMuRkfU",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Aceite",
       "marca": "Clover",
       "tipo": "ingrediente",
-      "categoria": "general",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 1500,
       "unidad": "ml",
       "precioPorPresentacion": 1500,
       "densidad": null,
-      "id": "D0c4DnqjR8E"
+      "id": "D0c4DnqjR8E",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Sal",
       "marca": "Sol",
       "tipo": "ingrediente",
-      "categoria": "general",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 500,
       "unidad": "g",
       "precioPorPresentacion": 480,
       "densidad": null,
-      "id": "J9z07iFFvyg"
+      "id": "J9z07iFFvyg",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Polvo para hornear",
       "marca": "Great Value",
       "tipo": "ingrediente",
-      "categoria": "reposteria",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 100,
       "unidad": "g",
       "precioPorPresentacion": 560,
       "densidad": null,
-      "id": "Axb9NUPB30U"
+      "id": "Axb9NUPB30U",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Esencia de Vainilla",
       "marca": "Vainol",
       "tipo": "ingrediente",
-      "categoria": "reposteria",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 120,
       "unidad": "ml",
       "precioPorPresentacion": 1400,
       "densidad": null,
-      "id": "j6xQoGytqFU"
+      "id": "j6xQoGytqFU",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Huevo de Gallina",
       "marca": "Don Cristobal",
       "tipo": "ingrediente",
-      "categoria": "general",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 15,
       "unidad": "unidad",
       "precioPorPresentacion": 1500,
       "densidad": null,
-      "id": "pin-dXS_Hl4"
+      "id": "pin-dXS_Hl4",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Marshmallows",
       "marca": "Angelitos",
       "tipo": "topping",
-      "categoria": "reposteria",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 300,
       "unidad": "g",
       "precioPorPresentacion": 975,
       "densidad": null,
-      "id": "udZBkAMCcZs"
+      "id": "udZBkAMCcZs",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Arroz 91%",
       "marca": "Tio Pelon",
       "tipo": "ingrediente",
-      "categoria": "comida",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 1.5,
       "unidad": "kg",
       "precioPorPresentacion": 790,
       "densidad": null,
-      "id": "I0DFt6uxR2E"
+      "id": "I0DFt6uxR2E",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Arroz 91%",
       "marca": "Tio Pelon",
       "tipo": "ingrediente",
-      "categoria": "comida",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 1.5,
       "unidad": "kg",
       "precioPorPresentacion": 790,
       "densidad": null,
-      "id": "grSkiREFQwM"
+      "id": "grSkiREFQwM",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "KitKat",
       "marca": "Kitkat",
       "tipo": "ingrediente",
-      "categoria": "reposteria",
       "cantidadPresentaciones": 1,
       "cantidadPorPresentacion": 60,
       "unidad": "g",
       "precioPorPresentacion": 1600,
       "densidad": null,
-      "id": "ANwmn3ICVtc"
+      "id": "ANwmn3ICVtc",
+      "negocioId": "dulces-momentos"
     }
   ],
   "insumos": [
@@ -240,7 +240,8 @@
       "cantidad": 15,
       "unidad": "unidad",
       "precio": 2475,
-      "id": "-_NDPxfEJ3M"
+      "id": "-_NDPxfEJ3M",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Envase Souffle con tapa 3.25 oz",
@@ -248,7 +249,8 @@
       "cantidad": 25,
       "unidad": "unidad",
       "precio": 1200,
-      "id": "5YxIMLmkmOE"
+      "id": "5YxIMLmkmOE",
+      "negocioId": "dulces-momentos"
     },
     {
       "nombre": "Envase Souffle con tapa 10 oz",
@@ -256,14 +258,14 @@
       "cantidad": 25,
       "unidad": "unidad",
       "precio": 600,
-      "id": "P3TNtweyFtw"
+      "id": "P3TNtweyFtw",
+      "negocioId": "dulces-momentos"
     }
   ],
   "recetas": [
     {
       "nombre": "Mini donas",
       "descripcion": "Receta base de las mini donas",
-      "categoria": "reposteria",
       "rendimiento": 60,
       "unidadRendimiento": "unidad",
       "ingredientes": [
@@ -308,7 +310,8 @@
           "unidad": "unidad"
         }
       ],
-      "id": "Iw41VSxxpIk"
+      "id": "Iw41VSxxpIk",
+      "negocioId": "dulces-momentos"
     }
   ],
   "cotizaciones": [
@@ -361,7 +364,8 @@
       "precioPorUnidadVenta": 1507.797188061055,
       "fecha": "2026-09-10T05:19:33.801Z",
       "id": "uLtb1lnK_7A",
-      "estado": "Pendiente"
+      "estado": "Pendiente",
+      "negocioId": "dulces-momentos"
     }
   ],
   "pedidos": [
@@ -407,7 +411,8 @@
       "metodoPago": "Transferencia",
       "estado": "Entregado",
       "observaciones": "",
-      "id": "Wva_uT71nhM"
+      "id": "Wva_uT71nhM",
+      "negocioId": "dulces-momentos"
     }
   ],
   "empleados": [
@@ -417,7 +422,8 @@
       "correo": "maria.rodriguez@sweetcost.demo",
       "telefono": "8888-1001",
       "rol": "administrador",
-      "estado": "activo"
+      "estado": "activo",
+      "negocioId": "dulces-momentos"
     },
     {
       "id": "emp-002",
@@ -425,7 +431,8 @@
       "correo": "laura.mendez@sweetcost.demo",
       "telefono": "8888-1002",
       "rol": "empleado",
-      "estado": "activo"
+      "estado": "activo",
+      "negocioId": "dulces-momentos"
     },
     {
       "id": "emp-003",
@@ -433,7 +440,15 @@
       "correo": "sofia.vargas@sweetcost.demo",
       "telefono": "8888-1003",
       "rol": "empleado",
-      "estado": "inactivo"
+      "estado": "inactivo",
+      "negocioId": "dulces-momentos"
+    }
+  ],
+  "negocios": [
+    {
+      "id": "dulces-momentos",
+      "nombre": "Dulces Momentos",
+      "tipo": "Repostería"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

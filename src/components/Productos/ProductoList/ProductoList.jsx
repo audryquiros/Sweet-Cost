@@ -30,21 +30,6 @@ function ProductoList({
     });
   };
 
-  const obtenerNombreCategoria = (categoria) => {
-    if (categoria === "reposteria") {
-      return "Repostería";
-    }
-
-    if (categoria === "comida") {
-      return "Comida";
-    }
-
-    if (categoria === "bebidas") {
-      return "Bebidas";
-    }
-
-    return "";
-  };
 
   if (productos.length === 0) {
     return (
@@ -115,8 +100,6 @@ function ProductoList({
         const nombreUnidadCosto =
           obtenerNombreUnidad(unidadCosto);
 
-        const nombreCategoria =
-          obtenerNombreCategoria(producto.categoria);
 
         const esPorcion =
           producto.tipo === "topping" ||
@@ -156,11 +139,6 @@ function ProductoList({
                   </span>
                 )}
 
-                {nombreCategoria && (
-                  <span className="producto-lista-categoria">
-                    {nombreCategoria}
-                  </span>
-                )}
               </div>
             </div>
 
@@ -244,7 +222,7 @@ function ProductoList({
             <div className="producto-lista-acciones">
               <button
                 type="button"
-                className="btn-editar"
+                className="btn-editar sc-action-edit"
                 onClick={() => onEditar(producto)}
               >
                 <img src="/illustrations/editar.png" alt="" aria-hidden="true" />
@@ -253,7 +231,7 @@ function ProductoList({
 
               <button
                 type="button"
-                className="btn-eliminar"
+                className="btn-eliminar sc-action-delete"
                 onClick={() => onEliminar(producto)}
               >
                 <img src="/illustrations/eliminar.png" alt="" aria-hidden="true" />

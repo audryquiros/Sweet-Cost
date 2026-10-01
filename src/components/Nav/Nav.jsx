@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Icon from "../common/Icon/Icon";
+import { getNegocioActivo } from "../../context/negocioContext";
 import "./Nav.css";
 
 const menuPrincipal = [
@@ -67,6 +68,7 @@ function SidebarLink({ item, onNavigate }) {
 }
 
 function Nav() {
+  const negocioActivo = getNegocioActivo();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const responsiveModeRef = useRef(
     typeof window === "undefined"
@@ -199,8 +201,8 @@ function Nav() {
             <div className="business-avatar">SC</div>
 
             <div className="business-info">
-              <strong>Dulces Momentos</strong>
-              <span>Repostería</span>
+              <strong>{negocioActivo.nombre}</strong>
+              <span>{negocioActivo.tipo}</span>
             </div>
 
             <span

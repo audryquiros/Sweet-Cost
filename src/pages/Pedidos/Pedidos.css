@@ -571,3 +571,27 @@
   object-fit: contain;
   flex: 0 0 15px;
 }
+
+
+/* Estados · color semántico también en tema claro. */
+.pedido-estado-filter.pedido-estado-pendiente .filter-select-trigger { background: #fff5df !important; color: #79551f !important; border-color: #d9b56b !important; }
+.pedido-estado-filter.pedido-estado-en-preparacion .filter-select-trigger { background: #f0e9fb !important; color: #604a83 !important; border-color: #b79ad9 !important; }
+.pedido-estado-filter.pedido-estado-listo .filter-select-trigger { background: #e7f6ed !important; color: #286542 !important; border-color: #8fc5a4 !important; }
+.pedido-estado-filter.pedido-estado-entregado .filter-select-trigger { background: #e4f4f5 !important; color: #2b6267 !important; border-color: #8cc5c9 !important; }
+.pedido-estado-filter.pedido-estado-pagado .filter-select-trigger { background: #eee6fb !important; color: #65478a !important; border-color: #bda1dd !important; }
+.pedido-estado-filter.pedido-estado-cancelado .filter-select-trigger { background: #fde9ed !important; color: #8a3f4c !important; border-color: #dda1ac !important; }
+.pedido-estado-filter .filter-select-option.selected { font-weight: 800; }
+.pedido-estado-filter.pedido-estado-pendiente .filter-select-option.selected { background: #fff0d0 !important; color: #79551f !important; }
+.pedido-estado-filter.pedido-estado-en-preparacion .filter-select-option.selected { background: #eadff8 !important; color: #604a83 !important; }
+.pedido-estado-filter.pedido-estado-listo .filter-select-option.selected { background: #dff2e6 !important; color: #286542 !important; }
+.pedido-estado-filter.pedido-estado-entregado .filter-select-option.selected { background: #dceff1 !important; color: #2b6267 !important; }
+.pedido-estado-filter.pedido-estado-pagado .filter-select-option.selected { background: #e8dcf8 !important; color: #65478a !important; }
+.pedido-estado-filter.pedido-estado-cancelado .filter-select-option.selected { background: #f9dfe4 !important; color: #8a3f4c !important; }
+
+/* Estados · override final del módulo para mantener el color semántico en oscuro. */
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-pendiente .filter-select-trigger { background:#40321f !important; color:#ffd28e !important; border-color:#9a7441 !important; }
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-en-preparacion .filter-select-trigger { background:#342b4a !important; color:#dccbff !important; border-color:#8067a5 !important; }
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-listo .filter-select-trigger { background:#21382c !important; color:#a8edc3 !important; border-color:#5c9775 !important; }
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-entregado .filter-select-trigger { background:#20373a !important; color:#a8e2e7 !important; border-color:#60959a !important; }
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-pagado .filter-select-trigger { background:#342a48 !important; color:#e0ceff !important; border-color:#8467a8 !important; }
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-cancelado .filter-select-trigger { background:#40252c !important; color:#ffadb7 !important; border-color:#985965 !important; }

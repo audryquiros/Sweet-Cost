@@ -1,16 +1,18 @@
+import { conNegocio, filtrarPorNegocio } from "../context/negocioContext";
+
 const API_URL = "http://localhost:3001/empleados";
 
 export const getEmpleados = async () => {
   const response = await fetch(API_URL);
   if (!response.ok) throw new Error("Error al obtener los empleados");
-  return response.json();
+  return filtrarPorNegocio(await response.json());
 };
 
 export const createEmpleado = async (empleado) => {
   const response = await fetch(API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(empleado),
+    body: JSON.stringify(conNegocio(empleado)),
   });
   if (!response.ok) throw new Error("Error al crear el empleado");
   return response.json();
@@ -20,7 +22,7 @@ export const updateEmpleado = async (id, empleado) => {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(empleado),
+    body: JSON.stringify(conNegocio(empleado)),
   });
   if (!response.ok) throw new Error("Error al actualizar el empleado");
   return response.json();

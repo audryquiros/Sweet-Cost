@@ -42,21 +42,6 @@ function RecetaCard({
     return "unidad";
   };
 
-  const obtenerNombreCategoria = () => {
-    if (receta.categoria === "reposteria") {
-      return "Repostería";
-    }
-
-    if (receta.categoria === "comida") {
-      return "Comida";
-    }
-
-    if (receta.categoria === "bebidas") {
-      return "Bebidas";
-    }
-
-    return "General";
-  };
 
   return (
     <>
@@ -65,9 +50,6 @@ function RecetaCard({
           <div className="receta-card-title">
             <h3>{receta.nombre}</h3>
 
-            <span className="receta-categoria">
-              {obtenerNombreCategoria()}
-            </span>
 
             {receta.descripcion && (
               <p className="receta-descripcion">
@@ -130,7 +112,7 @@ function RecetaCard({
         <div className="receta-card-actions">
           <button
             type="button"
-            className="receta-btn-editar"
+            className="receta-btn-editar sc-action-edit"
             onClick={() => onEditar(receta)}
           >
             <Icon type="edit" size={19} />
@@ -139,7 +121,7 @@ function RecetaCard({
 
           <button
             type="button"
-            className="receta-btn-eliminar"
+            className="receta-btn-eliminar sc-action-delete"
             onClick={() => onEliminar(receta)}
           >
             <Icon type="trash" size={19} />
@@ -167,9 +149,6 @@ function RecetaCard({
 
                 <p>{receta.nombre}</p>
 
-                <span className="modal-receta-categoria">
-                  {obtenerNombreCategoria()}
-                </span>
               </div>
 
               <button

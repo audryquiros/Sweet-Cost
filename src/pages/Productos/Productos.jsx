@@ -18,29 +18,6 @@ import Confirmacion from "../../components/Confirmacion/Confirmacion";
 
 import "./Productos.css";
 
-const CATEGORIAS = [
-  {
-    valor: "todas",
-    nombre: "Todas",
-  },
-  {
-    valor: "general",
-    nombre: "General",
-  },
-  {
-    valor: "reposteria",
-    nombre: "Repostería",
-  },
-  {
-    valor: "comida",
-    nombre: "Comida",
-  },
-  {
-    valor: "bebidas",
-    nombre: "Bebidas",
-  },
-];
-
 const TIPOS = [
   {
     valor: "todos",
@@ -74,9 +51,6 @@ function Productos() {
 
   const [filtroTipo, setFiltroTipo] =
     useState("todos");
-
-  const [filtroCategoria, setFiltroCategoria] =
-    useState("todas");
 
   const [vista, setVista] = useState(() => localStorage.getItem("sweetcost-view-productos") || "lista");
 
@@ -275,14 +249,8 @@ function Productos() {
         filtroTipo === "todos" ||
         producto.tipo === filtroTipo;
 
-      const coincideCategoria =
-        filtroCategoria === "todas" ||
-        producto.categoria ===
-          filtroCategoria;
-
       return (
-        coincideTipo &&
-        coincideCategoria
+        coincideTipo
       );
     });
 
@@ -360,13 +328,6 @@ function Productos() {
 
       <div className="productos-controles">
         <div className="productos-filtros">
-          <FilterSelect
-            id="filtroCategoriaProductos"
-            label="Categoría"
-            value={filtroCategoria}
-            options={CATEGORIAS}
-            onChange={setFiltroCategoria}
-          />
 
           <FilterSelect
             id="filtroTipoProductos"

@@ -1,3 +1,5 @@
+import { conNegocio, filtrarPorNegocio, getNegocioActivoId } from "../context/negocioContext";
+
 const API_URL = "http://localhost:3001/productos";
 
 export const getProductos = async () => {
@@ -7,7 +9,7 @@ export const getProductos = async () => {
     throw new Error("Error al obtener los productos");
   }
 
-  return response.json();
+  return filtrarPorNegocio(await response.json());
 };
 
 export const getProducto = async (id) => {
@@ -17,7 +19,11 @@ export const getProducto = async (id) => {
     throw new Error("Error al obtener el producto");
   }
 
-  return response.json();
+  const dato = await response.json();
+  if (dato.negocioId && dato.negocioId !== getNegocioActivoId()) {
+    throw new Error("El registro no pertenece al negocio activo");
+  }
+  return dato;
 };
 
 export const createProducto = async (producto) => {
@@ -26,7 +32,7 @@ export const createProducto = async (producto) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(producto),
+    body: JSON.stringify(conNegocio(producto)),
   });
 
   if (!response.ok) {
@@ -42,7 +48,7 @@ export const updateProducto = async (id, producto) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(producto),
+    body: JSON.stringify(conNegocio(producto)),
   });
 
   if (!response.ok) {

@@ -1,3 +1,5 @@
+import { conNegocio, filtrarPorNegocio, getNegocioActivoId } from "../context/negocioContext";
+
 const API_URL = "http://localhost:3001/cotizaciones";
 
 export const getCotizaciones = async () => {
@@ -7,7 +9,7 @@ export const getCotizaciones = async () => {
     throw new Error("Error al obtener las cotizaciones");
   }
 
-  return response.json();
+  return filtrarPorNegocio(await response.json());
 };
 
 export const getCotizacion = async (id) => {
@@ -17,7 +19,11 @@ export const getCotizacion = async (id) => {
     throw new Error("Error al obtener la cotización");
   }
 
-  return response.json();
+  const dato = await response.json();
+  if (dato.negocioId && dato.negocioId !== getNegocioActivoId()) {
+    throw new Error("El registro no pertenece al negocio activo");
+  }
+  return dato;
 };
 
 export const createCotizacion = async (cotizacion) => {
@@ -26,7 +32,7 @@ export const createCotizacion = async (cotizacion) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(cotizacion),
+    body: JSON.stringify(conNegocio(cotizacion)),
   });
 
   if (!response.ok) {
@@ -53,7 +59,7 @@ export const updateCotizacion = async (id, cotizacion) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(cotizacion),
+    body: JSON.stringify(conNegocio(cotizacion)),
   });
 
   if (!response.ok) {

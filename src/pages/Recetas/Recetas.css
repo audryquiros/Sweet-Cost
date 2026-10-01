@@ -52,7 +52,6 @@
 .receta-card h3 { font-size: calc(15px * var(--sc-font-scale, 1)); }
 .receta-card-header { min-height: 78px; margin-bottom: 12px; }
 .receta-descripcion { font-size: calc(11px * var(--sc-font-scale, 1)); }
-.receta-categoria, .receta-rendimiento { font-size: calc(9px * var(--sc-font-scale, 1)); padding: 4px 8px; }
 .receta-ingredientes-resumen { min-height: 58px; padding: 10px 0; }
 .receta-ingredientes-resumen h4 { font-size: calc(11px * var(--sc-font-scale, 1)); }
 .receta-ingredientes-resumen p { font-size: calc(10px * var(--sc-font-scale, 1)); }

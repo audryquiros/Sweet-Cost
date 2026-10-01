@@ -5,6 +5,7 @@ import './index.css'
 import './styles/responsive.css'
 import './styles/accessibility.css'
 import './styles/dark-theme-complete.css'
+import './styles/actions.css'
 import App from './App.jsx'
 
 installAppearanceSync()

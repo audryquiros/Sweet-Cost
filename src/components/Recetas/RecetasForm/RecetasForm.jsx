@@ -17,7 +17,6 @@ import "./RecetasForm.css";
 const formularioInicial = {
   nombre: "",
   descripcion: "",
-  categoria: "general",
   rendimiento: "",
   unidadRendimiento: "unidad",
   ingredientes: [],
@@ -63,8 +62,6 @@ function RecetasForm({
         nombre: receta.nombre || "",
         descripcion:
           receta.descripcion || "",
-        categoria:
-          receta.categoria || "general",
         rendimiento:
           receta.rendimiento ?? "",
         unidadRendimiento:
@@ -455,8 +452,6 @@ function RecetasForm({
       descripcion:
         formulario.descripcion.trim(),
 
-      categoria:
-        formulario.categoria,
 
       rendimiento,
 
@@ -559,37 +554,6 @@ function RecetasForm({
           />
         </div>
 
-        <div className="receta-form-group">
-          <label htmlFor="categoria">
-            Categoría
-          </label>
-
-          <select
-            id="categoria"
-            name="categoria"
-            value={
-              formulario.categoria
-            }
-            onChange={handleChange}
-            required
-          >
-            <option value="general">
-              General
-            </option>
-
-            <option value="reposteria">
-              Repostería
-            </option>
-
-            <option value="comida">
-              Comida
-            </option>
-
-            <option value="bebidas">
-              Bebidas
-            </option>
-          </select>
-        </div>
 
         <div className="receta-form-group">
           <label htmlFor="rendimiento">

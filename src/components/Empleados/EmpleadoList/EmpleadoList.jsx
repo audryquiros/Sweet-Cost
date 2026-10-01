@@ -34,8 +34,8 @@ function EmpleadoList({ empleados, vista, onVer, onEditar, onEliminar }) {
             </div>
             <div className="empleado-card-actions">
               <button type="button" onClick={() => onVer(empleado)}><Icon type="eye" size={18} /><span>Ver</span></button>
-              <button type="button" onClick={() => onEditar(empleado)}><Icon type="edit" size={18} /><span>Editar</span></button>
-              <button type="button" className="empleado-action-danger" onClick={() => onEliminar(empleado)}><Icon type="trash" size={18} /><span>Eliminar</span></button>
+              <button type="button" className="sc-action-edit" onClick={() => onEditar(empleado)}><Icon type="edit" size={18} /><span>Editar</span></button>
+              <button type="button" className="empleado-action-danger sc-action-delete" onClick={() => onEliminar(empleado)}><Icon type="trash" size={18} /><span>Eliminar</span></button>
             </div>
           </article>
         ))}
@@ -60,7 +60,7 @@ function EmpleadoList({ empleados, vista, onVer, onEditar, onEliminar }) {
           <div className="empleado-lista-actions">
             <button type="button" onClick={() => onVer(empleado)} aria-label={`Ver ${empleado.nombre}`}><Icon type="eye" size={18} /></button>
             <button type="button" onClick={() => onEditar(empleado)} aria-label={`Editar ${empleado.nombre}`}><Icon type="edit" size={18} /></button>
-            <button type="button" className="empleado-action-danger" onClick={() => onEliminar(empleado)} aria-label={`Eliminar ${empleado.nombre}`}><Icon type="trash" size={18} /></button>
+            <button type="button" className="empleado-action-danger sc-action-delete" onClick={() => onEliminar(empleado)} aria-label={`Eliminar ${empleado.nombre}`}><Icon type="trash" size={18} /></button>
           </div>
         </article>
       ))}

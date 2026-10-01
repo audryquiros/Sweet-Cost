@@ -209,12 +209,9 @@
 .producto-lista-nombre { color: var(--sc-text); font-size: calc(12px * var(--sc-font-scale, 1)); font-weight: 750; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .producto-lista-marca { margin-top: 2px; color: var(--sc-muted); font-size: calc(9px * var(--sc-font-scale, 1)); }
 .producto-lista-etiquetas { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
-.producto-lista-tipo,
-.producto-lista-categoria { display: inline-flex; align-items: center; min-height: 18px; padding: 1px 6px; border-radius: 999px; font-size: calc(8px * var(--sc-font-scale, 1)); font-weight: 700; }
 .producto-lista-tipo { background: #f7e5eb; color: #99566c; }
 .producto-lista-tipo.tipo-salsa { background: #eee5f7; color: #6d4c8d; }
 .producto-lista-tipo.tipo-ingrediente { background: #f0ece4; color: #75654d; }
-.producto-lista-categoria { background: #edf0f8; color: #66708a; }
 
 .producto-lista-dato,
 .producto-lista-costo { min-width: 0; padding: 0 9px; }

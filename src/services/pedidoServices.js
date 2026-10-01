@@ -1,3 +1,5 @@
+import { conNegocio, filtrarPorNegocio, getNegocioActivoId } from "../context/negocioContext";
+
 const API_URL = "http://localhost:3001/pedidos";
 const CACHE_KEY = "sweetcost-pedidos-cache-v1";
 
@@ -5,7 +7,7 @@ function leerCache() {
   try {
     const valor = localStorage.getItem(CACHE_KEY);
     const datos = valor ? JSON.parse(valor) : [];
-    return Array.isArray(datos) ? datos : [];
+    return filtrarPorNegocio(datos);
   } catch {
     return [];
   }
@@ -51,7 +53,7 @@ async function sincronizarCacheConServidor(pedidosServidor) {
         const response = await fetch(API_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(pedido),
+          body: JSON.stringify(conNegocio(pedido)),
         });
         if (!response.ok) throw new Error("No se pudo sincronizar el pedido");
         return response.json();
@@ -79,7 +81,7 @@ export const getPedidos = async () => {
   try {
     const response = await fetch(API_URL);
     if (!response.ok) throw new Error("Error al obtener los pedidos");
-    const pedidosServidor = await response.json();
+    const pedidosServidor = filtrarPorNegocio(await response.json());
     return sincronizarCacheConServidor(pedidosServidor);
   } catch (error) {
     const locales = leerCache();
@@ -93,6 +95,9 @@ export const getPedido = async (id) => {
     const response = await fetch(`${API_URL}/${id}`);
     if (response.ok) {
       const pedido = await response.json();
+      if (pedido.negocioId && pedido.negocioId !== getNegocioActivoId()) {
+        throw new Error("El pedido no pertenece al negocio activo");
+      }
       const locales = leerCache();
       const fusionados = fusionarPedidos([pedido], locales);
       guardarCache(fusionados);
@@ -118,7 +123,7 @@ export const createPedido = async (pedido) => {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(pedido),
+      body: JSON.stringify(conNegocio(pedido)),
     });
     if (!response.ok) throw new Error("Error al crear el pedido");
 
@@ -130,10 +135,10 @@ export const createPedido = async (pedido) => {
     return creado;
   } catch (error) {
     // Fallback para que el pedido no se pierda si json-server está apagado.
-    const pedidoLocal = {
+    const pedidoLocal = conNegocio({
       ...pedido,
       id: pedido.id || `local-${Date.now()}`,
-    };
+    });
     const locales = leerCache().filter(
       (item) => String(item.id) !== String(pedidoLocal.id)
     );
@@ -147,7 +152,7 @@ export const updatePedido = async (id, pedido) => {
     const response = await fetch(`${API_URL}/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(pedido),
+      body: JSON.stringify(conNegocio(pedido)),
     });
 
     if (!response.ok && response.status !== 404) {
@@ -167,7 +172,7 @@ export const updatePedido = async (id, pedido) => {
     if (!local) throw error;
   }
 
-  const actualizadoLocal = { ...pedido, id };
+  const actualizadoLocal = conNegocio({ ...pedido, id });
   const locales = leerCache().filter((item) => String(item.id) !== String(id));
   guardarCache([...locales, actualizadoLocal]);
   return actualizadoLocal;

@@ -11,7 +11,6 @@ const FORMULARIO_INICIAL = {
   nombre: "",
   marca: "",
   tipo: "ingrediente",
-  categoria: "general",
   cantidadPresentaciones: "",
   cantidadPorPresentacion: "",
   unidad: "g",
@@ -40,7 +39,6 @@ function ProductosForm({
         nombre: producto.nombre || "",
         marca: producto.marca || "",
         tipo: producto.tipo || "ingrediente",
-        categoria: producto.categoria || "general",
         cantidadPresentaciones:
           producto.cantidadPresentaciones ?? "",
         cantidadPorPresentacion:
@@ -147,12 +145,6 @@ function ProductosForm({
       return;
     }
 
-    if (!formulario.categoria) {
-      setError(
-        "Selecciona una categoría."
-      );
-      return;
-    }
 
     if (
       !Number.isFinite(
@@ -243,8 +235,6 @@ function ProductosForm({
       tipo:
         formulario.tipo,
 
-      categoria:
-        formulario.categoria,
 
       cantidadPresentaciones:
         cantidadPresentacionesNumero,
@@ -392,40 +382,6 @@ function ProductosForm({
           </select>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="categoria">
-            Categoría
-          </label>
-
-          <select
-            id="categoria"
-            name="categoria"
-            value={formulario.categoria}
-            onChange={manejarCambio}
-            required
-          >
-            <option value="general">
-              General
-            </option>
-
-            <option value="reposteria">
-              Repostería
-            </option>
-
-            <option value="comida">
-              Comida
-            </option>
-
-            <option value="bebidas">
-              Bebidas
-            </option>
-          </select>
-
-          <small>
-            Indica en qué área del negocio se
-            utiliza este producto.
-          </small>
-        </div>
 
         <div className="form-group">
           <label htmlFor="cantidadPresentaciones">

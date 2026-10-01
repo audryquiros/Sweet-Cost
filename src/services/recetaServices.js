@@ -1,3 +1,5 @@
+import { conNegocio, filtrarPorNegocio, getNegocioActivoId } from "../context/negocioContext";
+
     const API_URL = "http://localhost:3001/recetas";
 
 export const getRecetas = async () => {
@@ -7,7 +9,7 @@ export const getRecetas = async () => {
     throw new Error("Error al obtener las recetas");
   }
 
-  return response.json();
+  return filtrarPorNegocio(await response.json());
 };
 
 export const getReceta = async (id) => {
@@ -17,7 +19,11 @@ export const getReceta = async (id) => {
     throw new Error("Error al obtener la receta");
   }
 
-  return response.json();
+  const dato = await response.json();
+  if (dato.negocioId && dato.negocioId !== getNegocioActivoId()) {
+    throw new Error("El registro no pertenece al negocio activo");
+  }
+  return dato;
 };
 
 export const createReceta = async (receta) => {
@@ -26,7 +32,7 @@ export const createReceta = async (receta) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(receta),
+    body: JSON.stringify(conNegocio(receta)),
   });
 
   if (!response.ok) {
@@ -42,7 +48,7 @@ export const updateReceta = async (id, receta) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(receta),
+    body: JSON.stringify(conNegocio(receta)),
   });
 
   if (!response.ok) {

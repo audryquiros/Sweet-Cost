@@ -365,12 +365,6 @@ html[data-theme="oscuro"] .pedido-estado-filter .filter-select-trigger {
   border-width: 1px !important;
   box-shadow: none !important;
 }
-html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-pendiente .filter-select-trigger { background: #40321f !important; color: #ffd28e !important; border-color: #765b35 !important; }
-html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-en-preparacion .filter-select-trigger { background: #342b4a !important; color: #d9c7ff !important; border-color: #665487 !important; }
-html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-listo .filter-select-trigger { background: #21382c !important; color: #a8edc3 !important; border-color: #4b7e62 !important; }
-html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-entregado .filter-select-trigger { background: #20373a !important; color: #a8e2e7 !important; border-color: #4e777b !important; }
-html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-pagado .filter-select-trigger { background: #342a48 !important; color: #dcc9ff !important; border-color: #695184 !important; }
-html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-cancelado .filter-select-trigger { background: #40252c !important; color: #ffadb7 !important; border-color: #7b4a55 !important; }
 
 html[data-theme="oscuro"] .cotizador-card-estado,
 html[data-theme="oscuro"] .cotizador-lista-estado {
@@ -543,24 +537,6 @@ html[data-theme="oscuro"] .home-action:hover {
   border-color: #8b5bb8 !important;
 }
 
-/* Badges de producto/receta que usaban fondos pastel claros. */
-html[data-theme="oscuro"] .producto-categoria,
-html[data-theme="oscuro"] .producto-tipo,
-html[data-theme="oscuro"] .producto-marca,
-html[data-theme="oscuro"] .receta-lista-badge,
-html[data-theme="oscuro"] .receta-card-badge,
-html[data-theme="oscuro"] .cotizador-card-meta .cotizador-card-estado {
-  background: #3a2d45 !important;
-  color: #eadfec !important;
-  border-color: #756080 !important;
-}
-html[data-theme="oscuro"] .producto-lista-tipo,
-html[data-theme="oscuro"] .producto-lista-categoria {
-  background: #342a3d !important;
-  color: #eadfec !important;
-  border-color: #695877 !important;
-}
-
 /* =========================================================
    Pulido visual · superficies y badges del tema oscuro
    Evita bloques grises innecesarios y mantiene la jerarquía
@@ -581,23 +557,6 @@ html[data-theme="oscuro"] .cotizador-card-dato {
   background: #211b26 !important;
   border: 1px solid #3f3347 !important;
   border-radius: 10px !important;
-}
-
-/* Categorías y etiquetas: menos gris, más morado y completamente redondeadas. */
-html[data-theme="oscuro"] .receta-categoria,
-html[data-theme="oscuro"] .receta-rendimiento,
-html[data-theme="oscuro"] .producto-categoria,
-html[data-theme="oscuro"] .producto-tipo,
-html[data-theme="oscuro"] .producto-marca,
-html[data-theme="oscuro"] .receta-lista-badge,
-html[data-theme="oscuro"] .receta-card-badge,
-html[data-theme="oscuro"] .producto-lista-tipo,
-html[data-theme="oscuro"] .producto-lista-categoria {
-  background: #352742 !important;
-  color: #eadcff !important;
-  border: 1px solid #6e4f87 !important;
-  border-radius: 999px !important;
-  box-shadow: none !important;
 }
 
 /* Estado de cotización: mismo lenguaje de chip redondeado. */
@@ -667,25 +626,6 @@ html[data-theme="oscuro"] .cotizador-card-total {
   background: transparent !important;
   border-top-color: #604b70 !important;
   border-radius: 0 !important;
-  box-shadow: none !important;
-}
-
-/* Badges de unidad/categoría/tipo: una única familia visual. */
-html[data-theme="oscuro"] .insumo-unidad,
-html[data-theme="oscuro"] .producto-categoria,
-html[data-theme="oscuro"] .producto-tipo,
-html[data-theme="oscuro"] .producto-marca,
-html[data-theme="oscuro"] .producto-lista-tipo,
-html[data-theme="oscuro"] .producto-lista-categoria,
-html[data-theme="oscuro"] .receta-categoria,
-html[data-theme="oscuro"] .receta-rendimiento,
-html[data-theme="oscuro"] .receta-lista-badge,
-html[data-theme="oscuro"] .receta-card-badge,
-html[data-theme="oscuro"] .modal-receta-categoria {
-  background: #39294a !important;
-  color: #f1e7ff !important;
-  border: 1px solid #765694 !important;
-  border-radius: 999px !important;
   box-shadow: none !important;
 }
 
@@ -1514,4 +1454,201 @@ html[data-theme="oscuro"] .pedido-modal-header {
 html[data-theme="oscuro"] .pedido-origen {
   background: #30253a !important;
   border: 1px solid #51405f !important;
+}
+
+
+/* =========================================================
+   PEDIDOS · ESTADO POR COLOR
+   Estas reglas van al final para ganar a las reglas genéricas
+   de FilterSelect y mantener visible el estado seleccionado.
+   ========================================================= */
+html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-pendiente .filter-select-trigger {
+  background: #40321f !important;
+  color: #ffd28e !important;
+  border-color: #9a7441 !important;
+}
+html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-en-preparacion .filter-select-trigger {
+  background: #342b4a !important;
+  color: #dccbff !important;
+  border-color: #8067a5 !important;
+}
+html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-listo .filter-select-trigger {
+  background: #21382c !important;
+  color: #a8edc3 !important;
+  border-color: #5c9775 !important;
+}
+html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-entregado .filter-select-trigger {
+  background: #20373a !important;
+  color: #a8e2e7 !important;
+  border-color: #60959a !important;
+}
+html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-pagado .filter-select-trigger {
+  background: #342a48 !important;
+  color: #e0ceff !important;
+  border-color: #8467a8 !important;
+}
+html[data-theme="oscuro"] .pedido-estado-filter.pedido-estado-cancelado .filter-select-trigger {
+  background: #40252c !important;
+  color: #ffadb7 !important;
+  border-color: #985965 !important;
+}
+
+/* =========================================================
+   CORRECCIONES FINALES · UNIDADES, ESTADOS Y CALENDARIO
+   ========================================================= */
+
+/* Los contenedores de selects no deben convertirse en una segunda tarjeta. */
+html[data-theme="oscuro"] #root .convertir-pedido-select {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: var(--sc-text) !important;
+}
+
+html[data-theme="oscuro"] #root .convertir-pedido-select label {
+  background: transparent !important;
+  color: #e2d6e8 !important;
+}
+
+/* Unidad / presentación: contraste claro y consistente en todas las tarjetas. */
+html[data-theme="oscuro"] .insumo-unidad {
+  background: #49345b !important;
+  color: #f3e8ff !important;
+  border: 1px solid #8063a0 !important;
+}
+
+html[data-theme="oscuro"] .producto-tipo {
+  background: #49345b !important;
+  color: #f3e8ff !important;
+  border: 1px solid #8063a0 !important;
+}
+
+html[data-theme="oscuro"] .producto-tipo.tipo-topping {
+  background: #4b303a !important;
+  color: #ffdbe4 !important;
+  border-color: #9b6272 !important;
+}
+
+html[data-theme="oscuro"] .producto-tipo.tipo-salsa {
+  background: #42352e !important;
+  color: #f2dfd4 !important;
+  border-color: #80685b !important;
+}
+
+/* Estados de pedido: trigger y opción seleccionada conservan el color semántico. */
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-pendiente .filter-select-trigger {
+  background: #40321f !important;
+  color: #ffd28e !important;
+  border-color: #9a7441 !important;
+}
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-en-preparacion .filter-select-trigger {
+  background: #342b4a !important;
+  color: #dccbff !important;
+  border-color: #8067a5 !important;
+}
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-listo .filter-select-trigger {
+  background: #21382c !important;
+  color: #a8edc3 !important;
+  border-color: #5c9775 !important;
+}
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-entregado .filter-select-trigger {
+  background: #20373a !important;
+  color: #a8e2e7 !important;
+  border-color: #60959a !important;
+}
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-pagado .filter-select-trigger {
+  background: #342a48 !important;
+  color: #e0ceff !important;
+  border-color: #8467a8 !important;
+}
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-cancelado .filter-select-trigger {
+  background: #40252c !important;
+  color: #ffadb7 !important;
+  border-color: #985965 !important;
+}
+
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-pendiente .filter-select-option.selected {
+  background: #4a3923 !important;
+  color: #ffd28e !important;
+}
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-en-preparacion .filter-select-option.selected {
+  background: #49345b !important;
+  color: #e7d8ff !important;
+}
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-listo .filter-select-option.selected {
+  background: #294936 !important;
+  color: #b8f3cd !important;
+}
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-entregado .filter-select-option.selected {
+  background: #29484b !important;
+  color: #bcecf0 !important;
+}
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-pagado .filter-select-option.selected {
+  background: #47365d !important;
+  color: #e7d8ff !important;
+}
+html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-cancelado .filter-select-option.selected {
+  background: #512d35 !important;
+  color: #ffc0c8 !important;
+}
+
+/* Calendario: los eventos también usan los mismos colores semánticos en oscuro. */
+html[data-theme="oscuro"] .calendario-evento.pendiente,
+html[data-theme="oscuro"] .agenda-evento.pendiente,
+html[data-theme="oscuro"] .dia-evento.pendiente {
+  background: #40321f !important;
+  border-color: #9a7441 !important;
+  color: #ffd28e !important;
+}
+html[data-theme="oscuro"] .calendario-evento.preparacion,
+html[data-theme="oscuro"] .agenda-evento.preparacion,
+html[data-theme="oscuro"] .dia-evento.preparacion {
+  background: #342b4a !important;
+  border-color: #8067a5 !important;
+  color: #dccbff !important;
+}
+html[data-theme="oscuro"] .calendario-evento.listo,
+html[data-theme="oscuro"] .agenda-evento.listo,
+html[data-theme="oscuro"] .dia-evento.listo {
+  background: #21382c !important;
+  border-color: #5c9775 !important;
+  color: #a8edc3 !important;
+}
+html[data-theme="oscuro"] .calendario-evento.entregado,
+html[data-theme="oscuro"] .agenda-evento.entregado,
+html[data-theme="oscuro"] .dia-evento.entregado {
+  background: #20373a !important;
+  border-color: #60959a !important;
+  color: #a8e2e7 !important;
+}
+html[data-theme="oscuro"] .calendario-evento.pagado,
+html[data-theme="oscuro"] .agenda-evento.pagado,
+html[data-theme="oscuro"] .dia-evento.pagado {
+  background: #342a48 !important;
+  border-color: #8467a8 !important;
+  color: #e0ceff !important;
+}
+html[data-theme="oscuro"] .calendario-evento.cancelado,
+html[data-theme="oscuro"] .agenda-evento.cancelado,
+html[data-theme="oscuro"] .dia-evento.cancelado {
+  background: #40252c !important;
+  border-color: #985965 !important;
+  color: #ffadb7 !important;
+}
+
+/* Cabeceras y celdas del calendario: ninguna superficie clara heredada. */
+html[data-theme="oscuro"] .calendario-dias-semana,
+html[data-theme="oscuro"] .agenda-dia > header {
+  background: #302838 !important;
+  color: #eadfec !important;
+}
+html[data-theme="oscuro"] .calendario-celda,
+html[data-theme="oscuro"] .agenda-dia {
+  background: #211b26 !important;
+}
+html[data-theme="oscuro"] .calendario-celda.otro-mes {
+  background: #18141c !important;
+}
+html[data-theme="oscuro"] .calendario-celda.hoy {
+  background: #292132 !important;
 }

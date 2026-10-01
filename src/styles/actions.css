@@ -1,0 +1,115 @@
+/* =========================================================
+   Sweet Cost · Acciones CRUD universales
+   Editar / Eliminar mantienen el mismo lenguaje visual
+   en tarjetas, listas y tablas.
+   ========================================================= */
+
+.sc-action-edit,
+.sc-action-delete {
+  min-height: 38px;
+  min-width: 92px;
+  box-sizing: border-box;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 13px !important;
+  border-radius: 8px !important;
+  font-family: inherit;
+  font-size: calc(11px * var(--sc-font-scale, 1)) !important;
+  font-weight: 700 !important;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+}
+
+.sc-action-edit {
+  border: 1px solid var(--sc-primary) !important;
+  background: var(--sc-surface) !important;
+  color: var(--sc-primary-dark) !important;
+}
+
+.sc-action-edit:hover {
+  background: var(--sc-primary-pale) !important;
+  border-color: var(--sc-primary) !important;
+  color: var(--sc-primary-dark) !important;
+  transform: translateY(-1px);
+}
+
+.sc-action-delete {
+  border: 1px solid var(--sc-danger) !important;
+  background: var(--sc-surface) !important;
+  color: var(--sc-danger) !important;
+}
+
+.sc-action-delete:hover {
+  background: var(--sc-danger-bg) !important;
+  border-color: var(--sc-danger) !important;
+  color: var(--sc-danger) !important;
+  transform: translateY(-1px);
+}
+
+.sc-action-edit:active,
+.sc-action-delete:active {
+  transform: translateY(0) scale(.98);
+}
+
+.sc-action-edit svg,
+.sc-action-delete svg,
+.sc-action-edit img,
+.sc-action-delete img {
+  width: 18px !important;
+  height: 18px !important;
+  flex: 0 0 18px !important;
+  object-fit: contain;
+}
+
+/* El modo lista puede usar botones compactos solo cuando no hay texto. */
+.empleado-lista-actions .sc-action-edit,
+.empleado-lista-actions .sc-action-delete {
+  min-width: 36px;
+  width: 36px;
+  padding: 6px !important;
+}
+
+/* Acciones compactas de tabla: mantienen la misma identidad sin agrandarse. */
+.pedido-actions .sc-action-edit,
+.pedido-actions .sc-action-delete {
+  min-width: 34px;
+  width: 34px;
+  min-height: 34px;
+  height: 34px;
+  padding: 6px !important;
+}
+
+html[data-theme="oscuro"] #root .sc-action-edit {
+  background: #211b26 !important;
+  color: #d8c2ff !important;
+  border-color: #9b7ede !important;
+}
+
+html[data-theme="oscuro"] #root .sc-action-edit:hover {
+  background: #3b2d4b !important;
+  color: #fffaff !important;
+  border-color: #b99ae9 !important;
+}
+
+html[data-theme="oscuro"] #root .sc-action-delete {
+  background: #211b26 !important;
+  color: #ff9eaa !important;
+  border-color: #e27783 !important;
+}
+
+html[data-theme="oscuro"] #root .sc-action-delete:hover {
+  background: #42252d !important;
+  color: #ffdce1 !important;
+  border-color: #ff9aa5 !important;
+}
+
+@media (max-width: 600px) {
+  .sc-action-edit,
+  .sc-action-delete {
+    min-height: 40px;
+    min-width: 0;
+  }
+}

@@ -67,7 +67,7 @@ function InsumoCard({
       <div className="insumo-card-actions">
         <button
           type="button"
-          className="insumo-btn-editar"
+          className="insumo-btn-editar sc-action-edit"
           onClick={() => onEditar(insumo)}
         >
           <Icon type="edit" size={22} />
@@ -76,7 +76,7 @@ function InsumoCard({
 
         <button
           type="button"
-          className="insumo-btn-eliminar"
+          className="insumo-btn-eliminar sc-action-delete"
           onClick={() => onEliminar(insumo)}
         >
           <Icon type="trash" size={22} />

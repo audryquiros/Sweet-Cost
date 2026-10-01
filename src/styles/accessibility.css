@@ -82,6 +82,11 @@ html[data-theme="oscuro"] .module-placeholder-card {
   box-shadow: var(--sc-shadow) !important;
 }
 
+html[data-theme="oscuro"] .confirmacion-icono {
+  background: #3a2730 !important;
+  border: 1px solid #6f4650 !important;
+}
+
 html[data-theme="oscuro"] input,
 html[data-theme="oscuro"] select,
 html[data-theme="oscuro"] textarea,
@@ -126,6 +131,7 @@ html[data-theme="oscuro"] .pedido-form-overlay,
 html[data-theme="oscuro"] .convertir-pedido-overlay,
 html[data-theme="oscuro"] .ingredientes-modal-overlay {
   background: rgba(8, 6, 10, .68) !important;
+  backdrop-filter: none !important;
 }
 
 html[data-theme="oscuro"] .cotizador-modal-seccion,
@@ -371,11 +377,6 @@ html[data-theme="oscuro"] .producto-card .tipo-topping {
 html[data-theme="oscuro"] .producto-card .tipo-salsa {
   background: #463832 !important;
   color: #f3d9c4 !important;
-}
-html[data-theme="oscuro"] .producto-card .producto-categoria {
-  background: #302b43 !important;
-  border-color: #675a82 !important;
-  color: #eee6ff !important;
 }
 
 html[data-theme="oscuro"] .producto-card .btn-editar {

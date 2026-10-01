@@ -22,12 +22,6 @@ function RecetaDetalle({ receta, productos, onEditar, onVolver }) {
 
   const precioSugerido = costoPorUnidad * (1 + margen / 100);
 
-  const obtenerCategoria = () => {
-    if (receta.categoria === "reposteria") return "Repostería";
-    if (receta.categoria === "comida") return "Comida";
-    if (receta.categoria === "bebidas") return "Bebidas";
-    return "General";
-  };
 
   const obtenerUnidadRendimiento = () => {
     if (receta.unidadRendimiento === "docena") return "docena";
@@ -125,10 +119,6 @@ function RecetaDetalle({ receta, productos, onEditar, onVolver }) {
               <div className="receta-detalle-campo">
                 <span>Nombre</span>
                 <strong>{receta.nombre}</strong>
-              </div>
-              <div className="receta-detalle-campo">
-                <span>Categoría</span>
-                <strong>{obtenerCategoria()}</strong>
               </div>
               <div className="receta-detalle-campo">
                 <span>Rinde</span>

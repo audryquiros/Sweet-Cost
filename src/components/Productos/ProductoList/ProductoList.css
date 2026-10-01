@@ -156,23 +156,6 @@
   gap: 5px;
 }
 
-.producto-lista-tipo,
-.producto-lista-categoria {
-  display: inline-flex;
-  align-items: center;
-
-  min-height: 21px;
-
-  padding: 2px 8px;
-
-  border-radius: 999px;
-
-  font-size: calc(10px * var(--sc-font-scale, 1));
-  font-weight: 600;
-
-  box-sizing: border-box;
-}
-
 
 /* Topping */
 
@@ -195,14 +178,6 @@
 .producto-lista-tipo.tipo-ingrediente {
   background-color: #eee9df;
   color: #75654d;
-}
-
-
-/* Categoría */
-
-.producto-lista-categoria {
-  background-color: #eee8f7;
-  color: #725a8c;
 }
 
 

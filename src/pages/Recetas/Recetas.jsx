@@ -16,7 +16,6 @@ import RecetasForm from "../../components/Recetas/RecetasForm/RecetasForm";
 
 import RecetaList from "../../components/Recetas/RecetaList/RecetaList";
 import ViewToggle from "../../components/common/ViewToggle/ViewToggle";
-import FilterSelect from "../../components/common/FilterSelect";
 
 import ConversorMedidas from "../../components/ConversorMedidas/ConversorMedidas";
 
@@ -27,29 +26,6 @@ import { obtenerUnidadBase } from "../../utils/calculosCostos";
 import Icon from "../../components/common/Icon/Icon";
 
 import "./Recetas.css";
-
-const CATEGORIAS = [
-  {
-    valor: "todas",
-    nombre: "Todas",
-  },
-  {
-    valor: "general",
-    nombre: "General",
-  },
-  {
-    valor: "reposteria",
-    nombre: "Repostería",
-  },
-  {
-    valor: "comida",
-    nombre: "Comida",
-  },
-  {
-    valor: "bebidas",
-    nombre: "Bebidas",
-  },
-];
 
 function Recetas() {
   const [recetas, setRecetas] = useState([]);
@@ -80,9 +56,6 @@ function Recetas() {
   const [error, setError] = useState("");
 
   const [cargando, setCargando] = useState(true);
-
-  const [filtroCategoria, setFiltroCategoria] =
-    useState("todas");
 
   const [vista, setVista] = useState(() => localStorage.getItem("sweetcost-view-recetas") || "cards");
 
@@ -292,16 +265,7 @@ function Recetas() {
     });
   };
 
-  const recetasFiltradas =
-    recetas.filter((receta) => {
-      const categoriaReceta =
-        receta.categoria || "general";
-
-      return (
-        filtroCategoria === "todas" ||
-        categoriaReceta === filtroCategoria
-      );
-    });
+  const recetasFiltradas = recetas;
 
   if (cargando) {
     return (
@@ -404,13 +368,6 @@ function Recetas() {
       )}
 
       <div className="recetas-controles">
-        <FilterSelect
-          id="filtroCategoriaRecetas"
-          label="Categoría"
-          value={filtroCategoria}
-          options={CATEGORIAS}
-          onChange={setFiltroCategoria}
-        />
 
         <ViewToggle
           value={vista}

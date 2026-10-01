@@ -70,24 +70,6 @@ function ProductoCard({
     );
   };
 
-  const obtenerNombreCategoria = () => {
-    if (producto.categoria === "reposteria") {
-      return "Repostería";
-    }
-
-    if (producto.categoria === "comida") {
-      return "Comida";
-    }
-
-    if (producto.categoria === "bebidas") {
-      return "Bebidas";
-    }
-
-    return "";
-  };
-
-  const nombreCategoria =
-    obtenerNombreCategoria();
 
   return (
     <article className="producto-card">
@@ -109,11 +91,6 @@ function ProductoCard({
             {producto.tipo}
           </span>
 
-          {nombreCategoria && (
-            <span className="producto-categoria">
-              {nombreCategoria}
-            </span>
-          )}
         </div>
       </div>
 
@@ -246,7 +223,7 @@ function ProductoCard({
       <div className="producto-card-actions">
         <button
           type="button"
-          className="btn-editar"
+          className="btn-editar sc-action-edit"
           onClick={() =>
             onEditar(producto)
           }
@@ -257,7 +234,7 @@ function ProductoCard({
 
         <button
           type="button"
-          className="btn-eliminar"
+          className="btn-eliminar sc-action-delete"
           onClick={() =>
             onEliminar(producto)
           }

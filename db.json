@@ -430,9 +430,10 @@
       "rol": "administrador",
       "estado": "activo",
       "foto": "/avatars/avatar-1.png",
-      "negocioId": "dulces-momentos",
+      "negocioId": "neg-1790884515462",
       "negocioIds": [
-        "dulces-momentos"
+        "dulces-momentos",
+        "neg-1790884515462"
       ],
       "clave": "admin123"
     },
@@ -472,6 +473,14 @@
       "telefono": "8888-0000",
       "correo": "contacto@dulcesmomentos.com",
       "margenGanancia": 30
+    },
+    {
+      "nombre": "El Sazón de Jeka",
+      "tipo": "Soda",
+      "telefono": "61151187",
+      "correo": "jekasazon@gmail.com",
+      "margenGanancia": 30,
+      "id": "RsRquvroivA"
     }
   ],
   "asistencias": [],

@@ -31,6 +31,7 @@ const iconImages = {
   orders: "/illustrations/pedidos-portapapeles.png",
   calendar: "/illustrations/calendario.png",
   employees: "/illustrations/empleados.png",
+  businesses: "/illustrations/negocio.png",
   settings: "/illustrations/configuracion.png",
   profile: "/illustrations/perfil.png",
   dashboard: "/illustrations/dashboard.png",

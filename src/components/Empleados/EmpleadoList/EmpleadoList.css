@@ -197,3 +197,95 @@
     font-size: 10px !important;
   }
 }
+
+
+/* =========================================================
+   SWEET COST · ACCIONES DE EMPLEADOS · DISTRIBUCIÓN FINAL
+   Las tres acciones ocupan el mismo espacio disponible.
+   ========================================================= */
+.empleado-card-actions {
+  display: flex !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  gap: 8px !important;
+}
+
+.empleado-card-actions > button {
+  flex: 1 1 0 !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  min-height: 40px !important;
+  height: 40px !important;
+  padding: 7px 8px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  white-space: nowrap !important;
+}
+
+.empleado-card-actions > button:first-child,
+.empleado-card-actions > button:nth-child(2),
+.empleado-card-actions > button:nth-child(3) {
+  grid-column: auto !important;
+}
+
+.empleado-card-actions > button > span {
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+@media (max-width: 777px) {
+  .empleado-card-actions {
+    display: flex !important;
+    gap: 7px !important;
+  }
+
+  .empleado-card-actions > button {
+    flex: 1 1 0 !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    min-height: 40px !important;
+    height: 40px !important;
+    padding-inline: 5px !important;
+  }
+
+  .empleado-card-actions > button > span {
+    display: inline !important;
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip: auto !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+}
+
+@media (max-width: 350px) {
+  .empleado-card-actions {
+    gap: 5px !important;
+  }
+
+  .empleado-card-actions > button {
+    padding-inline: 3px !important;
+    gap: 4px !important;
+    font-size: 9px !important;
+  }
+
+  .empleado-card-actions > button svg,
+  .empleado-card-actions > button img {
+    width: 16px !important;
+    height: 16px !important;
+    flex: 0 0 16px !important;
+  }
+}

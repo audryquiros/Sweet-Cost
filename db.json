@@ -365,7 +365,9 @@
       "fecha": "2026-09-10T05:19:33.801Z",
       "id": "uLtb1lnK_7A",
       "estado": "Pendiente",
-      "negocioId": "dulces-momentos"
+      "negocioId": "dulces-momentos",
+      "empleadoId": "emp-001",
+      "empleadoNombre": "María Rodrígues"
     }
   ],
   "pedidos": [
@@ -412,7 +414,11 @@
       "estado": "Entregado",
       "observaciones": "",
       "id": "Wva_uT71nhM",
-      "negocioId": "dulces-momentos"
+      "negocioId": "dulces-momentos",
+      "empleadoId": "emp-001",
+      "empleadoNombre": "María Rodrígues",
+      "cotizacionEmpleadoId": "emp-001",
+      "cotizacionEmpleadoNombre": "María Rodrígues"
     }
   ],
   "empleados": [
@@ -467,5 +473,6 @@
       "margenGanancia": 30
     }
   ],
-  "$schema": "./node_modules/json-server/schema.json"
+  "$schema": "./node_modules/json-server/schema.json",
+  "asistencias": []
 }

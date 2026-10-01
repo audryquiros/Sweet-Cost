@@ -5,6 +5,7 @@ import { getNegocioActivo } from "../../context/negocioContext";
 import { usePerfilActual } from "../../context/perfilContext";
 import { useAuth } from "../../context/authContext";
 import "./Nav.css";
+import Notificaciones from "../Notificaciones/Notificaciones";
 
 const menuPrincipal = [
   { to: "/", label: "Dashboard", icon: "dashboard" },
@@ -176,6 +177,7 @@ function Nav() {
 
   return (
     <>
+      <Notificaciones />
       {/* Botón para abrir el menú en mobile */}
       <button
         type="button"
@@ -240,7 +242,7 @@ function Nav() {
                   onError={() => setImagenNegocioError(true)}
                 />
               ) : (
-                <span>{(negocioActivo.nombre || "SC").slice(0, 2).toUpperCase()}</span>
+                <img src="/logoSC.png" alt="Sweet Cost" className="business-logo-fallback" />
               )}
             </div>
 

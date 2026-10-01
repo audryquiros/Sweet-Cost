@@ -122,6 +122,11 @@ function CotizadorCard({
 
         {/* DATOS PRINCIPALES */}
 
+        <div className="cotizador-card-responsable">
+          <span>Tramitada por</span>
+          <strong>{cotizacion.empleadoNombre || "No registrado"}</strong>
+        </div>
+
         <div className="cotizador-card-datos">
           <div className="cotizador-card-dato">
             <span>
@@ -337,6 +342,11 @@ function CotizadorCard({
                 </p>
               </div>
 
+            </div>
+
+            <div className="cotizador-modal-responsable">
+              <span>Empleado responsable</span>
+              <strong>{cotizacion.empleadoNombre || "No registrado"}</strong>
             </div>
 
             {/* INFORMACIÓN DE LA VENTA */}

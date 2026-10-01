@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useAuth } from "../../../context/authContext";
 import { createPedido } from "../../../services/pedidoServices";
 import { updateCotizacion } from "../../../services/cotizadorServices";
 import FilterSelect from "../../common/FilterSelect";
@@ -256,6 +257,7 @@ function TimePicker({ value, onChange }) {
 }
 
 function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
+  const { usuario } = useAuth();
   const [formulario, setFormulario] = useState({
     cliente: cotizacion.cliente || "",
     telefono: cotizacion.telefono || "",
@@ -306,6 +308,10 @@ function ConvertirPedidoModal({ cotizacion, onCreado, onCancelar }) {
       setGuardando(true);
 
       const pedido = {
+        empleadoId: usuario?.id || null,
+        empleadoNombre: usuario?.nombre || null,
+        cotizacionEmpleadoId: cotizacion.empleadoId || null,
+        cotizacionEmpleadoNombre: cotizacion.empleadoNombre || null,
         cotizacionId: cotizacion.id,
         cotizacionNombre: cotizacion.nombre,
         cliente: formulario.cliente.trim(),

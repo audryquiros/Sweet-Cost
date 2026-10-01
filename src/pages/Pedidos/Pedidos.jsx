@@ -198,6 +198,7 @@ function Pedidos() {
                 <th>Entrega</th>
                 <th>Hora</th>
                 <th>Total</th>
+                <th>Responsable</th>
                 <th>Estado</th>
                 <th>Acciones</th>
               </tr>
@@ -217,6 +218,11 @@ function Pedidos() {
                   <td><span>{formatearFecha(pedido.fechaEntrega)}</span></td>
                   <td><strong>{formatearHora(pedido.horaEntrega)}</strong></td>
                   <td><strong>₡{Number(pedido.precioSugerido || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></td>
+                  <td>
+                    <div className="pedido-responsable">
+                      <strong>{pedido.empleadoNombre || "No registrado"}</strong>
+                    </div>
+                  </td>
                   <td>
                     <FilterSelect
                       id={`estado-${pedido.id}`}
@@ -257,6 +263,7 @@ function Pedidos() {
               <div><span><img src="/illustrations/bascula.png" alt="" aria-hidden="true" />Cantidad</span><strong>{detalle.cantidadAVender || 0}</strong></div>
               <div><span><img src="/illustrations/bascula.png" alt="" aria-hidden="true" />Productos totales</span><strong>{detalle.cantidadTotalProductos || 0}</strong></div>
               <div><span><img src="/illustrations/billetera.png" alt="" aria-hidden="true" />Método de pago</span><strong>{detalle.metodoPago || "-"}</strong></div>
+              <div><span><img src="/illustrations/perfil.png" alt="" aria-hidden="true" />Empleado responsable</span><strong>{detalle.empleadoNombre || "No registrado"}</strong></div>
               <div><span><img src="/illustrations/moneda.png" alt="" aria-hidden="true" />Depósito</span><strong>₡{Number(detalle.deposito || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}{detalle.depositoPorcentaje != null ? ` (${Number(detalle.depositoPorcentaje)}%)` : ""}</strong></div>
               <div><span><img src="/illustrations/moneda.png" alt="" aria-hidden="true" />Saldo</span><strong>₡{Number(detalle.saldo || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>
               <div><span><img src="/illustrations/recibo.png" alt="" aria-hidden="true" />Total</span><strong>₡{Number(detalle.precioSugerido || 0).toLocaleString("es-CR", { minimumFractionDigits: 2 })}</strong></div>

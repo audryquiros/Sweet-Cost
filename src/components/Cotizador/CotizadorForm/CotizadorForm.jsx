@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useAuth } from "../../../context/authContext";
 
 import {
   createCotizacion,
@@ -19,6 +20,7 @@ function CotizadorForm({
   onCotizacionCreada,
   onCancelar,
 }) {
+  const { usuario } = useAuth();
   const [formulario, setFormulario] = useState({
     nombre: "",
     recetaId: "",
@@ -616,6 +618,8 @@ function CotizadorForm({
         });
 
       const cotizacion = {
+        empleadoId: usuario?.id || null,
+        empleadoNombre: usuario?.nombre || null,
         nombre: formulario.nombre.trim(),
 
         recetaId: recetaSeleccionada.id,

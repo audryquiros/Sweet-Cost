@@ -46,6 +46,7 @@ const PATHS = {
   info: (<><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></>),
   logout: (<><path d="M10 5H5v14h5"/><path d="M13 8l4 4-4 4M8 12h9"/></>),
   menu: (<><path d="M4 7h16M4 12h16M4 17h16"/></>),
+  bell: (<><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></>),
   download: (<><path d="M12 4v11M8 11l4 4 4-4M5 20h14"/></>),
   upload: (<><path d="M12 20V9M8 13l4-4 4 4M5 4h14"/></>),
 };

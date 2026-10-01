@@ -246,10 +246,35 @@ function Empleados() {
                   </div>
                   <div className="asistencia-horas"><span>Ingreso <b>{hora(registro?.ingreso)}</b></span><span>Salida <b>{hora(registro?.salida)}</b></span></div>
                   <div className="asistencia-estado">
-                    {!registro && <button type="button" className="asistencia-btn asistencia-btn--entry" disabled={guardandoAsistencia === empleado.id} onClick={() => registrarEntrada(empleado)}>{guardandoAsistencia === empleado.id ? "Guardando..." : "Registrar ingreso"}</button>}
-                    {registro && !registro.salida && <button type="button" className="asistencia-btn asistencia-btn--exit" disabled={guardandoAsistencia === empleado.id} onClick={() => registrarSalidaEmpleado(registro)}>{guardandoAsistencia === empleado.id ? "Guardando..." : "Registrar salida"}</button>}
-                    {registro?.salida && <span className="asistencia-completa">Jornada registrada</span>}
-                    {registro && esAdmin && <button type="button" className="asistencia-btn asistencia-btn--edit" onClick={() => abrirEditarHorario(registro)}>Editar horario</button>}
+                    {!registro && (
+                      <div className="asistencia-actions asistencia-actions--single">
+                        <button type="button" className="asistencia-btn asistencia-btn--entry" disabled={guardandoAsistencia === empleado.id} onClick={() => registrarEntrada(empleado)}>
+                          {guardandoAsistencia === empleado.id ? "Guardando..." : "Registrar ingreso"}
+                        </button>
+                      </div>
+                    )}
+                    {registro && !registro.salida && (
+                      <div className="asistencia-actions">
+                        <button type="button" className="asistencia-btn asistencia-btn--exit" disabled={guardandoAsistencia === empleado.id} onClick={() => registrarSalidaEmpleado(registro)}>
+                          {guardandoAsistencia === empleado.id ? "Guardando..." : "Registrar salida"}
+                        </button>
+                        {esAdmin && (
+                          <button type="button" className="asistencia-btn asistencia-btn--edit" onClick={() => abrirEditarHorario(registro)}>
+                            Editar horario
+                          </button>
+                        )}
+                      </div>
+                    )}
+                    {registro?.salida && (
+                      <div className="asistencia-actions">
+                        <span className="asistencia-completa">Jornada registrada</span>
+                        {esAdmin && (
+                          <button type="button" className="asistencia-btn asistencia-btn--edit" onClick={() => abrirEditarHorario(registro)}>
+                            Editar horario
+                          </button>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </article>
               );

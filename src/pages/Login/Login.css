@@ -590,3 +590,166 @@
     flex-direction: column;
   }
 }
+
+
+/* =========================================
+   TEMA OSCURO — LOGIN
+   El login conserva el patrón de Sweet Cost,
+   pero adapta las tarjetas, textos y campos
+   para que sigan siendo legibles en oscuro.
+   ========================================= */
+
+html[data-theme="oscuro"] .login-page {
+  background-color: #17131b !important;
+  background-image: url("/patron.png") !important;
+  background-size: cover;
+  background-position: center;
+}
+
+html[data-theme="oscuro"] .login-page::before {
+  background:
+    linear-gradient(rgba(23, 19, 27, 0.72), rgba(23, 19, 27, 0.72)),
+    rgba(23, 19, 27, 0.34) !important;
+}
+
+html[data-theme="oscuro"] .login-brand-card,
+html[data-theme="oscuro"] .login-card {
+  background: rgba(31, 25, 37, 0.88) !important;
+  border-color: #594865 !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.34) !important;
+  color: #f8f1fa !important;
+}
+
+html[data-theme="oscuro"] .login-brand-card {
+  background: rgba(31, 25, 37, 0.82) !important;
+}
+
+html[data-theme="oscuro"] .login-brand-title {
+  color: #eee5f1 !important;
+}
+
+html[data-theme="oscuro"] .login-brand-feature {
+  background: rgba(48, 38, 56, 0.88) !important;
+  border-color: #655270 !important;
+  color: #f5edf7 !important;
+}
+
+html[data-theme="oscuro"] .login-brand-feature:hover {
+  background: rgba(61, 47, 70, 0.94) !important;
+  border-color: #8e70a2 !important;
+}
+
+html[data-theme="oscuro"] .login-eyebrow {
+  color: #b58ce8 !important;
+}
+
+html[data-theme="oscuro"] .login-heading h1 {
+  color: #fffaff !important;
+}
+
+html[data-theme="oscuro"] .login-heading p {
+  color: #cdbfd3 !important;
+}
+
+html[data-theme="oscuro"] .login-field,
+html[data-theme="oscuro"] .login-field > span {
+  color: #f5edf7 !important;
+}
+
+html[data-theme="oscuro"] .login-field input {
+  background: #2c2533 !important;
+  border-color: #756080 !important;
+  color: #fffaff !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="oscuro"] .login-field input::placeholder {
+  color: #a99bb0 !important;
+}
+
+html[data-theme="oscuro"] .login-field input:hover {
+  border-color: #9d7ab7 !important;
+  background: #302938 !important;
+}
+
+html[data-theme="oscuro"] .login-field input:focus {
+  background: #312a38 !important;
+  border-color: #b58ce8 !important;
+  box-shadow: 0 0 0 3px rgba(181, 140, 232, 0.2) !important;
+}
+
+html[data-theme="oscuro"] .login-password-toggle {
+  color: #c4afca !important;
+}
+
+html[data-theme="oscuro"] .login-password-toggle:hover {
+  background: #44354d !important;
+  color: #f5c1d0 !important;
+}
+
+html[data-theme="oscuro"] .login-remember,
+html[data-theme="oscuro"] .login-remember span {
+  color: #cdbfd3 !important;
+}
+
+html[data-theme="oscuro"] .login-forgot {
+  color: #c39aef !important;
+}
+
+html[data-theme="oscuro"] .login-forgot:hover {
+  color: #e0c8ff !important;
+}
+
+html[data-theme="oscuro"] .login-error {
+  background: #3a222c !important;
+  border-color: #7e4658 !important;
+  color: #ffc6d2 !important;
+}
+
+html[data-theme="oscuro"] .login-submit {
+  background: #956bd1 !important;
+  border-color: #b58ce8 !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 25px rgba(83, 48, 111, 0.38) !important;
+}
+
+html[data-theme="oscuro"] .login-submit:hover:not(:disabled) {
+  background: #a67ae0 !important;
+}
+
+html[data-theme="oscuro"] .login-divider {
+  color: #aa9daf !important;
+}
+
+html[data-theme="oscuro"] .login-divider::before,
+html[data-theme="oscuro"] .login-divider::after {
+  background: #514458 !important;
+}
+
+html[data-theme="oscuro"] .login-create-account {
+  background: rgba(45, 35, 53, 0.86) !important;
+  border-color: #a67ed2 !important;
+  color: #d7baf1 !important;
+}
+
+html[data-theme="oscuro"] .login-create-account:hover {
+  background: #49365a !important;
+  color: #fff5ff !important;
+}
+
+/* Evita que las reglas globales del tema oscuro conviertan
+   accidentalmente todos los textos del login en blanco. */
+html[data-theme="oscuro"] .login-card p,
+html[data-theme="oscuro"] .login-card span,
+html[data-theme="oscuro"] .login-brand-card p,
+html[data-theme="oscuro"] .login-brand-card span {
+  text-shadow: none;
+}
+
+@media (max-width: 900px) {
+  html[data-theme="oscuro"] .login-page::before {
+    background:
+      linear-gradient(rgba(23, 19, 27, 0.78), rgba(23, 19, 27, 0.78)),
+      rgba(23, 19, 27, 0.34) !important;
+  }
+}

@@ -69,13 +69,29 @@ function Home() {
   const miAsistenciaHoy = asistencias.find((item) => item.empleadoId === usuario?.id && item.fecha === fechaHoy());
   const horaAsistencia = (value) => value ? new Date(value).toLocaleTimeString("es-CR", { hour: "numeric", minute: "2-digit" }) : "—";
   const registrarMiEntrada = async () => {
-    try { setGuardandoAsistencia(true); const nuevo = await registrarIngreso({ empleadoId: usuario.id, empleadoNombre: usuario.nombre }); setAsistencias((actuales) => [...actuales, nuevo]); window.dispatchEvent(new CustomEvent("sweetcost-datos-cambio")); }
-    catch {} finally { setGuardandoAsistencia(false); }
+    try {
+      setGuardandoAsistencia(true);
+      const nuevo = await registrarIngreso({ empleadoId: usuario.id, empleadoNombre: usuario.nombre });
+      setAsistencias((actuales) => actuales.some((item) => item.id === nuevo.id) ? actuales.map((item) => item.id === nuevo.id ? nuevo : item) : [...actuales, nuevo]);
+      window.dispatchEvent(new CustomEvent("sweetcost-datos-cambio"));
+    } catch (err) {
+      setError(err.message || "No se pudo registrar tu entrada.");
+    } finally {
+      setGuardandoAsistencia(false);
+    }
   };
   const registrarMiSalida = async () => {
     if (!miAsistenciaHoy) return;
-    try { setGuardandoAsistencia(true); const actualizado = await registrarSalida(miAsistenciaHoy.id); setAsistencias((actuales) => actuales.map((item) => item.id === actualizado.id ? actualizado : item)); window.dispatchEvent(new CustomEvent("sweetcost-datos-cambio")); }
-    catch {} finally { setGuardandoAsistencia(false); }
+    try {
+      setGuardandoAsistencia(true);
+      const actualizado = await registrarSalida(miAsistenciaHoy.id);
+      setAsistencias((actuales) => actuales.map((item) => item.id === actualizado.id ? actualizado : item));
+      window.dispatchEvent(new CustomEvent("sweetcost-datos-cambio"));
+    } catch (err) {
+      setError(err.message || "No se pudo registrar tu salida.");
+    } finally {
+      setGuardandoAsistencia(false);
+    }
   };
 
   const pedidosActivos = useMemo(() => pedidos.filter((p) => !["Cancelado"].includes(p.estado)), [pedidos]);

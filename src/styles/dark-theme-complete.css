@@ -2657,3 +2657,125 @@ html[data-theme="oscuro"] .confirmacion-contenido h3 {
 html[data-theme="oscuro"] .confirmacion-contenido p {
   color: #cfc1d6 !important;
 }
+
+
+/* =========================================================
+   Dashboard empleado · contraste y controles en modo oscuro
+   ========================================================= */
+html[data-theme="oscuro"] .home-employee-dashboard .home-kpi,
+html[data-theme="oscuro"] .home-employee-dashboard .home-panel,
+html[data-theme="oscuro"] .home-employee-dashboard .home-panel-heading,
+html[data-theme="oscuro"] .home-employee-dashboard .home-empty {
+  background: #211b26 !important;
+  color: #f8f2fa !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-kpi::after {
+  background: #392d42 !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-kpi-icon,
+html[data-theme="oscuro"] .home-employee-dashboard .home-row-icon {
+  background: #34283e !important;
+  border-color: #584565 !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-kpi span,
+html[data-theme="oscuro"] .home-employee-dashboard .home-kpi strong {
+  color: #fffaff !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-kpi small {
+  color: #d8b8ff !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-panel-heading {
+  border-bottom-color: #433747 !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-panel-heading span {
+  color: #a98ae4 !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-panel-heading h2 {
+  color: #fffaff !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-panel-heading a {
+  color: #d8b8ff !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-list-row {
+  border-bottom-color: #433747 !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-list-row strong {
+  color: #fffaff !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-list-row span,
+html[data-theme="oscuro"] .home-employee-dashboard .home-empty {
+  color: #b9adbf !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-list-row > b {
+  color: #d8b8ff !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-attendance-body strong {
+  color: #fffaff !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-attendance-body span {
+  color: #b9adbf !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-attendance-btn--entry {
+  background: #9b7ede !important;
+  color: #ffffff !important;
+  border-color: #b89bea !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-attendance-btn--entry:hover {
+  background: #b08ee8 !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-attendance-btn--exit {
+  background: #4a2d3b !important;
+  color: #ffd9df !important;
+  border-color: #b56b7a !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-attendance-btn--exit:hover {
+  background: #5a3444 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="oscuro"] .home-employee-dashboard .home-attendance-complete {
+  background: #244235 !important;
+  color: #b9e8c9 !important;
+  border: 1px solid #3e7355 !important;
+}
+
+/* Cierre con ilustración Sweet Cost */
+html[data-theme="oscuro"] .pedido-form-close,
+html[data-theme="oscuro"] .asistencia-modal-close,
+html[data-theme="oscuro"] .perfil-avatar-modal-close,
+html[data-theme="oscuro"] .calendario-modal header button,
+html[data-theme="oscuro"] .ingredientes-modal-cerrar,
+html[data-theme="oscuro"] .pedido-modal-overlay button[aria-label="Cerrar detalle"] {
+  display: grid;
+  place-items: center;
+}
+
+html[data-theme="oscuro"] .pedido-form-close img,
+html[data-theme="oscuro"] .asistencia-modal-close img,
+html[data-theme="oscuro"] .perfil-avatar-modal-close img,
+html[data-theme="oscuro"] .calendario-modal header button img,
+html[data-theme="oscuro"] .ingredientes-modal-cerrar img,
+html[data-theme="oscuro"] .pedido-modal-overlay button[aria-label="Cerrar detalle"] img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}

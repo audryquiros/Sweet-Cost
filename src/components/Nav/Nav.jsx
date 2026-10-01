@@ -210,7 +210,7 @@ function Nav() {
           aria-label="Cerrar menú"
           onClick={closeMobileMenu}
         >
-          <Icon type="close" size={20} />
+          <img src="/illustrations/cerrar.png" alt="" aria-hidden="true" />
         </button>
 
         <div className="sidebar-top">
@@ -259,14 +259,10 @@ function Nav() {
             </span>
           </div>
 
-          {usuario?.rol === "administrador" && (
-            <>
-              <div className="sidebar-section-label">Principal</div>
-              <nav className="sidebar-nav" aria-label="Navegación principal">
-                <SidebarLink item={menuPrincipal[0]} onNavigate={closeMobileMenu} perfil={perfil} />
-              </nav>
-            </>
-          )}
+          <div className="sidebar-section-label">Principal</div>
+          <nav className="sidebar-nav" aria-label="Navegación principal">
+            <SidebarLink item={menuPrincipal[0]} onNavigate={closeMobileMenu} perfil={perfil} />
+          </nav>
 
           <div className="sidebar-section-label sidebar-section-label--spaced">Gestión del negocio</div>
           <nav className="sidebar-nav" aria-label="Gestión del negocio">

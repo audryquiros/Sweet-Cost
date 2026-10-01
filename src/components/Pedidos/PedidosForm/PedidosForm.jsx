@@ -178,7 +178,7 @@ function PedidosForm({ pedidoEditar, onGuardar, onCancelar }) {
             onClick={onCancelar}
             aria-label="Cerrar formulario"
           >
-            ×
+            <img src="/illustrations/cerrar.png" alt="" aria-hidden="true" />
           </button>
         </div>
 

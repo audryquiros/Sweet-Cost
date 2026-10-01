@@ -321,3 +321,6 @@
 .pedido-form-full::before {
   background-image: url("/illustrations/recibo.png");
 }
+
+
+.pedido-form-close img { width: 20px; height: 20px; object-fit: contain; display: block; }

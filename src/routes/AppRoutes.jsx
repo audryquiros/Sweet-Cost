@@ -1,5 +1,11 @@
 import { useEffect } from "react";
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 
 import Home from "../pages/Home/Home";
 import Productos from "../pages/Productos/Productos";
@@ -17,28 +23,44 @@ import NoAccess from "../pages/NoAccess/NoAccess";
 import NotFound from "../pages/NotFound/NotFound";
 
 import Nav from "../components/Nav/Nav";
+import PrivateRoute from "./PrivateRoute";
+
 import { useAuth } from "../context/authContext";
 import { cargarNegociosDesdeServidor } from "../context/negocioContext";
-import { puedeAccederRuta, getRutaInicioPorRol } from "../services/authServices";
 import { speechSupported, enableHoverTextReading, stopSpeech } from "../utils/textToSpeech";
+
+const ADMIN = ["administrador"];
+const EMPLEADO = ["empleado"];
+const AMBOS = ["administrador", "empleado"];
 
 function AppContent() {
   const { usuario, autenticado } = useAuth();
   const location = useLocation();
-  const esAcceso = location.pathname === "/login" || location.pathname === "/seleccionar-negocio";
+
+  const esAcceso =
+    location.pathname === "/login" ||
+    location.pathname === "/seleccionar-negocio";
 
   useEffect(() => {
     cargarNegociosDesdeServidor().catch((error) => {
-      console.warn("No se pudieron sincronizar los negocios desde JSON Server:", error);
+      console.warn(
+        "No se pudieron sincronizar los negocios desde JSON Server:",
+        error
+      );
     });
   }, []);
 
   useEffect(() => {
     if (!speechSupported) return undefined;
+
     let cleanupHover = null;
-    const sincronizarLectura = (valor = localStorage.getItem("sweetcost-lectura-texto") === "true") => {
+
+    const sincronizarLectura = (
+      valor = localStorage.getItem("sweetcost-lectura-texto") === "true"
+    ) => {
       cleanupHover?.();
       cleanupHover = null;
+
       if (valor) {
         document.documentElement.dataset.tts = "on";
         cleanupHover = enableHoverTextReading();
@@ -47,9 +69,14 @@ function AppContent() {
         stopSpeech();
       }
     };
+
     sincronizarLectura();
-    const handleTtsChange = (event) => sincronizarLectura(Boolean(event.detail));
+
+    const handleTtsChange = (event) =>
+      sincronizarLectura(Boolean(event.detail));
+
     window.addEventListener("sweetcost-tts-change", handleTtsChange);
+
     return () => {
       window.removeEventListener("sweetcost-tts-change", handleTtsChange);
       cleanupHover?.();
@@ -61,81 +88,159 @@ function AppContent() {
   return (
     <>
       {autenticado && !esAcceso && <Nav />}
+
       <div className={autenticado && !esAcceso ? "app-shell" : ""}>
         <Routes>
-          <Route path="/login" element={autenticado ? <Navigate to={getRutaInicioPorRol(usuario.rol)} replace /> : <Login />} />
-          <Route path="/seleccionar-negocio" element={<SeleccionNegocio />} />
+          {/* Acceso */}
+          <Route
+            path="/login"
+            element={
+              autenticado ? (
+                <Navigate to="/" replace />
+              ) : (
+                <Login />
+              )
+            }
+          />
+
+          <Route
+            path="/seleccionar-negocio"
+            element={
+              <PrivateRoute requireBusiness={false}>
+                <SeleccionNegocio />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Errores */}
           <Route path="/403" element={<NoAccess />} />
           <Route path="/404" element={<NotFound />} />
-          <Route path="*" element={<ProtectedApp />} />
+
+          {/* Dashboard: ambos roles */}
+          <Route
+            path="/"
+            element={
+              <PrivateRoute allowedRoles={AMBOS}>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Administración exclusiva */}
+          <Route
+            path="/productos"
+            element={
+              <PrivateRoute allowedRoles={ADMIN}>
+                <Productos />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/insumos"
+            element={
+              <PrivateRoute allowedRoles={ADMIN}>
+                <Insumos />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/empleados"
+            element={
+              <PrivateRoute allowedRoles={ADMIN}>
+                <Empleados />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Funciones compartidas */}
+          <Route
+            path="/recetas"
+            element={
+              <PrivateRoute allowedRoles={AMBOS}>
+                <Recetas />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/cotizaciones"
+            element={
+              <PrivateRoute allowedRoles={AMBOS}>
+                <Cotizador />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/cotizaciones/:id"
+            element={
+              <PrivateRoute allowedRoles={AMBOS}>
+                <Cotizador />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/pedidos"
+            element={
+              <PrivateRoute allowedRoles={AMBOS}>
+                <Pedidos />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/pedidos/:id"
+            element={
+              <PrivateRoute allowedRoles={AMBOS}>
+                <Pedidos />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/calendario"
+            element={
+              <PrivateRoute allowedRoles={AMBOS}>
+                <Calendario />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/configuracion"
+            element={
+              <PrivateRoute allowedRoles={AMBOS}>
+                <Configuracion />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/perfil"
+            element={
+              <PrivateRoute allowedRoles={AMBOS}>
+                <Perfil />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Cualquier URL desconocida */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </>
   );
 }
 
-const RUTAS_DEL_SISTEMA = [
-  "/",
-  "/productos",
-  "/insumos",
-  "/recetas",
-  "/cotizaciones",
-  "/pedidos",
-  "/calendario",
-  "/empleados",
-  "/configuracion",
-  "/perfil",
-];
-
-function esRutaDelSistema(pathname) {
-  return RUTAS_DEL_SISTEMA.some(
-    (ruta) => pathname === ruta || (ruta !== "/" && pathname.startsWith(`${ruta}/`))
-  );
-}
-
-function ProtectedApp() {
-  const { usuario, autenticado } = useAuth();
-  const location = useLocation();
-
-  if (!autenticado) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-
-  if (!usuario?.negocioId) {
-    return <Navigate to="/seleccionar-negocio" replace />;
-  }
-
-  // Una ruta existente pero no permitida por el rol muestra 403.
-  if (esRutaDelSistema(location.pathname) && !puedeAccederRuta(usuario.rol, location.pathname)) {
-    return <NoAccess />;
-  }
-
-  // Una ruta que no pertenece al sistema muestra 404.
-  if (!esRutaDelSistema(location.pathname)) {
-    return <NotFound />;
-  }
-
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/productos" element={<Productos />} />
-      <Route path="/insumos" element={<Insumos />} />
-      <Route path="/recetas" element={<Recetas />} />
-      <Route path="/cotizaciones" element={<Cotizador />} />
-      <Route path="/cotizaciones/:id" element={<Cotizador />} />
-      <Route path="/pedidos" element={<Pedidos />} />
-      <Route path="/pedidos/:id" element={<Pedidos />} />
-      <Route path="/calendario" element={<Calendario />} />
-      <Route path="/empleados" element={<Empleados />} />
-      <Route path="/configuracion" element={<Configuracion />} />
-      <Route path="/perfil" element={<Perfil />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  );
-}
-
 function AppRoutes() {
-  return <BrowserRouter><AppContent /></BrowserRouter>;
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  );
 }
 
 export default AppRoutes;

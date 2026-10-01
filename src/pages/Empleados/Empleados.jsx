@@ -214,7 +214,7 @@ function Empleados() {
           <section className="asistencia-modal" role="dialog" aria-modal="true" aria-labelledby="editar-horario-title">
             <div className="asistencia-modal-header">
               <div><span>CONTROL DE PERSONAL</span><h2 id="editar-horario-title">Editar horario</h2><p>{registroEditando.empleadoNombre} · {registroEditando.fecha}</p></div>
-              <button type="button" className="asistencia-modal-close" onClick={() => setRegistroEditando(null)} aria-label="Cerrar">×</button>
+              <button type="button" className="asistencia-modal-close" onClick={() => setRegistroEditando(null)} aria-label="Cerrar"><img src="/illustrations/cerrar.png" alt="" aria-hidden="true" /></button>
             </div>
             <div className="asistencia-modal-fields">
               <label>Hora de ingreso<input type="time" value={horaIngresoEdit} onChange={(event) => setHoraIngresoEdit(event.target.value)} /></label>

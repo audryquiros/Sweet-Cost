@@ -596,3 +596,8 @@ html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-entr
 html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-pagado .filter-select-trigger { background:#342a48 !important; color:#e0ceff !important; border-color:#8467a8 !important; }
 html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-cancelado .filter-select-trigger { background:#40252c !important; color:#ffadb7 !important; border-color:#985965 !important; }
 .pedido-responsable{display:flex;flex-direction:column;gap:2px;min-width:90px}.pedido-responsable strong{font-size:11px;color:#6d4c8d}.pedido-responsable span{font-size:9px;color:#8d8291}.pedido-detalle-grid .pedido-responsable{min-width:0}
+
+
+.pedido-modal-overlay .pedido-detalle-close img { width: 20px; height: 20px; object-fit: contain; display: block; }
+
+.pedido-modal-overlay button[aria-label="Cerrar detalle"] img{width:20px;height:20px;object-fit:contain;display:block}

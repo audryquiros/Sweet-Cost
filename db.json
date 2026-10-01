@@ -447,7 +447,8 @@
       "negocioIds": [
         "dulces-momentos"
       ],
-      "clave": "empleado123"
+      "clave": "empleado123",
+      "foto": "/avatars/avatar-7.png"
     },
     {
       "id": "emp-003",
@@ -473,6 +474,6 @@
       "margenGanancia": 30
     }
   ],
-  "$schema": "./node_modules/json-server/schema.json",
-  "asistencias": []
+  "asistencias": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }

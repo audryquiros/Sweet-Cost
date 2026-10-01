@@ -521,3 +521,6 @@ button svg { flex: 0 0 auto; }
   width: 19px;
   height: 19px;
 }
+
+
+.ingredientes-modal-cerrar img { width: 20px; height: 20px; object-fit: contain; display: block; }

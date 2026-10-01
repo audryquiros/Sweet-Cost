@@ -252,7 +252,7 @@ function Pedidos() {
           <div className="pedido-modal">
             <div className="pedido-modal-header">
               <div><span>Pedido #{detalle.id}</span><h2>{detalle.cliente}</h2></div>
-              <button type="button" onClick={cerrarDetalle} aria-label="Cerrar detalle">×</button>
+              <button type="button" onClick={cerrarDetalle} aria-label="Cerrar detalle"><img src="/illustrations/cerrar.png" alt="" aria-hidden="true" /></button>
             </div>
             <div className="pedido-detalle-grid">
               <div><span><img src="/illustrations/cotizaciones-recibo.png" alt="" aria-hidden="true" />Cotización</span><strong>{detalle.cotizacionNombre || "-"}</strong></div>

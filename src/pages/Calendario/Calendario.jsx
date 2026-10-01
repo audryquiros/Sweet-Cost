@@ -355,7 +355,7 @@ function Calendario() {
                 <span>Pedido #{pedidoSeleccionado.id}</span>
                 <h2 id="calendario-detalle-title">{pedidoSeleccionado.cliente || "Cliente"}</h2>
               </div>
-              <button type="button" onClick={() => setPedidoSeleccionado(null)} aria-label="Cerrar detalle">×</button>
+              <button type="button" onClick={() => setPedidoSeleccionado(null)} aria-label="Cerrar detalle"><img src="/illustrations/cerrar.png" alt="" aria-hidden="true" /></button>
             </header>
             <div className="calendario-detalle-grid">
               <div><span><img src="/illustrations/calendario.png" alt="" aria-hidden="true" />Entrega</span><strong>{formatearFechaCompleta(fechaLocal(pedidoSeleccionado.fechaEntrega))}</strong></div>

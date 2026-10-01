@@ -45,3 +45,6 @@
 @media(max-width:540px){.asistencia-modal-fields{grid-template-columns:1fr}.asistencia-btn--edit{margin:7px 0 0}.asistencia-modal-actions{flex-direction:column}.asistencia-modal-actions .asistencia-btn{width:100%}}
 
 .asistencia-historial-grid{max-height:340px;overflow:auto;padding-right:3px}
+
+
+.asistencia-modal-close img { width: 20px; height: 20px; object-fit: contain; display: block; }

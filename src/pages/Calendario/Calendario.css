@@ -873,3 +873,8 @@
     grid-column: auto;
   }
 }
+
+
+.calendario-modal header button img { width: 20px; height: 20px; object-fit: contain; display: block; }
+
+.calendario-modal header button img{width:20px;height:20px;object-fit:contain;display:block}

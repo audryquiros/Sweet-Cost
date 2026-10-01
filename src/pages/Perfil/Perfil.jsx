@@ -206,7 +206,7 @@ function Perfil() {
                 <h2 id="perfil-avatar-modal-title">Elige tu foto de perfil</h2>
                 <p>Selecciona una de las imágenes predeterminadas.</p>
               </div>
-              <button type="button" className="perfil-avatar-modal-close" onClick={() => setSelectorFotoAbierto(false)} aria-label="Cerrar">×</button>
+              <button type="button" className="perfil-avatar-modal-close" onClick={() => setSelectorFotoAbierto(false)} aria-label="Cerrar"><img src="/illustrations/cerrar.png" alt="" aria-hidden="true" /></button>
             </div>
 
             <div className="perfil-avatar-options">

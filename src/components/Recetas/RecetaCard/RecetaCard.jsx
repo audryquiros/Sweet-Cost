@@ -159,7 +159,7 @@ function RecetaCard({
                 }
                 aria-label="Cerrar"
               >
-                ×
+                <img src="/illustrations/cerrar.png" alt="" aria-hidden="true" />
               </button>
             </div>
 

@@ -535,3 +535,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+
+.perfil-avatar-modal-close img { width: 20px; height: 20px; object-fit: contain; display: block; }

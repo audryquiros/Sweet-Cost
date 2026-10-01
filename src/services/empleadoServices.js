@@ -28,6 +28,16 @@ export const updateEmpleado = async (id, empleado) => {
   return response.json();
 };
 
+export const updateEmpleadoParcial = async (id, cambios) => {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(cambios),
+  });
+  if (!response.ok) throw new Error("Error al actualizar el empleado");
+  return response.json();
+};
+
 export const deleteEmpleado = async (id) => {
   const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
   if (!response.ok) throw new Error("Error al eliminar el empleado");

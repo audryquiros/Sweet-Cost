@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import "./Configuracion.css";
+import { getNegocioActivoId } from "../../context/negocioContext";
+import { getNegocioActivoDesdeServidor, updateNegocio } from "../../services/negocioServices";
+import { speakText, speechSupported, stopSpeech } from "../../utils/textToSpeech";
 
 const secciones = [
   { id: "negocio", titulo: "Negocio", descripcion: "Información general de tu negocio." },
@@ -51,6 +54,11 @@ function Configuracion() {
   const [tamanoTexto, setTamanoTexto] = useState(() => localStorage.getItem("sweetcost-tamano-texto") || "medio");
   const [daltonismo, setDaltonismo] = useState(() => localStorage.getItem("sweetcost-daltonismo") || "normal");
   const [altoContraste, setAltoContraste] = useState(() => localStorage.getItem("sweetcost-alto-contraste") === "true");
+  const [lecturaTexto, setLecturaTexto] = useState(() => localStorage.getItem("sweetcost-lectura-texto") === "true");
+  const [cargandoNegocio, setCargandoNegocio] = useState(true);
+  const [guardandoNegocio, setGuardandoNegocio] = useState(false);
+  const [mensajeNegocio, setMensajeNegocio] = useState("");
+  const [mensajeCostos, setMensajeCostos] = useState("");
 
   useEffect(() => {
     aplicarPreferencias({ tema, tamanoTexto, daltonismo });
@@ -64,15 +72,97 @@ function Configuracion() {
     guardarPreferencia("sweetcost-alto-contraste", String(altoContraste));
   }, [altoContraste]);
 
+  useEffect(() => {
+    guardarPreferencia("sweetcost-lectura-texto", String(lecturaTexto));
+  }, [lecturaTexto]);
+
+  useEffect(() => {
+    let activo = true;
+    const cargarNegocio = async () => {
+      try {
+        const datos = await getNegocioActivoDesdeServidor();
+        if (!activo) return;
+        setNegocio((prev) => ({ ...prev, ...datos }));
+        setMargen(String(datos.margenGanancia ?? 30));
+      } catch (error) {
+        console.error(error);
+        if (activo) setMensajeNegocio("No se pudieron cargar los datos del negocio.");
+      } finally {
+        if (activo) setCargandoNegocio(false);
+      }
+    };
+    cargarNegocio();
+    return () => { activo = false; };
+  }, []);
+
+  useEffect(() => () => stopSpeech(), []);
+
+  useEffect(() => {
+    // La lectura se administra globalmente desde AppRoutes para que no se
+    // desactive al salir de Configuración. Aquí solo sincronizamos la
+    // preferencia guardada con el resto de la aplicación.
+    if (!speechSupported) return;
+    window.dispatchEvent(
+      new CustomEvent("sweetcost-tts-change", { detail: lecturaTexto })
+    );
+  }, [lecturaTexto]);
+
   const actualizar = (campo, valor) => {
     setNegocio((prev) => ({ ...prev, [campo]: valor }));
+  };
+
+  const guardarNegocio = async () => {
+    setGuardandoNegocio(true);
+    setMensajeNegocio("");
+    try {
+      const actualizado = await updateNegocio(getNegocioActivoId(), {
+        nombre: negocio.nombre.trim(),
+        tipo: negocio.tipo.trim(),
+        telefono: negocio.telefono.trim(),
+        correo: negocio.correo.trim(),
+      });
+      setNegocio((prev) => ({ ...prev, ...actualizado }));
+      setMensajeNegocio("Cambios guardados correctamente.");
+    } catch (error) {
+      console.error(error);
+      setMensajeNegocio("No se pudieron guardar los cambios. Verifica que json-server esté activo.");
+    } finally {
+      setGuardandoNegocio(false);
+    }
+  };
+
+  const guardarCostos = async () => {
+    setMensajeCostos("");
+    try {
+      const valor = Math.min(100, Math.max(0, Number(margen) || 0));
+      const actualizado = await updateNegocio(getNegocioActivoId(), { margenGanancia: valor });
+      setMargen(String(actualizado.margenGanancia ?? valor));
+      setMensajeCostos("Margen guardado correctamente.");
+    } catch (error) {
+      console.error(error);
+      setMensajeCostos("No se pudo guardar el margen. Verifica que json-server esté activo.");
+    }
+  };
+
+  const probarLectura = () => {
+    if (!speechSupported) return;
+
+    // La prueba se ejecuta directamente desde el click para conservar el
+    // permiso de reproducción de voz que conceden Chrome/Opera al usuario.
+    stopSpeech();
+    const funciono = speakText(
+      "Esta es una prueba de lectura de Sweet Cost. Si escuchas esta frase, la lectura en voz alta está funcionando correctamente."
+    );
+
+    if (!funciono) {
+      console.warn("No fue posible iniciar la prueba de lectura.");
+    }
   };
 
   return (
     <main className="configuracion-page">
       <header className="configuracion-header">
         <div>
-          <span className="configuracion-kicker">Preferencias</span>
           <h1>Configuración</h1>
           <p>Administra las preferencias y datos de tu negocio.</p>
         </div>
@@ -112,7 +202,7 @@ function Configuracion() {
                 <label><span>Teléfono</span><input value={negocio.telefono} onChange={(e) => actualizar("telefono", e.target.value)} /></label>
                 <label><span>Correo electrónico</span><input type="email" value={negocio.correo} onChange={(e) => actualizar("correo", e.target.value)} /></label>
               </div>
-              <div className="configuracion-actions"><button type="button" className="configuracion-primary">Guardar cambios</button></div>
+              <div className="configuracion-actions">{mensajeNegocio && <p className={`configuracion-feedback ${mensajeNegocio.startsWith("Cambios") ? "success" : "error"}`} role="status" aria-live="polite">{mensajeNegocio}</p>}<button type="button" className="configuracion-primary" onClick={guardarNegocio} disabled={guardandoNegocio || cargandoNegocio}>{guardandoNegocio ? "Guardando..." : "Guardar cambios"}</button></div>
             </div>
           )}
 
@@ -125,7 +215,7 @@ function Configuracion() {
                 <label><span>Margen de ganancia predeterminado (%)</span><input type="number" min="0" max="100" value={margen} onChange={(e) => setMargen(e.target.value)} /></label>
               </div>
               <div className="configuracion-info"><strong>¿Cómo se utiliza?</strong><p>Este valor puede servir como referencia al calcular precios sugeridos. Podrás ajustarlo en cada producto cuando sea necesario.</p></div>
-              <div className="configuracion-actions"><button type="button" className="configuracion-primary">Guardar cambios</button></div>
+              <div className="configuracion-actions">{mensajeCostos && <p className={`configuracion-feedback ${mensajeCostos.startsWith("Margen") ? "success" : "error"}`} role="status" aria-live="polite">{mensajeCostos}</p>}<button type="button" className="configuracion-primary" onClick={guardarCostos}>Guardar cambios</button></div>
             </div>
           )}
 
@@ -175,6 +265,33 @@ function Configuracion() {
               <div className="configuracion-setting">
                 <div><strong>Mayor contraste</strong><p>Aumenta el contraste de superficies, textos y bordes de la interfaz.</p></div>
                 <button type="button" className={`configuracion-switch${altoContraste ? " active" : ""}`} aria-pressed={altoContraste} onClick={() => setAltoContraste((prev) => !prev)}><span /></button>
+              </div>
+
+              <div className="configuracion-setting">
+                <div><strong>Lectura de texto</strong><p>Activa la lectura en voz alta. Al mantener el cursor sobre un texto durante un instante, Sweet Cost lo leerá automáticamente.</p></div>
+                <button
+                  type="button"
+                  className={`configuracion-switch${lecturaTexto ? " active" : ""}`}
+                  aria-pressed={lecturaTexto}
+                  onClick={() => {
+                    const activar = !lecturaTexto;
+                    setLecturaTexto(activar);
+                    if (activar) {
+                      speakText("Lectura de texto activada.");
+                    } else {
+                      stopSpeech();
+                    }
+                  }}
+                  disabled={!speechSupported}
+                >
+                  <span />
+                </button>
+              </div>
+
+              <div className="configuracion-voice-actions">
+                <div><strong>{speechSupported ? "Prueba de lectura" : "Lectura no disponible"}</strong><p>{speechSupported ? "Escucha una frase de prueba para comprobar que la lectura está activa." : "Tu navegador no admite la lectura de texto mediante Web Speech API."}</p></div>
+                <button type="button" className="configuracion-secondary" onClick={probarLectura} disabled={!speechSupported || !lecturaTexto}>Probar lectura</button>
+                <button type="button" className="configuracion-secondary" onClick={stopSpeech} disabled={!speechSupported}>Detener</button>
               </div>
 
               <div className="configuracion-subsection">

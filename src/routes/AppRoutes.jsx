@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -16,6 +17,7 @@ import Configuracion from "../pages/Configuracion/Configuracion";
 import Perfil from "../pages/Perfil/Perfil";
 
 import Nav from "../components/Nav/Nav";
+import { speechSupported, enableHoverTextReading, stopSpeech } from "../utils/textToSpeech";
 
 function ComingSoon({ title, description, illustration }) {
   return (
@@ -36,6 +38,40 @@ function ComingSoon({ title, description, illustration }) {
 }
 
 function AppRoutes() {
+  useEffect(() => {
+    if (!speechSupported) return undefined;
+
+    let cleanupHover = null;
+
+    const sincronizarLectura = (valor = localStorage.getItem("sweetcost-lectura-texto") === "true") => {
+      cleanupHover?.();
+      cleanupHover = null;
+
+      if (valor) {
+        document.documentElement.dataset.tts = "on";
+        cleanupHover = enableHoverTextReading();
+      } else {
+        document.documentElement.dataset.tts = "off";
+        stopSpeech();
+      }
+    };
+
+    sincronizarLectura();
+
+    const handleTtsChange = (event) => {
+      sincronizarLectura(Boolean(event.detail));
+    };
+
+    window.addEventListener("sweetcost-tts-change", handleTtsChange);
+
+    return () => {
+      window.removeEventListener("sweetcost-tts-change", handleTtsChange);
+      cleanupHover?.();
+      document.documentElement.dataset.tts = "off";
+      stopSpeech();
+    };
+  }, []);
+
   return (
     <BrowserRouter>
       <Nav />

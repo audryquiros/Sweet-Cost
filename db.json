@@ -448,7 +448,10 @@
     {
       "id": "dulces-momentos",
       "nombre": "Dulces Momentos",
-      "tipo": "Repostería"
+      "tipo": "Repostería",
+      "telefono": "8888-0000",
+      "correo": "contacto@dulcesmomentos.com",
+      "margenGanancia": 30
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

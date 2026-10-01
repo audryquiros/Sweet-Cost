@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getNegocioActivo } from "../../context/negocioContext";
 import { usePerfilActual } from "../../context/perfilContext";
 import { formatearTelefono } from "../../utils/formatearTelefono";
+import { updateEmpleadoParcial } from "../../services/empleadoServices";
 import "./Perfil.css";
 
 const ICONOS = {
@@ -19,6 +20,8 @@ function Perfil() {
   const { perfil, actualizarPerfil } = usePerfilActual();
   const [formulario, setFormulario] = useState(perfil);
   const [guardado, setGuardado] = useState(false);
+  const [guardando, setGuardando] = useState(false);
+  const [errorGuardado, setErrorGuardado] = useState("");
 
   useEffect(() => {
     setFormulario(perfil);
@@ -30,21 +33,49 @@ function Perfil() {
     setGuardado(false);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    actualizarPerfil({
+
+    if (guardando) return;
+
+    const cambios = {
       nombre: formulario.nombre.trim(),
       correo: formulario.correo.trim(),
       telefono: formulario.telefono.trim(),
-    });
-    setGuardado(true);
+    };
+
+    setGuardando(true);
+    setGuardado(false);
+    setErrorGuardado("");
+
+    try {
+      const empleadoActualizado = await updateEmpleadoParcial("emp-001", cambios);
+
+      actualizarPerfil({
+        nombre: empleadoActualizado.nombre,
+        correo: empleadoActualizado.correo,
+        telefono: empleadoActualizado.telefono,
+      });
+
+      setFormulario((actual) => ({
+        ...actual,
+        nombre: empleadoActualizado.nombre,
+        correo: empleadoActualizado.correo,
+        telefono: empleadoActualizado.telefono,
+      }));
+      setGuardado(true);
+    } catch (error) {
+      console.error("No se pudo guardar el perfil:", error);
+      setErrorGuardado("No se pudieron guardar los cambios. Verifica que JSON Server esté ejecutándose.");
+    } finally {
+      setGuardando(false);
+    }
   };
 
   return (
     <main className="perfil-page">
       <header className="perfil-header">
         <div>
-          <span className="perfil-kicker">Cuenta</span>
           <h1>Mi perfil</h1>
           <p>Administra tu información personal y consulta tu rol dentro del negocio.</p>
         </div>
@@ -132,11 +163,15 @@ function Perfil() {
           </div>
 
           <div className="perfil-form-footer">
-            <p className={guardado ? "perfil-save-message visible" : "perfil-save-message"} role="status">
-              Cambios guardados correctamente.
+            <p
+              className={guardado || errorGuardado ? "perfil-save-message visible" : "perfil-save-message"}
+              role="status"
+              aria-live="polite"
+            >
+              {errorGuardado || (guardado ? "Cambios guardados correctamente." : "")}
             </p>
-            <button className="perfil-save-button" type="submit">
-              <span>Guardar cambios</span>
+            <button className="perfil-save-button" type="submit" disabled={guardando}>
+              <span>{guardando ? "Guardando..." : "Guardar cambios"}</span>
             </button>
           </div>
         </form>

@@ -10,7 +10,6 @@
   margin: 0 auto 24px;
 }
 
-.configuracion-kicker,
 .configuracion-card-label {
   display: block;
   margin-bottom: 5px;
@@ -168,9 +167,12 @@
 
 .configuracion-actions {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
-  gap: 8px;
-  padding-top: 22px;
+  gap: 15px;
+  margin-top: 22px;
+  padding-top: 17px;
+  border-top: 1px solid var(--sc-border);
 }
 
 .configuracion-primary {
@@ -463,4 +465,84 @@
   .configuracion-theme-preview { width: 50px; height: 42px; }
   .configuracion-color-option { grid-template-columns: 44px minmax(0,1fr) auto; }
   .configuracion-color-swatch { width: 44px; }
+}
+
+.configuracion-feedback {
+  margin: 0;
+  color: var(--sc-success);
+  font-size: calc(11px * var(--sc-font-scale, 1));
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.configuracion-feedback.success {
+  color: var(--sc-success);
+}
+
+.configuracion-feedback.error {
+  color: var(--sc-danger);
+}
+
+.configuracion-primary:disabled,
+.configuracion-switch:disabled,
+.configuracion-secondary:disabled { opacity: .55; cursor: not-allowed; }
+
+.configuracion-voice-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 12px;
+  align-items: center;
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid var(--sc-border);
+  border-radius: 11px;
+  background: var(--sc-surface-soft);
+}
+
+.configuracion-voice-actions strong {
+  display: block;
+  color: var(--sc-text);
+  font-size: calc(11px * var(--sc-font-scale, 1));
+}
+
+.configuracion-voice-actions p {
+  margin: 4px 0 0;
+  color: var(--sc-text-soft);
+  font-size: calc(9px * var(--sc-font-scale, 1));
+  line-height: 1.45;
+}
+
+.configuracion-secondary {
+  border: 1px solid var(--sc-border);
+  border-radius: 9px;
+  padding: 9px 13px;
+  background: var(--sc-surface);
+  color: var(--sc-text);
+  font: inherit;
+  font-size: calc(10px * var(--sc-font-scale, 1));
+  font-weight: 700;
+  cursor: pointer;
+  transition: .18s ease;
+}
+
+.configuracion-secondary:hover:not(:disabled) {
+  border-color: var(--sc-primary);
+  color: var(--sc-primary-dark);
+}
+
+
+
+/* Lectura por cursor */
+html[data-tts="on"] :where(h1,h2,h3,h4,h5,h6,p,li,label,small,strong,span,a,td,th,legend,figcaption):not(button *):not([data-no-tts] *) {
+  cursor: help;
+}
+
+@media (max-width: 600px) {
+  .configuracion-voice-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .configuracion-voice-actions > div {
+    grid-column: 1 / -1;
+  }
 }

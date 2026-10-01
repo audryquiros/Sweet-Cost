@@ -485,9 +485,9 @@
       "rol": "administrador",
       "estado": "activo",
       "foto": "/illustrations/perfil.png",
-      "negocioId": "neg-1790885126147-trc3w",
+      "negocioId": "-VUKJi305Mw",
       "negocioIds": [
-        "neg-1790885126147-trc3w"
+        "-VUKJi305Mw"
       ],
       "clave": "hera123456"
     }
@@ -513,7 +513,7 @@
     },
     {
       "id": "-VUKJi305Mw",
-      "administradorId": "emp-1790885126148-sr3np",
+      "administradorId": "NU3wex2tUr4",
       "nombre": "Panciro",
       "tipo": "Panadería",
       "telefono": "66225533",

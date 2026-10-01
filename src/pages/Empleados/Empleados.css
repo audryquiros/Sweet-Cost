@@ -142,3 +142,5 @@ html[data-theme="oscuro"] .asistencia-modal-actions {
     gap: 16px;
   }
 }
+
+.asistencia-avatar img { object-fit: contain !important; object-position: center center !important; display:block; }

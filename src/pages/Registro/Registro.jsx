@@ -112,15 +112,15 @@ export default function Registro() {
 
           <div className="login-brand-features" aria-label="Beneficios de Sweet Cost">
             <div className="login-brand-feature">
-              <img src="/illustrations/productos.png" alt="" />
+              <img src="./illustrations/productos-cupcake.png" alt="" />
               <span>Costos</span>
             </div>
             <div className="login-brand-feature">
-              <img src="/illustrations/recetas.png" alt="" />
+              <img src="./illustrations/recetas-batidor.png" alt="" />
               <span>Recetas</span>
             </div>
             <div className="login-brand-feature">
-              <img src="/illustrations/pedidos.png" alt="" />
+              <img src="/illustrations/pedidos-portapapeles.png" alt="" />
               <span>Pedidos</span>
             </div>
           </div>
@@ -128,7 +128,6 @@ export default function Registro() {
 
         <section className="registro-card login-card">
           <div className="registro-heading login-heading">
-            <span className="login-eyebrow">CREAR CUENTA</span>
             <h1>Registra tu negocio</h1>
             <p>Configura tu cuenta de administrador y deja listo tu primer negocio en Sweet Cost.</p>
           </div>

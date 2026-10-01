@@ -70,9 +70,15 @@
 }
 
 .perfil-avatar img {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
+  object-position: center center;
+  display: block;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
 .perfil-resumen-copy {
@@ -538,3 +544,306 @@
 
 
 .perfil-avatar-modal-close img { width: 20px; height: 20px; object-fit: contain; display: block; }
+
+
+/* ===== Seguridad de cuenta ===== */
+.perfil-security-copy {
+  min-width: 0;
+}
+
+.perfil-security-actions {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.perfil-security-action {
+  min-width: 190px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 11px;
+  border: 1px solid var(--sc-border);
+  border-radius: 10px;
+  background: var(--sc-surface-soft);
+  color: var(--sc-text);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease, transform .15s ease;
+}
+
+.perfil-security-action:hover {
+  background: var(--sc-primary-pale);
+  border-color: var(--sc-primary-soft);
+  transform: translateY(-1px);
+}
+
+.perfil-security-action img {
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  object-fit: contain;
+}
+
+.perfil-security-action span {
+  min-width: 0;
+}
+
+.perfil-security-action strong,
+.perfil-security-action small {
+  display: block;
+}
+
+.perfil-security-action strong {
+  color: var(--sc-text);
+  font-size: calc(10px * var(--sc-font-scale, 1));
+}
+
+.perfil-security-action small {
+  margin-top: 2px;
+  color: var(--sc-muted);
+  font-size: calc(8px * var(--sc-font-scale, 1));
+}
+
+.perfil-security-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1800;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(53, 45, 58, .34);
+  backdrop-filter: blur(4px);
+}
+
+.perfil-security-modal {
+  width: min(470px, 100%);
+  max-height: min(680px, calc(100dvh - 36px));
+  overflow: auto;
+  border: 1px solid var(--sc-border);
+  border-radius: 18px;
+  background: var(--sc-surface);
+  box-shadow: 0 24px 60px rgba(53, 45, 58, .2);
+}
+
+.perfil-security-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 21px 22px 17px;
+  border-bottom: 1px solid var(--sc-border);
+}
+
+.perfil-security-modal-header h2 {
+  margin: 0;
+  color: var(--sc-text);
+  font-size: calc(19px * var(--sc-font-scale, 1));
+}
+
+.perfil-security-modal-header p {
+  margin: 5px 0 0;
+  color: var(--sc-text-soft);
+  font-size: calc(10px * var(--sc-font-scale, 1));
+  line-height: 1.5;
+}
+
+.perfil-security-modal-close {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--sc-border);
+  border-radius: 9px;
+  background: var(--sc-surface-soft);
+  cursor: pointer;
+}
+
+.perfil-security-modal-close img {
+  width: 19px;
+  height: 19px;
+  object-fit: contain;
+}
+
+.perfil-security-modal-form {
+  display: grid;
+  gap: 14px;
+  padding: 20px 22px 22px;
+}
+
+.perfil-security-modal-form label {
+  display: grid;
+  gap: 6px;
+}
+
+.perfil-security-modal-form label span {
+  color: var(--sc-text);
+  font-size: calc(10px * var(--sc-font-scale, 1));
+  font-weight: 750;
+}
+
+.perfil-security-modal-form input {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 11px;
+  border: 1px solid var(--sc-border-strong);
+  border-radius: 9px;
+  outline: none;
+  background: var(--sc-surface-soft);
+  color: var(--sc-text);
+  font-size: calc(11px * var(--sc-font-scale, 1));
+}
+
+.perfil-security-modal-form input:focus {
+  border-color: var(--sc-primary);
+  box-shadow: 0 0 0 3px rgba(155, 126, 222, .1);
+}
+
+.perfil-security-modal-form input:disabled {
+  color: var(--sc-muted);
+  opacity: .85;
+}
+
+.perfil-security-message {
+  margin: 0;
+  padding: 9px 11px;
+  border-radius: 8px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
+  font-weight: 700;
+}
+
+.perfil-security-message--error {
+  color: #a74752;
+  background: var(--sc-danger-bg);
+  border: 1px solid #f0cdd2;
+}
+
+.perfil-security-message--success {
+  color: #367b54;
+  background: var(--sc-success-bg);
+  border: 1px solid #cce8d6;
+}
+
+.perfil-security-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 5px;
+}
+
+.perfil-security-cancel,
+.perfil-security-save {
+  min-height: 40px;
+  padding: 8px 15px;
+  border-radius: 9px;
+  font-size: calc(10px * var(--sc-font-scale, 1));
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.perfil-security-cancel {
+  border: 1px solid var(--sc-border-strong);
+  background: var(--sc-surface);
+  color: var(--sc-text-soft);
+}
+
+.perfil-security-save {
+  border: 1px solid var(--sc-primary);
+  background: var(--sc-primary);
+  color: #fff;
+}
+
+.perfil-security-save:hover {
+  background: var(--sc-primary-dark);
+}
+
+.perfil-security-save:disabled {
+  opacity: .65;
+  cursor: wait;
+}
+
+@media (max-width: 900px) {
+  .perfil-security-card {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .perfil-security-actions {
+    justify-content: stretch;
+  }
+
+  .perfil-security-action {
+    flex: 1 1 190px;
+  }
+}
+
+@media (max-width: 520px) {
+  .perfil-security-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .perfil-security-action {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .perfil-security-state {
+    justify-content: center;
+  }
+
+  .perfil-security-modal-backdrop {
+    padding: 10px;
+  }
+
+  .perfil-security-modal {
+    max-height: calc(100dvh - 20px);
+    border-radius: 14px;
+  }
+
+  .perfil-security-modal-header,
+  .perfil-security-modal-form {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .perfil-security-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .perfil-security-modal-actions button {
+    width: 100%;
+  }
+}
+
+.perfil-avatar img, .perfil-avatar-option img { object-fit: contain !important; object-position: center center !important; }
+
+/* ===== Seguridad · distribución del espacio ===== */
+.perfil-security-actions {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.perfil-security-action {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .perfil-security-actions {
+    width: 100%;
+  }
+}
+
+@media (max-width: 620px) {
+  .perfil-security-actions {
+    grid-template-columns: 1fr;
+  }
+}

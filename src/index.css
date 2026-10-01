@@ -345,3 +345,70 @@ html[data-color-vision="tritanopia"] {
 html[data-color-vision]:not([data-color-vision="normal"]) .configuracion-color-swatch i:nth-child(1) { background: var(--sc-success); }
 html[data-color-vision]:not([data-color-vision="normal"]) .configuracion-color-swatch i:nth-child(2) { background: var(--sc-warning); }
 html[data-color-vision]:not([data-color-vision="normal"]) .configuracion-color-swatch i:nth-child(3) { background: var(--sc-danger); }
+
+/* =========================================================
+   SWEET COST · VIEWPORT RECOVERY
+   El layout debe ocupar el viewport real incluso cuando el
+   navegador restaura una pestaña con un ancho anterior.
+   ========================================================= */
+@media (max-width: 777px) {
+  html,
+  body,
+  #root {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+  }
+
+  .app-shell {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
+    padding-top: 64px !important;
+  }
+
+  .empleados-page,
+  .empleados-header,
+  .empleados-lista,
+  .empleados-form-contenedor,
+  .asistencia-panel {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+@media (min-width: 778px) and (max-width: 1024px) {
+  html,
+  body,
+  #root,
+  .app-shell {
+    min-width: 0 !important;
+    max-width: 100vw !important;
+  }
+
+  .app-shell {
+    width: 100vw !important;
+    margin-left: 0 !important;
+  }
+}
+
+/* El modo calculado por JS también refuerza el mismo layout. */
+html[data-responsive-mode="mobile"] .app-shell {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: 0 !important;
+}
+
+html[data-responsive-mode="mobile"] .empleados-page {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+html[data-responsive-mode="mobile"] .empleados-grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+}

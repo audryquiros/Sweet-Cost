@@ -190,3 +190,22 @@
     grid-template-columns: 1fr;
   }
 }
+
+.empleado-detalle-avatar,
+.empleado-detalle-avatar img {
+  display: grid;
+  place-items: center;
+}
+.empleado-detalle-avatar {
+  overflow: hidden;
+}
+.empleado-detalle-avatar img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain !important;
+  object-position: center center !important;
+  padding: 4px;
+  box-sizing: border-box;
+}

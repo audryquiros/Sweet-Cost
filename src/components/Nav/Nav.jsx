@@ -126,9 +126,23 @@ function Nav() {
   }, [negociosDisponibles, usuario?.negocioId, usuario?.negocioIds]);
 
   useEffect(() => {
+    const getViewportWidth = () => {
+      const visualWidth = window.visualViewport?.width;
+      const clientWidth = document.documentElement?.clientWidth;
+      const innerWidth = window.innerWidth;
+      const candidates = [visualWidth, clientWidth, innerWidth]
+        .map(Number)
+        .filter((value) => Number.isFinite(value) && value > 0);
+
+      // clientWidth es el valor más estable cuando Chrome/Opera restaura
+      // una pestaña y visualViewport todavía conserva temporalmente el ancho anterior.
+      return Math.round(clientWidth || visualWidth || innerWidth || 0);
+    };
+
     const getMode = () => {
-      if (window.innerWidth <= 777) return "mobile";
-      if (window.innerWidth <= 1024) return "tablet";
+      const width = getViewportWidth();
+      if (width <= 777) return "mobile";
+      if (width <= 1024) return "tablet";
       return "desktop";
     };
 
@@ -158,15 +172,20 @@ function Nav() {
 
     const handleVisibilityChange = () => {
       if (!document.hidden) {
-        // Al volver a la pestaña conservamos el modo real del viewport;
-        // no se vuelve accidentalmente a desktop.
+        // El navegador puede restaurar el viewport unos milisegundos después
+        // de hacer visible la pestaña. Recalculamos inmediatamente y una vez
+        // más en el siguiente frame para evitar conservar el layout de escritorio.
         sincronizarModoResponsive();
+        requestAnimationFrame(() => sincronizarModoResponsive());
         document.body.classList.remove("sidebar-open");
         setIsMobileOpen(false);
       }
     };
 
-    const handlePageShow = () => sincronizarModoResponsive();
+    const handlePageShow = () => {
+      sincronizarModoResponsive();
+      requestAnimationFrame(() => sincronizarModoResponsive());
+    };
 
     window.addEventListener("resize", handleResize);
     window.visualViewport?.addEventListener("resize", handleResize);

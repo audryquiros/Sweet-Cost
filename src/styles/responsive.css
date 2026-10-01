@@ -2133,3 +2133,55 @@ textarea {
     box-shadow: none !important;
   }
 }
+
+
+/* =========================================================
+   SWEET COST · RECUPERACIÓN DE VIEWPORT AL VOLVER A UNA PESTAÑA
+   ========================================================= */
+html[data-responsive-mode="mobile"] .app-shell,
+html[data-responsive-mode="tablet"] .app-shell {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  min-width: 0 !important;
+  margin-left: 0 !important;
+}
+
+html[data-responsive-mode="mobile"] .empleados-page,
+html[data-responsive-mode="tablet"] .empleados-page {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+html[data-responsive-mode="mobile"] .empleados-grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+html[data-responsive-mode="tablet"] .empleados-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+html[data-responsive-mode="mobile"] .productos-page,
+html[data-responsive-mode="mobile"] .insumos-page,
+html[data-responsive-mode="mobile"] .recetas-page,
+html[data-responsive-mode="mobile"] .cotizador-page,
+html[data-responsive-mode="mobile"] .pedidos-page,
+html[data-responsive-mode="mobile"] .home-page,
+html[data-responsive-mode="mobile"] .calendario-page,
+html[data-responsive-mode="tablet"] .productos-page,
+html[data-responsive-mode="tablet"] .insumos-page,
+html[data-responsive-mode="tablet"] .recetas-page,
+html[data-responsive-mode="tablet"] .cotizador-page,
+html[data-responsive-mode="tablet"] .pedidos-page,
+html[data-responsive-mode="tablet"] .home-page,
+html[data-responsive-mode="tablet"] .calendario-page {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+html[data-responsive-mode="mobile"] .mobile-menu-trigger,
+html[data-responsive-mode="tablet"] .mobile-menu-trigger {
+  display: grid !important;
+}

@@ -106,7 +106,6 @@ function Login() {
 
         <section className="login-card" aria-labelledby="login-title">
           <div className="login-heading">
-            <span className="login-eyebrow">SWEET COST</span>
             <h1 id="login-title">Inicia sesión</h1>
             <p>Ingresa a tu cuenta para continuar.</p>
           </div>

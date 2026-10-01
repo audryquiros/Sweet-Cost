@@ -38,11 +38,11 @@
 
 .registro-card {
   min-width: 0;
-  padding: 34px 38px 28px;
+  padding: 30px 38px 25px;
 }
 
 .registro-heading {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .registro-heading h1 {
@@ -249,4 +249,14 @@ html[data-theme="oscuro"] .registro-msg.success {
   .registro-confirm-password {
     max-width: none;
   }
+}
+
+.registro-brand-feature img {
+  display: block;
+  width: 34px !important;
+  height: 34px !important;
+  max-width: 34px;
+  max-height: 34px;
+  object-fit: contain;
+  object-position: center;
 }

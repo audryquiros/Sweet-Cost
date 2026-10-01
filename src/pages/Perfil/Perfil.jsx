@@ -25,6 +25,16 @@ function Perfil() {
   const [guardando, setGuardando] = useState(false);
   const [errorGuardado, setErrorGuardado] = useState("");
   const [selectorFotoAbierto, setSelectorFotoAbierto] = useState(false);
+  const [seguridadAbierta, setSeguridadAbierta] = useState(null);
+  const [seguridadFormulario, setSeguridadFormulario] = useState({
+    correo: "",
+    claveActual: "",
+    claveNueva: "",
+    claveConfirmacion: "",
+  });
+  const [guardandoSeguridad, setGuardandoSeguridad] = useState(false);
+  const [errorSeguridad, setErrorSeguridad] = useState("");
+  const [exitoSeguridad, setExitoSeguridad] = useState("");
 
   useEffect(() => {
     setFormulario(perfil);
@@ -84,6 +94,133 @@ function Perfil() {
       setErrorGuardado("No se pudieron guardar los cambios. Verifica que JSON Server esté ejecutándose.");
     } finally {
       setGuardando(false);
+    }
+  };
+
+
+  const abrirSeguridad = (tipo) => {
+    setSeguridadAbierta(tipo);
+    setErrorSeguridad("");
+    setExitoSeguridad("");
+    setSeguridadFormulario({
+      correo: perfil.correo || "",
+      claveActual: "",
+      claveNueva: "",
+      claveConfirmacion: "",
+    });
+  };
+
+  const cerrarSeguridad = () => {
+    if (guardandoSeguridad) return;
+    setSeguridadAbierta(null);
+    setErrorSeguridad("");
+    setExitoSeguridad("");
+  };
+
+  const actualizarSesionCorreo = (correo) => {
+    try {
+      const raw = sessionStorage.getItem("sweetcost-auth-user");
+      if (!raw) return;
+      const usuario = JSON.parse(raw);
+      sessionStorage.setItem(
+        "sweetcost-auth-user",
+        JSON.stringify({ ...usuario, correo })
+      );
+      window.dispatchEvent(new CustomEvent("sweetcost-auth-cambio"));
+    } catch {
+      // El perfil ya quedó actualizado en JSON Server aunque la sesión no pueda sincronizarse.
+    }
+  };
+
+  const guardarSeguridad = async (event) => {
+    event.preventDefault();
+    if (guardandoSeguridad) return;
+
+    setErrorSeguridad("");
+    setExitoSeguridad("");
+
+    try {
+      if (seguridadAbierta === "correo") {
+        const nuevoCorreo = seguridadFormulario.correo.trim().toLowerCase();
+
+        if (!nuevoCorreo || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(nuevoCorreo)) {
+          setErrorSeguridad("Ingresa un correo electrónico válido.");
+          return;
+        }
+
+        if (nuevoCorreo === String(perfil.correo || "").toLowerCase()) {
+          setErrorSeguridad("El correo nuevo debe ser diferente al actual.");
+          return;
+        }
+
+        setGuardandoSeguridad(true);
+        const empleadosResponse = await fetch("http://localhost:3001/empleados");
+        if (!empleadosResponse.ok) throw new Error("No se pudieron consultar las cuentas.");
+        const empleados = await empleadosResponse.json();
+        const correoExiste = empleados.some(
+          (empleado) =>
+            empleado.id !== perfil.id &&
+            String(empleado.correo || "").trim().toLowerCase() === nuevoCorreo
+        );
+
+        if (correoExiste) {
+          setErrorSeguridad("Ese correo ya está registrado en Sweet Cost.");
+          return;
+        }
+
+        const actualizado = await updateEmpleadoParcial(perfil.id, { correo: nuevoCorreo });
+        actualizarPerfil({ correo: actualizado.correo });
+        setFormulario((actual) => ({ ...actual, correo: actualizado.correo }));
+        actualizarSesionCorreo(actualizado.correo);
+        setExitoSeguridad("Correo electrónico actualizado correctamente.");
+      }
+
+      if (seguridadAbierta === "contrasena") {
+        const { claveActual, claveNueva, claveConfirmacion } = seguridadFormulario;
+
+        if (!claveActual || !claveNueva || !claveConfirmacion) {
+          setErrorSeguridad("Completa todos los campos.");
+          return;
+        }
+
+        if (claveNueva.length < 8) {
+          setErrorSeguridad("La nueva contraseña debe tener al menos 8 caracteres.");
+          return;
+        }
+
+        if (claveNueva !== claveConfirmacion) {
+          setErrorSeguridad("Las contraseñas nuevas no coinciden.");
+          return;
+        }
+
+        setGuardandoSeguridad(true);
+        const response = await fetch(`http://localhost:3001/empleados/${perfil.id}`);
+        if (!response.ok) throw new Error("No se pudo verificar la cuenta.");
+        const empleadoActual = await response.json();
+
+        if (empleadoActual.clave !== claveActual) {
+          setErrorSeguridad("La contraseña actual no es correcta.");
+          return;
+        }
+
+        await updateEmpleadoParcial(perfil.id, { clave: claveNueva });
+        setSeguridadFormulario((actual) => ({
+          ...actual,
+          claveActual: "",
+          claveNueva: "",
+          claveConfirmacion: "",
+        }));
+        setExitoSeguridad("Contraseña actualizada correctamente.");
+      }
+    } catch (error) {
+      console.error("No se pudo actualizar la seguridad:", error);
+      setErrorSeguridad(
+        error.message?.includes("fetch")
+          ? "No se pudo conectar con el servidor."
+          : error.message || "No se pudo actualizar la información."
+      );
+    } finally {
+      setGuardandoSeguridad(false);
     }
   };
 
@@ -236,16 +373,128 @@ function Perfil() {
       )}
 
       <section className="perfil-security-card">
-        <div>
+        <div className="perfil-security-copy">
           <span className="perfil-card-label">Cuenta</span>
           <h2>Seguridad</h2>
-          <p>La gestión de contraseña y autenticación se administra desde el acceso de Sweet Cost.</p>
+          <p>Administra el correo asociado a tu cuenta y cambia tu contraseña cuando lo necesites.</p>
         </div>
-        <div className="perfil-security-state">
-          <span className="perfil-security-dot" />
-          <span>Cuenta activa</span>
+
+        <div className="perfil-security-actions">
+          <button type="button" className="perfil-security-action" onClick={() => abrirSeguridad("correo")}>
+            <img src={ICONOS.correo} alt="" aria-hidden="true" />
+            <span>
+              <strong>Cambiar correo</strong>
+              <small>Actualizar el correo de acceso</small>
+            </span>
+          </button>
+
+          <button type="button" className="perfil-security-action" onClick={() => abrirSeguridad("contrasena")}>
+            <img src={ICONOS.editar} alt="" aria-hidden="true" />
+            <span>
+              <strong>Cambiar contraseña</strong>
+              <small>Actualizar tu contraseña</small>
+            </span>
+          </button>
+
+          <div className="perfil-security-state">
+            <span className="perfil-security-dot" />
+            <span>Cuenta activa</span>
+          </div>
         </div>
       </section>
+
+      {seguridadAbierta && (
+        <div
+          className="perfil-security-modal-backdrop"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) cerrarSeguridad();
+          }}
+        >
+          <section className="perfil-security-modal" role="dialog" aria-modal="true">
+            <div className="perfil-security-modal-header">
+              <div>
+                <span className="perfil-card-label">Seguridad</span>
+                <h2>{seguridadAbierta === "correo" ? "Cambiar correo electrónico" : "Cambiar contraseña"}</h2>
+                <p>
+                  {seguridadAbierta === "correo"
+                    ? "El nuevo correo será el que utilices para iniciar sesión."
+                    : "Por seguridad, confirma tu contraseña actual antes de establecer una nueva."}
+                </p>
+              </div>
+              <button type="button" className="perfil-security-modal-close" onClick={cerrarSeguridad} aria-label="Cerrar">
+                <img src="/illustrations/cerrar.png" alt="" aria-hidden="true" />
+              </button>
+            </div>
+
+            <form className="perfil-security-modal-form" onSubmit={guardarSeguridad}>
+              {seguridadAbierta === "correo" ? (
+                <>
+                  <label>
+                    <span>Correo actual</span>
+                    <input type="email" value={perfil.correo || ""} disabled />
+                  </label>
+                  <label>
+                    <span>Nuevo correo electrónico</span>
+                    <input
+                      type="email"
+                      value={seguridadFormulario.correo}
+                      onChange={(event) => setSeguridadFormulario((actual) => ({ ...actual, correo: event.target.value }))}
+                      autoComplete="email"
+                      required
+                    />
+                  </label>
+                </>
+              ) : (
+                <>
+                  <label>
+                    <span>Contraseña actual</span>
+                    <input
+                      type="password"
+                      value={seguridadFormulario.claveActual}
+                      onChange={(event) => setSeguridadFormulario((actual) => ({ ...actual, claveActual: event.target.value }))}
+                      autoComplete="current-password"
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Nueva contraseña</span>
+                    <input
+                      type="password"
+                      value={seguridadFormulario.claveNueva}
+                      onChange={(event) => setSeguridadFormulario((actual) => ({ ...actual, claveNueva: event.target.value }))}
+                      autoComplete="new-password"
+                      minLength={8}
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Confirmar nueva contraseña</span>
+                    <input
+                      type="password"
+                      value={seguridadFormulario.claveConfirmacion}
+                      onChange={(event) => setSeguridadFormulario((actual) => ({ ...actual, claveConfirmacion: event.target.value }))}
+                      autoComplete="new-password"
+                      minLength={8}
+                      required
+                    />
+                  </label>
+                </>
+              )}
+
+              {errorSeguridad && <p className="perfil-security-message perfil-security-message--error">{errorSeguridad}</p>}
+              {exitoSeguridad && <p className="perfil-security-message perfil-security-message--success">{exitoSeguridad}</p>}
+
+              <div className="perfil-security-modal-actions">
+                <button type="button" className="perfil-security-cancel" onClick={cerrarSeguridad}>Cancelar</button>
+                <button type="submit" className="perfil-security-save" disabled={guardandoSeguridad}>
+                  {guardandoSeguridad ? "Guardando..." : "Guardar cambios"}
+                </button>
+              </div>
+            </form>
+          </section>
+        </div>
+      )}
     </main>
   );
 }

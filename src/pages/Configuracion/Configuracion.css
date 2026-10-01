@@ -546,3 +546,118 @@ html[data-tts="on"] :where(h1,h2,h3,h4,h5,h6,p,li,label,small,strong,span,a,td,t
     grid-column: 1 / -1;
   }
 }
+
+/* ===== Imagen del negocio ===== */
+.configuracion-business-image {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid var(--sc-border);
+  border-radius: 12px;
+  background: var(--sc-surface-soft);
+}
+
+.configuracion-business-image-preview {
+  width: 68px;
+  height: 68px;
+  flex: 0 0 68px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--sc-border);
+  border-radius: 16px;
+  background: var(--sc-primary-soft);
+  color: var(--sc-primary-dark);
+  font-size: calc(18px * var(--sc-font-scale, 1));
+  font-weight: 800;
+}
+
+.configuracion-business-image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.configuracion-business-image-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.configuracion-business-image-copy strong {
+  display: block;
+  color: var(--sc-text);
+  font-size: calc(12px * var(--sc-font-scale, 1));
+}
+
+.configuracion-business-image-copy p,
+.configuracion-business-image-copy small {
+  display: block;
+  margin: 4px 0 0;
+  color: var(--sc-text-soft);
+  font-size: calc(10px * var(--sc-font-scale, 1));
+  line-height: 1.45;
+}
+
+.configuracion-business-image-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.configuracion-file-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--sc-border-strong);
+  border-radius: 8px;
+  background: var(--sc-surface);
+  color: var(--sc-primary-dark);
+  font-size: calc(10px * var(--sc-font-scale, 1));
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.configuracion-file-button:hover {
+  border-color: var(--sc-primary);
+  background: var(--sc-primary-pale);
+}
+
+.configuracion-file-button input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.configuracion-danger-button {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--sc-border-strong);
+  border-radius: 8px;
+  background: var(--sc-surface);
+  color: var(--sc-text-soft);
+  cursor: pointer;
+}
+
+.configuracion-danger-button:hover {
+  border-color: #d99aa8;
+  color: #a44d61;
+}
+
+@media (max-width: 560px) {
+  .configuracion-business-image {
+    align-items: flex-start;
+  }
+
+  .configuracion-business-image-actions {
+    flex-wrap: wrap;
+  }
+}

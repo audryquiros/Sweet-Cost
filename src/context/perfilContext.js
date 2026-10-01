@@ -8,6 +8,7 @@ const PERFIL_DEFAULT = {
   telefono: "8888-1001",
   rol: "Administrador",
   estado: "Activo",
+  foto: "/illustrations/perfil.png",
 };
 
 function leerPerfil() {

@@ -418,11 +418,12 @@
   "empleados": [
     {
       "id": "emp-001",
-      "nombre": "María Rodríguez",
-      "correo": "maria.rodriguez@sweetcost.demo",
-      "telefono": "8888-1001",
+      "nombre": "María Rodrígues",
+      "correo": "maria.rodrigues@sweetcost.demo",
+      "telefono": "8888-1002",
       "rol": "administrador",
       "estado": "activo",
+      "foto": "/avatars/avatar-1.png",
       "negocioId": "dulces-momentos"
     },
     {

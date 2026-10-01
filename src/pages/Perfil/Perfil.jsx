@@ -5,6 +5,8 @@ import { formatearTelefono } from "../../utils/formatearTelefono";
 import { updateEmpleadoParcial } from "../../services/empleadoServices";
 import "./Perfil.css";
 
+const AVATARES = Array.from({ length: 6 }, (_, indice) => `/avatars/avatar-${indice + 1}.png`);
+
 const ICONOS = {
   perfil: "/illustrations/perfil.png",
   correo: "/illustrations/correo.png",
@@ -16,16 +18,26 @@ const ICONOS = {
 };
 
 function Perfil() {
-  const negocio = getNegocioActivo();
+  const [negocio, setNegocio] = useState(() => getNegocioActivo());
   const { perfil, actualizarPerfil } = usePerfilActual();
   const [formulario, setFormulario] = useState(perfil);
   const [guardado, setGuardado] = useState(false);
   const [guardando, setGuardando] = useState(false);
   const [errorGuardado, setErrorGuardado] = useState("");
+  const [selectorFotoAbierto, setSelectorFotoAbierto] = useState(false);
 
   useEffect(() => {
     setFormulario(perfil);
   }, [perfil]);
+
+  useEffect(() => {
+    const handleNegocioCambio = (event) => {
+      if (event.detail) setNegocio(event.detail);
+    };
+
+    window.addEventListener("sweetcost-negocio-cambio", handleNegocioCambio);
+    return () => window.removeEventListener("sweetcost-negocio-cambio", handleNegocioCambio);
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -42,6 +54,7 @@ function Perfil() {
       nombre: formulario.nombre.trim(),
       correo: formulario.correo.trim(),
       telefono: formulario.telefono.trim(),
+      foto: formulario.foto || ICONOS.perfil,
     };
 
     setGuardando(true);
@@ -55,6 +68,7 @@ function Perfil() {
         nombre: empleadoActualizado.nombre,
         correo: empleadoActualizado.correo,
         telefono: empleadoActualizado.telefono,
+        foto: empleadoActualizado.foto || ICONOS.perfil,
       });
 
       setFormulario((actual) => ({
@@ -62,6 +76,7 @@ function Perfil() {
         nombre: empleadoActualizado.nombre,
         correo: empleadoActualizado.correo,
         telefono: empleadoActualizado.telefono,
+        foto: empleadoActualizado.foto || ICONOS.perfil,
       }));
       setGuardado(true);
     } catch (error) {
@@ -84,8 +99,13 @@ function Perfil() {
       <section className="perfil-layout">
         <article className="perfil-resumen">
           <div className="perfil-resumen-top">
-            <div className="perfil-avatar">
-              <img src={ICONOS.perfil} alt="" aria-hidden="true" />
+            <div className="perfil-avatar-wrap">
+              <div className="perfil-avatar">
+                <img src={formulario.foto || ICONOS.perfil} alt={`Foto de ${perfil.nombre}`} onError={(event) => { event.currentTarget.src = ICONOS.perfil; }} />
+              </div>
+              <button type="button" className="perfil-avatar-edit" onClick={() => setSelectorFotoAbierto(true)} aria-label="Cambiar foto de perfil">
+                Cambiar foto
+              </button>
             </div>
             <div className="perfil-resumen-copy">
               <span className="perfil-role">{perfil.rol}</span>
@@ -176,6 +196,44 @@ function Perfil() {
           </div>
         </form>
       </section>
+
+      {selectorFotoAbierto && (
+        <div className="perfil-avatar-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelectorFotoAbierto(false); }}>
+          <section className="perfil-avatar-modal" role="dialog" aria-modal="true" aria-labelledby="perfil-avatar-modal-title">
+            <div className="perfil-avatar-modal-header">
+              <div>
+                <span className="perfil-card-label">Personalización</span>
+                <h2 id="perfil-avatar-modal-title">Elige tu foto de perfil</h2>
+                <p>Selecciona una de las imágenes predeterminadas.</p>
+              </div>
+              <button type="button" className="perfil-avatar-modal-close" onClick={() => setSelectorFotoAbierto(false)} aria-label="Cerrar">×</button>
+            </div>
+
+            <div className="perfil-avatar-options">
+              {AVATARES.map((avatar, indice) => (
+                <button
+                  type="button"
+                  key={avatar}
+                  className={`perfil-avatar-option${formulario.foto === avatar ? " selected" : ""}`}
+                  onClick={() => {
+                    setFormulario((actual) => ({ ...actual, foto: avatar }));
+                    setGuardado(false);
+                    setErrorGuardado("");
+                    setSelectorFotoAbierto(false);
+                  }}
+                  aria-label={`Seleccionar foto ${indice + 1}`}
+                  aria-pressed={formulario.foto === avatar}
+                >
+                  <img src={avatar} alt={`Foto predeterminada ${indice + 1}`} onError={(event) => { event.currentTarget.src = ICONOS.perfil; }} />
+                  {formulario.foto === avatar && <span>✓</span>}
+                </button>
+              ))}
+            </div>
+
+            <small className="perfil-avatar-modal-note">Las imágenes se leen desde <strong>public/avatars</strong>. Puedes reemplazarlas por tus propias imágenes manteniendo los nombres avatar-1.png a avatar-6.png.</small>
+          </section>
+        </div>
+      )}
 
       <section className="perfil-security-card">
         <div>

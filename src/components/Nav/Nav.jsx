@@ -68,8 +68,9 @@ function SidebarLink({ item, onNavigate }) {
 }
 
 function Nav() {
-  const negocioActivo = getNegocioActivo();
+  const [negocioActivo, setNegocioActivo] = useState(() => getNegocioActivo());
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [imagenNegocioError, setImagenNegocioError] = useState(false);
   const responsiveModeRef = useRef(
     typeof window === "undefined"
       ? "desktop"
@@ -79,6 +80,18 @@ function Nav() {
           ? "tablet"
           : "desktop"
   );
+
+  useEffect(() => {
+    const handleNegocioCambio = (event) => {
+      if (event.detail) {
+        setNegocioActivo(event.detail);
+        setImagenNegocioError(false);
+      }
+    };
+
+    window.addEventListener("sweetcost-negocio-cambio", handleNegocioCambio);
+    return () => window.removeEventListener("sweetcost-negocio-cambio", handleNegocioCambio);
+  }, []);
 
   useEffect(() => {
     const getMode = () => {
@@ -198,7 +211,17 @@ function Nav() {
             role="button"
             tabIndex={0}
           >
-            <div className="business-avatar">SC</div>
+            <div className="business-avatar">
+              {negocioActivo.imagen && !imagenNegocioError ? (
+                <img
+                  src={negocioActivo.imagen}
+                  alt={`Imagen de ${negocioActivo.nombre}`}
+                  onError={() => setImagenNegocioError(true)}
+                />
+              ) : (
+                <span>{(negocioActivo.nombre || "SC").slice(0, 2).toUpperCase()}</span>
+              )}
+            </div>
 
             <div className="business-info">
               <strong>{negocioActivo.nombre}</strong>

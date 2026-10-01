@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./Configuracion.css";
-import { getNegocioActivoId } from "../../context/negocioContext";
+import { getNegocioActivoId, sincronizarNegocioActivo } from "../../context/negocioContext";
+import { getPerfilActual } from "../../context/perfilContext";
+import { guardarImagenNegocio, obtenerImagenNegocio, eliminarImagenNegocio } from "../../utils/imagenStorage";
 import { getNegocioActivoDesdeServidor, updateNegocio } from "../../services/negocioServices";
 import { speakText, speechSupported, stopSpeech } from "../../utils/textToSpeech";
 
@@ -48,6 +50,7 @@ function Configuracion() {
     tipo: "Repostería",
     telefono: "8888-0000",
     correo: "contacto@dulcesmomentos.com",
+    imagen: "",
   });
   const [margen, setMargen] = useState("30");
   const [tema, setTema] = useState(() => localStorage.getItem("sweetcost-tema") || "claro");
@@ -59,6 +62,9 @@ function Configuracion() {
   const [guardandoNegocio, setGuardandoNegocio] = useState(false);
   const [mensajeNegocio, setMensajeNegocio] = useState("");
   const [mensajeCostos, setMensajeCostos] = useState("");
+  const [procesandoImagenNegocio, setProcesandoImagenNegocio] = useState(false);
+  const [imagenNegocioUrl, setImagenNegocioUrl] = useState("");
+  const esAdministrador = String(getPerfilActual().rol || "").toLowerCase().includes("administrador");
 
   useEffect(() => {
     aplicarPreferencias({ tema, tamanoTexto, daltonismo });
@@ -82,7 +88,9 @@ function Configuracion() {
       try {
         const datos = await getNegocioActivoDesdeServidor();
         if (!activo) return;
-        setNegocio((prev) => ({ ...prev, ...datos }));
+        const imagenGuardada = await obtenerImagenNegocio(datos.id);
+        if (imagenGuardada) setImagenNegocioUrl(imagenGuardada);
+        setNegocio((prev) => ({ ...prev, ...datos, imagen: imagenGuardada || "" }));
         setMargen(String(datos.margenGanancia ?? 30));
       } catch (error) {
         console.error(error);
@@ -94,6 +102,12 @@ function Configuracion() {
     cargarNegocio();
     return () => { activo = false; };
   }, []);
+
+  useEffect(() => {
+    return () => {
+      if (imagenNegocioUrl) URL.revokeObjectURL(imagenNegocioUrl);
+    };
+  }, [imagenNegocioUrl]);
 
   useEffect(() => () => stopSpeech(), []);
 
@@ -111,6 +125,39 @@ function Configuracion() {
     setNegocio((prev) => ({ ...prev, [campo]: valor }));
   };
 
+  const seleccionarImagenNegocio = async (event) => {
+    const archivo = event.target.files?.[0];
+    event.target.value = "";
+    if (!archivo) return;
+
+    setProcesandoImagenNegocio(true);
+    setMensajeNegocio("");
+    try {
+      const id = getNegocioActivoId();
+      const url = await guardarImagenNegocio(archivo, id);
+      setImagenNegocioUrl(url);
+      actualizar("imagen", url);
+    } catch (error) {
+      console.error(error);
+      setMensajeNegocio("No se pudo procesar la imagen. Usa un archivo JPG, PNG o WEBP.");
+    } finally {
+      setProcesandoImagenNegocio(false);
+    }
+  };
+
+  const quitarImagenNegocio = async () => {
+    try {
+      await eliminarImagenNegocio(getNegocioActivoId());
+      if (imagenNegocioUrl) URL.revokeObjectURL(imagenNegocioUrl);
+      setImagenNegocioUrl("");
+      actualizar("imagen", "");
+      setMensajeNegocio("");
+    } catch (error) {
+      console.error(error);
+      setMensajeNegocio("No se pudo quitar la imagen.");
+    }
+  };
+
   const guardarNegocio = async () => {
     setGuardandoNegocio(true);
     setMensajeNegocio("");
@@ -121,7 +168,9 @@ function Configuracion() {
         telefono: negocio.telefono.trim(),
         correo: negocio.correo.trim(),
       });
-      setNegocio((prev) => ({ ...prev, ...actualizado }));
+      const negocioSinImagen = { ...actualizado, imagen: imagenNegocioUrl };
+      setNegocio((prev) => ({ ...prev, ...negocioSinImagen }));
+      sincronizarNegocioActivo(negocioSinImagen);
       setMensajeNegocio("Cambios guardados correctamente.");
     } catch (error) {
       console.error(error);
@@ -137,6 +186,7 @@ function Configuracion() {
       const valor = Math.min(100, Math.max(0, Number(margen) || 0));
       const actualizado = await updateNegocio(getNegocioActivoId(), { margenGanancia: valor });
       setMargen(String(actualizado.margenGanancia ?? valor));
+      sincronizarNegocioActivo(actualizado);
       setMensajeCostos("Margen guardado correctamente.");
     } catch (error) {
       console.error(error);
@@ -201,6 +251,33 @@ function Configuracion() {
                 <label><span>Tipo de negocio</span><input value={negocio.tipo} onChange={(e) => actualizar("tipo", e.target.value)} /></label>
                 <label><span>Teléfono</span><input value={negocio.telefono} onChange={(e) => actualizar("telefono", e.target.value)} /></label>
                 <label><span>Correo electrónico</span><input type="email" value={negocio.correo} onChange={(e) => actualizar("correo", e.target.value)} /></label>
+              </div>
+
+              <div className="configuracion-business-image">
+                <div className="configuracion-business-image-preview">
+                  {imagenNegocioUrl ? (
+                    <img src={imagenNegocioUrl} alt={`Logo de ${negocio.nombre}`} />
+                  ) : (
+                    <span>{(negocio.nombre || "SC").slice(0, 2).toUpperCase()}</span>
+                  )}
+                </div>
+                <div className="configuracion-business-image-copy">
+                  <strong>Imagen del negocio</strong>
+                  <p>Esta imagen aparecerá en el selector del negocio del menú lateral.</p>
+                  {esAdministrador ? (
+                    <div className="configuracion-business-image-actions">
+                      <label className="configuracion-secondary configuracion-file-button">
+                        {procesandoImagenNegocio ? "Procesando..." : "Agregar imagen"}
+                        <input type="file" accept="image/png,image/jpeg,image/webp" onChange={seleccionarImagenNegocio} disabled={procesandoImagenNegocio} />
+                      </label>
+                      {imagenNegocioUrl && (
+                        <button type="button" className="configuracion-secondary configuracion-danger-button" onClick={quitarImagenNegocio}>Quitar</button>
+                      )}
+                    </div>
+                  ) : (
+                    <small>Solo el administrador puede cambiar la imagen del negocio.</small>
+                  )}
+                </div>
               </div>
               <div className="configuracion-actions">{mensajeNegocio && <p className={`configuracion-feedback ${mensajeNegocio.startsWith("Cambios") ? "success" : "error"}`} role="status" aria-live="polite">{mensajeNegocio}</p>}<button type="button" className="configuracion-primary" onClick={guardarNegocio} disabled={guardandoNegocio || cargandoNegocio}>{guardandoNegocio ? "Guardando..." : "Guardar cambios"}</button></div>
             </div>

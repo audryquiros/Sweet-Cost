@@ -146,3 +146,6 @@ src/
 │
 └── utils/
     └── calculosCostos.js
+
+### Negocio conectado a JSON Server
+La información del negocio activo se carga desde `GET /negocios` al iniciar la aplicación. Los cambios realizados en Configuración se sincronizan en memoria y se reflejan inmediatamente en el sidebar y Mi perfil.

@@ -17,6 +17,7 @@ import Configuracion from "../pages/Configuracion/Configuracion";
 import Perfil from "../pages/Perfil/Perfil";
 
 import Nav from "../components/Nav/Nav";
+import { cargarNegociosDesdeServidor } from "../context/negocioContext";
 import { speechSupported, enableHoverTextReading, stopSpeech } from "../utils/textToSpeech";
 
 function ComingSoon({ title, description, illustration }) {
@@ -38,6 +39,12 @@ function ComingSoon({ title, description, illustration }) {
 }
 
 function AppRoutes() {
+  useEffect(() => {
+    cargarNegociosDesdeServidor().catch((error) => {
+      console.warn("No se pudieron sincronizar los negocios desde JSON Server:", error);
+    });
+  }, []);
+
   useEffect(() => {
     if (!speechSupported) return undefined;
 

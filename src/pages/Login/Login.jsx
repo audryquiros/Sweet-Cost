@@ -26,7 +26,9 @@ function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [correo, setCorreo] = useState(() => localStorage.getItem("sweetcost-recordar-correo") || "");
+  const [correo, setCorreo] = useState(
+    () => localStorage.getItem("sweetcost-recordar-correo") || ""
+  );
   const [clave, setClave] = useState("");
   const [mostrarClave, setMostrarClave] = useState(false);
   const [recordarme, setRecordarme] = useState(true);
@@ -50,6 +52,7 @@ function Login() {
 
     try {
       const resultado = await login(correo, clave, recordarme);
+
       if (resultado.requiereNegocio) {
         navigate("/seleccionar-negocio", { replace: true });
       } else {
@@ -67,30 +70,44 @@ function Login() {
 
   return (
     <main className="login-page">
-      <section className="login-brand-panel" aria-label="Sweet Cost">
-        <div className="login-brand-decoration login-brand-decoration-top" />
-        <div className="login-brand-decoration login-brand-decoration-bottom" />
-
-        <div className="login-brand-content">
+      <div className="login-content">
+        <section className="login-brand-card" aria-label="Información de Sweet Cost">
           <img
             className="login-brand-logo"
             src="/logoSC.png"
             alt="Sweet Cost"
           />
-          <p>
+
+          <p className="login-brand-title">
             Gestiona tus recetas,
             <br />
             calcula tus costos
             <br />
             y haz crecer tu negocio.
           </p>
-        </div>
-      </section>
 
-      <section className="login-form-panel">
-        <div className="login-card">
+          <div className="login-brand-features" aria-label="Funciones principales">
+            <div className="login-brand-feature">
+              <img src="/illustrations/recetas-batidor.png" alt="" />
+              <span>Recetas</span>
+            </div>
+
+            <div className="login-brand-feature">
+              <img src="/illustrations/moneda.png" alt="" />
+              <span>Costos</span>
+            </div>
+
+            <div className="login-brand-feature">
+              <img src="/illustrations/empleados.png" alt="" />
+              <span>Negocio</span>
+            </div>
+          </div>
+        </section>
+
+        <section className="login-card" aria-labelledby="login-title">
           <div className="login-heading">
-            <h1>Inicia sesión</h1>
+            <span className="login-eyebrow">SWEET COST</span>
+            <h1 id="login-title">Inicia sesión</h1>
             <p>Ingresa a tu cuenta para continuar.</p>
           </div>
 
@@ -122,7 +139,9 @@ function Login() {
                   type="button"
                   className="login-password-toggle"
                   onClick={() => setMostrarClave((actual) => !actual)}
-                  aria-label={mostrarClave ? "Ocultar contraseña" : "Mostrar contraseña"}
+                  aria-label={
+                    mostrarClave ? "Ocultar contraseña" : "Mostrar contraseña"
+                  }
                   title={mostrarClave ? "Ocultar contraseña" : "Mostrar contraseña"}
                 >
                   <EyeIcon visible={mostrarClave} />
@@ -139,6 +158,7 @@ function Login() {
                 />
                 <span>Recordarme</span>
               </label>
+
               <button type="button" className="login-forgot">
                 ¿Olvidaste tu contraseña?
               </button>
@@ -151,7 +171,8 @@ function Login() {
             )}
 
             <button type="submit" className="login-submit" disabled={cargando}>
-              {cargando ? "Ingresando..." : "Iniciar sesión"}
+              <span>{cargando ? "Ingresando..." : "Iniciar sesión"}</span>
+              {!cargando && <span aria-hidden="true">→</span>}
             </button>
           </form>
 
@@ -162,8 +183,8 @@ function Login() {
           <button type="button" className="login-create-account">
             Crear una cuenta
           </button>
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
   );
 }

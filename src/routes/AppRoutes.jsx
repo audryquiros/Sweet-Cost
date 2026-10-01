@@ -13,6 +13,8 @@ import Configuracion from "../pages/Configuracion/Configuracion";
 import Perfil from "../pages/Perfil/Perfil";
 import Login from "../pages/Login/Login";
 import SeleccionNegocio from "../pages/SeleccionNegocio/SeleccionNegocio";
+import NoAccess from "../pages/NoAccess/NoAccess";
+import NotFound from "../pages/NotFound/NotFound";
 
 import Nav from "../components/Nav/Nav";
 import { useAuth } from "../context/authContext";
@@ -63,6 +65,8 @@ function AppContent() {
         <Routes>
           <Route path="/login" element={autenticado ? <Navigate to={getRutaInicioPorRol(usuario.rol)} replace /> : <Login />} />
           <Route path="/seleccionar-negocio" element={<SeleccionNegocio />} />
+          <Route path="/403" element={<NoAccess />} />
+          <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<ProtectedApp />} />
         </Routes>
       </div>
@@ -70,14 +74,45 @@ function AppContent() {
   );
 }
 
+const RUTAS_DEL_SISTEMA = [
+  "/",
+  "/productos",
+  "/insumos",
+  "/recetas",
+  "/cotizaciones",
+  "/pedidos",
+  "/calendario",
+  "/empleados",
+  "/configuracion",
+  "/perfil",
+];
+
+function esRutaDelSistema(pathname) {
+  return RUTAS_DEL_SISTEMA.some(
+    (ruta) => pathname === ruta || (ruta !== "/" && pathname.startsWith(`${ruta}/`))
+  );
+}
+
 function ProtectedApp() {
   const { usuario, autenticado } = useAuth();
   const location = useLocation();
 
-  if (!autenticado) return <Navigate to="/login" state={{ from: location }} replace />;
-  if (!usuario?.negocioId) return <Navigate to="/seleccionar-negocio" replace />;
-  if (!puedeAccederRuta(usuario.rol, location.pathname)) {
-    return <Navigate to={getRutaInicioPorRol(usuario.rol)} replace />;
+  if (!autenticado) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  if (!usuario?.negocioId) {
+    return <Navigate to="/seleccionar-negocio" replace />;
+  }
+
+  // Una ruta existente pero no permitida por el rol muestra 403.
+  if (esRutaDelSistema(location.pathname) && !puedeAccederRuta(usuario.rol, location.pathname)) {
+    return <NoAccess />;
+  }
+
+  // Una ruta que no pertenece al sistema muestra 404.
+  if (!esRutaDelSistema(location.pathname)) {
+    return <NotFound />;
   }
 
   return (
@@ -94,7 +129,7 @@ function ProtectedApp() {
       <Route path="/empleados" element={<Empleados />} />
       <Route path="/configuracion" element={<Configuracion />} />
       <Route path="/perfil" element={<Perfil />} />
-      <Route path="*" element={<Navigate to={getRutaInicioPorRol(usuario.rol)} replace />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

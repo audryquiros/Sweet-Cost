@@ -8,16 +8,18 @@ export const getEmpleados = async () => {
   return filtrarPorNegocio(await response.json());
 };
 
-export const createEmpleado = async (empleado) => {
-  const negocioId = getNegocioActivoId();
+export const createEmpleado = async (empleado, negocioIds = null) => {
+  const negocioActivo = getNegocioActivoId();
+  const ids = [...new Set((Array.isArray(negocioIds) && negocioIds.length ? negocioIds : [negocioActivo]).filter(Boolean))];
   const response = await fetch(API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(conNegocio({
+    body: JSON.stringify({
       ...empleado,
       clave: empleado.clave || "empleado123",
-      negocioIds: [negocioId],
-    })),
+      negocioId: ids.includes(negocioActivo) ? negocioActivo : ids[0],
+      negocioIds: ids,
+    }),
   });
   if (!response.ok) throw new Error("Error al crear el empleado");
   return response.json();

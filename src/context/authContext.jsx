@@ -105,13 +105,17 @@ export function AuthProvider({ children }) {
     usuarioBase.negocioIds = negocios.map((negocio) => negocio.id);
     guardarSesion(usuarioBase);
 
-    if (negocios.length > 1) {
+    // Solo el administrador necesita escoger explícitamente el negocio al iniciar
+    // cuando tiene varios. Un empleado con varios negocios entra al negocio activo
+    // (o al primero disponible) y puede cambiar después desde el selector del sidebar.
+    if (usuarioBase.rol === "administrador" && negocios.length > 1) {
       sessionStorage.setItem(PENDING_BUSINESSES_KEY, JSON.stringify(negocios));
       return { usuario: usuarioBase, negocios, requiereNegocio: true };
     }
 
     sessionStorage.removeItem(PENDING_BUSINESSES_KEY);
-    const negocio = negocios[0];
+    const negocioActivoGuardado = localStorage.getItem("sweetcost-negocio-activo");
+    const negocio = negocios.find((item) => item.id === negocioActivoGuardado) || negocios[0];
     const usuarioConNegocio = { ...usuarioBase, negocioId: negocio.id };
     guardarSesion(usuarioConNegocio);
     localStorage.setItem("sweetcost-negocio-activo", negocio.id);

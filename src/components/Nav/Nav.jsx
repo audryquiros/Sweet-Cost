@@ -138,7 +138,7 @@ function Nav() {
     return negociosDisponibles.filter((negocio) => ids.has(negocio.id));
   }, [negociosDisponibles, usuario?.id, usuario?.rol, usuario?.negocioId, usuario?.negocioIds]);
 
-  const puedeCambiarNegocio = negociosDelUsuario.length > 1;
+  const puedeCambiarNegocio = usuario?.rol === "administrador" || negociosDelUsuario.length > 1;
 
   useEffect(() => {
     const getViewportWidth = () => {
@@ -331,14 +331,16 @@ function Nav() {
                     className={`business-menu-item${negocio.id === negocioActivo?.id ? " active" : ""}`}
                     onClick={() => cambiarNegocio(negocio)}
                   >
-                    <span className="business-menu-avatar">{negocio.nombre.slice(0, 2).toUpperCase()}</span>
+                    <span className="business-menu-avatar"><img src="/illustrations/negocio.png" alt="" aria-hidden="true" /></span>
                     <span><strong>{negocio.nombre}</strong><small>{negocio.tipo}</small></span>
                     {negocio.id === negocioActivo?.id && <span className="business-menu-check">✓</span>}
                   </button>
                 ))}
-                <NavLink to="/negocios" className="business-menu-manage" onClick={() => { setNegociosAbierto(false); closeMobileMenu(); }}>
-                  Administrar negocios
-                </NavLink>
+                {usuario?.rol === "administrador" && (
+                  <NavLink to="/negocios" className="business-menu-manage" onClick={() => { setNegociosAbierto(false); closeMobileMenu(); }}>
+                    Administrar negocios
+                  </NavLink>
+                )}
               </div>
             )}
           </div>

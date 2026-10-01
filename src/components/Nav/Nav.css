@@ -589,3 +589,11 @@ html[data-theme="oscuro"] .business-menu-item.active { background: #30263a; bord
 html[data-theme="oscuro"] .business-menu-item strong { color: #f7f1fa; }
 
 .sidebar-profile-link .sidebar-illustration-icon { object-fit: contain !important; object-position: center center !important; padding: 2px; box-sizing: border-box; }
+
+.business-menu-avatar img {
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+  object-fit: contain;
+  object-position: center;
+}

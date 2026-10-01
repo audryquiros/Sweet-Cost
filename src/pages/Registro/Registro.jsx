@@ -76,20 +76,31 @@ export default function Registro() {
         clave: f.clave,
       };
 
-      const [rn, re] = await Promise.all([
-        fetch(N, {
+      let negocioCreado = false;
+      try {
+        const rn = await fetch(N, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(negocio),
-        }),
-        fetch(E, {
+        });
+
+        if (!rn.ok) throw Error("No se pudo guardar el negocio.");
+        negocioCreado = true;
+
+        const re = await fetch(E, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(empleado),
-        }),
-      ]);
+        });
 
-      if (!rn.ok || !re.ok) throw Error("No se pudo guardar la cuenta y el negocio.");
+        if (!re.ok) throw Error("No se pudo crear la cuenta de administrador.");
+      } catch (error) {
+        // Evita dejar un negocio huérfano si la cuenta no pudo crearse.
+        if (negocioCreado) {
+          await fetch(`${N}/${negocioId}`, { method: "DELETE" }).catch(() => {});
+        }
+        throw error;
+      }
 
       setEstado("success");
       setMsg("Cuenta y negocio registrados correctamente.");
@@ -114,11 +125,11 @@ export default function Registro() {
 
           <div className="login-brand-features" aria-label="Beneficios de Sweet Cost">
             <div className="login-brand-feature">
-              <img src="./illustrations/productos-cupcake.png" alt="" />
+              <img src="/illustrations/productos-cupcake.png" alt="" />
               <span>Costos</span>
             </div>
             <div className="login-brand-feature">
-              <img src="./illustrations/recetas-batidor.png" alt="" />
+              <img src="/illustrations/recetas-batidor.png" alt="" />
               <span>Recetas</span>
             </div>
             <div className="login-brand-feature">

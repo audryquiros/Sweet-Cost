@@ -76,7 +76,7 @@
   min-height: 82px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   padding: 14px 15px;
   box-sizing: border-box;
   border: 1px solid var(--sc-border);
@@ -85,20 +85,20 @@
 }
 
 .empleado-detalle-item-icon {
-  flex: 0 0 36px;
-  width: 36px;
-  height: 36px;
+  flex: 0 0 54px;
+  width: 54px;
+  height: 54px;
   display: grid;
   place-items: center;
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--sc-primary-pale);
   color: var(--sc-primary-dark);
 }
 
 
 .empleado-detalle-item-icon img {
-  width: 22px;
-  height: 22px;
+  width: 36px;
+  height: 36px;
   object-fit: contain;
   display: block;
 }

@@ -13,6 +13,7 @@ import Pedidos from "../pages/Pedidos/Pedidos";
 import Calendario from "../pages/Calendario/Calendario";
 import Empleados from "../pages/Empleados/Empleados";
 import Configuracion from "../pages/Configuracion/Configuracion";
+import Perfil from "../pages/Perfil/Perfil";
 
 import Nav from "../components/Nav/Nav";
 
@@ -53,16 +54,7 @@ function AppRoutes() {
           <Route path="/calendario" element={<Calendario />} />
           <Route path="/empleados" element={<Empleados />} />
 <Route path="/configuracion" element={<Configuracion />} />
-          <Route
-            path="/perfil"
-            element={
-              <ComingSoon
-                title="Mi perfil"
-                description="Consulta y actualiza la información de tu cuenta."
-                illustration="perfil"
-              />
-            }
-          />
+          <Route path="/perfil" element={<Perfil />} />
         </Routes>
       </div>
     </BrowserRouter>

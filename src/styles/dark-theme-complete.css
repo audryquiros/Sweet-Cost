@@ -1652,3 +1652,83 @@ html[data-theme="oscuro"] .calendario-celda.otro-mes {
 html[data-theme="oscuro"] .calendario-celda.hoy {
   background: #292132 !important;
 }
+
+/* =========================================================
+   Ajustes finales de consistencia en modo oscuro
+   ========================================================= */
+
+/* Acciones de pedidos: nunca usar superficies blancas en hover. */
+html[data-theme="oscuro"] #root .pedido-actions button,
+html[data-theme="oscuro"] #root .pedido-acciones button {
+  background: #211b26 !important;
+  color: #f3eaf7 !important;
+  border-color: #756080 !important;
+}
+
+html[data-theme="oscuro"] #root .pedido-actions button:hover,
+html[data-theme="oscuro"] #root .pedido-acciones button:hover {
+  background: #33263c !important;
+  color: #ffffff !important;
+  border-color: #a985cf !important;
+}
+
+html[data-theme="oscuro"] #root .pedido-actions .pedido-action-danger:hover,
+html[data-theme="oscuro"] #root .pedido-acciones .pedido-eliminar:hover {
+  background: #42252d !important;
+  color: #ffdce1 !important;
+  border-color: #ff9aa5 !important;
+}
+
+/* Botón Ver: conserva la superficie oscura aunque otras reglas lo intenten aclarar. */
+html[data-theme="oscuro"] #root .pedido-actions button:not(.sc-action-edit):not(.sc-action-delete) {
+  background: #211b26 !important;
+  color: #f0d9ff !important;
+  border-color: #8b6a9f !important;
+}
+
+html[data-theme="oscuro"] #root .pedido-actions button:not(.sc-action-edit):not(.sc-action-delete):hover {
+  background: #3b2d4b !important;
+  color: #ffffff !important;
+  border-color: #b58ce8 !important;
+}
+
+/* Detalle de empleados: tarjetas e iconos completamente integrados al oscuro. */
+html[data-theme="oscuro"] #root .empleado-detalle-item {
+  background: #211b26 !important;
+  border-color: #4b3d55 !important;
+}
+
+html[data-theme="oscuro"] #root .empleado-detalle-item-icon,
+html[data-theme="oscuro"] #root .empleado-detalle-item--estado.estado-activo .empleado-detalle-item-icon,
+html[data-theme="oscuro"] #root .empleado-detalle-item--estado.estado-inactivo .empleado-detalle-item-icon {
+  background: #392b45 !important;
+  border: 1px solid #594566 !important;
+  color: #f0c9f0 !important;
+}
+
+html[data-theme="oscuro"] #root .empleado-detalle-item--estado.estado-activo .empleado-detalle-item-icon {
+  background: #293b32 !important;
+  border-color: #557563 !important;
+  color: #b8ebca !important;
+}
+
+html[data-theme="oscuro"] #root .empleado-detalle-item--estado.estado-inactivo .empleado-detalle-item-icon {
+  background: #3f2931 !important;
+  border-color: #704753 !important;
+  color: #ffc3cc !important;
+}
+
+/* Los iconos de información deben tener presencia visual suficiente. */
+html[data-theme="oscuro"] #root .empleado-detalle-item-icon img {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+html[data-theme="oscuro"] #root .empleado-lista-item:hover,
+html[data-theme="oscuro"] #root .empleado-card:hover {
+  background: #241e2a !important;
+}
+
+html[data-theme="oscuro"] #root .empleado-card:hover {
+  box-shadow: 0 9px 22px rgba(0,0,0,.24) !important;
+}

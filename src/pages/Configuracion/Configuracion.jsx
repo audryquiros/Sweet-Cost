@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../../context/authContext";
 import "./Configuracion.css";
 import { getNegocioActivoId, sincronizarNegocioActivo } from "../../context/negocioContext";
-import { getPerfilActual } from "../../context/perfilContext";
 import { guardarImagenNegocio, obtenerImagenNegocio, eliminarImagenNegocio } from "../../utils/imagenStorage";
 import { getNegocioActivoDesdeServidor, updateNegocio } from "../../services/negocioServices";
 import { speakText, speechSupported, stopSpeech } from "../../utils/textToSpeech";
@@ -44,7 +44,9 @@ function aplicarPreferencias({ tema, tamanoTexto, daltonismo }) {
 }
 
 function Configuracion() {
-  const [seccionActiva, setSeccionActiva] = useState("negocio");
+  const { usuario } = useAuth();
+  const esAdministrador = usuario?.rol === "administrador";
+  const [seccionActiva, setSeccionActiva] = useState(esAdministrador ? "negocio" : "apariencia");
   const [negocio, setNegocio] = useState({
     nombre: "Dulces Momentos",
     tipo: "Repostería",
@@ -64,7 +66,6 @@ function Configuracion() {
   const [mensajeCostos, setMensajeCostos] = useState("");
   const [procesandoImagenNegocio, setProcesandoImagenNegocio] = useState(false);
   const [imagenNegocioUrl, setImagenNegocioUrl] = useState("");
-  const esAdministrador = String(getPerfilActual().rol || "").toLowerCase().includes("administrador");
 
   useEffect(() => {
     aplicarPreferencias({ tema, tamanoTexto, daltonismo });
@@ -209,6 +210,14 @@ function Configuracion() {
     }
   };
 
+  const seccionesVisibles = esAdministrador
+    ? secciones
+    : secciones.filter((seccion) => ["apariencia", "accesibilidad"].includes(seccion.id));
+
+  const seccionRenderizada = !esAdministrador && !["apariencia", "accesibilidad"].includes(seccionActiva)
+    ? "apariencia"
+    : seccionActiva;
+
   return (
     <main className="configuracion-page">
       <header className="configuracion-header">
@@ -220,7 +229,7 @@ function Configuracion() {
 
       <div className="configuracion-layout">
         <aside className="configuracion-nav" aria-label="Secciones de configuración">
-          {secciones.map((seccion) => (
+          {seccionesVisibles.map((seccion) => (
             <button
               key={seccion.id}
               type="button"
@@ -237,7 +246,7 @@ function Configuracion() {
         </aside>
 
         <section className="configuracion-content">
-          {seccionActiva === "negocio" && (
+          {seccionRenderizada === "negocio" && (
             <div className="configuracion-card">
               <div className="configuracion-card-header">
                 <div>
@@ -283,7 +292,7 @@ function Configuracion() {
             </div>
           )}
 
-          {seccionActiva === "costos" && (
+          {seccionRenderizada === "costos" && (
             <div className="configuracion-card">
               <div className="configuracion-card-header">
                 <div><span className="configuracion-card-label">Precios</span><h2>Costos y precios</h2><p>Define un margen de ganancia de referencia para tus productos.</p></div>
@@ -296,7 +305,7 @@ function Configuracion() {
             </div>
           )}
 
-          {seccionActiva === "unidades" && (
+          {seccionRenderizada === "unidades" && (
             <div className="configuracion-card">
               <div className="configuracion-card-header"><div><span className="configuracion-card-label">Medidas</span><h2>Unidades</h2><p>Unidades disponibles para insumos y recetas.</p></div></div>
               <div className="configuracion-unidades">
@@ -305,7 +314,7 @@ function Configuracion() {
             </div>
           )}
 
-          {seccionActiva === "apariencia" && (
+          {seccionRenderizada === "apariencia" && (
             <div className="configuracion-card">
               <div className="configuracion-card-header"><div><span className="configuracion-card-label">Interfaz</span><h2>Apariencia</h2><p>Personaliza cómo se presenta Sweet Cost en tu dispositivo.</p></div></div>
 
@@ -335,7 +344,7 @@ function Configuracion() {
             </div>
           )}
 
-          {seccionActiva === "accesibilidad" && (
+          {seccionRenderizada === "accesibilidad" && (
             <div className="configuracion-card">
               <div className="configuracion-card-header"><div><span className="configuracion-card-label">Accesibilidad</span><h2>Accesibilidad</h2><p>Configura opciones visuales para facilitar el uso de la interfaz.</p></div></div>
 

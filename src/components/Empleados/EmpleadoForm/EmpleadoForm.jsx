@@ -10,6 +10,7 @@ const formularioInicial = {
   telefono: "",
   rol: "empleado",
   estado: "activo",
+  clave: "",
 };
 
 const ROLES = [
@@ -35,6 +36,7 @@ function EmpleadoForm({ empleado, onCreado, onActualizado, onCancelar }) {
         telefono: formatearTelefono(empleado.telefono || ""),
         rol: empleado.rol || "empleado",
         estado: empleado.estado || "activo",
+        clave: "",
       });
     } else {
       setFormulario(formularioInicial);
@@ -75,6 +77,7 @@ function EmpleadoForm({ empleado, onCreado, onActualizado, onCancelar }) {
       telefono: formulario.telefono.trim() ? formatearTelefono(formulario.telefono) : "",
       rol: formulario.rol,
       estado: formulario.estado,
+      ...(formulario.clave.trim() ? { clave: formulario.clave.trim() } : {}),
     };
 
     try {
@@ -160,6 +163,22 @@ function EmpleadoForm({ empleado, onCreado, onActualizado, onCancelar }) {
             maxLength={9}
             inputMode="numeric"
             autoComplete="tel"
+          />
+        </div>
+
+        <div className="empleado-form-group empleado-form-group--wide">
+          <label className="empleado-label" htmlFor="empleado-clave">
+            {empleado ? "Nueva contraseña (opcional)" : "Contraseña"}
+          </label>
+          <input
+            id="empleado-clave"
+            name="clave"
+            type="password"
+            value={formulario.clave}
+            onChange={handleChange}
+            placeholder={empleado ? "Dejar vacío para conservarla" : "Contraseña de acceso"}
+            autoComplete={empleado ? "new-password" : "new-password"}
+            required={!empleado}
           />
         </div>
 

@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Icon from "../common/Icon/Icon";
 import { getNegocioActivo } from "../../context/negocioContext";
+import { usePerfilActual } from "../../context/perfilContext";
+import { useAuth } from "../../context/authContext";
 import "./Nav.css";
 
 const menuPrincipal = [
@@ -17,7 +19,6 @@ const menuPrincipal = [
 
 const menuCuenta = [
   { to: "/configuracion", label: "Configuración", icon: "settings" },
-  { to: "/perfil", label: "Mi perfil", icon: "profile" },
 ];
 
 const iconImages = {
@@ -34,8 +35,16 @@ const iconImages = {
   logout: "/illustrations/cerrar-sesion.png",
 };
 
-function SidebarIcon({ type }) {
-  const src = iconImages[type];
+function SidebarIcon({ type, perfil }) {
+  const [profileImage, setProfileImage] = useState(
+    perfil?.foto || iconImages.profile
+  );
+
+  useEffect(() => {
+    setProfileImage(perfil?.foto || iconImages.profile);
+  }, [perfil?.foto]);
+
+  const src = type === "profile" ? profileImage : iconImages[type];
 
   if (!src) {
     return <Icon type={type} />;
@@ -45,30 +54,42 @@ function SidebarIcon({ type }) {
     <img
       className="sidebar-illustration-icon"
       src={src}
-      alt=""
-      aria-hidden="true"
+      alt={type === "profile" ? (perfil?.nombre || "Perfil") : ""}
+      aria-hidden={type === "profile" ? undefined : true}
+      onError={type === "profile" ? () => setProfileImage(iconImages.profile) : undefined}
     />
   );
 }
 
-function SidebarLink({ item, onNavigate }) {
+function SidebarLink({ item, onNavigate, perfil }) {
+  const isProfile = item.icon === "profile";
+
   return (
     <NavLink
       to={item.to}
       end={item.to === "/"}
       onClick={onNavigate}
       className={({ isActive }) =>
-        `sidebar-link${isActive ? " active" : ""}`
+        `sidebar-link${isActive ? " active" : ""}${isProfile ? " sidebar-profile-link" : ""}`
       }
     >
-      <SidebarIcon type={item.icon} />
-      <span>{item.label}</span>
+      <SidebarIcon type={item.icon} perfil={perfil} />
+      {isProfile ? (
+        <span className="sidebar-profile-copy">
+          <span className="sidebar-link-label">{item.label}</span>
+          <span className="sidebar-profile-hint">Tu perfil</span>
+        </span>
+      ) : (
+        <span className="sidebar-link-label">{item.label}</span>
+      )}
     </NavLink>
   );
 }
 
 function Nav() {
   const [negocioActivo, setNegocioActivo] = useState(() => getNegocioActivo());
+  const { perfil } = usePerfilActual();
+  const { usuario, logout } = useAuth();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [imagenNegocioError, setImagenNegocioError] = useState(false);
   const responsiveModeRef = useRef(
@@ -236,36 +257,19 @@ function Nav() {
             </span>
           </div>
 
-          {/* Principal */}
-          <div className="sidebar-section-label">
-            Principal
-          </div>
+          {usuario?.rol === "administrador" && (
+            <>
+              <div className="sidebar-section-label">Principal</div>
+              <nav className="sidebar-nav" aria-label="Navegación principal">
+                <SidebarLink item={menuPrincipal[0]} onNavigate={closeMobileMenu} perfil={perfil} />
+              </nav>
+            </>
+          )}
 
-          <nav
-            className="sidebar-nav"
-            aria-label="Navegación principal"
-          >
-            <SidebarLink
-              item={menuPrincipal[0]}
-              onNavigate={closeMobileMenu}
-            />
-          </nav>
-
-          {/* Gestión */}
-          <div className="sidebar-section-label sidebar-section-label--spaced">
-            Gestión del negocio
-          </div>
-
-          <nav
-            className="sidebar-nav"
-            aria-label="Gestión del negocio"
-          >
-            {menuPrincipal.slice(1).map((item) => (
-              <SidebarLink
-                key={item.to}
-                item={item}
-                onNavigate={closeMobileMenu}
-              />
+          <div className="sidebar-section-label sidebar-section-label--spaced">Gestión del negocio</div>
+          <nav className="sidebar-nav" aria-label="Gestión del negocio">
+            {menuPrincipal.slice(1).filter((item) => usuario?.rol === "administrador" || ["/recetas", "/cotizaciones", "/pedidos", "/calendario"].includes(item.to)).map((item) => (
+              <SidebarLink key={item.to} item={item} onNavigate={closeMobileMenu} perfil={perfil} />
             ))}
           </nav>
         </div>
@@ -287,14 +291,21 @@ function Nav() {
                 key={item.to}
                 item={item}
                 onNavigate={closeMobileMenu}
+                perfil={perfil}
               />
             ))}
+            <SidebarLink
+              item={{ to: "/perfil", label: perfil?.nombre || "Mi perfil", icon: "profile" }}
+              onNavigate={closeMobileMenu}
+              perfil={perfil}
+            />
           </nav>
 
           {/* Cerrar sesión */}
           <button
             className="sidebar-logout"
             type="button"
+            onClick={() => { logout(); closeMobileMenu(); }}
           >
             <SidebarIcon type="logout" />
             <span>Cerrar sesión</span>

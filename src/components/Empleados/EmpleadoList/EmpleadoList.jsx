@@ -23,7 +23,7 @@ function EmpleadoList({ empleados, vista, onVer, onEditar, onEliminar }) {
         {empleados.map((empleado) => (
           <article className="empleado-card" key={empleado.id}>
             <div className="empleado-card-top">
-              <div className="empleado-avatar"><img src="/illustrations/perfil.png" alt="" /></div>
+              <div className="empleado-avatar"><img src={empleado.foto || "/illustrations/perfil.png"} alt={`Foto de ${empleado.nombre}`} onError={(event) => { event.currentTarget.src = "/illustrations/perfil.png"; }} /></div>
               <span className={`empleado-status empleado-status--${empleado.estado}`}>{estadoNombre[empleado.estado] || empleado.estado}</span>
             </div>
             <h3>{empleado.nombre}</h3>
@@ -51,7 +51,7 @@ function EmpleadoList({ empleados, vista, onVer, onEditar, onEliminar }) {
       {empleados.map((empleado) => (
         <article className="empleado-lista-item" key={empleado.id}>
           <div className="empleado-lista-persona">
-            <div className="empleado-avatar empleado-avatar--small"><img src="/illustrations/perfil.png" alt="" /></div>
+            <div className="empleado-avatar empleado-avatar--small"><img src={empleado.foto || "/illustrations/perfil.png"} alt={`Foto de ${empleado.nombre}`} onError={(event) => { event.currentTarget.src = "/illustrations/perfil.png"; }} /></div>
             <div><strong>{empleado.nombre}</strong><span>ID #{empleado.id}</span></div>
           </div>
           <div className="empleado-lista-contacto"><span>{empleado.correo}</span>{empleado.telefono && <span>{formatearTelefono(empleado.telefono)}</span>}</div>

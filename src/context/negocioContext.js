@@ -86,9 +86,12 @@ export function conNegocio(data) {
 
 export function filtrarPorNegocio(items) {
   const negocioId = getNegocioActivoId();
-  return (Array.isArray(items) ? items : []).filter(
-    (item) => !item.negocioId || item.negocioId === negocioId
-  );
+  return (Array.isArray(items) ? items : []).filter((item) => {
+    if (Array.isArray(item?.negocioIds) && item.negocioIds.length) {
+      return item.negocioIds.includes(negocioId);
+    }
+    return !item?.negocioId || item.negocioId === negocioId;
+  });
 }
 
 export { NEGOCIO_KEY };

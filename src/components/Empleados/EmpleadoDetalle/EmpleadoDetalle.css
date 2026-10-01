@@ -60,9 +60,13 @@
 }
 
 .empleado-detalle-avatar img {
-  width: 39px;
-  height: 39px;
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+  box-sizing: border-box;
   object-fit: contain;
+  object-position: center;
+  border-radius: 12px;
 }
 
 .empleado-detalle-grid {

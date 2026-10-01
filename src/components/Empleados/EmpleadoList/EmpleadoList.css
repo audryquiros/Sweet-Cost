@@ -3,7 +3,7 @@
 .empleado-card:hover { transform: translateY(-1px); box-shadow: 0 9px 22px rgba(91,65,112,.09); }
 .empleado-card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .empleado-avatar { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; background: var(--sc-primary-pale); border: 1px solid var(--sc-border); }
-.empleado-avatar img { width: 29px; height: 29px; object-fit: contain; }
+.empleado-avatar img { width: 100%; height: 100%; padding: 5px; box-sizing: border-box; object-fit: contain; object-position: center; border-radius: 10px; }
 .empleado-card h3 { margin: 13px 0 3px; color: var(--sc-text); font-size: calc(15px * var(--sc-font-scale, 1)); }
 .empleado-rol { margin: 0; color: var(--sc-primary-dark); font-size: calc(11px * var(--sc-font-scale, 1)); font-weight: 700; }
 .empleado-status { display: inline-flex; align-items: center; min-height: 25px; padding: 3px 9px; border-radius: 999px; font-size: calc(10px * var(--sc-font-scale, 1)); font-weight: 700; }
@@ -28,7 +28,7 @@
 .empleado-lista-item:hover { background: #fcf9fe; }
 .empleado-lista-persona { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .empleado-avatar--small { width: 38px; height: 38px; border-radius: 10px; flex: 0 0 38px; }
-.empleado-avatar--small img { width: 25px; height: 25px; }
+.empleado-avatar--small img { width: 100%; height: 100%; padding: 4px; object-fit: contain; object-position: center; border-radius: 9px; }
 .empleado-lista-persona strong { display: block; color: var(--sc-text); font-size: calc(12px * var(--sc-font-scale, 1)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .empleado-lista-persona span { display: block; margin-top: 3px; color: var(--sc-muted); font-size: calc(9px * var(--sc-font-scale, 1)); }
 .empleado-lista-contacto { display: grid; gap: 3px; min-width: 0; color: var(--sc-text-soft); font-size: calc(10px * var(--sc-font-scale, 1)); }

@@ -5,7 +5,7 @@ import { formatearTelefono } from "../../utils/formatearTelefono";
 import { updateEmpleadoParcial } from "../../services/empleadoServices";
 import "./Perfil.css";
 
-const AVATARES = Array.from({ length: 6 }, (_, indice) => `/avatars/avatar-${indice + 1}.png`);
+const AVATARES = Array.from({ length: 32 }, (_, indice) => `/avatars/avatar-${indice + 1}.png`);
 
 const ICONOS = {
   perfil: "/illustrations/perfil.png",
@@ -62,7 +62,7 @@ function Perfil() {
     setErrorGuardado("");
 
     try {
-      const empleadoActualizado = await updateEmpleadoParcial("emp-001", cambios);
+      const empleadoActualizado = await updateEmpleadoParcial(perfil.id, cambios);
 
       actualizarPerfil({
         nombre: empleadoActualizado.nombre,
@@ -230,7 +230,7 @@ function Perfil() {
               ))}
             </div>
 
-            <small className="perfil-avatar-modal-note">Las imágenes se leen desde <strong>public/avatars</strong>. Puedes reemplazarlas por tus propias imágenes manteniendo los nombres avatar-1.png a avatar-6.png.</small>
+            <small className="perfil-avatar-modal-note">Las imágenes se leen desde <strong>public/avatars</strong>. Puedes reemplazarlas por tus propias imágenes manteniendo los nombres avatar-1.png a avatar-32.png.</small>
           </section>
         </div>
       )}
@@ -239,7 +239,7 @@ function Perfil() {
         <div>
           <span className="perfil-card-label">Cuenta</span>
           <h2>Seguridad</h2>
-          <p>La gestión de contraseña y autenticación se incorporará cuando se conecte el módulo de acceso de usuarios.</p>
+          <p>La gestión de contraseña y autenticación se administra desde el acceso de Sweet Cost.</p>
         </div>
         <div className="perfil-security-state">
           <span className="perfil-security-dot" />

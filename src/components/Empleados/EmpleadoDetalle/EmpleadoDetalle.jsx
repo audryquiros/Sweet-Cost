@@ -45,7 +45,7 @@ function EmpleadoDetalle({ empleado, onCerrar }) {
             <h2 id="empleado-detalle-titulo">{empleado.nombre}</h2>
           </div>
           <div className="empleado-detalle-avatar">
-            <img src="/illustrations/perfil.png" alt="" aria-hidden="true" />
+            <img src={empleado.foto || "/illustrations/perfil.png"} alt={`Foto de ${empleado.nombre}`} onError={(event) => { event.currentTarget.src = "/illustrations/perfil.png"; }} />
           </div>
         </div>
 

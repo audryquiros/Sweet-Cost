@@ -1,0 +1,171 @@
+import { useState } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
+import "./Login.css";
+
+function EyeIcon({ visible }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="login-eye-icon">
+      <path
+        d={visible
+          ? "M2.5 12s3.5-5 9.5-5 9.5 5 9.5 5-3.5 5-9.5 5-9.5-5-9.5-5Z"
+          : "M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8M9.4 5.5A10.8 10.8 0 0 1 12 5c6 0 9.5 7 9.5 7a18.7 18.7 0 0 1-2.7 3.5M6.2 6.2C3.7 8 2.5 12 2.5 12S6 19 12 19c1.4 0 2.7-.3 3.9-.8"}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {visible && <circle cx="12" cy="12" r="2.2" fill="currentColor" />}
+    </svg>
+  );
+}
+
+function Login() {
+  const { autenticado, login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [correo, setCorreo] = useState(() => localStorage.getItem("sweetcost-recordar-correo") || "");
+  const [clave, setClave] = useState("");
+  const [mostrarClave, setMostrarClave] = useState(false);
+  const [recordarme, setRecordarme] = useState(true);
+  const [error, setError] = useState("");
+  const [cargando, setCargando] = useState(false);
+
+  if (autenticado) {
+    return <Navigate to={location.state?.from?.pathname || "/"} replace />;
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError("");
+    setCargando(true);
+
+    if (recordarme) {
+      localStorage.setItem("sweetcost-recordar-correo", correo.trim());
+    } else {
+      localStorage.removeItem("sweetcost-recordar-correo");
+    }
+
+    try {
+      const resultado = await login(correo, clave, recordarme);
+      if (resultado.requiereNegocio) {
+        navigate("/seleccionar-negocio", { replace: true });
+      } else {
+        navigate(
+          resultado.usuario.rol === "administrador" ? "/" : "/cotizaciones",
+          { replace: true }
+        );
+      }
+    } catch (err) {
+      setError(err.message || "No se pudo iniciar sesión.");
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  return (
+    <main className="login-page">
+      <section className="login-brand-panel" aria-label="Sweet Cost">
+        <div className="login-brand-decoration login-brand-decoration-top" />
+        <div className="login-brand-decoration login-brand-decoration-bottom" />
+
+        <div className="login-brand-content">
+          <img
+            className="login-brand-logo"
+            src="/logoSC.png"
+            alt="Sweet Cost"
+          />
+          <p>
+            Gestiona tus recetas,
+            <br />
+            calcula tus costos
+            <br />
+            y haz crecer tu negocio.
+          </p>
+        </div>
+      </section>
+
+      <section className="login-form-panel">
+        <div className="login-card">
+          <div className="login-heading">
+            <h1>Inicia sesión</h1>
+            <p>Ingresa a tu cuenta para continuar.</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="login-form">
+            <label className="login-field">
+              <span>Correo electrónico</span>
+              <input
+                type="email"
+                value={correo}
+                onChange={(event) => setCorreo(event.target.value)}
+                placeholder="tu@correo.com"
+                autoComplete="email"
+                required
+              />
+            </label>
+
+            <label className="login-field">
+              <span>Contraseña</span>
+              <div className="login-password-wrap">
+                <input
+                  type={mostrarClave ? "text" : "password"}
+                  value={clave}
+                  onChange={(event) => setClave(event.target.value)}
+                  placeholder="••••••••"
+                  autoComplete="current-password"
+                  required
+                />
+                <button
+                  type="button"
+                  className="login-password-toggle"
+                  onClick={() => setMostrarClave((actual) => !actual)}
+                  aria-label={mostrarClave ? "Ocultar contraseña" : "Mostrar contraseña"}
+                  title={mostrarClave ? "Ocultar contraseña" : "Mostrar contraseña"}
+                >
+                  <EyeIcon visible={mostrarClave} />
+                </button>
+              </div>
+            </label>
+
+            <div className="login-options">
+              <label className="login-remember">
+                <input
+                  type="checkbox"
+                  checked={recordarme}
+                  onChange={(event) => setRecordarme(event.target.checked)}
+                />
+                <span>Recordarme</span>
+              </label>
+              <button type="button" className="login-forgot">
+                ¿Olvidaste tu contraseña?
+              </button>
+            </div>
+
+            {error && (
+              <p className="login-error" role="alert">
+                {error}
+              </p>
+            )}
+
+            <button type="submit" className="login-submit" disabled={cargando}>
+              {cargando ? "Ingresando..." : "Iniciar sesión"}
+            </button>
+          </form>
+
+          <div className="login-divider" aria-hidden="true">
+            <span>o</span>
+          </div>
+
+          <button type="button" className="login-create-account">
+            Crear una cuenta
+          </button>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+export default Login;

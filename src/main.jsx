@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { installAppearanceSync } from './context/themePreferences'
+import { AuthProvider } from './context/authContext'
 import './index.css'
 import './styles/responsive.css'
 import './styles/accessibility.css'
@@ -12,6 +13,8 @@ installAppearanceSync()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </StrictMode>,
 )

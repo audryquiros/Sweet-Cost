@@ -424,7 +424,11 @@
       "rol": "administrador",
       "estado": "activo",
       "foto": "/avatars/avatar-1.png",
-      "negocioId": "dulces-momentos"
+      "negocioId": "dulces-momentos",
+      "negocioIds": [
+        "dulces-momentos"
+      ],
+      "clave": "admin123"
     },
     {
       "id": "emp-002",
@@ -433,7 +437,11 @@
       "telefono": "8888-1002",
       "rol": "empleado",
       "estado": "activo",
-      "negocioId": "dulces-momentos"
+      "negocioId": "dulces-momentos",
+      "negocioIds": [
+        "dulces-momentos"
+      ],
+      "clave": "empleado123"
     },
     {
       "id": "emp-003",
@@ -442,7 +450,11 @@
       "telefono": "8888-1003",
       "rol": "empleado",
       "estado": "inactivo",
-      "negocioId": "dulces-momentos"
+      "negocioId": "dulces-momentos",
+      "negocioIds": [
+        "dulces-momentos"
+      ],
+      "clave": "empleado123"
     }
   ],
   "negocios": [

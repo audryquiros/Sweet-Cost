@@ -137,3 +137,43 @@
   .status-visual img { width: 50px; height: 50px; }
   .status-card h1 { font-size: 1.7rem; }
 }
+
+
+/* ===== Tema oscuro ===== */
+html[data-theme="oscuro"] .confirmacion-overlay {
+  background: rgba(5, 4, 7, .78) !important;
+  backdrop-filter: blur(4px);
+}
+html[data-theme="oscuro"] .confirmacion-modal {
+  background: #211b26 !important;
+  border-color: #5b4964 !important;
+  box-shadow: 0 28px 70px rgba(0,0,0,.55) !important;
+}
+html[data-theme="oscuro"] .confirmacion-icono {
+  background: #3a2837 !important;
+}
+html[data-theme="oscuro"] .confirmacion-contenido h3,
+html[data-theme="oscuro"] .confirmacion-contenido p {
+  color: #f8f1fa !important;
+}
+html[data-theme="oscuro"] .confirmacion-contenido p { color: #d0c4d5 !important; }
+html[data-theme="oscuro"] .btn-confirmacion-cancelar {
+  background: #2c2533 !important;
+  color: #f4edf7 !important;
+  border-color: #756080 !important;
+}
+
+html[data-theme="oscuro"] .status-page {
+  background-color: #17131b !important;
+  background-image: linear-gradient(rgba(23,19,27,.72), rgba(23,19,27,.72)), url("/patron.png") !important;
+}
+html[data-theme="oscuro"] .status-page::before { background: rgba(23,19,27,.16) !important; }
+html[data-theme="oscuro"] .status-card {
+  background: rgba(31,25,37,.92) !important;
+  border-color: #594865 !important;
+  box-shadow: 0 28px 70px rgba(0,0,0,.42) !important;
+}
+html[data-theme="oscuro"] .status-card h1 { color: #fffaff !important; }
+html[data-theme="oscuro"] .status-card p { color: #d0c4d5 !important; }
+html[data-theme="oscuro"] .status-code { background: #3d2c49 !important; color: #caa9ed !important; }
+html[data-theme="oscuro"] .status-visual { background: #392b43 !important; }

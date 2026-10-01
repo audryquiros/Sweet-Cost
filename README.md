@@ -1,151 +1,58 @@
 # Sweet Cost
 
-Sweet Cost es una aplicación web desarrollada para facilitar el cálculo de costos y precios de productos de repostería.
+Sistema web para gestión de costos, recetas, insumos, cotizaciones, pedidos y personal de pequeños negocios.
 
-El sistema permite registrar materias primas, insumos, recetas y cotizaciones para conocer el costo real de producción y obtener un precio de venta sugerido.
-
-## Objetivo
-
-El objetivo de Sweet Cost es ayudar a pequeños emprendimientos de repostería a llevar un mejor control de sus costos de producción y establecer precios de venta de manera más precisa.
-
-La aplicación busca evitar cálculos manuales y centralizar la información necesaria para conocer cuánto cuesta realmente elaborar y vender un producto.
-
-## Funcionalidades
-
-### Productos
-
-Permite registrar los productos y materias primas utilizados en las recetas.
-
-Cada producto puede incluir:
-
-- Nombre
-- Marca
-- Tipo de producto
-- Cantidad comprada
-- Unidad de medida
-- Precio de compra
-- Densidad
-- Cantidad utilizada por uso para toppings y salsas
-
-El sistema calcula automáticamente el costo unitario de cada producto.
-
-### Insumos
-
-Permite registrar materiales utilizados durante la preparación y entrega de los productos, por ejemplo:
-
-- Cajas
-- Bolsas
-- Servilletas
-- Cubiertos
-- Stickers
-- Materiales adicionales
-
-El costo de cada insumo se calcula según su cantidad y presentación de compra.
-
-### Recetas
-
-Permite crear recetas indicando:
-
-- Nombre
-- Descripción
-- Rendimiento
-- Ingredientes
-- Cantidad utilizada de cada ingrediente
-
-El sistema calcula automáticamente:
-
-- Costo total de la receta
-- Costo por unidad producida
-
-### Cotizador
-
-Permite crear cotizaciones a partir de una receta y agregar elementos adicionales a una venta.
-
-Se pueden incluir:
-
-- Cantidad de productos
-- Toppings
-- Salsas
-- Insumos
-- Mano de obra
-- Margen de ganancia
-
-El sistema calcula:
-
-- Costo de la receta
-- Costo de extras
-- Costo de insumos
-- Costo de producción
-- Costo total
-- Precio de venta sugerido
-
-## Conversión de medidas
-
-Sweet Cost incluye funciones para trabajar con diferentes unidades de medida, como:
-
-- Gramos (g)
-- Kilogramos (kg)
-- Mililitros (ml)
-- Litros (l)
-- Unidades
-
-También permite realizar conversiones entre masa y volumen utilizando la densidad cuando es necesario.
-
-## Cálculo del precio de venta
-
-El precio de venta sugerido se calcula utilizando el costo total y el margen de ganancia seleccionado.
-
-La fórmula utilizada es:
-
-Precio de venta = Costo total / (1 - Margen / 100)
-
-Por ejemplo, si un producto tiene un costo total de ₡1.000 y se desea obtener un margen del 30%:
-
-Precio de venta = ₡1.000 / (1 - 0.30)
-
-Precio de venta = ₡1.428,57
-
-## Tecnologías utilizadas
-
-- React
-- Vite
-- JavaScript
-- HTML
-- CSS
+## Stack
+- React + Vite
 - React Router
 - JSON Server
+- CSS modular por componente/página
 
-## Estructura del proyecto
+## Ejecutar
 
-```text
-src/
-├── components/
-│   ├── Nav/
-│   ├── Productos/
-│   ├── Insumos/
-│   ├── Recetas/
-│   ├── ConversorMedidas/
-│   ├── Cotizador/
-│   └── Confirmacion/
-│
-├── pages/
-│   ├── Home/
-│   ├── Productos/
-│   ├── Insumos/
-│   ├── Recetas/
-│   └── Cotizador/
-│
-├── services/
-│   ├── productoServices.js
-│   ├── insumoServices.js
-│   ├── recetaServices.js
-│   └── cotizadorServices.js
-│
-├── routes/
-│   └── AppRoutes.jsx
-│
-└── utils/
-    └── calculosCostos.js
+```bash
+npm install
+npm run server
+```
 
-### Negocio conectado a JSON Server
-La información del negocio activo se carga desde `GET /negocios` al iniciar la aplicación. Los cambios realizados en Configuración se sincronizan en memoria y se reflejan inmediatamente en el sidebar y Mi perfil.
+En otra terminal:
+
+```bash
+npm run dev
+```
+
+JSON Server usa `http://localhost:3001` y Vite usa el puerto que indique la consola (normalmente `5173`).
+
+## Roles
+
+### Administrador
+Puede gestionar productos, insumos, recetas, cotizaciones, pedidos, calendario, empleados, asistencia, configuración y perfil.
+
+### Empleado
+Tiene acceso a su dashboard, recetas, cotizaciones, pedidos, calendario y perfil. También puede registrar su entrada y salida desde su dashboard.
+
+## Seguridad de navegación
+- `PrivateRoute.jsx` protege las rutas según autenticación, negocio activo y rol.
+- `/403` muestra acceso no autorizado.
+- `/404` muestra rutas inexistentes.
+
+## Asistencia
+Los registros se guardan en la colección `asistencias` de `db.json`, asociados al negocio y al empleado. El administrador puede registrar entrada/salida y editar horarios.
+
+## Notificaciones
+El sistema genera avisos para stock bajo/crítico, pedidos próximos, cotizaciones pendientes y estado de pedidos. Se muestra fecha y hora de cada aviso y se actualiza periódicamente.
+
+## Dashboard
+El dashboard administrativo muestra ventas realizadas, ganancia, stock en riesgo, pérdidas por cancelación, pendientes, rendimiento mensual, estimación de ingresos, empleado con más gestiones, estados de pedidos y próximas entregas.
+
+> Nota: la estimación de ingresos es una proyección basada en el promedio histórico de ventas realizadas; no constituye un modelo predictivo estadístico.
+
+
+## Recuperación de contraseña con n8n
+La ruta `/recuperar-contrasena` envía un POST al webhook definido en `VITE_N8N_RECUPERACION_URL`. Configura esta variable en `.env` con la URL de tu Webhook de n8n. El frontend no guarda tokens ni contraseñas de recuperación.
+
+## Registro, negocios y recuperación con n8n
+- `/registro`: crea una cuenta de administrador y su primer negocio mediante JSON Server.
+- `/negocios`: permite al administrador consultar, seleccionar y agregar negocios asociados.
+- `/recuperar-contrasena`: envía la solicitud al webhook de n8n definido en `VITE_N8N_RECUPERACION_URL`.
+- `/restablecer-contrasena?token=...`: recibe el token enviado por n8n y envía la nueva contraseña al webhook definido en `VITE_N8N_RESTABLECER_URL`.

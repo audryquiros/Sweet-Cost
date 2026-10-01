@@ -57,7 +57,7 @@ function Login() {
         navigate("/seleccionar-negocio", { replace: true });
       } else {
         navigate(
-          resultado.usuario.rol === "administrador" ? "/" : "/cotizaciones",
+          "/",
           { replace: true }
         );
       }
@@ -159,7 +159,7 @@ function Login() {
                 <span>Recordarme</span>
               </label>
 
-              <button type="button" className="login-forgot">
+              <button type="button" className="login-forgot" onClick={() => navigate("/recuperar-contrasena")}>
                 ¿Olvidaste tu contraseña?
               </button>
             </div>
@@ -180,7 +180,7 @@ function Login() {
             <span>o</span>
           </div>
 
-          <button type="button" className="login-create-account">
+          <button type="button" className="login-create-account" onClick={() => navigate("/registro")}>
             Crear una cuenta
           </button>
         </section>

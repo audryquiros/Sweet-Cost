@@ -2779,3 +2779,146 @@ html[data-theme="oscuro"] .pedido-modal-overlay button[aria-label="Cerrar detall
   object-fit: contain;
   display: block;
 }
+
+/* =========================================================
+   Cierre de tema oscuro · Dashboard / cotizador / modales
+   ========================================================= */
+html[data-theme="oscuro"] .home-page,
+html[data-theme="oscuro"] .home-dashboard-grid,
+html[data-theme="oscuro"] .home-kpis {
+  color: var(--sc-text) !important;
+}
+
+html[data-theme="oscuro"] .home-panel,
+html[data-theme="oscuro"] .home-kpi {
+  background: #211b26 !important;
+  border-color: #574760 !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,.18) !important;
+}
+
+html[data-theme="oscuro"] .home-panel-heading {
+  background: linear-gradient(180deg, #2a2330 0%, #241e2a 100%) !important;
+  border-color: #4a3e51 !important;
+}
+
+html[data-theme="oscuro"] .home-panel-heading h2,
+html[data-theme="oscuro"] .home-panel-heading a,
+html[data-theme="oscuro"] .home-kpi span,
+html[data-theme="oscuro"] .home-kpi strong,
+html[data-theme="oscuro"] .home-top-employee strong,
+html[data-theme="oscuro"] .home-list-row strong,
+html[data-theme="oscuro"] .home-legend strong {
+  color: #fffaff !important;
+}
+
+html[data-theme="oscuro"] .home-panel-heading span,
+html[data-theme="oscuro"] .home-kpi small,
+html[data-theme="oscuro"] .home-list-row span,
+html[data-theme="oscuro"] .home-top-employee small,
+html[data-theme="oscuro"] .home-empty,
+html[data-theme="oscuro"] .home-financial-month > span,
+html[data-theme="oscuro"] .home-chart-y,
+html[data-theme="oscuro"] .home-financial-legend,
+html[data-theme="oscuro"] .home-legend span,
+html[data-theme="oscuro"] .home-forecast-body > span,
+html[data-theme="oscuro"] .home-forecast-body p,
+html[data-theme="oscuro"] .home-forecast-body > small {
+  color: #cdbfd3 !important;
+}
+
+html[data-theme="oscuro"] .home-financial-bars {
+  background: repeating-linear-gradient(to top, transparent 0, transparent 48px, #40364a 49px) !important;
+  border-color: #574760 !important;
+}
+
+html[data-theme="oscuro"] .home-financial-legend,
+html[data-theme="oscuro"] .home-list-row,
+html[data-theme="oscuro"] .home-status-content {
+  border-color: #4a3e51 !important;
+}
+
+html[data-theme="oscuro"] .home-period-toggle {
+  border-color: #756080 !important;
+}
+html[data-theme="oscuro"] .home-period-toggle button {
+  background: #2c2533 !important;
+  color: #d0c4d5 !important;
+}
+html[data-theme="oscuro"] .home-period-toggle button.active {
+  background: #956bd1 !important;
+  color: #fff !important;
+}
+
+html[data-theme="oscuro"] .home-forecast-profit,
+html[data-theme="oscuro"] .home-row-icon,
+html[data-theme="oscuro"] .home-top-avatar,
+html[data-theme="oscuro"] .home-kpi-icon {
+  background: #352a3d !important;
+  border-color: #574760 !important;
+}
+
+html[data-theme="oscuro"] .home-forecast-value,
+html[data-theme="oscuro"] .home-forecast-profit strong,
+html[data-theme="oscuro"] .home-top-employee span {
+  color: #d9c0f1 !important;
+}
+
+html[data-theme="oscuro"] .home-donut::before {
+  background: #211b26 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-page {
+  background: #17131b !important;
+}
+html[data-theme="oscuro"] .cotizador-form,
+html[data-theme="oscuro"] .cotizador-seccion,
+html[data-theme="oscuro"] .cotizador-subseccion,
+html[data-theme="oscuro"] .cotizador-resumen,
+html[data-theme="oscuro"] .cotizador-card {
+  background: #211b26 !important;
+  color: #f7f1fa !important;
+  border-color: #574760 !important;
+}
+html[data-theme="oscuro"] .cotizador-form-header,
+html[data-theme="oscuro"] .cotizador-seccion-header,
+html[data-theme="oscuro"] .cotizador-resumen-header {
+  background: #2a2330 !important;
+  color: #fffaff !important;
+  border-color: #4a3e51 !important;
+}
+html[data-theme="oscuro"] .cotizador-form input,
+html[data-theme="oscuro"] .cotizador-form select,
+html[data-theme="oscuro"] .cotizador-form textarea,
+html[data-theme="oscuro"] .cotizador-field input,
+html[data-theme="oscuro"] .cotizador-field select {
+  background: #2c2533 !important;
+  color: #fffaff !important;
+  border-color: #756080 !important;
+}
+html[data-theme="oscuro"] .cotizador-form input::placeholder,
+html[data-theme="oscuro"] .cotizador-form textarea::placeholder {
+  color: #a99bb0 !important;
+}
+html[data-theme="oscuro"] .cotizador-form label,
+html[data-theme="oscuro"] .cotizador-form strong,
+html[data-theme="oscuro"] .cotizador-form h2,
+html[data-theme="oscuro"] .cotizador-form h3,
+html[data-theme="oscuro"] .cotizador-form h4 {
+  color: #f7f1fa !important;
+}
+
+/* El overlay debe cubrir el viewport completo, sin recortes por contenedores. */
+html[data-theme="oscuro"] .confirmacion-overlay,
+html[data-theme="oscuro"] .asistencia-modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100dvh !important;
+  margin: 0 !important;
+  overflow: auto !important;
+}
+
+html[data-theme="oscuro"] .status-card,
+html[data-theme="oscuro"] .status-page {
+  isolation: isolate;
+}

@@ -753,3 +753,31 @@ html[data-theme="oscuro"] .login-brand-card span {
       rgba(23, 19, 27, 0.34) !important;
   }
 }
+
+
+/* Última capa de contraste para el login oscuro. */
+html[data-theme="oscuro"] .login-brand-card,
+html[data-theme="oscuro"] .login-card {
+  background: rgba(31, 25, 37, .94) !important;
+  color: #f8f1fa !important;
+}
+html[data-theme="oscuro"] .login-brand-title,
+html[data-theme="oscuro"] .login-heading h1,
+html[data-theme="oscuro"] .login-field > span,
+html[data-theme="oscuro"] .login-remember span {
+  color: #f8f1fa !important;
+}
+html[data-theme="oscuro"] .login-heading p,
+html[data-theme="oscuro"] .login-heading,
+html[data-theme="oscuro"] .login-divider {
+  color: #cdbfd3 !important;
+}
+html[data-theme="oscuro"] .login-create-account {
+  background: #2c2533 !important;
+  color: #d9c0f1 !important;
+  border-color: #a67ed2 !important;
+}
+html[data-theme="oscuro"] .login-create-account:hover {
+  background: #49365a !important;
+  color: #fffaff !important;
+}

@@ -18,6 +18,10 @@ import Empleados from "../pages/Empleados/Empleados";
 import Configuracion from "../pages/Configuracion/Configuracion";
 import Perfil from "../pages/Perfil/Perfil";
 import Login from "../pages/Login/Login";
+import RecuperarContrasena from "../pages/RecuperarContrasena/RecuperarContrasena";
+import RestablecerContrasena from "../pages/RestablecerContrasena/RestablecerContrasena";
+import Registro from "../pages/Registro/Registro";
+import Negocios from "../pages/Negocios/Negocios";
 import SeleccionNegocio from "../pages/SeleccionNegocio/SeleccionNegocio";
 import NoAccess from "../pages/NoAccess/NoAccess";
 import NotFound from "../pages/NotFound/NotFound";
@@ -103,6 +107,10 @@ function AppContent() {
             }
           />
 
+          <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
+          <Route path="/restablecer-contrasena" element={<RestablecerContrasena />} />
+          <Route path="/registro" element={autenticado ? <Navigate to="/" replace /> : <Registro />} />
+
           <Route
             path="/seleccionar-negocio"
             element={
@@ -122,6 +130,15 @@ function AppContent() {
             element={
               <PrivateRoute allowedRoles={AMBOS}>
                 <Home />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/negocios"
+            element={
+              <PrivateRoute allowedRoles={ADMIN}>
+                <Negocios />
               </PrivateRoute>
             }
           />

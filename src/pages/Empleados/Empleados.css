@@ -48,3 +48,97 @@
 
 
 .asistencia-modal-close img { width: 20px; height: 20px; object-fit: contain; display: block; }
+
+
+/* ===== Cierre visual · Control de personal ===== */
+.empleados-lista + .asistencia-panel,
+.empleados-lista ~ .asistencia-panel {
+  margin-top: 34px;
+}
+
+.asistencia-panel {
+  margin-bottom: 28px;
+}
+
+.asistencia-row {
+  min-height: 82px;
+  padding: 18px 0;
+  gap: 28px;
+}
+
+.asistencia-actions {
+  gap: 12px;
+  min-width: 138px;
+}
+
+.asistencia-actions .asistencia-btn {
+  min-height: 38px;
+}
+
+.asistencia-btn--edit {
+  margin: 0 !important;
+}
+
+html[data-theme="oscuro"] .asistencia-panel-heading {
+  background: linear-gradient(180deg, #28212d, #241e2a) !important;
+}
+
+html[data-theme="oscuro"] .asistencia-panel,
+html[data-theme="oscuro"] .asistencia-modal,
+html[data-theme="oscuro"] .asistencia-historial-item {
+  background: #211b26 !important;
+  border-color: #574760 !important;
+}
+
+html[data-theme="oscuro"] .asistencia-row,
+html[data-theme="oscuro"] .asistencia-historial {
+  border-color: #4a3e51 !important;
+}
+
+html[data-theme="oscuro"] .asistencia-btn {
+  background: #2c2533 !important;
+  color: #f7f1fa !important;
+  border-color: #756080 !important;
+}
+
+html[data-theme="oscuro"] .asistencia-btn--entry {
+  background: #956bd1 !important;
+  border-color: #b58ce8 !important;
+  color: #fff !important;
+}
+
+html[data-theme="oscuro"] .asistencia-btn--exit {
+  background: #402731 !important;
+  border-color: #9b5363 !important;
+  color: #ffc6d2 !important;
+}
+
+html[data-theme="oscuro"] .asistencia-btn--edit:hover,
+html[data-theme="oscuro"] .asistencia-btn:hover {
+  background: #40334a !important;
+}
+
+html[data-theme="oscuro"] .asistencia-completa {
+  background: #214334 !important;
+  color: #a8e0bf !important;
+}
+
+html[data-theme="oscuro"] .asistencia-modal-backdrop {
+  background: rgba(7, 5, 9, .76) !important;
+}
+
+html[data-theme="oscuro"] .asistencia-modal-actions {
+  background: #2a2330 !important;
+  border-color: #4a3e51 !important;
+}
+
+@media (max-width: 800px) {
+  .empleados-lista + .asistencia-panel,
+  .empleados-lista ~ .asistencia-panel {
+    margin-top: 28px;
+  }
+
+  .asistencia-row {
+    gap: 16px;
+  }
+}

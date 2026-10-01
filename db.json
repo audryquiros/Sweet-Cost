@@ -474,16 +474,6 @@
       "margenGanancia": 30
     }
   ],
-  "asistencias": [
-    {
-      "empleadoId": "emp-001",
-      "empleadoNombre": "María Rodrígues",
-      "fecha": "2026-10-01",
-      "ingreso": "2026-10-01T18:12:26.870Z",
-      "salida": null,
-      "negocioId": "dulces-momentos",
-      "id": "Xz3DBoueCEA"
-    }
-  ],
+  "asistencias": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

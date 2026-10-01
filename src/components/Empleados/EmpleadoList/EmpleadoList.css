@@ -42,3 +42,56 @@
   .empleados-lista-header, .empleado-lista-item { min-width: 850px; }
 }
 @media (max-width: 600px) { .empleados-grid { grid-template-columns: 1fr; } }
+
+
+/* ===== Sweet Cost · Empleados · tarjetas responsive definitivas ===== */
+.empleados-grid {
+  width: 100%;
+  max-width: 100%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.empleado-card {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+.empleado-card-top,
+.empleado-card-info,
+.empleado-card-actions { min-width: 0; max-width: 100%; }
+.empleado-card-info span { min-width: 0; }
+.empleado-card-actions {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px !important;
+}
+.empleado-card-actions button {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+.empleado-card-actions button:nth-child(3) { grid-column: 1 / -1; }
+
+@media (max-width: 1024px) {
+  .empleados-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+
+@media (max-width: 777px) {
+  .empleados-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+  .empleado-card { padding: 15px !important; }
+  .empleado-card-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+  .empleado-card-actions button:nth-child(3) { grid-column: 1 / -1 !important; }
+}
+
+@media (max-width: 390px) {
+  .empleado-card-actions { grid-template-columns: 1fr 1fr !important; }
+  .empleado-card-actions button { min-height: 40px !important; padding: 7px 8px !important; }
+  .empleado-card-actions button span { white-space: nowrap !important; }
+}

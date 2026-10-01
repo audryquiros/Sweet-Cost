@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Icon from "../common/Icon/Icon";
-import { getNegocioActivo } from "../../context/negocioContext";
+import { getNegocioActivo, NEGOCIOS } from "../../context/negocioContext";
 import { usePerfilActual } from "../../context/perfilContext";
 import { useAuth } from "../../context/authContext";
 import "./Nav.css";
@@ -16,6 +16,7 @@ const menuPrincipal = [
   { to: "/pedidos", label: "Pedidos", icon: "orders" },
   { to: "/calendario", label: "Calendario", icon: "calendar" },
   { to: "/empleados", label: "Empleados", icon: "employees" },
+  { to: "/negocios", label: "Mis negocios", icon: "businesses" },
 ];
 
 const menuCuenta = [
@@ -89,19 +90,13 @@ function SidebarLink({ item, onNavigate, perfil }) {
 
 function Nav() {
   const [negocioActivo, setNegocioActivo] = useState(() => getNegocioActivo());
+  const [negociosDisponibles, setNegociosDisponibles] = useState(() => [...NEGOCIOS]);
   const { perfil } = usePerfilActual();
-  const { usuario, logout } = useAuth();
+  const { usuario, logout, seleccionarNegocio } = useAuth();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [negociosAbierto, setNegociosAbierto] = useState(false);
   const [imagenNegocioError, setImagenNegocioError] = useState(false);
-  const responsiveModeRef = useRef(
-    typeof window === "undefined"
-      ? "desktop"
-      : window.innerWidth <= 777
-        ? "mobile"
-        : window.innerWidth <= 1024
-          ? "tablet"
-          : "desktop"
-  );
+  const responsiveModeRef = useRef("desktop");
 
   useEffect(() => {
     const handleNegocioCambio = (event) => {
@@ -116,44 +111,71 @@ function Nav() {
   }, []);
 
   useEffect(() => {
+    const handleNegociosCargados = (event) => {
+      setNegociosDisponibles(Array.isArray(event.detail) ? event.detail : [...NEGOCIOS]);
+    };
+
+    window.addEventListener("sweetcost-negocios-cargados", handleNegociosCargados);
+    setNegociosDisponibles([...NEGOCIOS]);
+    return () => window.removeEventListener("sweetcost-negocios-cargados", handleNegociosCargados);
+  }, []);
+
+  const negociosDelUsuario = useMemo(() => {
+    const ids = Array.isArray(usuario?.negocioIds) ? usuario.negocioIds : usuario?.negocioId ? [usuario.negocioId] : [];
+    return negociosDisponibles.filter((negocio) => ids.includes(negocio.id));
+  }, [negociosDisponibles, usuario?.negocioId, usuario?.negocioIds]);
+
+  useEffect(() => {
     const getMode = () => {
       if (window.innerWidth <= 777) return "mobile";
       if (window.innerWidth <= 1024) return "tablet";
       return "desktop";
     };
 
-    const handleResize = () => {
+    const sincronizarModoResponsive = () => {
       const nextMode = getMode();
-
-      // Al entrar/cambiar entre desktop, tablet y mobile el menú siempre
-      // comienza cerrado. Así nunca queda "pegado" sobre el contenido.
-      if (nextMode !== responsiveModeRef.current) {
-        setIsMobileOpen(false);
-        responsiveModeRef.current = nextMode;
+      responsiveModeRef.current = nextMode;
+      document.documentElement.dataset.responsiveMode = nextMode;
+      try {
+        localStorage.setItem("sweetcost-responsive-mode", nextMode);
+      } catch {
+        // El modo visual sigue funcionando aunque el navegador bloquee storage.
       }
     };
 
-    const closeSidebarOnReturn = () => {
-      // Al cambiar de pestaña o volver al navegador, el sidebar móvil
-      // siempre queda en un estado limpio y no arrastra el overlay.
-      setIsMobileOpen(false);
-      document.body.classList.remove("sidebar-open");
+    sincronizarModoResponsive();
+
+    const handleResize = () => {
+      const nextMode = getMode();
+      if (nextMode !== responsiveModeRef.current) {
+        setIsMobileOpen(false);
+        setNegociosAbierto(false);
+        responsiveModeRef.current = nextMode;
+      }
+      document.documentElement.dataset.responsiveMode = nextMode;
+      try { localStorage.setItem("sweetcost-responsive-mode", nextMode); } catch {}
     };
 
     const handleVisibilityChange = () => {
-      if (document.hidden) closeSidebarOnReturn();
+      if (!document.hidden) {
+        // Al volver a la pestaña conservamos el modo real del viewport;
+        // no se vuelve accidentalmente a desktop.
+        sincronizarModoResponsive();
+        document.body.classList.remove("sidebar-open");
+        setIsMobileOpen(false);
+      }
     };
 
-    const handlePageShow = () => {
-      closeSidebarOnReturn();
-    };
+    const handlePageShow = () => sincronizarModoResponsive();
 
     window.addEventListener("resize", handleResize);
+    window.visualViewport?.addEventListener("resize", handleResize);
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("pageshow", handlePageShow);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.visualViewport?.removeEventListener("resize", handleResize);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("pageshow", handlePageShow);
       document.body.classList.remove("sidebar-open");
@@ -173,6 +195,14 @@ function Nav() {
 
   const closeMobileMenu = () => {
     setIsMobileOpen(false);
+  };
+
+  const cambiarNegocio = (negocio) => {
+    if (!negocio || !seleccionarNegocio(negocio)) return;
+    setNegocioActivo(negocio);
+    setImagenNegocioError(false);
+    setNegociosAbierto(false);
+    closeMobileMenu();
   };
 
   return (
@@ -229,34 +259,54 @@ function Nav() {
           </NavLink>
 
           {/* Negocio */}
-          <div
-            className="business-switcher"
-            role="button"
-            tabIndex={0}
-          >
-            <div className="business-avatar">
-              {negocioActivo.imagen && !imagenNegocioError ? (
-                <img
-                  src={negocioActivo.imagen}
-                  alt={`Imagen de ${negocioActivo.nombre}`}
-                  onError={() => setImagenNegocioError(true)}
-                />
-              ) : (
-                <img src="/logoSC.png" alt="Sweet Cost" className="business-logo-fallback" />
-              )}
-            </div>
-
-            <div className="business-info">
-              <strong>{negocioActivo.nombre}</strong>
-              <span>{negocioActivo.tipo}</span>
-            </div>
-
-            <span
-              className="business-chevron"
-              aria-hidden="true"
+          <div className={`business-switcher-wrap${negociosAbierto ? " is-open" : ""}`}>
+            <button
+              type="button"
+              className="business-switcher"
+              aria-expanded={usuario?.rol === "administrador" ? negociosAbierto : undefined}
+              aria-haspopup={usuario?.rol === "administrador" ? "menu" : undefined}
+              disabled={usuario?.rol !== "administrador"}
+              onClick={() => usuario?.rol === "administrador" && setNegociosAbierto((actual) => !actual)}
             >
-              ⌄
-            </span>
+              <span className="business-avatar">
+                {negocioActivo.imagen && !imagenNegocioError ? (
+                  <img
+                    src={negocioActivo.imagen}
+                    alt={`Imagen de ${negocioActivo.nombre}`}
+                    onError={() => setImagenNegocioError(true)}
+                  />
+                ) : (
+                  <img src="/logoSC.png" alt="" className="business-logo-fallback" />
+                )}
+              </span>
+              <span className="business-info">
+                <strong>{negocioActivo.nombre}</strong>
+                <span>{negocioActivo.tipo}</span>
+              </span>
+              <span className="business-chevron" aria-hidden="true">⌄</span>
+            </button>
+
+            {negociosAbierto && usuario?.rol === "administrador" && (
+              <div className="business-menu" role="menu">
+                <div className="business-menu-title">Cambiar de negocio</div>
+                {negociosDelUsuario.map((negocio) => (
+                  <button
+                    type="button"
+                    role="menuitem"
+                    key={negocio.id}
+                    className={`business-menu-item${negocio.id === negocioActivo?.id ? " active" : ""}`}
+                    onClick={() => cambiarNegocio(negocio)}
+                  >
+                    <span className="business-menu-avatar">{negocio.nombre.slice(0, 2).toUpperCase()}</span>
+                    <span><strong>{negocio.nombre}</strong><small>{negocio.tipo}</small></span>
+                    {negocio.id === negocioActivo?.id && <span className="business-menu-check">✓</span>}
+                  </button>
+                ))}
+                <NavLink to="/negocios" className="business-menu-manage" onClick={() => { setNegociosAbierto(false); closeMobileMenu(); }}>
+                  Administrar negocios
+                </NavLink>
+              </div>
+            )}
           </div>
 
           <div className="sidebar-section-label">Principal</div>

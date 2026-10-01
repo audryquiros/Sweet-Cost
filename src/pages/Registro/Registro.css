@@ -1,0 +1,252 @@
+/* =========================================
+   REGISTRO — reutiliza el lenguaje visual del login
+   ========================================= */
+
+.registro-page {
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.registro-content {
+  width: min(1160px, 100%);
+  grid-template-columns: minmax(320px, 0.78fr) minmax(560px, 1.22fr);
+  gap: 26px;
+  align-items: stretch;
+}
+
+.registro-brand-card {
+  min-height: 650px;
+  padding: 40px 34px;
+}
+
+.registro-brand-logo {
+  width: min(235px, 82%);
+  margin-bottom: 26px;
+}
+
+.registro-brand-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.registro-brand-title {
+  max-width: 330px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.registro-card {
+  min-width: 0;
+  padding: 34px 38px 28px;
+}
+
+.registro-heading {
+  margin-bottom: 20px;
+}
+
+.registro-heading h1 {
+  font-size: clamp(1.8rem, 3vw, 2.25rem);
+}
+
+.registro-heading p {
+  max-width: 560px;
+  font-size: 0.9rem;
+}
+
+.registro-form {
+  gap: 16px;
+}
+
+.registro-section {
+  display: grid;
+  gap: 11px;
+}
+
+.registro-section + .registro-section {
+  padding-top: 17px;
+  border-top: 1px solid #e3dce9;
+}
+
+.registro-section h2 {
+  margin: 0;
+  color: #6d4c8d;
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.registro-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px 14px;
+}
+
+.registro-grid .login-field {
+  gap: 6px;
+  min-width: 0;
+  font-size: 0.82rem;
+}
+
+.registro-grid .login-field input {
+  min-height: 43px;
+  padding: 9px 12px;
+  font-size: 0.9rem;
+}
+
+.registro-confirm-password {
+  max-width: calc(50% - 7px);
+}
+
+.registro-business-select {
+  width: 100%;
+  gap: 6px;
+}
+
+.registro-business-select label {
+  color: #352d3a;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.registro-business-select .filter-select-trigger {
+  min-height: 43px;
+  border-radius: 11px;
+  font-size: 0.9rem;
+}
+
+.registro-business-select .filter-select-menu {
+  border-radius: 11px;
+}
+
+.registro-submit {
+  min-height: 46px;
+  margin-top: 1px;
+}
+
+.registro-msg {
+  margin: 0;
+  padding: 9px 11px;
+  border-radius: 9px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.registro-msg.error {
+  border: 1px solid #efcbd2;
+  background: #fff2f4;
+  color: #9b3d4d;
+}
+
+.registro-msg.success {
+  border: 1px solid #d8c8f2;
+  background: #f3eef9;
+  color: #594044;
+}
+
+.registro-back {
+  display: block;
+  margin-top: 14px;
+  color: #6d4c8d;
+  font-size: 0.82rem;
+  text-align: center;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.registro-back:hover {
+  color: #9b7ede;
+}
+
+/* =========================================
+   TEMA OSCURO
+   ========================================= */
+
+html[data-theme="oscuro"] .registro-section + .registro-section {
+  border-color: #594865;
+}
+
+html[data-theme="oscuro"] .registro-section h2 {
+  color: #c8aaf0;
+}
+
+html[data-theme="oscuro"] .registro-business-select label {
+  color: #f8f1fa;
+}
+
+html[data-theme="oscuro"] .registro-msg.error {
+  background: #38242c;
+  border-color: #754553;
+  color: #ffc9d2;
+}
+
+html[data-theme="oscuro"] .registro-msg.success {
+  background: #30263a;
+  border-color: #665477;
+  color: #eadcf5;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 980px) {
+  .registro-content {
+    width: min(680px, 100%);
+    grid-template-columns: 1fr;
+  }
+
+  .registro-brand-card {
+    min-height: auto;
+    padding: 30px 28px;
+  }
+
+  .registro-brand-logo {
+    width: 200px;
+    margin-bottom: 18px;
+  }
+
+  .registro-brand-title {
+    max-width: 520px;
+  }
+
+  .registro-card {
+    padding: 32px 30px 26px;
+  }
+}
+
+@media (max-width: 600px) {
+  .registro-page {
+    padding: 16px 12px;
+  }
+
+  .registro-content {
+    gap: 15px;
+  }
+
+  .registro-brand-card,
+  .registro-card {
+    border-radius: 22px;
+  }
+
+  .registro-brand-card {
+    padding: 26px 20px;
+  }
+
+  .registro-brand-logo {
+    width: 180px;
+  }
+
+  .registro-card {
+    padding: 27px 20px 23px;
+  }
+
+  .registro-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .registro-confirm-password {
+    max-width: none;
+  }
+}

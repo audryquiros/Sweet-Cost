@@ -76,6 +76,7 @@ export async function cargarNegociosDesdeServidor() {
     localStorage.setItem(NEGOCIO_KEY, NEGOCIOS[0].id);
   }
 
+  window.dispatchEvent(new CustomEvent("sweetcost-negocios-cargados", { detail: [...NEGOCIOS] }));
   window.dispatchEvent(new CustomEvent("sweetcost-negocio-cambio", { detail: { ...getNegocioActivo() } }));
   return NEGOCIOS;
 }

@@ -94,13 +94,18 @@ function Home() {
     }
   };
 
-  const pedidosActivos = useMemo(() => pedidos.filter((p) => !["Cancelado"].includes(p.estado)), [pedidos]);
-  const pedidosReales = useMemo(() => pedidos.filter((p) => !["Cancelado"].includes(p.estado)), [pedidos]);
+  const pedidosActivos = useMemo(() => pedidos.filter((p) => !["Cancelado", "Entregado", "Pagado"].includes(p.estado)), [pedidos]);
+  // Una venta realizada solo entra en los KPI financieros cuando el pedido
+  // ya fue entregado o pagado. Los pedidos pendientes se muestran aparte.
+  const pedidosReales = useMemo(
+    () => pedidos.filter((p) => ["Entregado", "Pagado"].includes(String(p.estado || ""))),
+    [pedidos]
+  );
   const ventas = useMemo(() => pedidosReales.reduce((s,p) => s + Number(p.precioSugerido || p.total || 0), 0), [pedidosReales]);
   const costos = useMemo(() => pedidosReales.reduce((s,p) => s + Number(p.costoTotal || 0), 0), [pedidosReales]);
   const ganancia = ventas - costos;
   const perdidasCanceladas = useMemo(() => pedidos.filter((p) => p.estado === "Cancelado").reduce((s,p) => s + Number(p.costoTotal || 0), 0), [pedidos]);
-  const pedidosPendientes = pedidos.filter((p) => !["Entregado","Cancelado"].includes(p.estado)).length;
+  const pedidosPendientes = pedidos.filter((p) => !["Entregado", "Pagado", "Cancelado"].includes(p.estado)).length;
   const cotizacionesPendientes = cotizaciones.filter((c) => !["Aceptada","Convertida","Rechazada"].includes(c.estado));
   const stockRiesgo = useMemo(() => insumos.filter((i) => Number(i.cantidad || 0) <= 15).sort((a,b) => Number(a.cantidad||0)-Number(b.cantidad||0)), [insumos]);
   const stockPeligro = stockRiesgo.filter((i) => Number(i.cantidad || 0) <= 5);
@@ -128,8 +133,8 @@ function Home() {
     const conDatos = historialMensual.filter(x=>x.ventas>0);
     const base = conDatos.length ? conDatos.reduce((s,x)=>s+x.ventas,0)/conDatos.length : 0;
     const margenPromedio = conDatos.length ? conDatos.reduce((s,x)=>s+x.ganancia,0)/conDatos.length : 0;
-    if(periodoProyeccion === "mensual") return { ventas:base, ganancia:margenPromedio, texto:conDatos.length >= 3 ? "Promedio de los últimos meses con ventas." : "Estimación basada en el historial disponible." };
-    return { ventas:base*12, ganancia:margenPromedio*12, texto:"Proyección anualizada a partir del promedio mensual disponible." };
+    if(periodoProyeccion === "mensual") return { ventas:base, ganancia:margenPromedio, texto:conDatos.length >= 3 ? "Promedio de los últimos meses con ventas realizadas." : "Estimación basada en las ventas realizadas disponibles." };
+    return { ventas:base*12, ganancia:margenPromedio*12, texto:"Proyección anualizada a partir del promedio mensual de ventas realizadas." };
   }, [historialMensual, periodoProyeccion]);
 
   const empleadoTop = useMemo(() => {
@@ -188,7 +193,7 @@ function Home() {
       <section className="home-admin-dashboard">
       <section className="home-kpis">
         <article className="home-kpi"><div className="home-kpi-icon"><img src="/illustrations/moneda.png" alt=""/></div><span>Ventas</span><strong>{money(ventas)}</strong><small>{pedidosReales.length} pedido{pedidosReales.length===1?"":"s"} registrado{pedidosReales.length===1?"":"s"}</small></article>
-        <article className="home-kpi home-kpi--positive"><div className="home-kpi-icon"><img src="/illustrations/dashboard.png" alt=""/></div><span>Ganancia estimada</span><strong>{money(ganancia)}</strong><small>{ventas ? `${Math.round((ganancia/ventas)*100)}% de margen real` : "Sin ventas"}</small></article>
+        <article className="home-kpi home-kpi--positive"><div className="home-kpi-icon"><img src="/illustrations/dashboard.png" alt=""/></div><span>Ganancia realizada</span><strong>{money(ganancia)}</strong><small>{ventas ? `${Math.round((ganancia/ventas)*100)}% de margen realizado` : "Sin ventas"}</small></article>
         <article className="home-kpi home-kpi--warning"><div className="home-kpi-icon"><img src="/illustrations/insumos-frasco.png" alt=""/></div><span>Stock en riesgo</span><strong>{stockRiesgo.length}</strong><small>{stockPeligro.length} en nivel crítico</small></article>
         <article className="home-kpi home-kpi--danger"><div className="home-kpi-icon"><img src="/illustrations/eliminar.png" alt=""/></div><span>Pérdidas por cancelación</span><strong>{money(perdidasCanceladas)}</strong><small>{pedidos.filter(p=>p.estado==="Cancelado").length} pedido{pedidos.filter(p=>p.estado==="Cancelado").length===1?"":"s"} cancelado{pedidos.filter(p=>p.estado==="Cancelado").length===1?"":"s"}</small></article>
         <article className="home-kpi"><div className="home-kpi-icon"><img src="/illustrations/pedidos-portapapeles.png" alt=""/></div><span>Por atender</span><strong>{pedidosPendientes + cotizacionesPendientes.length}</strong><small>{pedidosPendientes} pedidos · {cotizacionesPendientes.length} cotizaciones</small></article>
@@ -206,7 +211,7 @@ function Home() {
 
         <article className="home-panel home-forecast-panel">
           <div className="home-panel-heading"><div><span>PROYECCIÓN</span><h2>Estimación de ingresos</h2></div><div className="home-period-toggle"><button className={periodoProyeccion==="mensual"?"active":""} onClick={()=>setPeriodoProyeccion("mensual")}>Mensual</button><button className={periodoProyeccion==="anual"?"active":""} onClick={()=>setPeriodoProyeccion("anual")}>Anual</button></div></div>
-          <div className="home-forecast-body"><div className="home-forecast-value">{money(proyeccion.ventas)}</div><span>ventas proyectadas</span><div className="home-forecast-profit"><strong>{money(proyeccion.ganancia)}</strong><span>ganancia proyectada</span></div><p>{proyeccion.texto}</p><small>No es una predicción automática: es una estimación basada en el historial registrado.</small></div>
+          <div className="home-forecast-body"><div className="home-forecast-value">{money(proyeccion.ventas)}</div><span>ventas proyectadas</span><div className="home-forecast-profit"><strong>{money(proyeccion.ganancia)}</strong><span>ganancia proyectada</span></div><p>{proyeccion.texto}</p><small>No es una predicción automática: es una estimación basada en ventas realizadas registradas.</small></div>
         </article>
       </section>
 

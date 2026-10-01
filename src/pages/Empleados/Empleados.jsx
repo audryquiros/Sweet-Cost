@@ -45,7 +45,18 @@ function Empleados() {
   const { usuario } = useAuth();
   const esAdmin = usuario?.rol === "administrador";
 
-  useEffect(() => { cargarEmpleados(); cargarAsistencias(); }, []);
+  useEffect(() => {
+    cargarEmpleados();
+    cargarAsistencias();
+
+    const handleNegocioCambio = () => {
+      cargarEmpleados();
+      cargarAsistencias();
+    };
+
+    window.addEventListener("sweetcost-negocio-cambio", handleNegocioCambio);
+    return () => window.removeEventListener("sweetcost-negocio-cambio", handleNegocioCambio);
+  }, []);
 
   const cargarAsistencias = async () => {
     try { setCargandoAsistencia(true); setAsistencias(await getAsistencias()); }

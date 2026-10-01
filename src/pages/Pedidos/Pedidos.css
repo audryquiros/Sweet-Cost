@@ -601,3 +601,37 @@ html[data-theme="oscuro"] .pedidos-page .pedido-estado-filter.pedido-estado-canc
 .pedido-modal-overlay .pedido-detalle-close img { width: 20px; height: 20px; object-fit: contain; display: block; }
 
 .pedido-modal-overlay button[aria-label="Cerrar detalle"] img{width:20px;height:20px;object-fit:contain;display:block}
+
+
+/* Acciones de pedidos: mismo tamaño visual y alineación consistente. */
+.pedido-acciones {
+  gap: 8px;
+}
+.pedido-acciones button {
+  width: 86px;
+  min-width: 86px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-sizing: border-box;
+}
+.pedido-acciones button:hover {
+  background: var(--sc-surface-soft);
+}
+
+html[data-theme="oscuro"] .pedido-acciones button {
+  background: #2c2533 !important;
+  color: #f7f1fa !important;
+  border-color: #756080 !important;
+}
+html[data-theme="oscuro"] .pedido-acciones button:hover {
+  background: #40334a !important;
+  border-color: #a67ed2 !important;
+}
+html[data-theme="oscuro"] .pedido-acciones .pedido-eliminar {
+  background: #402731 !important;
+  color: #ffc6d2 !important;
+  border-color: #9b5363 !important;
+}

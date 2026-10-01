@@ -52,8 +52,10 @@ export default function Registro() {
       }
 
       const negocioId = id("neg");
+      const empleadoId = id("emp");
       const negocio = {
         id: negocioId,
+        administradorId: empleadoId,
         nombre: f.negocio.trim(),
         tipo: f.tipo,
         telefono: f.telNeg.trim(),
@@ -62,7 +64,7 @@ export default function Registro() {
       };
 
       const empleado = {
-        id: id("emp"),
+        id: empleadoId,
         nombre: f.nombre.trim(),
         correo: f.correo.trim().toLowerCase(),
         telefono: f.telefono.trim(),

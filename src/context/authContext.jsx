@@ -22,10 +22,14 @@ function normalizarRol(rol = "") {
 }
 
 function obtenerIdsNegocios(empleado) {
-  if (Array.isArray(empleado?.negocioIds) && empleado.negocioIds.length) {
-    return empleado.negocioIds;
-  }
-  return empleado?.negocioId ? [empleado.negocioId] : [];
+  const ids = new Set(
+    Array.isArray(empleado?.negocioIds)
+      ? empleado.negocioIds
+      : empleado?.negocioId
+        ? [empleado.negocioId]
+        : []
+  );
+  return [...ids];
 }
 
 async function obtenerNegociosDisponibles(empleado) {
@@ -33,6 +37,16 @@ async function obtenerNegociosDisponibles(empleado) {
   if (!response.ok) throw new Error("No se pudieron cargar los negocios");
   const negocios = await response.json();
   const ids = new Set(obtenerIdsNegocios(empleado));
+
+  // El administrador es propietario de los negocios cuyo administradorId
+  // coincide con su usuario. Los empleados dependen exclusivamente de
+  // negocioIds, por lo que pueden trabajar en uno o varios negocios.
+  if (normalizarRol(empleado?.rol) === "administrador" && empleado?.id) {
+    negocios.forEach((negocio) => {
+      if (negocio.administradorId === empleado.id) ids.add(negocio.id);
+    });
+  }
+
   return negocios.filter((negocio) => ids.has(negocio.id));
 }
 
@@ -88,6 +102,7 @@ export function AuthProvider({ children }) {
       throw new Error("Tu usuario no tiene un negocio asignado.");
     }
 
+    usuarioBase.negocioIds = negocios.map((negocio) => negocio.id);
     guardarSesion(usuarioBase);
 
     if (negocios.length > 1) {
@@ -106,9 +121,13 @@ export function AuthProvider({ children }) {
 
   const seleccionarNegocio = (negocio) => {
     if (!usuario || !negocio?.id) return false;
-    if (!obtenerIdsNegocios(usuario).includes(negocio.id)) return false;
 
-    const actualizado = { ...usuario, negocioId: negocio.id };
+    const ids = obtenerIdsNegocios(usuario);
+    const esPropietario = usuario.rol === "administrador" && negocio.administradorId === usuario.id;
+    if (!ids.includes(negocio.id) && !esPropietario) return false;
+
+    const negocioIds = [...new Set([...ids, ...(esPropietario ? [negocio.id] : [])])];
+    const actualizado = { ...usuario, negocioId: negocio.id, negocioIds };
     guardarSesion(actualizado);
     sessionStorage.removeItem(PENDING_BUSINESSES_KEY);
     localStorage.setItem("sweetcost-negocio-activo", negocio.id);

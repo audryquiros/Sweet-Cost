@@ -22,12 +22,20 @@ export default function Negocios() {
     const r = await fetch(API);
     if (!r.ok) throw new Error();
     const data = await r.json();
-    setNegocios(data.filter((n) => (usuario?.negocioIds || []).includes(n.id)));
+    const ids = new Set(usuario?.negocioIds || []);
+
+    if (usuario?.id) {
+      data.forEach((negocio) => {
+        if (negocio.administradorId === usuario.id) ids.add(negocio.id);
+      });
+    }
+
+    setNegocios(data.filter((negocio) => ids.has(negocio.id)));
   };
 
   useEffect(() => {
     cargar().catch(() => setError("No se pudieron cargar los negocios."));
-  }, [usuario?.negocioIds?.join(",")]);
+  }, [usuario?.id, usuario?.negocioIds?.join(",")]);
 
   const administrar = (negocio) => {
     if (seleccionarNegocio(negocio)) {
@@ -41,7 +49,12 @@ export default function Negocios() {
     setMsg("");
     setError("");
     const id = `neg-${Date.now()}`;
-    const negocio = { ...form, id, margenGanancia: Number(form.margenGanancia) };
+    const negocio = {
+      ...form,
+      id,
+      administradorId: usuario.id,
+      margenGanancia: Number(form.margenGanancia),
+    };
 
     try {
       const response = await fetch(API, {
@@ -50,22 +63,26 @@ export default function Negocios() {
         body: JSON.stringify(negocio),
       });
       if (!response.ok) throw new Error();
+      const negocioGuardado = await response.json();
 
-      const ids = [...new Set([...(usuario.negocioIds || []), id])];
+      const ids = [...new Set([...(usuario.negocioIds || []), negocioGuardado.id])];
       const empleadoResponse = await fetch(`${EMP}/${usuario.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ negocioId: id, negocioIds: ids }),
+        body: JSON.stringify({ negocioId: negocioGuardado.id, negocioIds: ids }),
       });
       if (!empleadoResponse.ok) throw new Error();
 
-      const actualizado = { ...usuario, negocioId: id, negocioIds: ids };
+      const actualizado = { ...usuario, negocioId: negocioGuardado.id, negocioIds: ids };
       sessionStorage.setItem("sweetcost-auth-user", JSON.stringify(actualizado));
       window.dispatchEvent(new CustomEvent("sweetcost-auth-cambio", { detail: actualizado }));
-      seleccionarNegocio(negocio);
+      setNegocios((actuales) => [
+        ...actuales.filter((item) => item.id !== negocioGuardado.id),
+        negocioGuardado,
+      ]);
+      seleccionarNegocio(negocioGuardado);
       setForm(FORM_INICIAL);
       setMsg("Negocio registrado y asociado a tu cuenta.");
-      await cargar();
       await cargarNegociosDesdeServidor();
     } catch {
       setError("No se pudo registrar el negocio. Verifica que JSON Server esté activo.");

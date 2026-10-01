@@ -16,7 +16,6 @@ const menuPrincipal = [
   { to: "/pedidos", label: "Pedidos", icon: "orders" },
   { to: "/calendario", label: "Calendario", icon: "calendar" },
   { to: "/empleados", label: "Empleados", icon: "employees" },
-  { to: "/negocios", label: "Mis negocios", icon: "businesses" },
 ];
 
 const menuCuenta = [
@@ -31,7 +30,6 @@ const iconImages = {
   orders: "/illustrations/pedidos-portapapeles.png",
   calendar: "/illustrations/calendario.png",
   employees: "/illustrations/empleados.png",
-  businesses: "/illustrations/negocio.png",
   settings: "/illustrations/configuracion.png",
   profile: "/illustrations/perfil.png",
   dashboard: "/illustrations/dashboard.png",
@@ -122,9 +120,25 @@ function Nav() {
   }, []);
 
   const negociosDelUsuario = useMemo(() => {
-    const ids = Array.isArray(usuario?.negocioIds) ? usuario.negocioIds : usuario?.negocioId ? [usuario.negocioId] : [];
-    return negociosDisponibles.filter((negocio) => ids.includes(negocio.id));
-  }, [negociosDisponibles, usuario?.negocioId, usuario?.negocioIds]);
+    const ids = new Set(
+      Array.isArray(usuario?.negocioIds)
+        ? usuario.negocioIds
+        : usuario?.negocioId
+          ? [usuario.negocioId]
+          : []
+    );
+
+    // El administrador también obtiene los negocios de los que figura como propietario.
+    if (usuario?.rol === "administrador" && usuario?.id) {
+      negociosDisponibles.forEach((negocio) => {
+        if (negocio.administradorId === usuario.id) ids.add(negocio.id);
+      });
+    }
+
+    return negociosDisponibles.filter((negocio) => ids.has(negocio.id));
+  }, [negociosDisponibles, usuario?.id, usuario?.rol, usuario?.negocioId, usuario?.negocioIds]);
+
+  const puedeCambiarNegocio = negociosDelUsuario.length > 1;
 
   useEffect(() => {
     const getViewportWidth = () => {
@@ -283,10 +297,10 @@ function Nav() {
             <button
               type="button"
               className="business-switcher"
-              aria-expanded={usuario?.rol === "administrador" ? negociosAbierto : undefined}
-              aria-haspopup={usuario?.rol === "administrador" ? "menu" : undefined}
-              disabled={usuario?.rol !== "administrador"}
-              onClick={() => usuario?.rol === "administrador" && setNegociosAbierto((actual) => !actual)}
+              aria-expanded={puedeCambiarNegocio ? negociosAbierto : undefined}
+              aria-haspopup={puedeCambiarNegocio ? "menu" : undefined}
+              disabled={!puedeCambiarNegocio}
+              onClick={() => puedeCambiarNegocio && setNegociosAbierto((actual) => !actual)}
             >
               <span className="business-avatar">
                 {negocioActivo.imagen && !imagenNegocioError ? (
@@ -306,7 +320,7 @@ function Nav() {
               <span className="business-chevron" aria-hidden="true">⌄</span>
             </button>
 
-            {negociosAbierto && usuario?.rol === "administrador" && (
+            {negociosAbierto && puedeCambiarNegocio && (
               <div className="business-menu" role="menu">
                 <div className="business-menu-title">Cambiar de negocio</div>
                 {negociosDelUsuario.map((negocio) => (

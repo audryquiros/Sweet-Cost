@@ -430,10 +430,10 @@
       "rol": "administrador",
       "estado": "activo",
       "foto": "/avatars/avatar-1.png",
-      "negocioId": "neg-1790884515462",
+      "negocioId": "dulces-momentos",
       "negocioIds": [
         "dulces-momentos",
-        "neg-1790884515462"
+        "RsRquvroivA"
       ],
       "clave": "admin123"
     },
@@ -463,6 +463,33 @@
         "dulces-momentos"
       ],
       "clave": "empleado123"
+    },
+    {
+      "nombre": "Audry",
+      "correo": "audryquirosc@gmail.com",
+      "telefono": "6115-1187",
+      "rol": "empleado",
+      "estado": "activo",
+      "clave": "audry123456",
+      "negocioIds": [
+        "RsRquvroivA"
+      ],
+      "negocioId": "RsRquvroivA",
+      "id": "JLr6vSPuCcY"
+    },
+    {
+      "id": "NU3wex2tUr4",
+      "nombre": "Heraclio Lopez",
+      "correo": "herlpz@gmail.com",
+      "telefono": "61151111",
+      "rol": "administrador",
+      "estado": "activo",
+      "foto": "/illustrations/perfil.png",
+      "negocioId": "neg-1790885126147-trc3w",
+      "negocioIds": [
+        "neg-1790885126147-trc3w"
+      ],
+      "clave": "hera123456"
     }
   ],
   "negocios": [
@@ -472,7 +499,8 @@
       "tipo": "Repostería",
       "telefono": "8888-0000",
       "correo": "contacto@dulcesmomentos.com",
-      "margenGanancia": 30
+      "margenGanancia": 30,
+      "administradorId": "emp-001"
     },
     {
       "nombre": "El Sazón de Jeka",
@@ -480,7 +508,17 @@
       "telefono": "61151187",
       "correo": "jekasazon@gmail.com",
       "margenGanancia": 30,
-      "id": "RsRquvroivA"
+      "id": "RsRquvroivA",
+      "administradorId": "emp-001"
+    },
+    {
+      "id": "-VUKJi305Mw",
+      "administradorId": "emp-1790885126148-sr3np",
+      "nombre": "Panciro",
+      "tipo": "Panadería",
+      "telefono": "66225533",
+      "correo": "panciro@gmail.com",
+      "margenGanancia": 30
     }
   ],
   "asistencias": [],

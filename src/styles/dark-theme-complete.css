@@ -2212,3 +2212,448 @@ html[data-theme="oscuro"] .confirmacion-modal {
   border-color: #705d7a !important;
   box-shadow: 0 30px 80px rgba(0,0,0,.62) !important;
 }
+
+
+/* =========================================================
+   Sweet Cost · Corrección final de modo oscuro
+   Cotizador + Empleados + Dashboard
+   ========================================================= */
+
+/* ---------- COTIZADOR: superficies oscuras reales ---------- */
+html[data-theme="oscuro"] .cotizador-form {
+  background: #211b26 !important;
+  color: #f8f2fa !important;
+  border-color: #574760 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-form-header h2,
+html[data-theme="oscuro"] .cotizador-form-header p,
+html[data-theme="oscuro"] .cotizador-seccion-header h3,
+html[data-theme="oscuro"] .cotizador-seccion-header h4,
+html[data-theme="oscuro"] .cotizador-seccion-header p,
+html[data-theme="oscuro"] .cotizador-resumen h3,
+html[data-theme="oscuro"] .cotizador-field label {
+  color: #f8f2fa !important;
+}
+
+html[data-theme="oscuro"] .cotizador-form-header p,
+html[data-theme="oscuro"] .cotizador-seccion-header p,
+html[data-theme="oscuro"] .cotizador-field small {
+  color: #bfb2c7 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-field input,
+html[data-theme="oscuro"] .cotizador-field select,
+html[data-theme="oscuro"] .cotizador-field textarea,
+html[data-theme="oscuro"] .cotizador-field input[readonly] {
+  background: #2c2533 !important;
+  color: #fffaff !important;
+  border-color: #756080 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-field input[readonly] {
+  background: #28212e !important;
+  color: #d7c9dd !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion,
+html[data-theme="oscuro"] .cotizador-seccion:has(.cotizador-extra-modos) {
+  background: #241e2a !important;
+  border-color: #574760 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-subseccion,
+html[data-theme="oscuro"] .cotizador-item {
+  background: #211b26 !important;
+  border-color: #4f4157 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-extra-modos {
+  background: #33283d !important;
+  border-color: #574760 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-extra-modo {
+  color: #d1c4d8 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-extra-modo:hover {
+  color: #ead9ff !important;
+}
+
+html[data-theme="oscuro"] .cotizador-extra-modo.activo {
+  background: #8b5bb8 !important;
+  border-color: #b58ce8 !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion:has(.cotizador-extra-modos) .cotizador-resumen-extra {
+  border-top-color: #4f4157 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion:has(.cotizador-extra-modos) .cotizador-resumen-extra > div {
+  border-bottom-color: #433747 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion:has(.cotizador-extra-modos) .cotizador-resumen-extra span {
+  color: #bfb2c7 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion:has(.cotizador-extra-modos) .cotizador-resumen-extra strong {
+  color: #eee5f2 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion:has(.cotizador-extra-modos) .cotizador-resumen-extra > div:nth-child(2),
+html[data-theme="oscuro"] .cotizador-seccion:has(.cotizador-extra-modos) .cotizador-resumen-extra > div:nth-child(4) {
+  background: #33283d !important;
+  border-bottom-color: #5a4864 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion:has(.cotizador-extra-modos) .cotizador-resumen-extra > div:nth-child(2) span,
+html[data-theme="oscuro"] .cotizador-seccion:has(.cotizador-extra-modos) .cotizador-resumen-extra > div:nth-child(4) span {
+  color: #d9c8e4 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion:has(.cotizador-extra-modos) .cotizador-resumen-extra > div:nth-child(2) strong,
+html[data-theme="oscuro"] .cotizador-seccion:has(.cotizador-extra-modos) .cotizador-resumen-extra > div:nth-child(4) strong {
+  color: #d8b8ff !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion:has(.cotizador-extra-modos) .cotizador-resumen-extra > div:nth-child(6) {
+  background: #3b2c4b !important;
+  border-color: #604b70 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion:has(.cotizador-extra-modos) .cotizador-resumen-extra > div:nth-child(6) span,
+html[data-theme="oscuro"] .cotizador-seccion:has(.cotizador-extra-modos) .cotizador-resumen-extra > div:nth-child(6) strong {
+  color: #f1e7f7 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion:nth-of-type(2) .cotizador-resumen-extra {
+  border-top-color: #4f4157 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion:nth-of-type(2) .cotizador-resumen-extra > div:last-child {
+  background: #3b2c4b !important;
+  border-color: #604b70 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion:nth-of-type(2) .cotizador-resumen-extra > div:last-child span,
+html[data-theme="oscuro"] .cotizador-seccion:nth-of-type(2) .cotizador-resumen-extra > div:last-child strong {
+  color: #f1e7f7 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion:nth-of-type(2) .cotizador-resumen-extra > div:first-child span {
+  color: #bfb2c7 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-seccion:nth-of-type(2) .cotizador-resumen-extra > div:first-child strong {
+  color: #eee5f2 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-vacio {
+  background: #2c2533 !important;
+  border-color: #574760 !important;
+  color: #bfb2c7 !important;
+}
+
+html[data-theme="oscuro"] .btn-eliminar-item {
+  background: #30232c !important;
+  color: #ffb8c4 !important;
+  border-color: #9b5363 !important;
+}
+
+html[data-theme="oscuro"] .btn-eliminar-item:hover {
+  background: #402831 !important;
+  border-color: #c46b7d !important;
+}
+
+html[data-theme="oscuro"] .cotizador-resumen {
+  background: #241e2a !important;
+  border-color: #574760 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-resumen-linea {
+  color: #c8bbcF !important;
+  border-bottom-color: #433747 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-resumen-linea strong {
+  color: #f0e8f4 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-resumen-total {
+  color: #f8f2fa !important;
+  border-color: #4f4157 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-resumen-total strong {
+  color: #d8b8ff !important;
+}
+
+html[data-theme="oscuro"] .cotizador-precio {
+  background: #3b2c4b !important;
+  color: #f8f2fa !important;
+  border: 1px solid #705887 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-precio strong {
+  color: #ffffff !important;
+}
+
+html[data-theme="oscuro"] .cotizador-btn-cancelar {
+  background: #302738 !important;
+  color: #f4edf7 !important;
+  border-color: #756080 !important;
+}
+
+html[data-theme="oscuro"] .cotizador-btn-cancelar:hover {
+  background: #40334a !important;
+}
+
+html[data-theme="oscuro"] .cotizador-form-error {
+  background: #40252c !important;
+  border-color: #8e4f5d !important;
+  color: #ffb5bf !important;
+}
+
+
+/* ---------- EMPLEADOS: más aire y mejor jerarquía ---------- */
+html[data-theme="oscuro"] .empleados-lista {
+  margin-bottom: 0 !important;
+}
+
+html[data-theme="oscuro"] .empleados-grid {
+  gap: 24px !important;
+}
+
+html[data-theme="oscuro"] .empleado-card {
+  padding: 21px !important;
+  min-height: 315px !important;
+}
+
+html[data-theme="oscuro"] .empleado-card-top {
+  gap: 18px !important;
+}
+
+html[data-theme="oscuro"] .empleado-card h3 {
+  margin-top: 17px !important;
+}
+
+html[data-theme="oscuro"] .empleado-card-info {
+  gap: 11px !important;
+  margin-top: 18px !important;
+  padding-top: 15px !important;
+}
+
+html[data-theme="oscuro"] .empleado-card-actions {
+  gap: 9px !important;
+  margin-top: 19px !important;
+}
+
+html[data-theme="oscuro"] .empleado-card-actions button {
+  min-height: 40px !important;
+}
+
+html[data-theme="oscuro"] .asistencia-panel {
+  margin-top: 46px !important;
+}
+
+html[data-theme="oscuro"] .asistencia-panel-heading {
+  padding: 22px 24px !important;
+}
+
+html[data-theme="oscuro"] .asistencia-lista {
+  padding: 8px 24px !important;
+}
+
+html[data-theme="oscuro"] .asistencia-row {
+  gap: 24px !important;
+  padding: 18px 0 !important;
+}
+
+html[data-theme="oscuro"] .asistencia-horas {
+  gap: 22px !important;
+}
+
+html[data-theme="oscuro"] .asistencia-historial {
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+
+/* ---------- DASHBOARD: modo oscuro coherente ---------- */
+html[data-theme="oscuro"] .home-page {
+  background: #151118 !important;
+  color: #f8f2fa !important;
+}
+
+html[data-theme="oscuro"] .home-panel,
+html[data-theme="oscuro"] .home-kpi,
+html[data-theme="oscuro"] .home-panel-heading,
+html[data-theme="oscuro"] .home-financial-chart,
+html[data-theme="oscuro"] .home-financial-legend,
+html[data-theme="oscuro"] .home-forecast-body,
+html[data-theme="oscuro"] .home-top-employee,
+html[data-theme="oscuro"] .home-stock-panel,
+html[data-theme="oscuro"] .home-deliveries-panel,
+html[data-theme="oscuro"] .home-attendance-panel {
+  background: #211b26 !important;
+  color: #f8f2fa !important;
+  border-color: #574760 !important;
+}
+
+html[data-theme="oscuro"] .home-panel-heading {
+  background: #211b26 !important;
+  border-bottom-color: #433747 !important;
+}
+
+html[data-theme="oscuro"] .home-panel-heading span {
+  color: #a98ae4 !important;
+}
+
+html[data-theme="oscuro"] .home-panel-heading h2,
+html[data-theme="oscuro"] .home-panel-heading a,
+html[data-theme="oscuro"] .home-panel-heading strong {
+  color: #f8f2fa !important;
+}
+
+html[data-theme="oscuro"] .home-panel-heading a:hover {
+  background: #34283e !important;
+}
+
+html[data-theme="oscuro"] .home-financial-bars {
+  background: repeating-linear-gradient(
+    to top,
+    transparent 0,
+    transparent 48px,
+    #403547 49px
+  ) !important;
+  border-bottom-color: #51425a !important;
+}
+
+html[data-theme="oscuro"] .home-financial-legend {
+  border-top-color: #433747 !important;
+  color: #bfb2c7 !important;
+}
+
+html[data-theme="oscuro"] .home-forecast-body {
+  background: #211b26 !important;
+}
+
+html[data-theme="oscuro"] .home-forecast-value {
+  color: #ffffff !important;
+}
+
+html[data-theme="oscuro"] .home-forecast-body > span,
+html[data-theme="oscuro"] .home-forecast-body p,
+html[data-theme="oscuro"] .home-forecast-body > small {
+  color: #bfb2c7 !important;
+}
+
+html[data-theme="oscuro"] .home-forecast-profit {
+  background: #34283e !important;
+  border-color: #584565 !important;
+}
+
+html[data-theme="oscuro"] .home-forecast-profit strong {
+  color: #d8b8ff !important;
+}
+
+html[data-theme="oscuro"] .home-forecast-profit span {
+  color: #c8bbcF !important;
+}
+
+html[data-theme="oscuro"] .home-list-row {
+  border-bottom-color: #433747 !important;
+}
+
+html[data-theme="oscuro"] .home-list-row strong {
+  color: #f8f2fa !important;
+}
+
+html[data-theme="oscuro"] .home-list-row span {
+  color: #aaa0af !important;
+}
+
+html[data-theme="oscuro"] .home-row-icon {
+  background: #34283e !important;
+  border-color: #584565 !important;
+}
+
+html[data-theme="oscuro"] .home-empty {
+  background: #211b26 !important;
+  color: #aaa0af !important;
+}
+
+html[data-theme="oscuro"] .home-period-toggle {
+  border-color: #66556f !important;
+}
+
+html[data-theme="oscuro"] .home-period-toggle button {
+  background: #2c2533 !important;
+  color: #c9bdcf !important;
+}
+
+html[data-theme="oscuro"] .home-period-toggle button.active {
+  background: #9b7ede !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="oscuro"] .home-business-badge {
+  background: #211b26 !important;
+  border-color: #574760 !important;
+}
+
+html[data-theme="oscuro"] .home-business-badge strong {
+  color: #ffffff !important;
+}
+
+html[data-theme="oscuro"] .home-business-badge span:last-child {
+  color: #bbaec2 !important;
+}
+
+
+/* ---------- MODAL DE ELIMINACIÓN: cubrir toda la ventana ---------- */
+.confirmacion-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100dvh !important;
+  min-height: 100vh !important;
+  z-index: 99999 !important;
+  box-sizing: border-box !important;
+  isolation: isolate !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+html[data-theme="oscuro"] .confirmacion-overlay {
+  background: rgba(8, 6, 11, 0.84) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+}
+
+html[data-theme="oscuro"] .confirmacion-modal {
+  position: relative !important;
+  z-index: 1 !important;
+  background: #241e2a !important;
+  border-color: #705d7a !important;
+  color: #f8f2fa !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .65) !important;
+}
+
+html[data-theme="oscuro"] .confirmacion-icono {
+  background: #3b2631 !important;
+  border-color: #684653 !important;
+}
+
+html[data-theme="oscuro"] .confirmacion-contenido h3 {
+  color: #fffaff !important;
+}
+
+html[data-theme="oscuro"] .confirmacion-contenido p {
+  color: #cfc1d6 !important;
+}

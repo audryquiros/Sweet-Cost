@@ -5,7 +5,7 @@
 .confirmacion-overlay {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 2200;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,9 +15,9 @@
 }
 
 .confirmacion-modal {
-  width: min(430px, 100%);
+  width: min(460px, 100%);
   box-sizing: border-box;
-  padding: 28px 28px 24px;
+  padding: 30px 30px 26px;
   border: 1px solid var(--sc-border);
   border-radius: 18px;
   background: var(--sc-surface);
@@ -34,7 +34,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 16px;
-  background: #f8edf2;
+  background: #f7effa;
 }
 
 .confirmacion-icono img {
@@ -47,7 +47,7 @@
 .confirmacion-contenido h3 {
   margin: 0 0 8px;
   color: #352d3a;
-  font-size: calc(19px * var(--sc-font-scale, 1));
+  font-size: calc(20px * var(--sc-font-scale, 1));
   line-height: 1.25;
   font-weight: 700;
 }

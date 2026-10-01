@@ -1,4 +1,4 @@
-.empleados-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.empleados-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
 .empleado-card { padding: 17px; background: var(--sc-surface); border: 1px solid var(--sc-border); border-radius: 12px; box-shadow: var(--sc-shadow); transition: transform .18s ease, box-shadow .18s ease; }
 .empleado-card:hover { transform: translateY(-1px); box-shadow: 0 9px 22px rgba(91,65,112,.09); }
 .empleado-card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }

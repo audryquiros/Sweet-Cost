@@ -156,7 +156,7 @@ function Notificaciones() {
   return (
     <div className="notifications-root" ref={ref}>
       <button type="button" className={`notifications-trigger ${unread.length ? "has-unread" : ""}`} onClick={() => setOpen((v) => !v)} aria-label={`Notificaciones${unread.length ? `, ${unread.length} sin leer` : ""}`} aria-expanded={open}>
-        <img src="/illustrations/notificacion.png" alt="" className="notifications-icon" />
+        <img src={unread.length ? "/illustrations/notificacion.png" : "/illustrations/notificacion-sin-corazon.png"} alt="" className="notifications-icon" />
         {unread.length > 0 && <span className="notifications-badge">{unread.length > 9 ? "9+" : unread.length}</span>}
       </button>
       {open && (

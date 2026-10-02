@@ -517,6 +517,20 @@
       ],
       "clave": "123456789",
       "id": "rNrJRcWOaIo"
+    },
+    {
+      "nombre": "Audry Quiros",
+      "correo": "maryquiros206@live.com",
+      "telefono": "61151187",
+      "rol": "administrador",
+      "estado": "activo",
+      "foto": "/illustrations/perfil.png",
+      "negocioId": "kXNHkiZEPII",
+      "negocioIds": [
+        "kXNHkiZEPII"
+      ],
+      "clave": "1234567",
+      "id": "e83F_wNxfVI"
     }
   ],
   "negocios": [
@@ -555,6 +569,15 @@
       "telefono": "86621066",
       "correo": "ssalasl@fwdcostarica.com",
       "margenGanancia": 30
+    },
+    {
+      "nombre": "Sweet Marie",
+      "tipo": "Repostería",
+      "telefono": "61151187",
+      "correo": "maryquiros206@gmail.com",
+      "margenGanancia": 30,
+      "administradorId": "e83F_wNxfVI",
+      "id": "kXNHkiZEPII"
     }
   ],
   "asistencias": [

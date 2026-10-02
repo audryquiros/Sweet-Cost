@@ -95,7 +95,13 @@
 }
 
 .registro-confirm-password {
-  max-width: calc(50% - 7px);
+  width: 100%;
+  max-width: none;
+}
+
+.registro-confirm-password input {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .registro-business-select {

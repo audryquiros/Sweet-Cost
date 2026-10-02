@@ -14,7 +14,6 @@ const tipos = [
   { valor: "Catering", nombre: "Catering" },
 ];
 
-const id = (prefijo) => `${prefijo}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
 
 export default function Registro() {
   const nav = useNavigate();
@@ -51,42 +50,26 @@ export default function Registro() {
         throw Error("Ya existe una cuenta con ese correo.");
       }
 
-      const negocioId = id("neg");
-      const empleadoId = id("emp");
-      const negocio = {
-        id: negocioId,
-        administradorId: empleadoId,
-        nombre: f.negocio.trim(),
-        tipo: f.tipo,
-        telefono: f.telNeg.trim(),
-        correo: f.correoNeg.trim() || f.correo.trim(),
-        margenGanancia: 30,
-      };
-
+      // El ID real del administrador debe ser el que devuelve JSON Server.
+      // No confiamos en un ID generado por el frontend porque JSON Server puede
+      // generar/sobrescribir el ID al crear el registro.
       const empleado = {
-        id: empleadoId,
         nombre: f.nombre.trim(),
         correo: f.correo.trim().toLowerCase(),
         telefono: f.telefono.trim(),
         rol: "administrador",
         estado: "activo",
         foto: "/illustrations/perfil.png",
-        negocioId,
-        negocioIds: [negocioId],
+        negocioId: null,
+        negocioIds: [],
         clave: f.clave,
       };
 
-      let negocioCreado = false;
+      let empleadoCreado = null;
+      let negocioCreado = null;
+
       try {
-        const rn = await fetch(N, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(negocio),
-        });
-
-        if (!rn.ok) throw Error("No se pudo guardar el negocio.");
-        negocioCreado = true;
-
+        // 1. Crear primero el administrador y tomar SU ID REAL.
         const re = await fetch(E, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -94,11 +77,89 @@ export default function Registro() {
         });
 
         if (!re.ok) throw Error("No se pudo crear la cuenta de administrador.");
-      } catch (error) {
-        // Evita dejar un negocio huérfano si la cuenta no pudo crearse.
-        if (negocioCreado) {
-          await fetch(`${N}/${negocioId}`, { method: "DELETE" }).catch(() => {});
+        empleadoCreado = await re.json();
+
+        const administradorId = empleadoCreado.id;
+        if (!administradorId) {
+          throw Error("JSON Server no devolvió el ID del administrador.");
         }
+
+        // 2. Crear el negocio usando EXACTAMENTE el ID que devolvió el empleado.
+        const negocio = {
+          nombre: f.negocio.trim(),
+          tipo: f.tipo,
+          telefono: f.telNeg.trim(),
+          correo: f.correoNeg.trim() || f.correo.trim(),
+          margenGanancia: 30,
+          administradorId,
+        };
+
+        const rn = await fetch(N, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(negocio),
+        });
+
+        if (!rn.ok) throw Error("No se pudo guardar el negocio.");
+        negocioCreado = await rn.json();
+
+        const negocioId = negocioCreado.id;
+        if (!negocioId) {
+          throw Error("JSON Server no devolvió el ID del negocio.");
+        }
+
+        // 3. Completar la asociación del administrador con el ID REAL del negocio.
+        const empleadoActualizadoResponse = await fetch(`${E}/${administradorId}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            negocioId,
+            negocioIds: [negocioId],
+          }),
+        });
+
+        if (!empleadoActualizadoResponse.ok) {
+          throw Error("No se pudo asociar el negocio con la cuenta de administrador.");
+        }
+
+        // 4. Verificación final: si la relación no quedó bien guardada,
+        // hacemos rollback de AMBOS registros.
+        const [empleadoVerificacionResponse, negocioVerificacionResponse] = await Promise.all([
+          fetch(`${E}/${administradorId}`),
+          fetch(`${N}/${negocioId}`),
+        ]);
+
+        if (!empleadoVerificacionResponse.ok || !negocioVerificacionResponse.ok) {
+          throw Error("No se pudo verificar la asociación del negocio con el administrador.");
+        }
+
+        const empleadoVerificado = await empleadoVerificacionResponse.json();
+        const negocioVerificado = await negocioVerificacionResponse.json();
+
+        const asociacionCorrecta =
+          negocioVerificado.administradorId === administradorId &&
+          empleadoVerificado.negocioId === negocioId &&
+          Array.isArray(empleadoVerificado.negocioIds) &&
+          empleadoVerificado.negocioIds.includes(negocioId);
+
+        if (!asociacionCorrecta) {
+          throw Error("La cuenta y el negocio no pudieron asociarse correctamente.");
+        }
+      } catch (error) {
+        // JSON Server no ofrece transacciones. Si cualquier paso falla,
+        // eliminamos lo que sí alcanzó a crearse para no dejar datos huérfanos.
+        if (negocioCreado?.id) {
+          await fetch(`${N}/${encodeURIComponent(negocioCreado.id)}`, {
+            method: "DELETE",
+          }).catch(() => {});
+        }
+
+        if (empleadoCreado?.id) {
+          await fetch(`${E}/${encodeURIComponent(empleadoCreado.id)}`, {
+            method: "DELETE",
+          }).catch(() => {});
+        }
+
         throw error;
       }
 

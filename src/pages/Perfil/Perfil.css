@@ -847,3 +847,53 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== Zona de peligro ===== */
+.perfil-danger-card {
+  margin-top: 18px;
+  padding: 22px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  background: var(--sc-surface);
+  border: 1px solid color-mix(in srgb, #b74757 30%, var(--sc-border));
+  border-radius: 16px;
+  box-shadow: var(--sc-shadow);
+}
+.perfil-danger-copy { min-width: 0; }
+.perfil-danger-copy .perfil-card-label { color: #b74757; }
+.perfil-danger-copy h2 { margin: 0; color: var(--sc-text); font-size: calc(20px * var(--sc-font-scale, 1)); }
+.perfil-danger-copy p { margin: 6px 0 0; color: var(--sc-text-soft); font-size: calc(11px * var(--sc-font-scale, 1)); line-height: 1.5; }
+.perfil-danger-actions { display: grid; grid-template-columns: repeat(2, minmax(210px, 1fr)); gap: 10px; width: min(100%, 560px); }
+.perfil-danger-button { min-width: 0; min-height: 70px; display: flex; align-items: center; gap: 10px; padding: 11px 13px; border: 1px solid color-mix(in srgb, #b74757 30%, var(--sc-border)); border-radius: 11px; background: color-mix(in srgb, #b74757 5%, var(--sc-surface)); color: var(--sc-text); text-align: left; cursor: pointer; transition: border-color .15s ease, background .15s ease, transform .15s ease; }
+.perfil-danger-button:hover { border-color: #b74757; background: color-mix(in srgb, #b74757 9%, var(--sc-surface)); transform: translateY(-1px); }
+.perfil-danger-button img { width: 27px; height: 27px; flex: 0 0 27px; object-fit: contain; }
+.perfil-danger-button span { min-width: 0; }
+.perfil-danger-button strong, .perfil-danger-button small { display: block; }
+.perfil-danger-button strong { color: #a74752; font-size: calc(10px * var(--sc-font-scale, 1)); }
+.perfil-danger-button small { margin-top: 3px; color: var(--sc-muted); font-size: calc(8px * var(--sc-font-scale, 1)); line-height: 1.35; }
+.perfil-danger-modal-backdrop { position: fixed; inset: 0; z-index: 1900; display: grid; place-items: center; padding: 18px; background: rgba(53,45,58,.38); backdrop-filter: blur(4px); }
+.perfil-danger-modal { width: min(500px,100%); max-height: min(680px,calc(100dvh - 36px)); overflow: auto; border: 1px solid var(--sc-border); border-radius: 18px; background: var(--sc-surface); box-shadow: 0 24px 60px rgba(53,45,58,.22); }
+.perfil-danger-modal-header { display:flex; align-items:flex-start; justify-content:space-between; gap:15px; padding:21px 22px 17px; border-bottom:1px solid var(--sc-border); }
+.perfil-danger-modal-header .perfil-card-label { color:#b74757; }
+.perfil-danger-modal-header h2 { margin:0; color:var(--sc-text); font-size:calc(19px * var(--sc-font-scale,1)); }
+.perfil-danger-modal-close { width:32px; height:32px; flex:0 0 32px; display:grid; place-items:center; border:1px solid var(--sc-border); border-radius:9px; background:var(--sc-surface-soft); cursor:pointer; }
+.perfil-danger-modal-close img { width:19px; height:19px; object-fit:contain; }
+.perfil-danger-modal-form { display:grid; gap:15px; padding:20px 22px 22px; }
+.perfil-danger-warning { display:flex; align-items:flex-start; gap:11px; padding:13px; border:1px solid color-mix(in srgb,#b74757 28%,var(--sc-border)); border-radius:11px; background:color-mix(in srgb,#b74757 5%,var(--sc-surface-soft)); }
+.perfil-danger-warning img { width:25px; height:25px; flex:0 0 25px; object-fit:contain; }
+.perfil-danger-warning p { margin:0; color:var(--sc-text-soft); font-size:calc(10px * var(--sc-font-scale,1)); line-height:1.55; }
+.perfil-danger-modal-form label { display:grid; gap:6px; }
+.perfil-danger-modal-form label span { color:var(--sc-text); font-size:calc(10px * var(--sc-font-scale,1)); font-weight:750; }
+.perfil-danger-modal-form input { width:100%; min-height:42px; box-sizing:border-box; padding:0 11px; border:1px solid var(--sc-border-strong); border-radius:9px; outline:none; background:var(--sc-surface-soft); color:var(--sc-text); font-size:calc(11px * var(--sc-font-scale,1)); }
+.perfil-danger-modal-form input:focus { border-color:#b74757; box-shadow:0 0 0 3px rgba(183,71,87,.1); }
+.perfil-danger-message { margin:0; padding:9px 11px; border:1px solid #f0cdd2; border-radius:8px; background:var(--sc-danger-bg); color:#a74752; font-size:calc(10px * var(--sc-font-scale,1)); font-weight:700; }
+.perfil-danger-modal-actions { display:flex; justify-content:flex-end; gap:8px; padding-top:3px; }
+.perfil-danger-cancel, .perfil-danger-confirm { min-height:40px; padding:8px 15px; border-radius:9px; font-size:calc(10px * var(--sc-font-scale,1)); font-weight:800; cursor:pointer; }
+.perfil-danger-cancel { border:1px solid var(--sc-border-strong); background:var(--sc-surface); color:var(--sc-text-soft); }
+.perfil-danger-confirm { border:1px solid #b74757; background:#b74757; color:#fff; }
+.perfil-danger-confirm:hover:not(:disabled) { background:#963e4c; }
+.perfil-danger-confirm:disabled, .perfil-danger-cancel:disabled { opacity:.55; cursor:not-allowed; }
+@media (max-width:1000px) { .perfil-danger-card { align-items:stretch; flex-direction:column; } .perfil-danger-actions { width:100%; } }
+@media (max-width:620px) { .perfil-danger-actions { grid-template-columns:1fr; } .perfil-danger-modal-backdrop { padding:10px; } .perfil-danger-modal { max-height:calc(100dvh - 20px); border-radius:14px; } .perfil-danger-modal-header,.perfil-danger-modal-form { padding-left:16px; padding-right:16px; } .perfil-danger-modal-actions { flex-direction:column-reverse; } .perfil-danger-modal-actions button { width:100%; } }

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
 import { getNegocioActivo } from "../../context/negocioContext";
 import { usePerfilActual } from "../../context/perfilContext";
-import { formatearTelefono } from "../../utils/formatearTelefono";
 import { updateEmpleadoParcial } from "../../services/empleadoServices";
+import { eliminarCuentaAdministrador, eliminarNegocioComoAdministrador } from "../../services/cuentaServices";
 import "./Perfil.css";
 
 const AVATARES = Array.from({ length: 32 }, (_, indice) => `/avatars/avatar-${indice + 1}.png`);
@@ -19,6 +21,8 @@ const ICONOS = {
 
 function Perfil() {
   const [negocio, setNegocio] = useState(() => getNegocioActivo());
+  const { usuario, logout, seleccionarNegocio } = useAuth();
+  const navigate = useNavigate();
   const { perfil, actualizarPerfil } = usePerfilActual();
   const [formulario, setFormulario] = useState(perfil);
   const [guardado, setGuardado] = useState(false);
@@ -35,6 +39,10 @@ function Perfil() {
   const [guardandoSeguridad, setGuardandoSeguridad] = useState(false);
   const [errorSeguridad, setErrorSeguridad] = useState("");
   const [exitoSeguridad, setExitoSeguridad] = useState("");
+  const [eliminacionAbierta, setEliminacionAbierta] = useState(null);
+  const [eliminacionConfirmacion, setEliminacionConfirmacion] = useState("");
+  const [eliminandoCuenta, setEliminandoCuenta] = useState(false);
+  const [errorEliminacion, setErrorEliminacion] = useState("");
 
   useEffect(() => {
     setFormulario(perfil);
@@ -129,6 +137,67 @@ function Perfil() {
       window.dispatchEvent(new CustomEvent("sweetcost-auth-cambio"));
     } catch {
       // El perfil ya quedó actualizado en JSON Server aunque la sesión no pueda sincronizarse.
+    }
+  };
+
+  const abrirEliminacion = (tipo) => {
+    setEliminacionAbierta(tipo);
+    setEliminacionConfirmacion("");
+    setErrorEliminacion("");
+  };
+
+  const cerrarEliminacion = () => {
+    if (eliminandoCuenta) return;
+    setEliminacionAbierta(null);
+    setEliminacionConfirmacion("");
+    setErrorEliminacion("");
+  };
+
+  const confirmarEliminacion = async (event) => {
+    event.preventDefault();
+    if (eliminandoCuenta || !usuario?.id) return;
+
+    if (eliminacionConfirmacion.trim().toUpperCase() !== "ELIMINAR") {
+      setErrorEliminacion("Escribe ELIMINAR para confirmar esta acción.");
+      return;
+    }
+
+    setEliminandoCuenta(true);
+    setErrorEliminacion("");
+
+    try {
+      if (eliminacionAbierta === "negocio") {
+        if (!negocio?.id) throw new Error("No se pudo identificar el negocio activo.");
+
+        const resultado = await eliminarNegocioComoAdministrador({
+          negocioId: negocio.id,
+          administradorId: usuario.id,
+        });
+
+        if (resultado.cuentaEliminada) {
+          logout();
+          navigate("/login", { replace: true });
+          return;
+        }
+
+        const siguiente = resultado.negociosRestantes[0];
+        if (siguiente) {
+          seleccionarNegocio(siguiente);
+          setNegocio(siguiente);
+        }
+        setEliminacionAbierta(null);
+        setEliminacionConfirmacion("");
+        setExitoSeguridad("El negocio se eliminó correctamente.");
+      } else if (eliminacionAbierta === "cuenta") {
+        await eliminarCuentaAdministrador(usuario.id);
+        logout();
+        navigate("/login", { replace: true });
+      }
+    } catch (error) {
+      console.error("No se pudo completar la eliminación:", error);
+      setErrorEliminacion(error.message || "No se pudo completar la eliminación. Verifica que JSON Server esté ejecutándose.");
+    } finally {
+      setEliminandoCuenta(false);
     }
   };
 
@@ -402,6 +471,91 @@ function Perfil() {
           </div>
         </div>
       </section>
+
+      {usuario?.rol === "administrador" && (
+        <section className="perfil-danger-card">
+          <div className="perfil-danger-copy">
+            <span className="perfil-card-label">Zona de peligro</span>
+            <h2>Administración de cuenta</h2>
+            <p>Estas acciones eliminan información de forma permanente y no se pueden deshacer.</p>
+          </div>
+
+          <div className="perfil-danger-actions">
+            <button type="button" className="perfil-danger-button" onClick={() => abrirEliminacion("negocio")}>
+              <img src="/illustrations/eliminar.png" alt="" aria-hidden="true" />
+              <span>
+                <strong>Eliminar negocio</strong>
+                <small>Elimina el negocio activo y sus datos asociados</small>
+              </span>
+            </button>
+
+            <button type="button" className="perfil-danger-button perfil-danger-button--account" onClick={() => abrirEliminacion("cuenta")}>
+              <img src="/illustrations/eliminar.png" alt="" aria-hidden="true" />
+              <span>
+                <strong>Eliminar cuenta</strong>
+                <small>Elimina tu cuenta y todos tus negocios</small>
+              </span>
+            </button>
+          </div>
+        </section>
+      )}
+
+      {eliminacionAbierta && (
+        <div
+          className="perfil-danger-modal-backdrop"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) cerrarEliminacion();
+          }}
+        >
+          <section className="perfil-danger-modal" role="dialog" aria-modal="true" aria-labelledby="perfil-danger-title">
+            <div className="perfil-danger-modal-header">
+              <div>
+                <span className="perfil-card-label">Confirmación</span>
+                <h2 id="perfil-danger-title">
+                  {eliminacionAbierta === "negocio" ? "Eliminar negocio" : "Eliminar cuenta"}
+                </h2>
+              </div>
+              <button type="button" className="perfil-danger-modal-close" onClick={cerrarEliminacion} aria-label="Cerrar">
+                <img src="/illustrations/cerrar.png" alt="" aria-hidden="true" />
+              </button>
+            </div>
+
+            <form className="perfil-danger-modal-form" onSubmit={confirmarEliminacion}>
+              <div className="perfil-danger-warning">
+                <img src="/illustrations/eliminar.png" alt="" aria-hidden="true" />
+                <p>
+                  {eliminacionAbierta === "negocio"
+                    ? (usuario?.negocioIds?.length === 1
+                      ? <>Vas a eliminar <strong>{negocio?.nombre || "este negocio"}</strong>. Como es tu único negocio, también se eliminará tu cuenta de administrador y todos los datos relacionados.</>
+                      : <>Vas a eliminar <strong>{negocio?.nombre || "este negocio"}</strong> y todos sus productos, insumos, recetas, cotizaciones, pedidos, asistencias y empleados que pertenezcan exclusivamente a este negocio.</>)
+                    : <>Vas a eliminar tu cuenta de administrador, todos los negocios que administras y toda la información asociada a ellos.</>}
+                </p>
+              </div>
+
+              <label>
+                <span>Escribe ELIMINAR para confirmar</span>
+                <input
+                  value={eliminacionConfirmacion}
+                  onChange={(event) => setEliminacionConfirmacion(event.target.value)}
+                  autoComplete="off"
+                  autoFocus
+                  placeholder="ELIMINAR"
+                />
+              </label>
+
+              {errorEliminacion && <p className="perfil-danger-message">{errorEliminacion}</p>}
+
+              <div className="perfil-danger-modal-actions">
+                <button type="button" className="perfil-danger-cancel" onClick={cerrarEliminacion} disabled={eliminandoCuenta}>Cancelar</button>
+                <button type="submit" className="perfil-danger-confirm" disabled={eliminandoCuenta || eliminacionConfirmacion.trim().toUpperCase() !== "ELIMINAR"}>
+                  {eliminandoCuenta ? "Eliminando..." : eliminacionAbierta === "negocio" ? "Eliminar negocio" : "Eliminar cuenta"}
+                </button>
+              </div>
+            </form>
+          </section>
+        </div>
+      )}
 
       {seguridadAbierta && (
         <div

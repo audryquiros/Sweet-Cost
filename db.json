@@ -424,8 +424,8 @@
   "empleados": [
     {
       "id": "emp-001",
-      "nombre": "María Rodrígues",
-      "correo": "maria.rodrigues@sweetcost.demo",
+      "nombre": "María Rodríguez",
+      "correo": "maria.rodriguez@sweetcost.demo",
       "telefono": "8888-1002",
       "rol": "administrador",
       "estado": "activo",
@@ -600,6 +600,14 @@
       "expira": "=2026-10-02T15:03:32.844Z",
       "usado": false,
       "id": "tUo7k8_6ZKI"
+    },
+    {
+      "empleadoId": "=JLr6vSPuCcY",
+      "correo": "=audryquirosc@gmail.com",
+      "token": "=1nS48nZEbzUF8AN6zQY5QJlKzLGSYAWcDkqu4O5NZW1yDA4M1B4OhiQDlVtb8YAX",
+      "expira": "=2026-10-02T15:41:49.942Z",
+      "usado": false,
+      "id": "y6utcxcf_uI"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

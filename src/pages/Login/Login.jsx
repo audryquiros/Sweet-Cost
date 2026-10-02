@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/authContext";
+import { getPendingBusinesses, useAuth } from "../../context/authContext";
 import "./Login.css";
 
 function EyeIcon({ visible }) {
@@ -36,7 +36,19 @@ function Login() {
   const [cargando, setCargando] = useState(false);
 
   if (autenticado) {
-    return <Navigate to={location.state?.from?.pathname || "/"} replace />;
+    const tieneNegociosPendientes =
+      usuario?.rol === "administrador" && getPendingBusinesses().length > 1;
+
+    return (
+      <Navigate
+        to={
+          tieneNegociosPendientes
+            ? "/seleccionar-negocio"
+            : location.state?.from?.pathname || "/"
+        }
+        replace
+      />
+    );
   }
 
   const handleSubmit = async (event) => {

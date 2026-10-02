@@ -1,5 +1,5 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../context/authContext";
+import { getPendingBusinesses, useAuth } from "../context/authContext";
 
 /**
  * Protege rutas según autenticación, negocio seleccionado y rol.
@@ -28,6 +28,17 @@ function PrivateRoute({
         replace
       />
     );
+  }
+
+  const negociosPendientes =
+    usuario?.rol === "administrador" ? getPendingBusinesses() : [];
+
+  if (
+    location.pathname !== "/seleccionar-negocio" &&
+    usuario?.rol === "administrador" &&
+    negociosPendientes.length > 1
+  ) {
+    return <Navigate to="/seleccionar-negocio" replace />;
   }
 
   if (requireBusiness && !usuario?.negocioId) {

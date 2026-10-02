@@ -29,7 +29,7 @@ import NotFound from "../pages/NotFound/NotFound";
 import Nav from "../components/Nav/Nav";
 import PrivateRoute from "./PrivateRoute";
 
-import { useAuth } from "../context/authContext";
+import { getPendingBusinesses, useAuth } from "../context/authContext";
 import { cargarNegociosDesdeServidor } from "../context/negocioContext";
 import { speechSupported, enableHoverTextReading, stopSpeech } from "../utils/textToSpeech";
 
@@ -100,7 +100,15 @@ function AppContent() {
             path="/login"
             element={
               autenticado ? (
-                <Navigate to="/" replace />
+                <Navigate
+                  to={
+                    usuario?.rol === "administrador" &&
+                    getPendingBusinesses().length > 1
+                      ? "/seleccionar-negocio"
+                      : "/"
+                  }
+                  replace
+                />
               ) : (
                 <Login />
               )

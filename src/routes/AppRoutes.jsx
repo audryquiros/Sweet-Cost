@@ -47,13 +47,14 @@ function AppContent() {
     location.pathname === "/seleccionar-negocio";
 
   useEffect(() => {
+    if (!autenticado) return;
     cargarNegociosDesdeServidor().catch((error) => {
       console.warn(
         "No se pudieron sincronizar los negocios desde JSON Server:",
         error
       );
     });
-  }, []);
+  }, [autenticado, usuario?.id]);
 
   useEffect(() => {
     if (!speechSupported) return undefined;

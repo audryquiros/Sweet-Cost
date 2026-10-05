@@ -103,22 +103,44 @@ export function AuthProvider({ children }) {
     }
 
     usuarioBase.negocioIds = negocios.map((negocio) => negocio.id);
-    guardarSesion(usuarioBase);
 
-    // Solo el administrador necesita escoger explícitamente el negocio al iniciar
-    // cuando tiene varios. Un empleado con varios negocios entra al negocio activo
-    // (o al primero disponible) y puede cambiar después desde el selector del sidebar.
+    // Nunca reutilizamos ciegamente el negocio activo de una sesión anterior.
+    // Primero comprobamos que el ID guardado pertenezca a ESTE usuario.
+    const negocioActivoGuardado = localStorage.getItem(`sweetcost-negocio-activo:${empleado.id}`);
+    const negocioGuardadoPertenece = negocios.some(
+      (item) => item.id === negocioActivoGuardado
+    );
+
+    // Un administrador con varios negocios debe elegir explícitamente uno.
+    // Dejamos el negocio activo vacío mientras está en la pantalla de selección
+    // para evitar que aparezca información del negocio de otro usuario.
     if (usuarioBase.rol === "administrador" && negocios.length > 1) {
+      const usuarioSinNegocio = { ...usuarioBase, negocioId: null };
+      guardarSesion(usuarioSinNegocio);
       sessionStorage.setItem(PENDING_BUSINESSES_KEY, JSON.stringify(negocios));
-      return { usuario: usuarioBase, negocios, requiereNegocio: true };
+      localStorage.removeItem("sweetcost-negocio-activo");
+      return { usuario: usuarioSinNegocio, negocios, requiereNegocio: true };
     }
 
     sessionStorage.removeItem(PENDING_BUSINESSES_KEY);
-    const negocioActivoGuardado = localStorage.getItem("sweetcost-negocio-activo");
-    const negocio = negocios.find((item) => item.id === negocioActivoGuardado) || negocios[0];
-    const usuarioConNegocio = { ...usuarioBase, negocioId: negocio.id };
+
+    // Si el usuario tiene un único negocio, ese negocio siempre gana.
+    // Si tiene varios, solo reutilizamos el anterior si está autorizado.
+    const negocio = negocios.find((item) => item.id === empleado.negocioId)
+      || (negocioGuardadoPertenece
+        ? negocios.find((item) => item.id === negocioActivoGuardado)
+        : null)
+      || negocios[0];
+
+    const usuarioConNegocio = {
+      ...usuarioBase,
+      negocioId: negocio.id,
+      negocioIds: negocios.map((item) => item.id),
+    };
+
     guardarSesion(usuarioConNegocio);
-    localStorage.setItem("sweetcost-negocio-activo", negocio.id);
+    localStorage.removeItem("sweetcost-negocio-activo");
+    localStorage.setItem(`sweetcost-negocio-activo:${usuarioConNegocio.id}`, negocio.id);
     window.dispatchEvent(new CustomEvent("sweetcost-negocio-cambio", { detail: negocio }));
     return { usuario: usuarioConNegocio, negocios, requiereNegocio: false, negocio };
   };
@@ -134,7 +156,8 @@ export function AuthProvider({ children }) {
     const actualizado = { ...usuario, negocioId: negocio.id, negocioIds };
     guardarSesion(actualizado);
     sessionStorage.removeItem(PENDING_BUSINESSES_KEY);
-    localStorage.setItem("sweetcost-negocio-activo", negocio.id);
+    localStorage.removeItem("sweetcost-negocio-activo");
+    localStorage.setItem(`sweetcost-negocio-activo:${usuario.id}`, negocio.id);
     window.dispatchEvent(new CustomEvent("sweetcost-negocio-cambio", { detail: negocio }));
     return true;
   };

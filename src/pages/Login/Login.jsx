@@ -22,7 +22,7 @@ function EyeIcon({ visible }) {
 }
 
 function Login() {
-  const { autenticado, login } = useAuth();
+  const { usuario, autenticado, login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 

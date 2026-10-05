@@ -88,7 +88,9 @@ function SidebarLink({ item, onNavigate, perfil }) {
 }
 
 function Nav() {
-  const [negocioActivo, setNegocioActivo] = useState(() => getNegocioActivo());
+  const [negocioActivo, setNegocioActivo] = useState(
+    () => getNegocioActivo() || { id: "", nombre: "", tipo: "", imagen: "" }
+  );
   const [negociosDisponibles, setNegociosDisponibles] = useState(() => [...NEGOCIOS]);
   const { perfil } = usePerfilActual();
   const { usuario, logout, seleccionarNegocio } = useAuth();
@@ -96,6 +98,14 @@ function Nav() {
   const [negociosAbierto, setNegociosAbierto] = useState(false);
   const [imagenNegocioError, setImagenNegocioError] = useState(false);
   const responsiveModeRef = useRef("desktop");
+
+  useEffect(() => {
+    // Al cambiar de usuario, recalculamos el negocio desde la sesión actual.
+    // Nunca conservamos visualmente el negocio de la cuenta anterior.
+    const negocioSesion = getNegocioActivo();
+    setNegocioActivo(negocioSesion || { id: "", nombre: "", tipo: "", imagen: "" });
+    setImagenNegocioError(false);
+  }, [usuario?.id, usuario?.negocioId, usuario?.negocioIds]);
 
   useEffect(() => {
     const handleNegocioCambio = (event) => {

@@ -48,10 +48,10 @@ function Configuracion() {
   const esAdministrador = usuario?.rol === "administrador";
   const [seccionActiva, setSeccionActiva] = useState(esAdministrador ? "negocio" : "apariencia");
   const [negocio, setNegocio] = useState({
-    nombre: "Dulces Momentos",
-    tipo: "Repostería",
-    telefono: "8888-0000",
-    correo: "contacto@dulcesmomentos.com",
+    nombre: "",
+    tipo: "",
+    telefono: "",
+    correo: "",
     imagen: "",
   });
   const [margen, setMargen] = useState("30");

@@ -39,10 +39,13 @@ function Home() {
   const esAdmin = usuario?.rol === "administrador";
 
   useEffect(() => {
+    const negocioSesion = getNegocioActivo();
+    setNegocio(negocioSesion);
+
     const change = (event) => event.detail && setNegocio(event.detail);
     window.addEventListener("sweetcost-negocio-cambio", change);
     return () => window.removeEventListener("sweetcost-negocio-cambio", change);
-  }, []);
+  }, [usuario?.id, usuario?.negocioId, usuario?.negocioIds]);
 
   const cargar = async () => {
     try {

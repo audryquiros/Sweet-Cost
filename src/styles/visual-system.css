@@ -1,0 +1,336 @@
+/* =========================================================
+   Sweet Cost · sistema visual común
+   Capa final para mantener la misma jerarquía visual entre módulos.
+   No contiene lógica ni reemplaza los estilos específicos de cada pantalla.
+   ========================================================= */
+
+:root {
+  --sc-page-max: 1440px;
+  --sc-card-radius: 16px;
+  --sc-control-radius: 9px;
+  --sc-control-height: 40px;
+  --sc-heading-size: 32px;
+  --sc-body-size: 13px;
+}
+
+/* Jerarquía común de las vistas internas */
+:where(
+  .productos-page,
+  .insumos-page,
+  .recetas-page,
+  .cotizador-page,
+  .pedidos-page,
+  .empleados-page,
+  .calendario-page,
+  .negocios-page,
+  .configuracion-page,
+  .perfil-page
+) {
+  color: var(--sc-text);
+}
+
+:where(
+  .productos-header,
+  .insumos-header,
+  .recetas-header,
+  .cotizador-header,
+  .pedidos-header,
+  .empleados-header,
+  .calendario-header,
+  .negocios-header,
+  .perfil-header,
+  .configuracion-header
+) h1 {
+  color: var(--sc-text);
+  font-size: calc(var(--sc-heading-size) * var(--sc-font-scale, 1));
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+
+:where(
+  .productos-header,
+  .insumos-header,
+  .recetas-header,
+  .cotizador-header,
+  .pedidos-header,
+  .empleados-header,
+  .calendario-header,
+  .negocios-header,
+  .perfil-header,
+  .configuracion-header
+) p {
+  color: var(--sc-text-soft);
+  line-height: 1.5;
+}
+
+/* Botones principales: mismo peso, altura, radio y estado hover. */
+:where(
+  .btn-primary,
+  .btn-agregar-empleado,
+  .btn-agregar-insumo,
+  .btn-agregar-receta,
+  .btn-nueva-cotizacion,
+  .btn-guardar,
+  .insumo-btn-guardar,
+  .receta-btn-guardar,
+  .cotizador-btn-guardar,
+  .empleado-btn-guardar,
+  .pedido-btn-primary,
+  .perfil-save-button,
+  .perfil-security-save,
+  .configuracion-primary
+) {
+  min-height: var(--sc-control-height);
+  border-radius: var(--sc-control-radius);
+  border: 1px solid var(--sc-primary);
+  background: var(--sc-primary);
+  color: #fff;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  box-shadow: 0 4px 12px rgba(109, 76, 141, 0.08);
+  transition: background-color .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+:where(
+  .btn-primary,
+  .btn-agregar-empleado,
+  .btn-agregar-insumo,
+  .btn-agregar-receta,
+  .btn-nueva-cotizacion,
+  .btn-guardar,
+  .insumo-btn-guardar,
+  .receta-btn-guardar,
+  .cotizador-btn-guardar,
+  .empleado-btn-guardar,
+  .pedido-btn-primary,
+  .perfil-save-button,
+  .perfil-security-save,
+  .configuracion-primary
+):hover:not(:disabled) {
+  background: var(--sc-primary-dark);
+  border-color: var(--sc-primary-dark);
+  box-shadow: 0 6px 16px rgba(109, 76, 141, 0.13);
+  transform: translateY(-1px);
+}
+
+:where(
+  .btn-primary,
+  .btn-agregar-empleado,
+  .btn-agregar-insumo,
+  .btn-agregar-receta,
+  .btn-nueva-cotizacion,
+  .btn-guardar,
+  .insumo-btn-guardar,
+  .receta-btn-guardar,
+  .cotizador-btn-guardar,
+  .empleado-btn-guardar,
+  .pedido-btn-primary,
+  .perfil-save-button,
+  .perfil-security-save,
+  .configuracion-primary
+):active:not(:disabled) {
+  transform: translateY(0);
+}
+
+:where(
+  .btn-primary,
+  .btn-agregar-empleado,
+  .btn-agregar-insumo,
+  .btn-agregar-receta,
+  .btn-nueva-cotizacion,
+  .btn-guardar,
+  .insumo-btn-guardar,
+  .receta-btn-guardar,
+  .cotizador-btn-guardar,
+  .empleado-btn-guardar,
+  .pedido-btn-primary,
+  .perfil-save-button,
+  .perfil-security-save,
+  .configuracion-primary
+):disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Controles de formulario compartidos. */
+:where(
+  .productos-form,
+  .insumos-form,
+  .receta-form,
+  .cotizador-form,
+  .pedido-form,
+  .empleados-form,
+  .configuracion-card,
+  .perfil-form-card,
+  .perfil-security-modal-form
+) input:not([type="checkbox"]):not([type="radio"]),
+:where(
+  .productos-form,
+  .insumos-form,
+  .receta-form,
+  .cotizador-form,
+  .pedido-form,
+  .empleados-form,
+  .configuracion-card,
+  .perfil-form-card,
+  .perfil-security-modal-form
+) select,
+:where(
+  .productos-form,
+  .insumos-form,
+  .receta-form,
+  .cotizador-form,
+  .pedido-form,
+  .empleados-form,
+  .configuracion-card,
+  .perfil-form-card,
+  .perfil-security-modal-form
+) textarea {
+  border-radius: var(--sc-control-radius);
+}
+
+/* Tarjetas y paneles comparten la misma superficie. */
+:where(
+  .productos-form-contenedor,
+  .insumos-form-contenedor,
+  .recetas-form-layout,
+  .cotizador-lista,
+  .empleados-lista,
+  .asistencia-panel,
+  .negocios-list,
+  .configuracion-nav,
+  .configuracion-card,
+  .perfil-form-card,
+  .perfil-security-card,
+  .perfil-danger-card
+) {
+  border-radius: var(--sc-card-radius);
+}
+
+/* Estados vacíos, errores y avisos mantienen la misma lectura visual. */
+:where(.productos-error, .insumos-error, .recetas-error, .cotizador-error, .pedidos-error, .empleados-error, .calendario-error, .negocios-message--error) {
+  border-radius: var(--sc-control-radius);
+  line-height: 1.45;
+}
+
+:where(.productos-mensaje, .insumos-exito, .recetas-exito, .cotizador-exito, .empleados-exito, .negocios-message--success) {
+  border-radius: var(--sc-control-radius);
+  line-height: 1.45;
+}
+
+/* Acciones secundarias: superficie clara, borde suave y texto morado. */
+:where(
+  .btn-cancelar,
+  .insumo-btn-cancelar,
+  .receta-btn-cancelar,
+  .cotizador-btn-cancelar,
+  .empleado-btn-cancelar,
+  .pedido-btn-secondary,
+  .configuracion-secondary,
+  .perfil-security-cancel,
+  .perfil-danger-cancel,
+  .conversor-btn-limpiar
+) {
+  min-height: 38px;
+  border-radius: var(--sc-control-radius);
+  border: 1px solid var(--sc-border-strong);
+  background: var(--sc-surface);
+  color: var(--sc-primary-dark);
+  font-weight: 700;
+  transition: background-color .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+:where(
+  .btn-cancelar,
+  .insumo-btn-cancelar,
+  .receta-btn-cancelar,
+  .cotizador-btn-cancelar,
+  .empleado-btn-cancelar,
+  .pedido-btn-secondary,
+  .configuracion-secondary,
+  .perfil-security-cancel,
+  .perfil-danger-cancel,
+  .conversor-btn-limpiar
+):hover:not(:disabled) {
+  background: var(--sc-primary-pale);
+  border-color: var(--sc-primary-soft);
+  transform: translateY(-1px);
+}
+
+/* Modales */
+:where(
+  .confirmacion-dialog,
+  .pedido-modal,
+  .calendario-modal,
+  .cotizador-modal,
+  .empleado-detalle,
+  .convertir-pedido-modal,
+  .ingredientes-modal
+) {
+  border-radius: 18px;
+}
+
+/* El fondo nunca debe crear un scroll horizontal accidental. */
+html,
+body,
+#root {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+@media (max-width: 777px) {
+  :root {
+    --sc-heading-size: 27px;
+    --sc-control-height: 42px;
+  }
+
+  :where(
+    .productos-header,
+    .insumos-header,
+    .recetas-header,
+    .cotizador-header,
+    .pedidos-header,
+    .empleados-header,
+    .calendario-header,
+    .negocios-header,
+    .perfil-header,
+    .configuracion-header
+  ) h1 {
+    letter-spacing: -0.025em;
+  }
+}
+
+html[data-theme="oscuro"] :where(
+  .btn-cancelar,
+  .insumo-btn-cancelar,
+  .receta-btn-cancelar,
+  .cotizador-btn-cancelar,
+  .empleado-btn-cancelar,
+  .pedido-btn-secondary,
+  .configuracion-secondary,
+  .perfil-security-cancel,
+  .perfil-danger-cancel,
+  .conversor-btn-limpiar
+) {
+  background: var(--sc-surface-soft);
+  color: #e4d5ef;
+  border-color: var(--sc-border-strong);
+}
+
+html[data-theme="oscuro"] :where(
+  .btn-cancelar,
+  .insumo-btn-cancelar,
+  .receta-btn-cancelar,
+  .cotizador-btn-cancelar,
+  .empleado-btn-cancelar,
+  .pedido-btn-secondary,
+  .configuracion-secondary,
+  .perfil-security-cancel,
+  .perfil-danger-cancel,
+  .conversor-btn-limpiar
+):hover:not(:disabled) {
+  background: #3a2d47;
+  border-color: #8f73ad;
+  color: #fffaff;
+}

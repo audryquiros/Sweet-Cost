@@ -17,15 +17,10 @@ async function hidratarImagenNegocio(negocio) {
   }
 }
 
-// Fallback inicial. Los datos reales se sincronizan desde db.json al iniciar la app.
-export const NEGOCIOS = [
-  {
-    id: "dulces-momentos",
-    nombre: "Dulces Momentos",
-    tipo: "Repostería",
-    imagen: "",
-  },
-];
+// La lista se hidrata exclusivamente desde JSON Server.
+// No se mantienen negocios de demostración aquí para evitar que una cuenta
+// pueda ver por un instante información de otra cuenta mientras carga la sesión.
+export const NEGOCIOS = [];
 
 function getUsuarioSesion() {
   try {

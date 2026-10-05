@@ -56,3 +56,23 @@ La ruta `/recuperar-contrasena` envía un POST al webhook definido en `VITE_N8N_
 - `/negocios`: permite al administrador consultar, seleccionar y agregar negocios asociados.
 - `/recuperar-contrasena`: envía la solicitud al webhook de n8n definido en `VITE_N8N_RECUPERACION_URL`.
 - `/restablecer-contrasena?token=...`: recibe el token enviado por n8n y envía la nueva contraseña al webhook definido en `VITE_N8N_RESTABLECER_URL`.
+
+## Accesibilidad y responsive
+Sweet Cost incluye:
+- modo claro y oscuro;
+- tamaño de texto pequeño, medio y grande;
+- soporte semántico/ARIA en controles interactivos;
+- adaptación de colores para protanopia, deuteranopia y tritanopia;
+- estados acompañados por texto o iconografía, no únicamente por color;
+- layouts para móvil, tablet y escritorio.
+
+## Endpoint externo
+El módulo **Configuración → Costos y precios** consulta un tipo de cambio de referencia USD/CRC mediante la API pública de Frankfurter desde `src/services/tipoCambioServices.js`. La consulta es informativa y no modifica precios ni datos almacenados en JSON Server.
+
+## Pruebas unitarias
+El proyecto incluye pruebas Jest para:
+- inicio de sesión;
+- registro de productos;
+- registro de insumos;
+- revisión y clasificación de una factura analizada con IA;
+- protección de rutas según el rol.

@@ -661,3 +661,67 @@ html[data-tts="on"] :where(h1,h2,h3,h4,h5,h6,p,li,label,small,strong,span,a,td,t
     flex-wrap: wrap;
   }
 }
+
+
+.configuracion-exchange-card {
+  margin-top: 18px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid var(--sc-border);
+  border-radius: 12px;
+  background: var(--sc-surface-soft);
+}
+
+.configuracion-exchange-card .configuracion-card-label {
+  margin-bottom: 4px;
+  font-size: calc(9px * var(--sc-font-scale, 1));
+}
+
+.configuracion-exchange-card > div:first-child > strong {
+  display: block;
+  font-size: calc(13px * var(--sc-font-scale, 1));
+}
+
+.configuracion-exchange-card p {
+  max-width: 620px;
+  margin: 5px 0 0;
+  color: var(--sc-text-soft);
+  font-size: calc(10px * var(--sc-font-scale, 1));
+  line-height: 1.45;
+}
+
+.configuracion-exchange-value {
+  flex: 0 0 auto;
+  min-width: 150px;
+  text-align: right;
+}
+
+.configuracion-exchange-value strong {
+  display: block;
+  color: var(--sc-primary-dark);
+  font-size: calc(22px * var(--sc-font-scale, 1));
+  line-height: 1.1;
+}
+
+.configuracion-exchange-value small,
+.configuracion-exchange-value > span {
+  display: block;
+  margin-top: 4px;
+  color: var(--sc-text-soft);
+  font-size: calc(9px * var(--sc-font-scale, 1));
+}
+
+@media (max-width: 650px) {
+  .configuracion-exchange-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .configuracion-exchange-value {
+    min-width: 0;
+    text-align: left;
+  }
+}

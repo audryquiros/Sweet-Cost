@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   BrowserRouter,
   Navigate,
@@ -35,16 +35,28 @@ import { cargarNegociosDesdeServidor } from "../context/negocioContext";
 import { speechSupported, enableHoverTextReading, stopSpeech } from "../utils/textToSpeech";
 
 const ADMIN = ["administrador"];
-const EMPLEADO = ["empleado"];
 const AMBOS = ["administrador", "empleado"];
 
 function AppContent() {
   const { usuario, autenticado } = useAuth();
   const location = useLocation();
+  const [negocioVersion, setNegocioVersion] = useState(0);
 
   const esAcceso =
     location.pathname === "/login" ||
     location.pathname === "/seleccionar-negocio";
+
+  useEffect(() => {
+    const handleNegocioCambio = () => {
+      // Remonta la vista actual al cambiar de negocio para que cualquier
+      // módulo que cargue datos al montarse vuelva a consultar el negocio
+      // activo sin depender de un refresh del navegador.
+      setNegocioVersion((actual) => actual + 1);
+    };
+
+    window.addEventListener("sweetcost-negocio-cambio", handleNegocioCambio);
+    return () => window.removeEventListener("sweetcost-negocio-cambio", handleNegocioCambio);
+  }, []);
 
   useEffect(() => {
     if (!autenticado) return;
@@ -97,7 +109,7 @@ function AppContent() {
       {autenticado && !esAcceso && <AsistenteIA />}
 
       <div className={autenticado && !esAcceso ? "app-shell" : ""}>
-        <Routes>
+        <Routes key={negocioVersion}>
           {/* Acceso */}
           <Route
             path="/login"

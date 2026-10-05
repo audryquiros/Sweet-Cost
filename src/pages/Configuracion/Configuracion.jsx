@@ -5,6 +5,7 @@ import { getNegocioActivoId, sincronizarNegocioActivo } from "../../context/nego
 import { guardarImagenNegocio, obtenerImagenNegocio, eliminarImagenNegocio } from "../../utils/imagenStorage";
 import { getNegocioActivoDesdeServidor, updateNegocio } from "../../services/negocioServices";
 import { speakText, speechSupported, stopSpeech } from "../../utils/textToSpeech";
+import { obtenerTipoCambioUSDCRC } from "../../services/tipoCambioServices";
 
 const secciones = [
   { id: "negocio", titulo: "Negocio", descripcion: "Información general de tu negocio." },
@@ -66,6 +67,9 @@ function Configuracion() {
   const [mensajeCostos, setMensajeCostos] = useState("");
   const [procesandoImagenNegocio, setProcesandoImagenNegocio] = useState(false);
   const [imagenNegocioUrl, setImagenNegocioUrl] = useState("");
+  const [tipoCambio, setTipoCambio] = useState(null);
+  const [cargandoTipoCambio, setCargandoTipoCambio] = useState(false);
+  const [errorTipoCambio, setErrorTipoCambio] = useState("");
 
   useEffect(() => {
     aplicarPreferencias({ tema, tamanoTexto, daltonismo });
@@ -82,6 +86,32 @@ function Configuracion() {
   useEffect(() => {
     guardarPreferencia("sweetcost-lectura-texto", String(lecturaTexto));
   }, [lecturaTexto]);
+
+  useEffect(() => {
+    if (!esAdministrador || seccionActiva !== "costos") return undefined;
+
+    let activo = true;
+    setCargandoTipoCambio(true);
+    setErrorTipoCambio("");
+
+    obtenerTipoCambioUSDCRC()
+      .then((resultado) => {
+        if (activo) setTipoCambio(resultado);
+      })
+      .catch((error) => {
+        if (activo) {
+          setTipoCambio(null);
+          setErrorTipoCambio(error.message || "No se pudo consultar el tipo de cambio.");
+        }
+      })
+      .finally(() => {
+        if (activo) setCargandoTipoCambio(false);
+      });
+
+    return () => {
+      activo = false;
+    };
+  }, [esAdministrador, seccionActiva]);
 
   useEffect(() => {
     let activo = true;
@@ -102,7 +132,7 @@ function Configuracion() {
     };
     cargarNegocio();
     return () => { activo = false; };
-  }, []);
+  }, [usuario?.id, usuario?.negocioId]);
 
   useEffect(() => {
     return () => {
@@ -301,6 +331,27 @@ function Configuracion() {
                 <label><span>Margen de ganancia predeterminado (%)</span><input type="number" min="0" max="100" value={margen} onChange={(e) => setMargen(e.target.value)} /></label>
               </div>
               <div className="configuracion-info"><strong>¿Cómo se utiliza?</strong><p>Este valor puede servir como referencia al calcular precios sugeridos. Podrás ajustarlo en cada producto cuando sea necesario.</p></div>
+
+              <div className="configuracion-exchange-card" aria-live="polite">
+                <div>
+                  <span className="configuracion-card-label">Referencia externa</span>
+                  <strong>Tipo de cambio USD / CRC</strong>
+                  <p>Consulta informativa para apoyar la lectura de precios en dólares. No modifica los registros de Sweet Cost.</p>
+                </div>
+                <div className="configuracion-exchange-value">
+                  {cargandoTipoCambio ? (
+                    <span>Consultando...</span>
+                  ) : tipoCambio ? (
+                    <>
+                      <strong>₡{tipoCambio.rate.toLocaleString("es-CR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
+                      <small>por USD · {tipoCambio.date || "último dato disponible"}</small>
+                    </>
+                  ) : (
+                    <span>{errorTipoCambio || "No disponible"}</span>
+                  )}
+                </div>
+              </div>
+
               <div className="configuracion-actions">{mensajeCostos && <p className={`configuracion-feedback ${mensajeCostos.startsWith("Margen") ? "success" : "error"}`} role="status" aria-live="polite">{mensajeCostos}</p>}<button type="button" className="configuracion-primary" onClick={guardarCostos}>Guardar cambios</button></div>
             </div>
           )}

@@ -20,11 +20,19 @@ export async function obtenerProyeccionIA(payload) {
     throw new Error("Configura VITE_N8N_PROYECCION_URL para activar las proyecciones con IA.");
   }
 
-  const response = await fetch(PROYECCION_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
+  let response;
+
+  try {
+    response = await fetch(PROYECCION_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+  } catch {
+    throw new Error(
+      "No se pudo conectar con n8n. Verifica que n8n esté ejecutándose en el puerto 5678 y que el workflow de proyecciones esté activo."
+    );
+  }
 
   return parseResponse(response);
 }

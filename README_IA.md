@@ -9,81 +9,66 @@ Webhook:
 - Método: `POST`
 - Path: `sweet-cost/proyeccion`
 
-El frontend envía:
+El frontend envía únicamente el negocio activo:
 
 ```json
 {
-  "accion": "proyectar_ingresos",
-  "origen": "sweet-cost",
-  "negocio": {
-    "id": "ID",
-    "nombre": "Nombre",
-    "tipo": "Repostería"
-  },
-  "historialMensual": [
-    {
-      "key": "2026-08",
-      "ventas": 120000,
-      "costos": 70000,
-      "ganancia": 50000
-    }
-  ],
-  "resumen": {
-    "ventasRealizadas": 120000,
-    "costosRealizados": 70000,
-    "gananciaRealizada": 50000,
-    "pedidosRealizados": 10,
-    "pedidosPendientes": 3,
-    "cotizacionesPendientes": 2,
-    "stockEnRiesgo": 4,
-    "stockCritico": 1
-  }
+  "negocioId": "ID_DEL_NEGOCIO"
 }
 ```
 
-El workflow de n8n puede ser:
+El workflow de n8n obtiene los datos reales directamente desde JSON Server y los prepara antes de enviarlos a Groq:
 
 ```text
 Webhook
   ↓
-Code / Normalizar datos
+Obtener pedidos
   ↓
-Nodo de IA (Gemini/OpenAI u otro proveedor)
+Obtener productos
   ↓
-Code / Validar JSON
+Obtener insumos
+  ↓
+Preparar datos
+  ↓
+Basic LLM Chain + Groq Chat Model
+  ↓
+Parsear respuesta
   ↓
 Respond to Webhook
 ```
 
-La IA debe devolver JSON, no texto libre:
+El nodo `Preparar datos` filtra los pedidos por `negocioId`, considera como ventas históricas los pedidos `Entregado` o `Pagado`, agrupa ventas/costos por mes y cuenta productos e insumos del negocio. Los pedidos pendientes no se contabilizan como ventas realizadas.
+
+Groq debe devolver únicamente JSON con esta estructura:
 
 ```json
 {
-  "ok": true,
-  "proyeccion": {
-    "mensual": {
-      "ventas": 135000,
-      "ganancia": 58000
-    },
-    "anual": {
-      "ventas": 1620000,
-      "ganancia": 696000
-    }
+  "proyeccionMensual": {
+    "ventas": 0,
+    "costos": 0,
+    "ganancia": 0
   },
-  "analisis": "La tendencia reciente muestra crecimiento moderado...",
-  "factores": [
-    "Crecimiento de ventas recientes",
-    "Margen promedio",
-    "Pedidos pendientes"
-  ]
+  "proyeccionAnual": {
+    "ventas": 0,
+    "costos": 0,
+    "ganancia": 0
+  },
+  "tendencia": "creciente",
+  "confianza": "media",
+  "analisis": "",
+  "factores": []
 }
 ```
 
-El prompt recomendado para el nodo de IA:
+El Dashboard consume directamente `proyeccionMensual` y `proyeccionAnual`, y muestra también la confianza y tendencia calculadas por la IA. Si n8n no responde, el Dashboard mantiene su estimación local como respaldo y muestra el error de conexión.
 
-> Actúa como analista financiero para un pequeño negocio. Analiza exclusivamente los datos proporcionados. Calcula una proyección mensual y anual razonable considerando tendencia reciente, promedio histórico, costos y margen. No inventes ventas, clientes ni datos externos. Si hay pocos datos, indícalo en el análisis y reduce la confianza de la conclusión. Devuelve únicamente JSON válido con las claves `ok`, `proyeccion.mensual.ventas`, `proyeccion.mensual.ganancia`, `proyeccion.anual.ventas`, `proyeccion.anual.ganancia`, `analisis` y `factores`.
+En `.env` se utiliza el webhook de producción cuando el workflow está activo:
 
-El dashboard ya usa esta respuesta y mantiene una estimación local como respaldo si el webhook todavía no está configurado.
+```env
+VITE_N8N_PROYECCION_URL=http://localhost:5678/webhook/sweet-cost/proyeccion
+```
+
+La API key de Groq debe permanecer únicamente en la credencial de n8n, nunca en React.
 
 ---
 
@@ -205,3 +190,13 @@ Cuando los workflows estén activos, cambia las variables a:
 ```text
 http://localhost:5678/webhook/...
 ```
+
+## Conexión local Sweet Cost → n8n
+
+En desarrollo, Sweet Cost usa el proxy de Vite `/n8n` para evitar bloqueos CORS del navegador al llamar a n8n en `localhost:5678`.
+
+- Frontend: `VITE_N8N_PROYECCION_URL=/n8n/webhook/sweet-cost/proyeccion`
+- Vite reenvía `/n8n/*` a `http://localhost:5678/*`
+- El workflow **Sweet Cost - Proyecciones IA** debe estar activo para usar la URL de producción `/webhook/`.
+
+Después de cambiar `.env` o `vite.config.js`, reinicia Vite.

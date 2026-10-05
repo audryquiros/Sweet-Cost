@@ -150,42 +150,34 @@ function Home() {
   }, [historialMensual, periodoProyeccion]);
 
   useEffect(() => {
-    if (!esAdmin || !negocio?.id || !historialMensual.length) {
+    if (!esAdmin || !negocio?.id) {
       setProyeccionIA(null);
+      setProyeccionIAError("");
       return;
     }
 
     let cancelado = false;
+
     const cargarProyeccionIA = async () => {
       setProyeccionIALoading(true);
       setProyeccionIAError("");
+
       try {
+        // n8n obtiene pedidos, productos e insumos directamente desde JSON Server.
+        // Desde React solo enviamos el negocio que está actualmente seleccionado.
         const data = await obtenerProyeccionIA({
-          accion: "proyectar_ingresos",
-          origen: "sweet-cost",
-          negocio: {
-            id: negocio.id,
-            nombre: negocio.nombre,
-            tipo: negocio.tipo,
-          },
-          historialMensual,
-          resumen: {
-            ventasRealizadas: ventas,
-            costosRealizados: costos,
-            gananciaRealizada: ganancia,
-            pedidosRealizados: pedidosReales.length,
-            pedidosPendientes,
-            cotizacionesPendientes: cotizacionesPendientes.length,
-            stockEnRiesgo: stockRiesgo.length,
-            stockCritico: stockPeligro.length,
-          },
+          negocioId: negocio.id,
         });
 
-        if (!cancelado) setProyeccionIA(data);
+        if (!cancelado) {
+          setProyeccionIA(data);
+        }
       } catch (err) {
         if (!cancelado) {
           setProyeccionIA(null);
-          setProyeccionIAError(err.message || "No se pudo obtener la proyección con IA.");
+          setProyeccionIAError(
+            err.message || "No se pudo obtener la proyección con IA."
+          );
         }
       } finally {
         if (!cancelado) setProyeccionIALoading(false);
@@ -193,19 +185,38 @@ function Home() {
     };
 
     cargarProyeccionIA();
-    return () => { cancelado = true; };
-  }, [esAdmin, negocio?.id, historialMensual, ventas, costos, ganancia, pedidosReales.length, pedidosPendientes, cotizacionesPendientes.length, stockRiesgo.length, stockPeligro.length]);
+
+    return () => {
+      cancelado = true;
+    };
+  }, [esAdmin, negocio?.id]);
 
   const proyeccion = useMemo(() => {
-    const mensual = proyeccionIA?.proyeccion?.mensual || proyeccionIA?.mensual;
-    const anual = proyeccionIA?.proyeccion?.anual || proyeccionIA?.anual;
+    // n8n devuelve directamente proyeccionMensual/proyeccionAnual.
+    const mensual = proyeccionIA?.proyeccionMensual;
+    const anual = proyeccionIA?.proyeccionAnual;
     const fuente = periodoProyeccion === "mensual" ? mensual : anual;
+
     if (!fuente) return proyeccionBase;
 
     return {
-      ventas: Number(fuente.ventas ?? fuente.ingresos ?? fuente.ventasProyectadas ?? proyeccionBase.ventas),
-      ganancia: Number(fuente.ganancia ?? fuente.gananciaProyectada ?? proyeccionBase.ganancia),
-      texto: proyeccionIA.analisis || proyeccionIA.explicacion || "Proyección calculada con IA a partir del historial y contexto actual del negocio.",
+      ventas: Number(
+        fuente.ventas ??
+          fuente.ingresos ??
+          fuente.ventasProyectadas ??
+          proyeccionBase.ventas
+      ),
+      costos: Number(
+        fuente.costos ?? proyeccionBase.ventas - proyeccionBase.ganancia
+      ),
+      ganancia: Number(
+        fuente.ganancia ??
+          fuente.gananciaProyectada ??
+          proyeccionBase.ganancia
+      ),
+      texto:
+        proyeccionIA.analisis ||
+        "Proyección calculada con IA a partir del historial y contexto actual del negocio.",
     };
   }, [periodoProyeccion, proyeccionIA, proyeccionBase]);
 
@@ -283,21 +294,38 @@ function Home() {
 
         <article className="home-panel home-forecast-panel">
           <div className="home-panel-heading">
-            <div><span>PROYECCIÓN CON IA</span><h2>Ingresos esperados</h2></div>
+            <div><span>PROYECCIÓN CON IA</span><h2>Proyección financiera</h2></div>
             <div className="home-panel-actions">
               <div className="home-period-toggle"><button type="button" className={periodoProyeccion==="mensual"?"active":""} onClick={()=>setPeriodoProyeccion("mensual")}>Mensual</button><button type="button" className={periodoProyeccion==="anual"?"active":""} onClick={()=>setPeriodoProyeccion("anual")}>Anual</button></div>
             </div>
           </div>
           <div className="home-forecast-body">
             {proyeccionIALoading ? (
-              <div className="home-forecast-ai-state">Analizando el historial del negocio...</div>
+              <div className="home-forecast-ai-state">Analizando los datos reales del negocio...</div>
             ) : (
               <>
                 <div className="home-forecast-value">{money(proyeccion.ventas)}</div>
                 <span>ventas proyectadas</span>
-                <div className="home-forecast-profit"><strong>{money(proyeccion.ganancia)}</strong><span>ganancia proyectada</span></div>
-                <p>{proyeccion.texto}</p>
-                <small>{proyeccionIA ? "Proyección generada con IA a partir de ventas, costos y contexto del negocio." : (proyeccionIAError || "Configura el webhook de IA para reemplazar la estimación local.")}</small>
+                <div className="home-forecast-profit">
+                  <strong>{money(proyeccion.ganancia)}</strong>
+                  <span>ganancia proyectada</span>
+                </div>
+                <p className="home-forecast-analysis">{proyeccion.texto}</p>
+                {proyeccionIA && (
+                  <small className="home-forecast-source">Generada con IA a partir del historial real de ventas, costos y pedidos.</small>
+                )}
+                {proyeccionIA ? (
+                  <div className="home-forecast-ai-meta">
+                    <span className={`home-forecast-badge home-forecast-badge--${proyeccionIA.confianza || "baja"}`}>
+                      Confianza: {proyeccionIA.confianza || "baja"}
+                    </span>
+                    <span className="home-forecast-trend">
+                      Tendencia: {proyeccionIA.tendencia || "insuficiente"}
+                    </span>
+                  </div>
+                ) : (
+                  <small>{proyeccionIAError || "No fue posible obtener la proyección con IA."}</small>
+                )}
               </>
             )}
           </div>

@@ -207,6 +207,12 @@
   color: #fff;
   cursor: pointer;
   font-weight: 800;
+  transition: transform .18s ease, filter .18s ease, opacity .18s ease;
+}
+
+.ai-invoice-confirm:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(.97);
 }
 
 .ai-chat-file {
@@ -327,4 +333,200 @@
 .ai-chat-close {
   display: grid;
   place-items: center;
+}
+
+.ai-invoice-review {
+  margin-top: 2px;
+}
+
+.ai-invoice-review__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 12px;
+}
+
+.ai-invoice-review__intro strong,
+.ai-review-section__header strong {
+  color: var(--sc-text);
+  font-size: 13px;
+}
+
+.ai-invoice-review__intro span,
+.ai-review-section__header span {
+  color: var(--sc-text-soft);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.ai-invoice-form-grid,
+.ai-review-item__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.ai-invoice-form-grid label,
+.ai-review-item__grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  color: var(--sc-text-soft);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.ai-invoice-form-grid input,
+.ai-invoice-form-grid select,
+.ai-review-item__grid input,
+.ai-review-item__grid select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 8px 9px;
+  border: 1px solid var(--sc-border-strong);
+  border-radius: 8px;
+  background: var(--sc-surface);
+  color: var(--sc-text);
+  font: inherit;
+  font-size: 11px;
+  outline: none;
+}
+
+.ai-invoice-form-grid input:focus,
+.ai-invoice-form-grid select:focus,
+.ai-review-item__grid input:focus,
+.ai-review-item__grid select:focus {
+  border-color: var(--sc-primary);
+}
+
+.ai-review-section {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--sc-border);
+}
+
+.ai-review-section__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 9px;
+}
+
+.ai-review-section__header > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ai-review-add {
+  flex: 0 0 auto;
+  padding: 7px 9px;
+  border: 1px solid var(--sc-border-strong);
+  border-radius: 8px;
+  background: var(--sc-surface-soft);
+  color: var(--sc-primary-dark);
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.ai-review-items {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.ai-review-item {
+  padding: 10px;
+  border: 1px solid var(--sc-border);
+  border-radius: 11px;
+  background: var(--sc-surface-soft);
+}
+
+.ai-review-item__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 9px;
+}
+
+.ai-review-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--sc-text);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.ai-review-check input {
+  accent-color: var(--sc-primary);
+}
+
+.ai-review-remove {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--sc-border);
+  border-radius: 7px;
+  background: var(--sc-surface);
+  color: var(--sc-text-soft);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.ai-review-item__wide {
+  grid-column: 1 / -1;
+}
+
+.ai-review-empty {
+  padding: 12px;
+  border: 1px dashed var(--sc-border-strong);
+  border-radius: 9px;
+  color: var(--sc-text-soft);
+  font-size: 11px;
+  text-align: center;
+}
+
+.ai-review-summary {
+  margin-top: 12px;
+  padding: 10px 0 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid var(--sc-border);
+  color: var(--sc-text-soft);
+  font-size: 11px;
+}
+
+.ai-review-summary strong {
+  color: var(--sc-text);
+  font-size: 14px;
+}
+
+.ai-invoice-preview--confirmed {
+  border-color: var(--sc-primary);
+}
+
+.ai-invoice-review .ai-invoice-confirm {
+  margin-top: 13px;
+}
+
+@media (max-width: 470px) {
+  .ai-invoice-form-grid,
+  .ai-review-item__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-review-item__wide {
+    grid-column: auto;
+  }
+
+  .ai-review-section__header {
+    flex-direction: column;
+  }
 }

@@ -142,36 +142,11 @@ Respuesta esperada:
 
 ### Confirmar registro
 
-Cuando el administrador pulsa **Confirmar y registrar factura**, el frontend vuelve a llamar al mismo webhook con:
+Cuando el administrador pulsa **Confirmar y registrar factura**, el frontend registra directamente la factura confirmada en JSON Server. Esto evita guardar información antes de la revisión y mantiene n8n dedicado al análisis con IA.
 
-```json
-{
-  "accion": "confirmar_factura",
-  "mensaje": "Confirmar registro de la factura.",
-  "negocioId": "ID_NEGOCIO",
-  "empleadoId": "ID_ADMIN",
-  "factura": {
-    "proveedor": "Proveedor",
-    "numero": "FAC-001",
-    "fecha": "2026-10-02",
-    "total": 12500,
-    "moneda": "₡",
-    "items": []
-  }
-}
-```
+El servicio `src/services/facturaServices.js` valida los campos mínimos, comprueba que no exista otra factura con el mismo número dentro del negocio activo y crea el registro en `/facturas`.
 
-El workflow debe:
-
-```text
-Webhook
-  ↓
-Validar factura
-  ↓
-HTTP Request → JSON Server /facturas
-  ↓
-Respond to Webhook
-```
+El registro guarda: `negocioId`, proveedor, número, fecha, moneda, subtotal, descuento, impuesto, total, productos, usuario que confirmó, fecha de registro y origen `facturas-ia`.
 
 La colección `facturas` ya fue agregada a `db.json`.
 
@@ -200,3 +175,18 @@ En desarrollo, Sweet Cost usa el proxy de Vite `/n8n` para evitar bloqueos CORS 
 - El workflow **Sweet Cost - Proyecciones IA** debe estar activo para usar la URL de producción `/webhook/`.
 
 Después de cambiar `.env` o `vite.config.js`, reinicia Vite.
+
+## Revisión y alta de inventario desde Facturas IA
+
+Después del análisis de una factura, Sweet Cost no registra automáticamente sus líneas. El administrador recibe un formulario de revisión dentro del chatbox donde puede:
+
+- editar proveedor, número, fecha, moneda y totales;
+- editar cada línea de la factura;
+- decidir si cada línea se agrega al inventario;
+- clasificar cada línea como **Insumo** o **Producto**;
+- indicar unidad, cantidad, precio y total;
+- en productos, indicar tipo de producto y marca;
+- en insumos, indicar presentación;
+- agregar líneas manualmente o eliminarlas.
+
+Al confirmar, primero se registra la factura y después se crean los insumos/productos seleccionados. Si una de esas operaciones falla, el frontend intenta revertir los registros creados para evitar datos incompletos.

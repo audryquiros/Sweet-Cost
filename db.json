@@ -364,10 +364,13 @@
       "precioPorUnidadVenta": 1507.797188061055,
       "fecha": "2026-09-10T05:19:33.801Z",
       "id": "uLtb1lnK_7A",
-      "estado": "Pendiente",
+      "estado": "Aceptada",
       "negocioId": "dulces-momentos",
       "empleadoId": "emp-001",
-      "empleadoNombre": "María Rodrígues"
+      "empleadoNombre": "María Rodrígues",
+      "pedidoId": "lLqH4htbUYw",
+      "cliente": "Audry Quirós",
+      "telefono": "61151187"
     }
   ],
   "pedidos": [
@@ -419,6 +422,55 @@
       "empleadoNombre": "María Rodrígues",
       "cotizacionEmpleadoId": "emp-001",
       "cotizacionEmpleadoNombre": "María Rodrígues"
+    },
+    {
+      "empleadoId": "emp-001",
+      "empleadoNombre": "María Rodríguez",
+      "cotizacionEmpleadoId": "emp-001",
+      "cotizacionEmpleadoNombre": "María Rodrígues",
+      "cotizacionId": "uLtb1lnK_7A",
+      "cotizacionNombre": "Combo del dia del niño",
+      "cliente": "Audry Quirós",
+      "telefono": "61151187",
+      "recetaId": "Iw41VSxxpIk",
+      "recetaNombre": "Mini donas",
+      "cantidadAVender": 15,
+      "unidadesIncluidas": 10,
+      "cantidadTotalProductos": 150,
+      "extrasModo": "estandar",
+      "toppings": [],
+      "salsas": [],
+      "extras": [],
+      "insumos": [
+        {
+          "insumoId": "-_NDPxfEJ3M",
+          "cantidadPorEnvase": 1,
+          "cantidadTotal": 15
+        },
+        {
+          "insumoId": "5YxIMLmkmOE",
+          "cantidadPorEnvase": 2,
+          "cantidadTotal": 30
+        },
+        {
+          "insumoId": "P3TNtweyFtw",
+          "cantidadPorEnvase": 2,
+          "cantidadTotal": 30
+        }
+      ],
+      "costoTotal": 17397.65986224294,
+      "precioSugerido": 22616.957820915824,
+      "deposito": 6785.087346274747,
+      "depositoPorcentaje": 30,
+      "saldo": 15831.870474641077,
+      "fechaPedido": "2026-10-05T03:01:20.543Z",
+      "fechaEntrega": "2026-11-04",
+      "horaEntrega": "20:00",
+      "metodoPago": "SINPE",
+      "estado": "Pendiente",
+      "observaciones": "",
+      "negocioId": "dulces-momentos",
+      "id": "lLqH4htbUYw"
     }
   ],
   "empleados": [
@@ -633,5 +685,6 @@
       "id": "y6utcxcf_uI"
     }
   ],
+  "facturas": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

@@ -8,6 +8,7 @@ import { getEmpleados } from "../../services/empleadoServices";
 import { getAsistencias, registrarIngreso, registrarSalida } from "../../services/asistenciaServices";
 import { useAuth } from "../../context/authContext";
 import { getNegocioActivo } from "../../context/negocioContext";
+import { obtenerProyeccionIA } from "../../services/aiServices";
 import "./Home.css";
 
 const money = (value) => `₡${Number(value || 0).toLocaleString("es-CR", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
@@ -29,6 +30,9 @@ function Home() {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
   const [periodoProyeccion, setPeriodoProyeccion] = useState("mensual");
+  const [proyeccionIA, setProyeccionIA] = useState(null);
+  const [proyeccionIALoading, setProyeccionIALoading] = useState(false);
+  const [proyeccionIAError, setProyeccionIAError] = useState("");
   const [periodoEntregas, setPeriodoEntregas] = useState("semanal");
   const [asistencias, setAsistencias] = useState([]);
   const [guardandoAsistencia, setGuardandoAsistencia] = useState(false);
@@ -129,13 +133,81 @@ function Home() {
     return [...map.values()].sort((a,b)=>a.key.localeCompare(b.key)).slice(-6).map(x=>({...x,ganancia:x.ventas-x.costos}));
   }, [pedidosReales]);
 
-  const proyeccion = useMemo(() => {
+  const proyeccionBase = useMemo(() => {
     const conDatos = historialMensual.filter(x=>x.ventas>0);
     const base = conDatos.length ? conDatos.reduce((s,x)=>s+x.ventas,0)/conDatos.length : 0;
     const margenPromedio = conDatos.length ? conDatos.reduce((s,x)=>s+x.ganancia,0)/conDatos.length : 0;
-    if(periodoProyeccion === "mensual") return { ventas:base, ganancia:margenPromedio, texto:conDatos.length >= 3 ? "Promedio de los últimos meses con ventas realizadas." : "Estimación basada en las ventas realizadas disponibles." };
-    return { ventas:base*12, ganancia:margenPromedio*12, texto:"Proyección anualizada a partir del promedio mensual de ventas realizadas." };
+    if(periodoProyeccion === "mensual") return {
+      ventas:base,
+      ganancia:margenPromedio,
+      texto:conDatos.length >= 3 ? "Estimación local basada en el historial de ventas." : "Estimación local basada en las ventas disponibles.",
+    };
+    return {
+      ventas:base*12,
+      ganancia:margenPromedio*12,
+      texto:"Estimación local anualizada a partir del promedio mensual.",
+    };
   }, [historialMensual, periodoProyeccion]);
+
+  useEffect(() => {
+    if (!esAdmin || !negocio?.id || !historialMensual.length) {
+      setProyeccionIA(null);
+      return;
+    }
+
+    let cancelado = false;
+    const cargarProyeccionIA = async () => {
+      setProyeccionIALoading(true);
+      setProyeccionIAError("");
+      try {
+        const data = await obtenerProyeccionIA({
+          accion: "proyectar_ingresos",
+          origen: "sweet-cost",
+          negocio: {
+            id: negocio.id,
+            nombre: negocio.nombre,
+            tipo: negocio.tipo,
+          },
+          historialMensual,
+          resumen: {
+            ventasRealizadas: ventas,
+            costosRealizados: costos,
+            gananciaRealizada: ganancia,
+            pedidosRealizados: pedidosReales.length,
+            pedidosPendientes,
+            cotizacionesPendientes: cotizacionesPendientes.length,
+            stockEnRiesgo: stockRiesgo.length,
+            stockCritico: stockPeligro.length,
+          },
+        });
+
+        if (!cancelado) setProyeccionIA(data);
+      } catch (err) {
+        if (!cancelado) {
+          setProyeccionIA(null);
+          setProyeccionIAError(err.message || "No se pudo obtener la proyección con IA.");
+        }
+      } finally {
+        if (!cancelado) setProyeccionIALoading(false);
+      }
+    };
+
+    cargarProyeccionIA();
+    return () => { cancelado = true; };
+  }, [esAdmin, negocio?.id, historialMensual, ventas, costos, ganancia, pedidosReales.length, pedidosPendientes, cotizacionesPendientes.length, stockRiesgo.length, stockPeligro.length]);
+
+  const proyeccion = useMemo(() => {
+    const mensual = proyeccionIA?.proyeccion?.mensual || proyeccionIA?.mensual;
+    const anual = proyeccionIA?.proyeccion?.anual || proyeccionIA?.anual;
+    const fuente = periodoProyeccion === "mensual" ? mensual : anual;
+    if (!fuente) return proyeccionBase;
+
+    return {
+      ventas: Number(fuente.ventas ?? fuente.ingresos ?? fuente.ventasProyectadas ?? proyeccionBase.ventas),
+      ganancia: Number(fuente.ganancia ?? fuente.gananciaProyectada ?? proyeccionBase.ganancia),
+      texto: proyeccionIA.analisis || proyeccionIA.explicacion || "Proyección calculada con IA a partir del historial y contexto actual del negocio.",
+    };
+  }, [periodoProyeccion, proyeccionIA, proyeccionBase]);
 
   const empleadoTop = useMemo(() => {
     const map=new Map();
@@ -210,8 +282,25 @@ function Home() {
         </article>
 
         <article className="home-panel home-forecast-panel">
-          <div className="home-panel-heading"><div><span>PROYECCIÓN</span><h2>Estimación de ingresos</h2></div><div className="home-period-toggle"><button className={periodoProyeccion==="mensual"?"active":""} onClick={()=>setPeriodoProyeccion("mensual")}>Mensual</button><button className={periodoProyeccion==="anual"?"active":""} onClick={()=>setPeriodoProyeccion("anual")}>Anual</button></div></div>
-          <div className="home-forecast-body"><div className="home-forecast-value">{money(proyeccion.ventas)}</div><span>ventas proyectadas</span><div className="home-forecast-profit"><strong>{money(proyeccion.ganancia)}</strong><span>ganancia proyectada</span></div><p>{proyeccion.texto}</p><small>No es una predicción automática: es una estimación basada en ventas realizadas registradas.</small></div>
+          <div className="home-panel-heading">
+            <div><span>PROYECCIÓN CON IA</span><h2>Ingresos esperados</h2></div>
+            <div className="home-panel-actions">
+              <div className="home-period-toggle"><button type="button" className={periodoProyeccion==="mensual"?"active":""} onClick={()=>setPeriodoProyeccion("mensual")}>Mensual</button><button type="button" className={periodoProyeccion==="anual"?"active":""} onClick={()=>setPeriodoProyeccion("anual")}>Anual</button></div>
+            </div>
+          </div>
+          <div className="home-forecast-body">
+            {proyeccionIALoading ? (
+              <div className="home-forecast-ai-state">Analizando el historial del negocio...</div>
+            ) : (
+              <>
+                <div className="home-forecast-value">{money(proyeccion.ventas)}</div>
+                <span>ventas proyectadas</span>
+                <div className="home-forecast-profit"><strong>{money(proyeccion.ganancia)}</strong><span>ganancia proyectada</span></div>
+                <p>{proyeccion.texto}</p>
+                <small>{proyeccionIA ? "Proyección generada con IA a partir de ventas, costos y contexto del negocio." : (proyeccionIAError || "Configura el webhook de IA para reemplazar la estimación local.")}</small>
+              </>
+            )}
+          </div>
         </article>
       </section>
 

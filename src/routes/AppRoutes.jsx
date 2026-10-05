@@ -27,6 +27,7 @@ import NoAccess from "../pages/NoAccess/NoAccess";
 import NotFound from "../pages/NotFound/NotFound";
 
 import Nav from "../components/Nav/Nav";
+import AsistenteIA from "../components/AsistenteIA/AsistenteIA";
 import PrivateRoute from "./PrivateRoute";
 
 import { getPendingBusinesses, useAuth } from "../context/authContext";
@@ -92,6 +93,7 @@ function AppContent() {
   return (
     <>
       {autenticado && !esAcceso && <Nav />}
+      {autenticado && !esAcceso && <AsistenteIA />}
 
       <div className={autenticado && !esAcceso ? "app-shell" : ""}>
         <Routes>

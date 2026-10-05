@@ -67,3 +67,19 @@
   padding: 5px;
   box-sizing: border-box;
 }
+
+.home-forecast-ai-state {
+  min-height: 170px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--sc-text-soft);
+  font-weight: 700;
+}
+
+.home-forecast-panel .home-panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+

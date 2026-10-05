@@ -504,85 +504,18 @@
       "foto": "/avatars/avatar-13.png"
     },
     {
-      "id": "emp-003",
-      "nombre": "Sofía Vargas",
-      "correo": "sofia.vargas@sweetcost.demo",
-      "telefono": "8888-1003",
-      "rol": "empleado",
-      "estado": "inactivo",
-      "negocioId": "dulces-momentos",
-      "negocioIds": [
-        "dulces-momentos"
-      ],
-      "clave": "empleado123"
-    },
-    {
-      "nombre": "Audry",
-      "correo": "audryquirosc@gmail.com",
-      "telefono": "6115-1187",
-      "rol": "empleado",
-      "estado": "activo",
-      "clave": "audry123456",
-      "negocioIds": [
-        "RsRquvroivA"
-      ],
-      "negocioId": "RsRquvroivA",
-      "id": "JLr6vSPuCcY"
-    },
-    {
-      "id": "NU3wex2tUr4",
-      "nombre": "Heraclio Lopez",
-      "correo": "herlpz@gmail.com",
-      "telefono": "61151111",
-      "rol": "administrador",
-      "estado": "activo",
-      "foto": "/illustrations/perfil.png",
-      "negocioId": "-VUKJi305Mw",
-      "negocioIds": [
-        "-VUKJi305Mw"
-      ],
-      "clave": "hera123456"
-    },
-    {
-      "id": "FluUeHjfWLA",
-      "nombre": "Steven Salas",
-      "correo": "ssalasl@fwdcostarica.com",
-      "telefono": "86621066",
-      "rol": "administrador",
-      "estado": "activo",
-      "foto": "/illustrations/perfil.png",
-      "negocioId": "neg-1790951672719-xg00r",
-      "negocioIds": [
-        "neg-1790951672719-xg00r"
-      ],
-      "clave": "12345678."
-    },
-    {
-      "nombre": "Galleta original",
-      "correo": "rossman@gmail.com",
-      "telefono": "8888-1001",
-      "rol": "empleado",
-      "estado": "activo",
-      "negocioId": "dulces-momentos",
-      "negocioIds": [
-        "dulces-momentos"
-      ],
-      "clave": "123456789",
-      "id": "rNrJRcWOaIo"
-    },
-    {
       "nombre": "Audry Quiros",
-      "correo": "maryquiros206@live.com",
+      "correo": "audryquirosc@gmail.com",
       "telefono": "61151187",
       "rol": "administrador",
       "estado": "activo",
       "foto": "/illustrations/perfil.png",
-      "negocioId": "kXNHkiZEPII",
+      "negocioId": "ygGaPisFKFk",
       "negocioIds": [
-        "kXNHkiZEPII"
+        "ygGaPisFKFk"
       ],
-      "clave": "1234567",
-      "id": "e83F_wNxfVI"
+      "clave": "12345678",
+      "id": "s9Nv9exWYZ8"
     }
   ],
   "negocios": [
@@ -605,31 +538,13 @@
       "administradorId": "emp-001"
     },
     {
-      "id": "-VUKJi305Mw",
-      "administradorId": "NU3wex2tUr4",
-      "nombre": "Panciro",
-      "tipo": "Panadería",
-      "telefono": "66225533",
-      "correo": "panciro@gmail.com",
-      "margenGanancia": 30
-    },
-    {
-      "id": "wcltwr3cLjg",
-      "administradorId": "FluUeHjfWLA",
-      "nombre": "WEDS Techno",
-      "tipo": "Soda",
-      "telefono": "86621066",
-      "correo": "ssalasl@fwdcostarica.com",
-      "margenGanancia": 30
-    },
-    {
       "nombre": "Sweet Marie",
       "tipo": "Repostería",
       "telefono": "61151187",
-      "correo": "maryquiros206@gmail.com",
+      "correo": "audryquirosc@gmail.com",
       "margenGanancia": 30,
-      "administradorId": "e83F_wNxfVI",
-      "id": "kXNHkiZEPII"
+      "administradorId": "s9Nv9exWYZ8",
+      "id": "ygGaPisFKFk"
     }
   ],
   "asistencias": [
@@ -643,48 +558,7 @@
       "id": "-SSfn-Uc7DA"
     }
   ],
-  "recuperaciones": [
-    {
-      "empleadoId": "=JLr6vSPuCcY",
-      "correo": "=audryquirosc@gmail.com",
-      "token": "=i2ziZdNe8rN5ocLJWMEEH3R1jnS3knOzeoZ084FY28Fga1geY13zOYOV2R4LOyTa",
-      "expira": "=2026-10-01T21:24:27.481Z",
-      "usado": false,
-      "id": "colCJwFFDmU"
-    },
-    {
-      "empleadoId": "=JLr6vSPuCcY",
-      "correo": "=audryquirosc@gmail.com",
-      "token": "=BBKMWV9MZgIa6S9iMPQ737v1iY6cWkQUB2p6MdSyy9e8v0fKWcAk424uwtVQED5t",
-      "expira": "=2026-10-01T21:28:52.782Z",
-      "usado": false,
-      "id": "JxjPJfxS6I8"
-    },
-    {
-      "empleadoId": "=JLr6vSPuCcY",
-      "correo": "=audryquirosc@gmail.com",
-      "token": "=CMUyVftYi5jnqCB25UQvBx9DOCo8yfhDzYFCylPgnjRoWtSIr25KGew8ksMoHrIY",
-      "expira": "=2026-10-01T21:33:25.649Z",
-      "usado": false,
-      "id": "jjZzaCRdGJs"
-    },
-    {
-      "empleadoId": "=FluUeHjfWLA",
-      "correo": "=ssalasl@fwdcostarica.com",
-      "token": "=cPMfFkhbNacpvjMsYD1dF4f0ZJDuNySa0LYJhQvbU8YTAlCMd1XLj9KFTEIMVGZX",
-      "expira": "=2026-10-02T15:03:32.844Z",
-      "usado": false,
-      "id": "tUo7k8_6ZKI"
-    },
-    {
-      "empleadoId": "=JLr6vSPuCcY",
-      "correo": "=audryquirosc@gmail.com",
-      "token": "=1nS48nZEbzUF8AN6zQY5QJlKzLGSYAWcDkqu4O5NZW1yDA4M1B4OhiQDlVtb8YAX",
-      "expira": "=2026-10-02T15:41:49.942Z",
-      "usado": false,
-      "id": "y6utcxcf_uI"
-    }
-  ],
+  "recuperaciones": [],
   "facturas": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

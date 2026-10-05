@@ -553,3 +553,5 @@ export default function AsistenteIA() {
     </div>
   );
 }
+
+export { FacturaRevision };

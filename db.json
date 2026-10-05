@@ -558,7 +558,16 @@
       "id": "-SSfn-Uc7DA"
     }
   ],
-  "recuperaciones": [],
+  "recuperaciones": [
+    {
+      "empleadoId": "=s9Nv9exWYZ8",
+      "correo": "=audryquirosc@gmail.com",
+      "token": "=Rfqb1YGNIcE3Tg3ukGV59aYv0XevM7vP6xQiY0MvOCXnDnx1N1TiBKCwEgv47pdh",
+      "expira": "=2026-10-05T20:32:25.000Z",
+      "usado": false,
+      "id": "Em4oGA_SPmA"
+    }
+  ],
   "facturas": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

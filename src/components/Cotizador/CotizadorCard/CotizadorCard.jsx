@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 
 import Icon from "../../common/Icon/Icon";
+import ImportadorPDF from "../../ImportadorPDF/ImportadorPDF";
 
 import "./CotizadorCard.css";
 
 function CotizadorCard({
   cotizacion,
   insumos = [],
+  productos = [],
   onEliminar,
   onConvertirPedido,
   abrirDetalles = false,
 }) {
   const [mostrarDetalles, setMostrarDetalles] =
     useState(false);
+  const [tipoDocumento, setTipoDocumento] = useState(null);
 
   useEffect(() => {
     if (abrirDetalles) {
@@ -90,9 +93,7 @@ function CotizadorCard({
       extra.tipo === "salsa"
   );
 
-  const imprimirCotizacion = () => {
-    window.print();
-  };
+
 
   return (
     <>
@@ -816,15 +817,23 @@ function CotizadorCard({
               <button
                 type="button"
                 className="cotizador-modal-btn-imprimir"
-                onClick={
-                  imprimirCotizacion
-                }
+                onClick={() => setTipoDocumento("cotizacion")}
               >
-                Imprimir / Guardar PDF
+                Imprimir cotización
               </button>
             </div>
           </div>
         </div>
+      )}
+
+      {tipoDocumento && (
+        <ImportadorPDF
+          cotizacion={cotizacion}
+          productos={productos}
+          insumos={insumos}
+          tipoDocumento={tipoDocumento}
+          onCerrar={() => setTipoDocumento(null)}
+        />
       )}
     </>
   );

@@ -3,7 +3,7 @@ import Icon from "../../common/Icon/Icon";
 import EmptyState from "../../common/EmptyState/EmptyState";
 import "./CotizadorList.css";
 
-function CotizadorList({ cotizaciones, insumos, onEliminar, onConvertirPedido, vista = "cards", cotizacionIdParaAbrir }) {
+function CotizadorList({ cotizaciones, insumos, productos, onEliminar, onConvertirPedido, vista = "cards", cotizacionIdParaAbrir }) {
   if (cotizaciones.length === 0) {
     return (
       <EmptyState
@@ -44,6 +44,7 @@ function CotizadorList({ cotizaciones, insumos, onEliminar, onConvertirPedido, v
           key={cotizacion.id}
           cotizacion={cotizacion}
           insumos={insumos}
+          productos={productos}
           onEliminar={onEliminar}
           onConvertirPedido={onConvertirPedido}
           abrirDetalles={String(cotizacion.id) === String(cotizacionIdParaAbrir)}

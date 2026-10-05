@@ -330,6 +330,7 @@ function Cotizador() {
             cotizaciones
           }
           insumos={insumos}
+          productos={productos}
           onEliminar={
             handleEliminar
           }

@@ -260,6 +260,42 @@
       "precio": 600,
       "id": "P3TNtweyFtw",
       "negocioId": "dulces-momentos"
+    },
+    {
+      "nombre": "TAPA SUNDAY 902",
+      "presentacion": "",
+      "cantidad": 15,
+      "unidad": "unidad",
+      "precio": 375,
+      "negocioId": "dulces-momentos",
+      "id": "021Cp7Bz_7E"
+    },
+    {
+      "nombre": "TAPA DOHO STN HUECO 02MM",
+      "presentacion": "",
+      "cantidad": 15,
+      "unidad": "unidad",
+      "precio": 375,
+      "negocioId": "dulces-momentos",
+      "id": "rsBF04aTM4g"
+    },
+    {
+      "nombre": "CONI BIO/VLNI HFP #0 1000ML",
+      "presentacion": "",
+      "cantidad": 1,
+      "unidad": "unidad",
+      "precio": 2475,
+      "negocioId": "dulces-momentos",
+      "id": "I1uaRQZuG3Q"
+    },
+    {
+      "nombre": "BOLSA DE EMPAQUE 10X20 Y 12X25",
+      "presentacion": "",
+      "cantidad": 1,
+      "unidad": "unidad",
+      "precio": 25,
+      "negocioId": "dulces-momentos",
+      "id": "j3-UXDkApHM"
     }
   ],
   "recetas": [
@@ -481,7 +517,7 @@
       "telefono": "8888-1002",
       "rol": "administrador",
       "estado": "activo",
-      "foto": "/avatars/avatar-16.png",
+      "foto": "/avatars/avatar-31.png",
       "negocioId": "dulces-momentos",
       "negocioIds": [
         "dulces-momentos",
@@ -514,8 +550,22 @@
       "negocioIds": [
         "ygGaPisFKFk"
       ],
-      "clave": "12345678",
+      "clave": "123456",
       "id": "s9Nv9exWYZ8"
+    },
+    {
+      "nombre": "Kathia Ledezma",
+      "correo": "kathia@gmail.com",
+      "telefono": "88502011",
+      "rol": "administrador",
+      "estado": "activo",
+      "foto": "/illustrations/perfil.png",
+      "negocioId": "v-F95RzD_A4",
+      "negocioIds": [
+        "v-F95RzD_A4"
+      ],
+      "clave": "12345678.",
+      "id": "yH-BB_YyH5I"
     }
   ],
   "negocios": [
@@ -545,6 +595,15 @@
       "margenGanancia": 30,
       "administradorId": "s9Nv9exWYZ8",
       "id": "ygGaPisFKFk"
+    },
+    {
+      "nombre": "Pan Vane",
+      "tipo": "Panadería",
+      "telefono": "88502011",
+      "correo": "kathia@gmail.com",
+      "margenGanancia": 30,
+      "administradorId": "yH-BB_YyH5I",
+      "id": "v-F95RzD_A4"
     }
   ],
   "asistencias": [
@@ -556,50 +615,134 @@
       "salida": "2026-10-02T14:18:24.404Z",
       "negocioId": "dulces-momentos",
       "id": "-SSfn-Uc7DA"
+    },
+    {
+      "empleadoId": "emp-001",
+      "empleadoNombre": "María Rodríguez",
+      "fecha": "2026-10-06",
+      "ingreso": "2026-10-06T14:05:05.974Z",
+      "salida": null,
+      "negocioId": "dulces-momentos",
+      "id": "bdFJd_IjNvI"
     }
   ],
   "recuperaciones": [
     {
       "empleadoId": "s9Nv9exWYZ8",
       "correo": "audryquirosc@gmail.com",
-      "token": "ETKxS1Kk9TOc4OvlYnz9n5QMAuwxcULoWBULGP3zkKAxAeNPcEyIbllwTlcdB7cH",
-      "expira": "2026-10-06T05:25:12.576Z",
-      "usado": "false",
-      "id": "BstJpLXOs_Q"
+      "token": "qVHuUhpmRjTr7TIC6HvqHTelHTjixI6ke5luwXrwbtVgRLHrmyWb2e98w6xgwZ2J",
+      "expira": "2026-10-06T06:18:26.639Z",
+      "usado": true,
+      "id": "7yIjvqdQZ6Y"
     },
     {
       "empleadoId": "s9Nv9exWYZ8",
       "correo": "audryquirosc@gmail.com",
-      "token": "l7Do10KZVizgxj1mfg683YKN6io0nw9ga4fqz4WuDE8LRga1clnowJY2ApCEJc3Q",
-      "expira": "2026-10-06T05:29:40.213Z",
-      "usado": "{{ false }}",
-      "id": "iNIksmD1Y5c"
+      "token": "Pm6BVwmNzmSrFagT5YZjsNof2VC0Y7vzxM9YEDIREJHUWNuOTOsBJNKxIfYucmxv",
+      "expira": "2026-10-06T06:23:27.561Z",
+      "usado": true,
+      "id": "LSnizZl2cNc"
     },
     {
       "empleadoId": "s9Nv9exWYZ8",
       "correo": "audryquirosc@gmail.com",
-      "token": "tomtFq4vGYpBGQM6rtz13Hpp6lnsfRSouNmN4DwRpeAKrc0R90uQPpzIp5YPCSy2",
-      "expira": "2026-10-06T05:30:40.520Z",
-      "usado": false,
-      "id": "tkxku92XLu8"
+      "token": "37x89QOKWTK4wad3xQ0OAJL904LK2ZBnlmUqMxcvJjhxYMg2hN53EQPx9bOb6XjD",
+      "expira": "2026-10-06T06:25:34.138Z",
+      "usado": true,
+      "id": "1uBxAwWf-0c"
     },
     {
       "empleadoId": "s9Nv9exWYZ8",
       "correo": "audryquirosc@gmail.com",
-      "token": "VtZTx35q6dR1iPvclLPSzV5ChskYmnuHf1rXUgmExwtE6xGbXmugWM3rK1ylWIeM",
-      "expira": "2026-10-06T05:35:17.114Z",
-      "usado": false,
-      "id": "8ujpyape_Rw"
+      "token": "edcv5pdi5Ba3NFkdIXbCMOELq8nK35uRqLxIDtxvZAwdfYrqtFazocGrt8UCmCwX",
+      "expira": "2026-10-06T06:27:07.551Z",
+      "usado": true,
+      "id": "fX5jp7BpQPo"
     },
     {
       "empleadoId": "s9Nv9exWYZ8",
       "correo": "audryquirosc@gmail.com",
-      "token": "5V4O4DAEsT3LCGKLy1EzSuMLFPZLScAB4VTVh6Qymkmd18CQiNP9Fv4AUzG6dK2r",
-      "expira": "2026-10-06T05:38:25.884Z",
-      "usado": false,
-      "id": "lfzFZEZsf7A"
+      "token": "jYeVK5J7EqfOgikOOE7G1sqdtct4QvTK3BrcfQmNgP3j88EH3TcurEPJbtsPHxmk",
+      "expira": "2026-10-06T06:27:56.709Z",
+      "usado": true,
+      "id": "Gqua71WMtnA"
+    },
+    {
+      "empleadoId": "s9Nv9exWYZ8",
+      "correo": "audryquirosc@gmail.com",
+      "token": "4ZFeEvdwojlQUcOl56lAf3cgKQfhbHJ6L0ELAYT4404egZnfZaGSeRVuwMSTbshS",
+      "expira": "2026-10-06T14:27:18.043Z",
+      "usado": true,
+      "id": "NvZM15GnVq8"
     }
   ],
-  "facturas": [],
+  "facturas": [
+    {
+      "negocioId": "dulces-momentos",
+      "proveedor": "PLASTIMED YEHMAR S.A.",
+      "numeroFactura": "00100001040000028854",
+      "fecha": "08/09/2026",
+      "moneda": "CRC",
+      "subtotal": 3009.85,
+      "descuento": 0,
+      "impuesto": 391.15,
+      "total": 3400,
+      "productos": [
+        {
+          "descripcion": "TAPA SUNDAY 902",
+          "cantidad": 15,
+          "precioUnitario": 25,
+          "total": 375,
+          "tipoRegistro": "insumo",
+          "agregarInventario": true,
+          "unidad": "unidad",
+          "tipoProducto": "ingrediente",
+          "marca": "",
+          "presentacion": ""
+        },
+        {
+          "descripcion": "TAPA DOHO STN HUECO 02MM",
+          "cantidad": 15,
+          "precioUnitario": 25,
+          "total": 375,
+          "tipoRegistro": "insumo",
+          "agregarInventario": true,
+          "unidad": "unidad",
+          "tipoProducto": "ingrediente",
+          "marca": "",
+          "presentacion": ""
+        },
+        {
+          "descripcion": "CONI BIO/VLNI HFP #0 1000ML",
+          "cantidad": 1,
+          "precioUnitario": 2475,
+          "total": 2475,
+          "tipoRegistro": "insumo",
+          "agregarInventario": true,
+          "unidad": "unidad",
+          "tipoProducto": "ingrediente",
+          "marca": "",
+          "presentacion": ""
+        },
+        {
+          "descripcion": "BOLSA DE EMPAQUE 10X20 Y 12X25",
+          "cantidad": 1,
+          "precioUnitario": 25,
+          "total": 25,
+          "tipoRegistro": "insumo",
+          "agregarInventario": true,
+          "unidad": "unidad",
+          "tipoProducto": "ingrediente",
+          "marca": "",
+          "presentacion": ""
+        }
+      ],
+      "registradoPorId": "emp-001",
+      "registradoPorNombre": "María Rodríguez",
+      "fechaRegistro": "2026-10-06T14:11:40.103Z",
+      "origen": "facturas-ia",
+      "id": "mRcA_UYSj5Y"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

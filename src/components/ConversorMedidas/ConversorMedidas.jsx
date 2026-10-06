@@ -5,6 +5,7 @@ import {
 } from "react";
 
 import { getProductos } from "../../services/productoServices";
+import FilterSelect from "../common/FilterSelect";
 
 import "./ConversorMedidas.css";
 
@@ -199,6 +200,12 @@ const interpretarCantidad = (valor) => {
 
   return null;
 };
+
+const opcionesUnidades = [
+  ...unidades.masa.map((u) => ({ valor: u.valor, nombre: `Masa · ${u.nombre}` })),
+  ...unidades.volumen.map((u) => ({ valor: u.valor, nombre: `Volumen · ${u.nombre}` })),
+  ...unidades.cantidad.map((u) => ({ valor: u.valor, nombre: `Cantidad · ${u.nombre}` })),
+];
 
 function ConversorMedidas({
   productoIdInicial = "",
@@ -653,66 +660,14 @@ function ConversorMedidas({
             Convertir desde
           </label>
 
-          <select
+          <FilterSelect
             id="conversor-origen"
             value={unidadOrigen}
-            onChange={(e) =>
-              setUnidadOrigen(
-                e.target.value
-              )
-            }
-          >
-            <optgroup label="Masa">
-              {unidades.masa.map(
-                (unidad) => (
-                  <option
-                    key={
-                      unidad.valor
-                    }
-                    value={
-                      unidad.valor
-                    }
-                  >
-                    {unidad.nombre}
-                  </option>
-                )
-              )}
-            </optgroup>
-
-            <optgroup label="Volumen">
-              {unidades.volumen.map(
-                (unidad) => (
-                  <option
-                    key={
-                      unidad.valor
-                    }
-                    value={
-                      unidad.valor
-                    }
-                  >
-                    {unidad.nombre}
-                  </option>
-                )
-              )}
-            </optgroup>
-
-            <optgroup label="Cantidad">
-              {unidades.cantidad.map(
-                (unidad) => (
-                  <option
-                    key={
-                      unidad.valor
-                    }
-                    value={
-                      unidad.valor
-                    }
-                  >
-                    {unidad.nombre}
-                  </option>
-                )
-              )}
-            </optgroup>
-          </select>
+            options={opcionesUnidades}
+            onChange={setUnidadOrigen}
+            className="conversor-form-filter-select"
+            portalMenu
+          />
         </div>
 
         <div className="conversor-group">
@@ -720,69 +675,15 @@ function ConversorMedidas({
             Convertir a
           </label>
 
-          <select
+          <FilterSelect
             id="conversor-destino"
             value={unidadDestino}
-            onChange={(e) =>
-              setUnidadDestino(
-                e.target.value
-              )
-            }
-            disabled={Boolean(
-              unidadDestinoBase
-            )}
-          >
-            <optgroup label="Masa">
-              {unidades.masa.map(
-                (unidad) => (
-                  <option
-                    key={
-                      unidad.valor
-                    }
-                    value={
-                      unidad.valor
-                    }
-                  >
-                    {unidad.nombre}
-                  </option>
-                )
-              )}
-            </optgroup>
-
-            <optgroup label="Volumen">
-              {unidades.volumen.map(
-                (unidad) => (
-                  <option
-                    key={
-                      unidad.valor
-                    }
-                    value={
-                      unidad.valor
-                    }
-                  >
-                    {unidad.nombre}
-                  </option>
-                )
-              )}
-            </optgroup>
-
-            <optgroup label="Cantidad">
-              {unidades.cantidad.map(
-                (unidad) => (
-                  <option
-                    key={
-                      unidad.valor
-                    }
-                    value={
-                      unidad.valor
-                    }
-                  >
-                    {unidad.nombre}
-                  </option>
-                )
-              )}
-            </optgroup>
-          </select>
+            options={opcionesUnidades}
+            onChange={setUnidadDestino}
+            disabled={Boolean(unidadDestinoBase)}
+            className="conversor-form-filter-select"
+            portalMenu
+          />
         </div>
 
         <div className="conversor-group">
@@ -790,34 +691,20 @@ function ConversorMedidas({
             Producto o ingrediente
           </label>
 
-          <select
+          <FilterSelect
             id="conversor-producto"
             value={productoId}
-            onChange={(e) =>
-              setProductoId(
-                e.target.value
-              )
-            }
-          >
-            <option value="">
-              Seleccionar producto
-            </option>
-
-            {productos.map(
-              (producto) => (
-                <option
-                  key={producto.id}
-                  value={producto.id}
-                >
-                  {producto.nombre}
-
-                  {producto.marca
-                    ? ` - ${producto.marca}`
-                    : ""}
-                </option>
-              )
-            )}
-          </select>
+            options={[
+              { valor: "", nombre: "Seleccionar producto" },
+              ...productos.map((producto) => ({
+                valor: producto.id,
+                nombre: `${producto.nombre}${producto.marca ? ` - ${producto.marca}` : ""}`,
+              })),
+            ]}
+            onChange={setProductoId}
+            className="conversor-form-filter-select"
+            portalMenu
+          />
 
           <small>
             Selecciona el ingrediente para

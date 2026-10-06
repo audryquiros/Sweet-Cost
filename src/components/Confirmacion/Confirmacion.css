@@ -64,6 +64,7 @@
   display: flex;
   justify-content: center;
   gap: 9px;
+  flex-wrap: wrap;
   margin-top: 22px;
 }
 
@@ -101,6 +102,17 @@
 .btn-confirmacion-cancelar:hover {
   border-color: #d8c8f2;
   background: var(--sc-surface-soft);
+}
+
+.btn-confirmacion-secundario {
+  border: 1px solid #9b7ede;
+  background: #9b7ede;
+  color: #ffffff;
+}
+
+.btn-confirmacion-secundario:hover {
+  border-color: #866bc9;
+  background: #866bc9;
 }
 
 .btn-confirmacion-eliminar {

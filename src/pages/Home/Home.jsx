@@ -166,7 +166,7 @@ function Home() {
       setProyeccionIAError("");
 
       try {
-        // n8n obtiene pedidos, productos e insumos directamente desde JSON Server.
+        // n8n debe consultar la fuente de datos configurada para el negocio; React ya usa Supabase.
         // Desde React solo enviamos el negocio que está actualmente seleccionado.
         const data = await obtenerProyeccionIA({
           negocioId: negocio.id,

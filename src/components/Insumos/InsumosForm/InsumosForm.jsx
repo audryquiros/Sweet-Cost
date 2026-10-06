@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import FilterSelect from "../../common/FilterSelect";
 import {
   createInsumo,
   updateInsumo,
@@ -166,40 +167,22 @@ function InsumosForm({
             Unidad
           </label>
 
-          <select
+          <FilterSelect
             id="unidad"
-            name="unidad"
             value={formulario.unidad}
-            onChange={handleChange}
-          >
-            <option value="unidad">
-              Unidad
-            </option>
-
-            <option value="paquete">
-              Paquete
-            </option>
-
-            <option value="docena">
-              Docena
-            </option>
-
-            <option value="g">
-              Gramos (g)
-            </option>
-
-            <option value="kg">
-              Kilogramos (kg)
-            </option>
-
-            <option value="ml">
-              Mililitros (ml)
-            </option>
-
-            <option value="l">
-              Litros (l)
-            </option>
-          </select>
+            options={[
+              { valor: "unidad", nombre: "Unidad" },
+              { valor: "paquete", nombre: "Paquete" },
+              { valor: "docena", nombre: "Docena" },
+              { valor: "g", nombre: "Gramos (g)" },
+              { valor: "kg", nombre: "Kilogramos (kg)" },
+              { valor: "ml", nombre: "Mililitros (ml)" },
+              { valor: "l", nombre: "Litros (l)" },
+            ]}
+            onChange={(value) => handleChange({ target: { name: "unidad", value } })}
+            className="form-filter-select"
+            portalMenu
+          />
         </div>
 
         <div className="insumo-form-group">

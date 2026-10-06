@@ -320,24 +320,68 @@
 }
 
 .login-remember {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
 
   color: #776d7d;
 
   cursor: pointer;
+  user-select: none;
 }
 
 .login-remember input {
-  width: 14px;
-  height: 14px;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
-  margin: 0;
+.login-remember-box {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  border: 1.5px solid #c7b4dc;
+  border-radius: 5px;
+  background: #fff9f5;
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(109, 76, 141, 0.08);
+  transition: background .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
 
-  accent-color: #9b7ede;
+.login-remember:hover .login-remember-box {
+  border-color: #9b7ede;
+  box-shadow: 0 0 0 3px rgba(155, 126, 222, 0.10);
+}
 
-  cursor: pointer;
+.login-remember input:focus-visible + .login-remember-box {
+  border-color: #9b7ede;
+  box-shadow: 0 0 0 3px rgba(155, 126, 222, 0.16);
+}
+
+.login-remember input:checked + .login-remember-box {
+  background: #9b7ede;
+  border-color: #9b7ede;
+}
+
+.login-remember-check {
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 900;
+  transform: translateY(-.5px);
+}
+
+.login-remember-text {
+  line-height: 1.2;
 }
 
 .login-forgot {
@@ -688,8 +732,22 @@ html[data-theme="oscuro"] .login-password-toggle:hover {
 }
 
 html[data-theme="oscuro"] .login-remember,
-html[data-theme="oscuro"] .login-remember span {
+html[data-theme="oscuro"] .login-remember-text {
   color: #cdbfd3 !important;
+}
+
+html[data-theme="oscuro"] .login-remember-box {
+  background: #302938 !important;
+  border-color: #756080 !important;
+}
+
+html[data-theme="oscuro"] .login-remember input:checked + .login-remember-box {
+  background: #956bd1 !important;
+  border-color: #b58ce8 !important;
+}
+
+html[data-theme="oscuro"] .login-remember:hover .login-remember-box {
+  border-color: #b58ce8 !important;
 }
 
 html[data-theme="oscuro"] .login-forgot {

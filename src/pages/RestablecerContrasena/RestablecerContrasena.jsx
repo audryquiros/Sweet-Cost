@@ -1,86 +1,37 @@
 import { useState } from "react";
-import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Icon from "../../components/common/Icon/Icon";
+import { supabase } from "../../lib/supabase";
 import "./RestablecerContrasena.css";
 
-const URL = import.meta.env.VITE_N8N_RESTABLECER_URL || "";
-
 export default function RestablecerContrasena() {
-  const [params] = useSearchParams();
   const navigate = useNavigate();
-
-  const token = params.get("token") || "";
 
   const [clave, setClave] = useState("");
   const [confirmar, setConfirmar] = useState("");
   const [estado, setEstado] = useState("idle");
   const [msg, setMsg] = useState("");
+  const [mostrarClave, setMostrarClave] = useState(false);
+  const [mostrarConfirmar, setMostrarConfirmar] = useState(false);
 
   const enviar = async (e) => {
     e.preventDefault();
-
-    if (!token) {
-      setEstado("error");
-      setMsg("El enlace de recuperación no contiene un token válido.");
-      return;
-    }
-
-    if (clave.length < 6) {
-      setEstado("error");
-      setMsg("La contraseña debe tener al menos 6 caracteres.");
-      return;
-    }
-
-    if (clave !== confirmar) {
-      setEstado("error");
-      setMsg("Las contraseñas no coinciden.");
-      return;
-    }
-
-    if (!URL) {
-      setEstado("error");
-      setMsg(
-        "Configura VITE_N8N_RESTABLECER_URL para conectar el flujo de n8n."
-      );
-      return;
-    }
-
+    if (clave.length < 6) { setEstado("error"); setMsg("La contraseña debe tener al menos 6 caracteres."); return; }
+    if (clave !== confirmar) { setEstado("error"); setMsg("Las contraseñas no coinciden."); return; }
     setEstado("loading");
     setMsg("");
-
     try {
-      const response = await fetch(URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token,
-          nuevaContrasena: clave,
-          origen: "sweet-cost",
-          accion: "restablecer_contrasena",
-        }),
-      });
-
-      const data = await response.json().catch(() => ({}));
-
-      if (!response.ok || data.ok === false) {
-        throw new Error(
-          data.mensaje || "No se pudo actualizar la contraseña."
-        );
-      }
-
+      const { data: sessionData } = await supabase.auth.getSession();
+      if (!sessionData.session) throw new Error("El enlace de recuperación no es válido o ya expiró.");
+      const { error } = await supabase.auth.updateUser({ password: clave });
+      if (error) throw new Error(error.message);
       setEstado("success");
       setMsg("Tu contraseña fue actualizada. Ya puedes iniciar sesión.");
-
-      setTimeout(() => {
-        navigate("/login", { replace: true });
-      }, 1500);
+      await supabase.auth.signOut();
+      setTimeout(() => navigate("/login", { replace: true }), 1500);
     } catch (error) {
       setEstado("error");
-      setMsg(
-        error.message ||
-          "No se pudo actualizar la contraseña. Inténtalo nuevamente."
-      );
+      setMsg(error.message || "No se pudo actualizar la contraseña. Inténtalo nuevamente.");
     }
   };
 
@@ -101,24 +52,34 @@ export default function RestablecerContrasena() {
           <form onSubmit={enviar}>
             <label>
               Nueva contraseña
-              <input
-                type="password"
-                value={clave}
-                onChange={(e) => setClave(e.target.value)}
-                minLength={6}
-                required
-              />
+              <div className="reset-password-field">
+                <input
+                  type={mostrarClave ? "text" : "password"}
+                  value={clave}
+                  onChange={(e) => setClave(e.target.value)}
+                  minLength={6}
+                  required
+                />
+                <button type="button" className="reset-password-toggle" onClick={() => setMostrarClave((v) => !v)} aria-label={mostrarClave ? "Ocultar contraseña" : "Mostrar contraseña"}>
+                  <Icon type="eye" size={19} />
+                </button>
+              </div>
             </label>
 
             <label>
               Confirmar contraseña
-              <input
-                type="password"
-                value={confirmar}
-                onChange={(e) => setConfirmar(e.target.value)}
-                minLength={6}
-                required
-              />
+              <div className="reset-password-field">
+                <input
+                  type={mostrarConfirmar ? "text" : "password"}
+                  value={confirmar}
+                  onChange={(e) => setConfirmar(e.target.value)}
+                  minLength={6}
+                  required
+                />
+                <button type="button" className="reset-password-toggle" onClick={() => setMostrarConfirmar((v) => !v)} aria-label={mostrarConfirmar ? "Ocultar contraseña" : "Mostrar contraseña"}>
+                  <Icon type="eye" size={19} />
+                </button>
+              </div>
             </label>
 
             {msg && (

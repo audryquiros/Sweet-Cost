@@ -1,196 +1,78 @@
-import { conNegocio, filtrarPorNegocio, getNegocioActivoId } from "../context/negocioContext";
+import { supabase, pedidoFromDb, pedidoToDb, requireNegocioId, throwSupabaseError, createId } from "../lib/supabaseData";
 
-const API_URL = "http://localhost:3001/pedidos";
 const CACHE_KEY = "sweetcost-pedidos-cache-v1";
 
 function leerCache() {
   try {
-    const valor = localStorage.getItem(CACHE_KEY);
-    const datos = valor ? JSON.parse(valor) : [];
-    return filtrarPorNegocio(datos);
-  } catch {
-    return [];
-  }
+    const data = JSON.parse(localStorage.getItem(CACHE_KEY) || "[]");
+    const negocioId = getNegocioActivoIdSafe();
+    return data.filter((item) => item?.negocioId === negocioId);
+  } catch { return []; }
 }
+function getNegocioActivoIdSafe() { try { return requireNegocioId(); } catch { return null; } }
+function guardarCache(pedidos) { try { localStorage.setItem(CACHE_KEY, JSON.stringify(pedidos)); } catch {} }
 
-function guardarCache(pedidos) {
-  try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify(pedidos));
-  } catch {
-    // La API sigue siendo la fuente principal si el almacenamiento local no está disponible.
-  }
+async function obtenerDetalles(ids) {
+  if (!ids.length) return [];
+  const { data, error } = await supabase.from("pedido_insumos").select("*").in("pedido_id", ids);
+  throwSupabaseError(error, "Error al obtener los insumos de los pedidos");
+  return data || [];
 }
-
-function fusionarPedidos(pedidosServidor, pedidosLocales) {
-  const mapa = new Map();
-
-  pedidosServidor.forEach((pedido) => mapa.set(String(pedido.id), pedido));
-  pedidosLocales.forEach((pedido) => {
-    const id = String(pedido.id);
-    if (!mapa.has(id)) mapa.set(id, pedido);
-  });
-
-  return Array.from(mapa.values());
-}
-
-async function sincronizarCacheConServidor(pedidosServidor) {
-  const locales = leerCache();
-  if (!locales.length) {
-    guardarCache(pedidosServidor);
-    return pedidosServidor;
-  }
-
-  const idsServidor = new Set(pedidosServidor.map((pedido) => String(pedido.id)));
-  const pendientesDeSincronizar = locales.filter(
-    (pedido) => !idsServidor.has(String(pedido.id))
-  );
-
-  // Si el proyecto se reemplazó o json-server perdió el contenido, intentamos
-  // reconstruir en el servidor los pedidos que ya estaban guardados localmente.
-  if (pendientesDeSincronizar.length) {
-    const resultados = await Promise.allSettled(
-      pendientesDeSincronizar.map(async (pedido) => {
-        const response = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(conNegocio(pedido)),
-        });
-        if (!response.ok) throw new Error("No se pudo sincronizar el pedido");
-        return response.json();
-      })
-    );
-
-    resultados.forEach((resultado, index) => {
-      if (resultado.status === "fulfilled") {
-        const original = pendientesDeSincronizar[index];
-        const actualizado = resultado.value;
-        const posicion = locales.findIndex(
-          (pedido) => String(pedido.id) === String(original.id)
-        );
-        if (posicion !== -1) locales[posicion] = actualizado;
-      }
-    });
-  }
-
-  const fusionados = fusionarPedidos(pedidosServidor, locales);
-  guardarCache(fusionados);
-  return fusionados;
-}
+function ensamblar(rows, details) { return rows.map((r) => pedidoFromDb(r, details.filter((d) => d.pedido_id === r.id))); }
 
 export const getPedidos = async () => {
-  try {
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error("Error al obtener los pedidos");
-    const pedidosServidor = filtrarPorNegocio(await response.json());
-    return sincronizarCacheConServidor(pedidosServidor);
-  } catch (error) {
-    const locales = leerCache();
-    if (locales.length) return locales;
-    throw error;
-  }
+  const negocioId = requireNegocioId();
+  const { data, error } = await supabase.from("pedidos").select("*").eq("negocio_id", negocioId).order("fecha_entrega", { ascending: true });
+  throwSupabaseError(error, "Error al obtener los pedidos");
+  const pedidos = ensamblar(data || [], await obtenerDetalles((data || []).map((p) => p.id)));
+  guardarCache(pedidos);
+  return pedidos;
 };
 
 export const getPedido = async (id) => {
-  try {
-    const response = await fetch(`${API_URL}/${id}`);
-    if (response.ok) {
-      const pedido = await response.json();
-      if (pedido.negocioId && pedido.negocioId !== getNegocioActivoId()) {
-        throw new Error("El pedido no pertenece al negocio activo");
-      }
-      const locales = leerCache();
-      const fusionados = fusionarPedidos([pedido], locales);
-      guardarCache(fusionados);
-      return pedido;
-    }
-
-    if (response.status !== 404) {
-      throw new Error("Error al obtener el pedido");
-    }
-  } catch (error) {
-    const local = leerCache().find((pedido) => String(pedido.id) === String(id));
-    if (local) return local;
-    throw error;
-  }
-
-  const local = leerCache().find((pedido) => String(pedido.id) === String(id));
-  if (local) return local;
-  throw new Error("Error al obtener el pedido");
+  const negocioId = requireNegocioId();
+  const { data, error } = await supabase.from("pedidos").select("*").eq("id", id).eq("negocio_id", negocioId).maybeSingle();
+  throwSupabaseError(error, "Error al obtener el pedido");
+  if (!data) throw new Error("El pedido no pertenece al negocio activo o no existe.");
+  return pedidoFromDb(data, await obtenerDetalles([id]));
 };
 
-export const createPedido = async (pedido) => {
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(conNegocio(pedido)),
-    });
-    if (!response.ok) throw new Error("Error al crear el pedido");
+async function guardarDetalles(pedidoId, insumos = []) {
+  const { error: delError } = await supabase.from("pedido_insumos").delete().eq("pedido_id", pedidoId);
+  throwSupabaseError(delError, "No se pudieron actualizar los insumos del pedido");
+  const rows = insumos.filter((i) => i?.insumoId).map((i) => ({ pedido_id: pedidoId, insumo_id: i.insumoId, cantidad_por_envase: i.cantidadPorEnvase ?? null, cantidad_total: i.cantidadTotal ?? null }));
+  if (!rows.length) return;
+  const { error } = await supabase.from("pedido_insumos").insert(rows);
+  throwSupabaseError(error, "No se pudieron guardar los insumos del pedido");
+}
 
-    const creado = await response.json();
-    const locales = leerCache().filter(
-      (item) => String(item.id) !== String(creado.id)
-    );
-    guardarCache([...locales, creado]);
-    return creado;
-  } catch (error) {
-    // Fallback para que el pedido no se pierda si json-server está apagado.
-    const pedidoLocal = conNegocio({
-      ...pedido,
-      id: pedido.id || `local-${Date.now()}`,
-    });
-    const locales = leerCache().filter(
-      (item) => String(item.id) !== String(pedidoLocal.id)
-    );
-    guardarCache([...locales, pedidoLocal]);
-    return pedidoLocal;
-  }
+export const createPedido = async (pedido) => {
+  const row = pedidoToDb({ ...pedido, id: createId() });
+  const { data, error } = await supabase.from("pedidos").insert(row).select("*").single();
+  throwSupabaseError(error, "Error al crear el pedido");
+  try { await guardarDetalles(data.id, pedido.insumos); } catch (e) { await supabase.from("pedidos").delete().eq("id", data.id); throw e; }
+  const creado = await getPedido(data.id);
+  const actuales = leerCache().filter((p) => String(p.id) !== String(creado.id));
+  guardarCache([...actuales, creado]);
+  return creado;
 };
 
 export const updatePedido = async (id, pedido) => {
-  try {
-    const response = await fetch(`${API_URL}/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(conNegocio(pedido)),
-    });
-
-    if (!response.ok && response.status !== 404) {
-      throw new Error("Error al actualizar el pedido");
-    }
-
-    if (response.ok) {
-      const actualizado = await response.json();
-      const locales = leerCache().filter(
-        (item) => String(item.id) !== String(actualizado.id)
-      );
-      guardarCache([...locales, actualizado]);
-      return actualizado;
-    }
-  } catch (error) {
-    const local = leerCache().some((item) => String(item.id) === String(id));
-    if (!local) throw error;
-  }
-
-  const actualizadoLocal = conNegocio({ ...pedido, id });
-  const locales = leerCache().filter((item) => String(item.id) !== String(id));
-  guardarCache([...locales, actualizadoLocal]);
-  return actualizadoLocal;
+  const negocioId = requireNegocioId();
+  const row = pedidoToDb({ ...pedido, id }, negocioId);
+  const { data, error } = await supabase.from("pedidos").update(row).eq("id", id).eq("negocio_id", negocioId).select("*").single();
+  throwSupabaseError(error, "Error al actualizar el pedido");
+  await guardarDetalles(id, pedido.insumos);
+  const actualizado = await getPedido(data.id);
+  const actuales = leerCache().filter((p) => String(p.id) !== String(id));
+  guardarCache([...actuales, actualizado]);
+  return actualizado;
 };
 
 export const deletePedido = async (id) => {
-  const locales = leerCache();
-  const existeLocal = locales.some((pedido) => String(pedido.id) === String(id));
-
-  try {
-    const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-    if (!response.ok && response.status !== 404) {
-      throw new Error("Error al eliminar el pedido");
-    }
-  } catch (error) {
-    if (!existeLocal) throw error;
-  }
-
-  guardarCache(locales.filter((pedido) => String(pedido.id) !== String(id)));
+  const negocioId = requireNegocioId();
+  const { error } = await supabase.from("pedidos").delete().eq("id", id).eq("negocio_id", negocioId);
+  throwSupabaseError(error, "Error al eliminar el pedido");
+  guardarCache(leerCache().filter((p) => String(p.id) !== String(id)));
   return true;
 };

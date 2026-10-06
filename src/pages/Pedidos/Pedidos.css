@@ -635,3 +635,15 @@ html[data-theme="oscuro"] .pedido-acciones .pedido-eliminar {
   color: #ffc6d2 !important;
   border-color: #9b5363 !important;
 }
+
+
+.pedidos-exito {
+  width: min(100%, 1220px);
+  margin: 0 auto 16px;
+  padding: 11px 14px;
+  border-radius: 9px;
+  background: var(--sc-success-bg);
+  border: 1px solid #cce8d6;
+  color: #367b54;
+  font-size: calc(12px * var(--sc-font-scale, 1));
+}

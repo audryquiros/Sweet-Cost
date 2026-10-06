@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getNegocioActivo } from "../../context/negocioContext";
 import { usePerfilActual } from "../../context/perfilContext";
 import { updateEmpleadoParcial } from "../../services/empleadoServices";
+import { supabase } from "../../lib/supabase";
 import { eliminarCuentaAdministrador, eliminarNegocioComoAdministrador } from "../../services/cuentaServices";
 import "./Perfil.css";
 
@@ -19,6 +20,25 @@ const ICONOS = {
   negocio: "/illustrations/configuracion.png",
 };
 
+function EyeIcon({ visible }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="perfil-password-eye-icon">
+      <path
+        d={visible
+          ? "M2.5 12s3.5-5 9.5-5 9.5 5 9.5 5-3.5 5-9.5 5-9.5-5-9.5-5Z"
+          : "M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8M9.4 5.5A10.8 10.8 0 0 1 12 5c6 0 9.5 7 9.5 7a18.7 18.7 0 0 1-2.7 3.5M6.2 6.2C3.7 8 2.5 12 2.5 12S6 19 12 19c1.4 0 2.7-.3 3.9-.8"}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {visible && <circle cx="12" cy="12" r="2.2" fill="currentColor" />}
+    </svg>
+  );
+}
+
+
 function Perfil() {
   const [negocio, setNegocio] = useState(() => getNegocioActivo());
   const { usuario, logout, seleccionarNegocio } = useAuth();
@@ -30,6 +50,11 @@ function Perfil() {
   const [errorGuardado, setErrorGuardado] = useState("");
   const [selectorFotoAbierto, setSelectorFotoAbierto] = useState(false);
   const [seguridadAbierta, setSeguridadAbierta] = useState(null);
+  const [mostrarClavesSeguridad, setMostrarClavesSeguridad] = useState({
+    actual: false,
+    nueva: false,
+    confirmacion: false,
+  });
   const [seguridadFormulario, setSeguridadFormulario] = useState({
     correo: "",
     claveActual: "",
@@ -99,7 +124,7 @@ function Perfil() {
       setGuardado(true);
     } catch (error) {
       console.error("No se pudo guardar el perfil:", error);
-      setErrorGuardado("No se pudieron guardar los cambios. Verifica que JSON Server esté ejecutándose.");
+      setErrorGuardado("No se pudieron guardar los cambios.");
     } finally {
       setGuardando(false);
     }
@@ -116,6 +141,7 @@ function Perfil() {
       claveNueva: "",
       claveConfirmacion: "",
     });
+    setMostrarClavesSeguridad({ actual: false, nueva: false, confirmacion: false });
   };
 
   const cerrarSeguridad = () => {
@@ -136,7 +162,7 @@ function Perfil() {
       );
       window.dispatchEvent(new CustomEvent("sweetcost-auth-cambio"));
     } catch {
-      // El perfil ya quedó actualizado en JSON Server aunque la sesión no pueda sincronizarse.
+      // El perfil ya quedó actualizado en Supabase aunque la sesión no pueda sincronizarse.
     }
   };
 
@@ -195,7 +221,7 @@ function Perfil() {
       }
     } catch (error) {
       console.error("No se pudo completar la eliminación:", error);
-      setErrorEliminacion(error.message || "No se pudo completar la eliminación. Verifica que JSON Server esté ejecutándose.");
+      setErrorEliminacion(error.message || "No se pudo completar la eliminación. Verifica tu conexión con Supabase.");
     } finally {
       setEliminandoCuenta(false);
     }
@@ -211,74 +237,56 @@ function Perfil() {
     try {
       if (seguridadAbierta === "correo") {
         const nuevoCorreo = seguridadFormulario.correo.trim().toLowerCase();
-
         if (!nuevoCorreo || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(nuevoCorreo)) {
           setErrorSeguridad("Ingresa un correo electrónico válido.");
           return;
         }
-
         if (nuevoCorreo === String(perfil.correo || "").toLowerCase()) {
           setErrorSeguridad("El correo nuevo debe ser diferente al actual.");
           return;
         }
 
         setGuardandoSeguridad(true);
-        const empleadosResponse = await fetch("http://localhost:3001/empleados");
-        if (!empleadosResponse.ok) throw new Error("No se pudieron consultar las cuentas.");
-        const empleados = await empleadosResponse.json();
-        const correoExiste = empleados.some(
-          (empleado) =>
-            empleado.id !== perfil.id &&
-            String(empleado.correo || "").trim().toLowerCase() === nuevoCorreo
-        );
-
-        if (correoExiste) {
-          setErrorSeguridad("Ese correo ya está registrado en Sweet Cost.");
+        const { data, error } = await supabase.auth.updateUser({ email: nuevoCorreo });
+        if (error) throw new Error(error.message);
+        const correoAuth = data.user?.email || nuevoCorreo;
+        if (correoAuth.toLowerCase() !== nuevoCorreo) {
+          setExitoSeguridad("Te enviamos un correo para confirmar el nuevo correo electrónico.");
           return;
         }
-
         const actualizado = await updateEmpleadoParcial(perfil.id, { correo: nuevoCorreo });
         actualizarPerfil({ correo: actualizado.correo });
         setFormulario((actual) => ({ ...actual, correo: actualizado.correo }));
-        actualizarSesionCorreo(actualizado.correo);
         setExitoSeguridad("Correo electrónico actualizado correctamente.");
       }
 
       if (seguridadAbierta === "contrasena") {
         const { claveActual, claveNueva, claveConfirmacion } = seguridadFormulario;
-
         if (!claveActual || !claveNueva || !claveConfirmacion) {
           setErrorSeguridad("Completa todos los campos.");
           return;
         }
-
         if (claveNueva.length < 8) {
           setErrorSeguridad("La nueva contraseña debe tener al menos 8 caracteres.");
           return;
         }
-
         if (claveNueva !== claveConfirmacion) {
           setErrorSeguridad("Las contraseñas nuevas no coinciden.");
           return;
         }
 
         setGuardandoSeguridad(true);
-        const response = await fetch(`http://localhost:3001/empleados/${perfil.id}`);
-        if (!response.ok) throw new Error("No se pudo verificar la cuenta.");
-        const empleadoActual = await response.json();
-
-        if (empleadoActual.clave !== claveActual) {
+        const { error: loginError } = await supabase.auth.signInWithPassword({
+          email: perfil.correo,
+          password: claveActual,
+        });
+        if (loginError) {
           setErrorSeguridad("La contraseña actual no es correcta.");
           return;
         }
-
-        await updateEmpleadoParcial(perfil.id, { clave: claveNueva });
-        setSeguridadFormulario((actual) => ({
-          ...actual,
-          claveActual: "",
-          claveNueva: "",
-          claveConfirmacion: "",
-        }));
+        const { error: passwordError } = await supabase.auth.updateUser({ password: claveNueva });
+        if (passwordError) throw new Error(passwordError.message);
+        setSeguridadFormulario((actual) => ({ ...actual, claveActual: "", claveNueva: "", claveConfirmacion: "" }));
         setExitoSeguridad("Contraseña actualizada correctamente.");
       }
     } catch (error) {
@@ -603,35 +611,68 @@ function Perfil() {
                 <>
                   <label>
                     <span>Contraseña actual</span>
-                    <input
-                      type="password"
-                      value={seguridadFormulario.claveActual}
-                      onChange={(event) => setSeguridadFormulario((actual) => ({ ...actual, claveActual: event.target.value }))}
-                      autoComplete="current-password"
-                      required
-                    />
+                    <div className="perfil-password-field">
+                      <input
+                        type={mostrarClavesSeguridad.actual ? "text" : "password"}
+                        value={seguridadFormulario.claveActual}
+                        onChange={(event) => setSeguridadFormulario((actual) => ({ ...actual, claveActual: event.target.value }))}
+                        autoComplete="current-password"
+                        required
+                      />
+                      <button
+                        type="button"
+                        className="perfil-password-toggle"
+                        onClick={() => setMostrarClavesSeguridad((actual) => ({ ...actual, actual: !actual.actual }))}
+                        aria-label={mostrarClavesSeguridad.actual ? "Ocultar contraseña actual" : "Mostrar contraseña actual"}
+                        title={mostrarClavesSeguridad.actual ? "Ocultar contraseña" : "Mostrar contraseña"}
+                      >
+                        <EyeIcon visible={mostrarClavesSeguridad.actual} />
+                      </button>
+                    </div>
                   </label>
                   <label>
                     <span>Nueva contraseña</span>
-                    <input
-                      type="password"
-                      value={seguridadFormulario.claveNueva}
-                      onChange={(event) => setSeguridadFormulario((actual) => ({ ...actual, claveNueva: event.target.value }))}
-                      autoComplete="new-password"
-                      minLength={8}
-                      required
-                    />
+                    <div className="perfil-password-field">
+                      <input
+                        type={mostrarClavesSeguridad.nueva ? "text" : "password"}
+                        value={seguridadFormulario.claveNueva}
+                        onChange={(event) => setSeguridadFormulario((actual) => ({ ...actual, claveNueva: event.target.value }))}
+                        autoComplete="new-password"
+                        minLength={8}
+                        required
+                      />
+                      <button
+                        type="button"
+                        className="perfil-password-toggle"
+                        onClick={() => setMostrarClavesSeguridad((actual) => ({ ...actual, nueva: !actual.nueva }))}
+                        aria-label={mostrarClavesSeguridad.nueva ? "Ocultar nueva contraseña" : "Mostrar nueva contraseña"}
+                        title={mostrarClavesSeguridad.nueva ? "Ocultar contraseña" : "Mostrar contraseña"}
+                      >
+                        <EyeIcon visible={mostrarClavesSeguridad.nueva} />
+                      </button>
+                    </div>
                   </label>
                   <label>
                     <span>Confirmar nueva contraseña</span>
-                    <input
-                      type="password"
-                      value={seguridadFormulario.claveConfirmacion}
-                      onChange={(event) => setSeguridadFormulario((actual) => ({ ...actual, claveConfirmacion: event.target.value }))}
-                      autoComplete="new-password"
-                      minLength={8}
-                      required
-                    />
+                    <div className="perfil-password-field">
+                      <input
+                        type={mostrarClavesSeguridad.confirmacion ? "text" : "password"}
+                        value={seguridadFormulario.claveConfirmacion}
+                        onChange={(event) => setSeguridadFormulario((actual) => ({ ...actual, claveConfirmacion: event.target.value }))}
+                        autoComplete="new-password"
+                        minLength={8}
+                        required
+                      />
+                      <button
+                        type="button"
+                        className="perfil-password-toggle"
+                        onClick={() => setMostrarClavesSeguridad((actual) => ({ ...actual, confirmacion: !actual.confirmacion }))}
+                        aria-label={mostrarClavesSeguridad.confirmacion ? "Ocultar confirmación de contraseña" : "Mostrar confirmación de contraseña"}
+                        title={mostrarClavesSeguridad.confirmacion ? "Ocultar contraseña" : "Mostrar contraseña"}
+                      >
+                        <EyeIcon visible={mostrarClavesSeguridad.confirmacion} />
+                      </button>
+                    </div>
                   </label>
                 </>
               )}

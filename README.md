@@ -1,78 +1,79 @@
 # Sweet Cost
 
-Sistema web para gestión de costos, recetas, insumos, cotizaciones, pedidos y personal de pequeños negocios.
+Versión de Sweet Cost adaptada para trabajar con **Supabase** como backend principal.
 
-## Stack
+## Arquitectura
+
 - React + Vite
-- React Router
-- JSON Server
-- CSS modular por componente/página
+- Supabase Auth para autenticación
+- Supabase PostgreSQL para datos
+- Row Level Security (RLS) para aislamiento por negocio
+- n8n únicamente para los flujos de IA que ya utiliza el proyecto
+- Frankfurter para el tipo de cambio USD/CRC de referencia
 
-## Ejecutar
+La aplicación ya no consulta `localhost:3001` ni utiliza JSON Server en tiempo de ejecución.
+
+## Modelo de datos
+
+- `productos` = ingredientes y materias primas.
+- `insumos` = empaques, envases y materiales desechables.
+- `recetas` = receta principal + `receta_ingredientes`.
+- `cotizaciones` = cotización + `cotizacion_insumos`.
+- `pedidos` = pedido + `pedido_insumos`.
+
+Se conservan los IDs originales de los datos migrados.
+
+## Variables de entorno
+
+Copia `.env.example` a `.env` y configura:
+
+```env
+VITE_SUPABASE_URL=https://TU-PROYECTO.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_TU_CLAVE
+```
+
+Las variables de n8n son opcionales y dependen de los workflows que se mantengan activos.
+
+**No subas `.env` a Git.**
+
+## Supabase
+
+El esquema y los datos ya fueron preparados previamente.
+
+Este proyecto incluye:
+
+- `supabase/rls-write-policies.sql`: permisos del rol `authenticated` y políticas de escritura necesarias para el cliente.
+- `supabase/functions/register-admin`: creación segura de una cuenta de administrador + primer negocio.
+- `supabase/functions/manage-employee`: creación, cambio de contraseña y eliminación de cuentas de empleados.
+
+Las Edge Functions necesitan `SUPABASE_SERVICE_ROLE_KEY` únicamente en el entorno de Supabase. **Nunca debe colocarse en React ni en `.env` del frontend.**
+
+## Edge Functions
+
+Desde la CLI de Supabase, después de vincular el proyecto:
+
+```bash
+supabase functions deploy register-admin
+supabase functions deploy manage-employee
+```
+
+Las funciones usan automáticamente `SUPABASE_URL` y `SUPABASE_SERVICE_ROLE_KEY` proporcionadas por Supabase.
+
+## Datos legacy
+
+`legacy/db.json` conserva una copia del origen JSON utilizado durante la migración. No es utilizado por la aplicación.
+
+No se migraron contraseñas ni tokens de recuperación del JSON original. Las contraseñas son responsabilidad de Supabase Auth.
+
+## Desarrollo
 
 ```bash
 npm install
-npm run server
-```
-
-En otra terminal:
-
-```bash
 npm run dev
 ```
 
-JSON Server usa `http://localhost:3001` y Vite usa el puerto que indique la consola (normalmente `5173`).
+## Producción / Vercel
 
-## Roles
+Configura en Vercel las mismas variables de entorno del frontend y despliega la rama conectada al proyecto.
 
-### Administrador
-Puede gestionar productos, insumos, recetas, cotizaciones, pedidos, calendario, empleados, asistencia, configuración y perfil.
-
-### Empleado
-Tiene acceso a su dashboard, recetas, cotizaciones, pedidos, calendario y perfil. También puede registrar su entrada y salida desde su dashboard.
-
-## Seguridad de navegación
-- `PrivateRoute.jsx` protege las rutas según autenticación, negocio activo y rol.
-- `/403` muestra acceso no autorizado.
-- `/404` muestra rutas inexistentes.
-
-## Asistencia
-Los registros se guardan en la colección `asistencias` de `db.json`, asociados al negocio y al empleado. El administrador puede registrar entrada/salida y editar horarios.
-
-## Notificaciones
-El sistema genera avisos para stock bajo/crítico, pedidos próximos, cotizaciones pendientes y estado de pedidos. Se muestra fecha y hora de cada aviso y se actualiza periódicamente.
-
-## Dashboard
-El dashboard administrativo muestra ventas realizadas, ganancia, stock en riesgo, pérdidas por cancelación, pendientes, rendimiento mensual, estimación de ingresos, empleado con más gestiones, estados de pedidos y próximas entregas.
-
-> Nota: la estimación de ingresos es una proyección basada en el promedio histórico de ventas realizadas; no constituye un modelo predictivo estadístico.
-
-
-## Recuperación de contraseña con n8n
-La ruta `/recuperar-contrasena` envía un POST al webhook definido en `VITE_N8N_RECUPERACION_URL`. Configura esta variable en `.env` con la URL de tu Webhook de n8n. El frontend no guarda tokens ni contraseñas de recuperación.
-
-## Registro, negocios y recuperación con n8n
-- `/registro`: crea una cuenta de administrador y su primer negocio mediante JSON Server.
-- `/negocios`: permite al administrador consultar, seleccionar y agregar negocios asociados.
-- `/recuperar-contrasena`: envía la solicitud al webhook de n8n definido en `VITE_N8N_RECUPERACION_URL`.
-- `/restablecer-contrasena?token=...`: recibe el token enviado por n8n y envía la nueva contraseña al webhook definido en `VITE_N8N_RESTABLECER_URL`.
-
-## Accesibilidad y responsive
-Sweet Cost incluye:
-- modo claro y oscuro;
-- tamaño de texto pequeño, medio y grande;
-- soporte semántico/ARIA en controles interactivos;
-- adaptación de colores para protanopia, deuteranopia y tritanopia;
-- estados acompañados por texto o iconografía, no únicamente por color;
-- layouts para móvil, tablet y escritorio.
-
-## Endpoint externo
-El módulo **Configuración → Costos y precios** consulta un tipo de cambio de referencia USD/CRC mediante la API pública de Frankfurter desde `src/services/tipoCambioServices.js`. La consulta es informativa y no modifica precios ni datos almacenados en JSON Server.
-
-## Pruebas unitarias
-El proyecto incluye pruebas Jest para:
-- inicio de sesión;
-- registro de productos;
-- registro de insumos;
-- revisión y clasificación de una factura analizada con IA;
-- protección de rutas según el rol.
+Las Edge Functions no se despliegan con Vercel; pertenecen al proyecto de Supabase.

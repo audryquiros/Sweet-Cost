@@ -204,6 +204,7 @@ function Recetas() {
       setMensajeExito(
         "Receta eliminada correctamente."
       );
+      window.scrollTo({ top: 0, behavior: "smooth" });
 
       setTimeout(() => {
         setMensajeExito("");

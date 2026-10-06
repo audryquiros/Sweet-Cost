@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import FilterSelect from "../../common/FilterSelect";
 import { useAuth } from "../../../context/authContext";
 
 import {
@@ -752,25 +753,17 @@ function CotizadorForm({
             Receta
           </label>
 
-          <select
+          <FilterSelect
             id="recetaId"
-            name="recetaId"
             value={formulario.recetaId}
-            onChange={handleChange}
-          >
-            <option value="">
-              Selecciona una receta
-            </option>
-
-            {recetas.map((receta) => (
-              <option
-                key={receta.id}
-                value={receta.id}
-              >
-                {receta.nombre}
-              </option>
-            ))}
-          </select>
+            options={[
+              { valor: "", nombre: "Selecciona una receta" },
+              ...recetas.map((receta) => ({ valor: receta.id, nombre: receta.nombre })),
+            ]}
+            onChange={(value) => handleChange({ target: { name: "recetaId", value } })}
+            className="cotizador-form-filter-select"
+            portalMenu
+          />
         </div>
 
         <div className="cotizador-field">
@@ -957,37 +950,17 @@ function CotizadorForm({
                             Topping
                           </label>
 
-                          <select
+                          <FilterSelect
+                            id={`cotizador-topping-${index}`}
                             value={productoId}
-                            onChange={(e) =>
-                              cambiarTopping(
-                                index,
-                                e.target.value
-                              )
-                            }
-                          >
-                            <option value="">
-                              Selecciona un
-                              topping
-                            </option>
-
-                            {toppings.map(
-                              (producto) => (
-                                <option
-                                  key={
-                                    producto.id
-                                  }
-                                  value={
-                                    producto.id
-                                  }
-                                >
-                                  {
-                                    producto.nombre
-                                  }
-                                </option>
-                              )
-                            )}
-                          </select>
+                            options={[
+                              { valor: "", nombre: "Selecciona un topping" },
+                              ...toppings.map((producto) => ({ valor: producto.id, nombre: producto.nombre })),
+                            ]}
+                            onChange={(value) => cambiarTopping(index, value)}
+                            className="cotizador-form-filter-select"
+                            portalMenu
+                          />
                         </div>
 
                         <button
@@ -1109,37 +1082,17 @@ function CotizadorForm({
                             Salsa
                           </label>
 
-                          <select
+                          <FilterSelect
+                            id={`cotizador-salsa-${index}`}
                             value={productoId}
-                            onChange={(e) =>
-                              cambiarSalsa(
-                                index,
-                                e.target.value
-                              )
-                            }
-                          >
-                            <option value="">
-                              Selecciona una
-                              salsa
-                            </option>
-
-                            {salsas.map(
-                              (producto) => (
-                                <option
-                                  key={
-                                    producto.id
-                                  }
-                                  value={
-                                    producto.id
-                                  }
-                                >
-                                  {
-                                    producto.nombre
-                                  }
-                                </option>
-                              )
-                            )}
-                          </select>
+                            options={[
+                              { valor: "", nombre: "Selecciona una salsa" },
+                              ...salsas.map((producto) => ({ valor: producto.id, nombre: producto.nombre })),
+                            ]}
+                            onChange={(value) => cambiarSalsa(index, value)}
+                            className="cotizador-form-filter-select"
+                            portalMenu
+                          />
                         </div>
 
                         <button
@@ -1300,31 +1253,17 @@ function CotizadorForm({
                       Insumo
                     </label>
 
-                    <select
+                    <FilterSelect
+                      id={`cotizador-insumo-${index}`}
                       value={item.insumoId}
-                      onChange={(e) =>
-                        cambiarInsumo(
-                          index,
-                          "insumoId",
-                          e.target.value
-                        )
-                      }
-                    >
-                      <option value="">
-                        Selecciona un insumo
-                      </option>
-
-                      {insumos.map(
-                        (insumo) => (
-                          <option
-                            key={insumo.id}
-                            value={insumo.id}
-                          >
-                            {insumo.nombre}
-                          </option>
-                        )
-                      )}
-                    </select>
+                      options={[
+                        { valor: "", nombre: "Selecciona un insumo" },
+                        ...insumos.map((insumo) => ({ valor: insumo.id, nombre: insumo.nombre })),
+                      ]}
+                      onChange={(value) => cambiarInsumo(index, "insumoId", value)}
+                      className="cotizador-form-filter-select"
+                      portalMenu
+                    />
                   </div>
 
                   <div className="cotizador-field">

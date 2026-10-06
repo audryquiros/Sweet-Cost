@@ -201,6 +201,7 @@ function Cotizador() {
           texto: "Cotización eliminada correctamente.",
           pedidoId: null,
         });
+        window.scrollTo({ top: 0, behavior: "smooth" });
 
         setTimeout(() => {
           setMensajeExito(null);

@@ -62,7 +62,7 @@ function AppContent() {
     if (!autenticado) return;
     cargarNegociosDesdeServidor().catch((error) => {
       console.warn(
-        "No se pudieron sincronizar los negocios desde JSON Server:",
+        "No se pudieron sincronizar los negocios desde Supabase:",
         error
       );
     });

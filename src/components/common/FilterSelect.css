@@ -32,6 +32,12 @@
   transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
 }
 
+.filter-select-trigger:disabled {
+  opacity: .65;
+  cursor: not-allowed;
+  background: var(--sc-surface-muted, #f5f1f7);
+}
+
 .filter-select-trigger:hover {
   border-color: #cbb5df;
   background: #fefcff;
@@ -70,6 +76,8 @@
   border-radius: 10px;
   background: var(--sc-surface);
   box-shadow: 0 12px 28px rgba(72, 49, 89, .14);
+  max-height: min(280px, 45vh);
+  overflow-y: auto;
   animation: filter-select-open .14s ease-out;
 }
 
@@ -128,3 +136,6 @@
   position: fixed;
   margin: 0;
 }
+
+/* Form dropdowns share the same Sweet Cost control language. */
+.form-filter-select, .receta-form-filter-select, .cotizador-form-filter-select, .conversor-form-filter-select, .ai-form-filter-select { width: 100%; }

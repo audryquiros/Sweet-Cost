@@ -1,71 +1,70 @@
-import { conNegocio, filtrarPorNegocio, getNegocioActivoId } from "../context/negocioContext";
+import { supabase, recetaFromDb, recetaToDb, requireNegocioId, throwSupabaseError, createId } from "../lib/supabaseData";
 
-    const API_URL = "http://localhost:3001/recetas";
+async function obtenerIngredientes(recetaIds) {
+  if (!recetaIds.length) return [];
+  const { data, error } = await supabase.from("receta_ingredientes").select("*").in("receta_id", recetaIds);
+  throwSupabaseError(error, "Error al obtener los ingredientes de las recetas");
+  return data || [];
+}
+
+function ensamblar(recetas, ingredientes) {
+  return recetas.map((receta) => recetaFromDb(receta, ingredientes.filter((i) => i.receta_id === receta.id)));
+}
 
 export const getRecetas = async () => {
-  const response = await fetch(API_URL);
-
-  if (!response.ok) {
-    throw new Error("Error al obtener las recetas");
-  }
-
-  return filtrarPorNegocio(await response.json());
+  const negocioId = requireNegocioId();
+  const { data, error } = await supabase.from("recetas").select("*").eq("negocio_id", negocioId).order("nombre");
+  throwSupabaseError(error, "Error al obtener las recetas");
+  const recetas = data || [];
+  const ingredientes = await obtenerIngredientes(recetas.map((r) => r.id));
+  return ensamblar(recetas, ingredientes);
 };
 
 export const getReceta = async (id) => {
-  const response = await fetch(`${API_URL}/${id}`);
-
-  if (!response.ok) {
-    throw new Error("Error al obtener la receta");
-  }
-
-  const dato = await response.json();
-  if (dato.negocioId && dato.negocioId !== getNegocioActivoId()) {
-    throw new Error("El registro no pertenece al negocio activo");
-  }
-  return dato;
+  const negocioId = requireNegocioId();
+  const { data, error } = await supabase.from("recetas").select("*").eq("id", id).eq("negocio_id", negocioId).maybeSingle();
+  throwSupabaseError(error, "Error al obtener la receta");
+  if (!data) throw new Error("La receta no pertenece al negocio activo o no existe.");
+  const ingredientes = await obtenerIngredientes([id]);
+  return recetaFromDb(data, ingredientes);
 };
 
+async function guardarIngredientes(recetaId, ingredientes = []) {
+  const { error: deleteError } = await supabase.from("receta_ingredientes").delete().eq("receta_id", recetaId);
+  throwSupabaseError(deleteError, "No se pudieron actualizar los ingredientes de la receta");
+  const rows = ingredientes
+    .filter((item) => item?.productoId && item?.cantidad != null)
+    .map((item) => ({ receta_id: recetaId, producto_id: item.productoId, cantidad: item.cantidad, unidad: item.unidad ?? null }));
+  if (!rows.length) return;
+  const { error } = await supabase.from("receta_ingredientes").insert(rows);
+  throwSupabaseError(error, "No se pudieron guardar los ingredientes de la receta");
+}
+
 export const createReceta = async (receta) => {
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(conNegocio(receta)),
-  });
-
-  if (!response.ok) {
-    throw new Error("Error al crear la receta");
+  const row = recetaToDb({ ...receta, id: createId() });
+  const { data, error } = await supabase.from("recetas").insert(row).select("*").single();
+  throwSupabaseError(error, "Error al crear la receta");
+  try {
+    await guardarIngredientes(data.id, receta.ingredientes);
+  } catch (e) {
+    await supabase.from("recetas").delete().eq("id", data.id);
+    throw e;
   }
-
-  return response.json();
+  return getReceta(data.id);
 };
 
 export const updateReceta = async (id, receta) => {
-  const response = await fetch(`${API_URL}/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(conNegocio(receta)),
-  });
-
-  if (!response.ok) {
-    throw new Error("Error al actualizar la receta");
-  }
-
-  return response.json();
+  const negocioId = requireNegocioId();
+  const row = recetaToDb({ ...receta, id }, negocioId);
+  const { data, error } = await supabase.from("recetas").update(row).eq("id", id).eq("negocio_id", negocioId).select("*").single();
+  throwSupabaseError(error, "Error al actualizar la receta");
+  await guardarIngredientes(id, receta.ingredientes);
+  return recetaFromDb(data, await obtenerIngredientes([id]));
 };
 
 export const deleteReceta = async (id) => {
-  const response = await fetch(`${API_URL}/${id}`, {
-    method: "DELETE",
-  });
-
-  if (!response.ok) {
-    throw new Error("Error al eliminar la receta");
-  }
-
+  const negocioId = requireNegocioId();
+  const { error } = await supabase.from("recetas").delete().eq("id", id).eq("negocio_id", negocioId);
+  throwSupabaseError(error, "Error al eliminar la receta");
   return true;
 };

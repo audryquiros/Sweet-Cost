@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import FilterSelect from "../../common/FilterSelect";
 
 import {
   createReceta,
@@ -580,26 +581,18 @@ function RecetasForm({
             Unidad del rendimiento
           </label>
 
-          <select
+          <FilterSelect
             id="unidadRendimiento"
-            name="unidadRendimiento"
-            value={
-              formulario.unidadRendimiento
-            }
-            onChange={handleChange}
-          >
-            <option value="unidad">
-              Unidades
-            </option>
-
-            <option value="docena">
-              Docenas
-            </option>
-
-            <option value="porciones">
-              Porciones
-            </option>
-          </select>
+            value={formulario.unidadRendimiento}
+            options={[
+              { valor: "unidad", nombre: "Unidades" },
+              { valor: "docena", nombre: "Docenas" },
+              { valor: "porciones", nombre: "Porciones" },
+            ]}
+            onChange={(value) => handleChange({ target: { name: "unidadRendimiento", value } })}
+            className="receta-form-filter-select"
+            portalMenu
+          />
         </div>
 
         <div className="receta-ingredientes">
@@ -668,22 +661,23 @@ function RecetasForm({
                       >
                         <td>
                           <label className="tabla-label-mobile">Producto</label>
-                          <select
+                          <FilterSelect
+                            id={`ingrediente-producto-${indice}`}
                             value={ingrediente.productoId}
-                            onChange={(e) =>
-                              seleccionarProducto(indice, e.target.value)
-                            }
-                            onFocus={() => seleccionarIngrediente(indice)}
-                            required
-                          >
-                            <option value="">Seleccionar producto</option>
-                            {productos.map((producto) => (
-                              <option key={producto.id} value={producto.id}>
-                                {producto.nombre}
-                                {producto.marca ? ` - ${producto.marca}` : ""}
-                              </option>
-                            ))}
-                          </select>
+                            options={[
+                              { valor: "", nombre: "Seleccionar producto" },
+                              ...productos.map((producto) => ({
+                                valor: producto.id,
+                                nombre: `${producto.nombre}${producto.marca ? ` - ${producto.marca}` : ""}`,
+                              })),
+                            ]}
+                            onChange={(value) => {
+                              seleccionarProducto(indice, value);
+                              seleccionarIngrediente(indice);
+                            }}
+                            className="receta-form-filter-select"
+                            portalMenu
+                          />
                         </td>
 
                         <td>

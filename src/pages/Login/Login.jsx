@@ -166,8 +166,12 @@ function Login() {
                   type="checkbox"
                   checked={recordarme}
                   onChange={(event) => setRecordarme(event.target.checked)}
+                  aria-label="Recordarme"
                 />
-                <span>Recordarme</span>
+                <span className="login-remember-box" aria-hidden="true">
+                  {recordarme && <span className="login-remember-check">✓</span>}
+                </span>
+                <span className="login-remember-text">Recordarme</span>
               </label>
 
               <button type="button" className="login-forgot" onClick={() => navigate("/recuperar-contrasena")}>

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import "./FilterSelect.css";
 
-function FilterSelect({ id, label, value, options, onChange, className = "", portalMenu = false }) {
+function FilterSelect({ id, label, value, options = [], onChange, className = "", portalMenu = false, disabled = false }) {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
   const menuRef = useRef(null);
@@ -71,7 +71,8 @@ function FilterSelect({ id, label, value, options, onChange, className = "", por
         className="filter-select-trigger"
         aria-haspopup="listbox"
         aria-expanded={open}
-        onClick={() => setOpen((current) => !current)}
+        disabled={disabled}
+        onClick={() => !disabled && setOpen((current) => !current)}
       >
         <span>{selected?.nombre}</span>
         <span className="filter-select-chevron" aria-hidden="true" />

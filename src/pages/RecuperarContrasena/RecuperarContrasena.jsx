@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { supabase } from "../../lib/supabase";
 import "./RecuperarContrasena.css";
-
-const N8N_WEBHOOK_URL =
-  import.meta.env.VITE_N8N_RECUPERACION_URL || "";
 
 function RecuperarContrasena() {
   const [correo, setCorreo] = useState("");
@@ -14,39 +12,16 @@ function RecuperarContrasena() {
     event.preventDefault();
     setEstado("loading");
     setMensaje("");
-
-    if (!N8N_WEBHOOK_URL) {
-      setEstado("error");
-      setMensaje(
-        "La recuperación todavía no está conectada. Configura VITE_N8N_RECUPERACION_URL con la URL del Webhook de n8n."
-      );
-      return;
-    }
-
     try {
-      const response = await fetch(N8N_WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          correo: correo.trim().toLowerCase(),
-          origen: "sweet-cost",
-          accion: "recuperar_contrasena",
-        }),
+      const { error } = await supabase.auth.resetPasswordForEmail(correo.trim().toLowerCase(), {
+        redirectTo: `${window.location.origin}/restablecer-contrasena`,
       });
-
-      if (!response.ok) {
-        throw new Error("No se pudo enviar la solicitud.");
-      }
-
+      if (error) throw new Error(error.message);
       setEstado("success");
-      setMensaje(
-        "Si el correo está registrado, recibirás las instrucciones para recuperar tu contraseña."
-      );
+      setMensaje("Si el correo está registrado, recibirás las instrucciones para recuperar tu contraseña.");
     } catch (error) {
       setEstado("error");
-      setMensaje(
-        error.message || "No se pudo procesar la solicitud. Inténtalo nuevamente."
-      );
+      setMensaje(error.message || "No se pudo procesar la solicitud. Inténtalo nuevamente.");
     }
   };
 

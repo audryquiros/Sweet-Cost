@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import ProductoList from "../../components/Productos/ProductoList/ProductoList";
 import ViewToggle from "../../components/common/ViewToggle/ViewToggle";
@@ -11,6 +12,7 @@ import {
   createProducto,
   updateProducto,
   deleteProducto,
+  getRecetasQueUsanProducto,
 } from "../../services/productoServices";
 
 import Icon from "../../components/common/Icon/Icon";
@@ -49,6 +51,11 @@ function Productos() {
   const [productoAEliminar, setProductoAEliminar] =
     useState(null);
 
+  const [recetasRelacionadas, setRecetasRelacionadas] =
+    useState([]);
+
+  const navigate = useNavigate();
+
   const [filtroTipo, setFiltroTipo] =
     useState("todos");
 
@@ -58,6 +65,9 @@ function Productos() {
     useState(true);
 
   const [error, setError] =
+    useState("");
+
+  const [mensajeExito, setMensajeExito] =
     useState("");
 
   /*
@@ -167,13 +177,26 @@ function Productos() {
    * =====================================================
    */
 
-  const manejarEliminar = (producto) => {
-    setProductoAEliminar(producto);
+  const manejarEliminar = async (producto) => {
     setError("");
+    try {
+      const recetas = await getRecetasQueUsanProducto(producto.id);
+      setRecetasRelacionadas(recetas);
+      setProductoAEliminar(producto);
+    } catch (error) {
+      console.error(error);
+      setError("No se pudo comprobar si el producto está siendo utilizado.");
+    }
   };
 
   const cancelarEliminacion = () => {
     setProductoAEliminar(null);
+    setRecetasRelacionadas([]);
+  };
+
+  const irARecetas = () => {
+    cancelarEliminacion();
+    navigate("/recetas");
   };
 
   const confirmarEliminacion = async () => {
@@ -195,6 +218,10 @@ function Productos() {
       );
 
       setProductoAEliminar(null);
+      setRecetasRelacionadas([]);
+      setMensajeExito("Producto eliminado correctamente.");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => setMensajeExito(""), 3000);
     } catch (error) {
       console.error(error);
 
@@ -292,6 +319,12 @@ function Productos() {
           ERROR
           ================================================= */}
 
+      {mensajeExito && (
+        <div className="productos-exito" role="status">
+          {mensajeExito}
+        </div>
+      )}
+
       {error && (
         <div className="productos-error">
           {error}
@@ -378,10 +411,15 @@ function Productos() {
 
       {productoAEliminar && (
         <Confirmacion
-          titulo="¿Eliminar producto?"
-          mensaje={`¿Deseas eliminar "${productoAEliminar.nombre}"? Esta acción no se puede deshacer.`}
-          onConfirmar={confirmarEliminacion}
+          titulo={recetasRelacionadas.length ? "No se puede eliminar este producto" : "¿Eliminar producto?"}
+          mensaje={
+            recetasRelacionadas.length
+              ? `"${productoAEliminar.nombre}" está siendo utilizado en ${recetasRelacionadas.length === 1 ? "una receta" : `${recetasRelacionadas.length} recetas`}. Elimínalo de ${recetasRelacionadas.length === 1 ? "esa receta" : "esas recetas"} antes de eliminarlo.${recetasRelacionadas.length <= 3 ? ` ${recetasRelacionadas.map((receta) => receta.nombre).join(", ")}.` : ""}`
+              : `¿Deseas eliminar "${productoAEliminar.nombre}"? Esta acción no se puede deshacer.`
+          }
+          onConfirmar={recetasRelacionadas.length ? irARecetas : confirmarEliminacion}
           onCancelar={cancelarEliminacion}
+          textoConfirmar={recetasRelacionadas.length ? "Ir a recetas" : "Eliminar"}
         />
       )}
     </main>

@@ -2,11 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 import FilterSelect from "../../common/FilterSelect";
 import { createEmpleado, updateEmpleado } from "../../../services/empleadoServices";
 import { getNegocioActivoId } from "../../../context/negocioContext";
+import { getNegociosAdministrador } from "../../../services/negocioServices";
 import { useAuth } from "../../../context/authContext";
 import "./EmpleadoForm.css";
 import { formatearTelefono, telefonoCompleto } from "../../../utils/formatearTelefono";
 
-const API_NEGOCIOS = "http://localhost:3001/negocios";
 
 const formularioInicial = {
   nombre: "",
@@ -65,10 +65,7 @@ function EmpleadoForm({ empleado, onCreado, onActualizado, onCancelar }) {
 
       setCargandoNegocios(true);
       try {
-        const response = await fetch(API_NEGOCIOS);
-        if (!response.ok) throw new Error();
-        const data = await response.json();
-        const propios = data.filter((negocio) => negocio.administradorId === usuario.id);
+        const propios = await getNegociosAdministrador(usuario.id);
         if (cancelado) return;
 
         setNegociosAdministrados(propios);

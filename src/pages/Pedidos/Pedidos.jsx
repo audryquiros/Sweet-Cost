@@ -44,6 +44,7 @@ function Pedidos() {
   const [error, setError] = useState("");
   const [pedidoAEliminar, setPedidoAEliminar] = useState(null);
   const [detalle, setDetalle] = useState(null);
+  const [mensajeExito, setMensajeExito] = useState("");
 
   useEffect(() => {
     cargarDatos();
@@ -110,6 +111,10 @@ function Pedidos() {
       await deletePedido(pedidoAEliminar.id);
       setPedidos((actuales) => actuales.filter((item) => item.id !== pedidoAEliminar.id));
       setPedidoAEliminar(null);
+      setError("");
+      setMensajeExito("Pedido eliminado correctamente.");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => setMensajeExito(""), 3000);
     } catch (err) {
       setError(err.message || "No se pudo eliminar el pedido.");
     }
@@ -142,6 +147,8 @@ function Pedidos() {
           <p>Gestiona los pedidos creados a partir de tus cotizaciones aceptadas.</p>
         </div>
       </header>
+
+      {mensajeExito && <div className="pedidos-exito" role="status">{mensajeExito}</div>}
 
       {error && <div className="pedidos-error">{error}</div>}
 

@@ -205,7 +205,7 @@ function Configuracion() {
       setMensajeNegocio("Cambios guardados correctamente.");
     } catch (error) {
       console.error(error);
-      setMensajeNegocio("No se pudieron guardar los cambios. Verifica que json-server esté activo.");
+      setMensajeNegocio("No se pudieron guardar los cambios. Verifica tu conexión con Supabase.");
     } finally {
       setGuardandoNegocio(false);
     }
@@ -221,7 +221,7 @@ function Configuracion() {
       setMensajeCostos("Margen guardado correctamente.");
     } catch (error) {
       console.error(error);
-      setMensajeCostos("No se pudo guardar el margen. Verifica que json-server esté activo.");
+      setMensajeCostos("No se pudo guardar el margen. Verifica tu conexión con Supabase.");
     }
   };
 

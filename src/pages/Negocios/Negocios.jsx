@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { cargarNegociosDesdeServidor } from "../../context/negocioContext";
+import { getNegociosAdministrador, createNegocio, updateNegocio } from "../../services/negocioServices";
 import FilterSelect from "../../components/common/FilterSelect";
 import "./Negocios.css";
 
-const API = "http://localhost:3001/negocios";
 const TIPOS = ["Repostería", "Panadería", "Soda", "Catering"];
 const TIPO_OPTIONS = TIPOS.map((tipo) => ({ valor: tipo, nombre: tipo }));
 const FORM_INICIAL = { nombre: "", tipo: TIPOS[0], telefono: "", correo: "", margenGanancia: 30 };
@@ -22,10 +22,7 @@ export default function Negocios() {
   const cargar = async () => {
     setCargando(true);
     try {
-      const r = await fetch(API);
-      if (!r.ok) throw new Error();
-      const data = await r.json();
-      const propios = data.filter((negocio) => negocio.administradorId === usuario?.id);
+      const propios = await getNegociosAdministrador(usuario?.id);
       setNegocios(propios);
     } catch {
       setError("No se pudieron cargar los negocios.");
@@ -83,20 +80,9 @@ export default function Negocios() {
     };
 
     try {
-      const url = editandoId ? `${API}/${editandoId}` : API;
-      const method = editandoId ? "PATCH" : "POST";
-      const payload = editandoId
-        ? datos
-        : { ...datos, id: `neg-${Date.now()}`, administradorId: usuario.id };
-
-      const response = await fetch(url, {
-        method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (!response.ok) throw new Error();
-
-      const negocioGuardado = await response.json();
+      const negocioGuardado = editandoId
+        ? await updateNegocio(editandoId, datos)
+        : await createNegocio({ ...datos, administradorId: usuario.id });
       setNegocios((actuales) => editandoId
         ? actuales.map((item) => item.id === negocioGuardado.id ? negocioGuardado : item)
         : [...actuales, negocioGuardado]
@@ -108,12 +94,14 @@ export default function Negocios() {
 
       if (!editandoId) {
         const ids = [...new Set([...(usuario?.negocioIds || []), negocioGuardado.id])];
-        const empleadoResponse = await fetch(`http://localhost:3001/empleados/${usuario.id}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ negocioId: negocioGuardado.id, negocioIds: ids }),
-        });
-        if (!empleadoResponse.ok) throw new Error();
+        const { supabase } = await import("../../lib/supabase");
+        const { error: empleadoError } = await supabase.from("empleados").update({ negocio_id: negocioGuardado.id }).eq("id", usuario.id);
+        if (empleadoError) throw new Error(empleadoError.message);
+
+        const { error: relDeleteError } = await supabase.from("empleado_negocios").delete().eq("empleado_id", usuario.id);
+        if (relDeleteError) throw new Error(relDeleteError.message);
+        const { error: relInsertError } = await supabase.from("empleado_negocios").insert(ids.map((negocioId) => ({ empleado_id: usuario.id, negocio_id: negocioId })));
+        if (relInsertError) throw new Error(relInsertError.message);
 
         const actualizado = { ...usuario, negocioId: negocioGuardado.id, negocioIds: ids };
         sessionStorage.setItem("sweetcost-auth-user", JSON.stringify(actualizado));
@@ -127,8 +115,8 @@ export default function Negocios() {
       await cargarNegociosDesdeServidor();
     } catch {
       setError(editandoId
-        ? "No se pudo actualizar el negocio. Verifica que JSON Server esté activo."
-        : "No se pudo registrar el negocio. Verifica que JSON Server esté activo.");
+        ? "No se pudo actualizar el negocio."
+        : "No se pudo registrar el negocio.");
     } finally {
       setGuardando(false);
     }

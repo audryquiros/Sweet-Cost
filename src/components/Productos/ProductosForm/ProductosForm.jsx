@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import FilterSelect from "../../common/FilterSelect";
 
 import {
   createProducto,
@@ -362,24 +363,18 @@ function ProductosForm({
             Tipo
           </label>
 
-          <select
+          <FilterSelect
             id="tipo"
-            name="tipo"
             value={formulario.tipo}
-            onChange={manejarCambio}
-          >
-            <option value="ingrediente">
-              Ingrediente
-            </option>
-
-            <option value="topping">
-              Topping
-            </option>
-
-            <option value="salsa">
-              Salsa
-            </option>
-          </select>
+            options={[
+              { valor: "ingrediente", nombre: "Ingrediente" },
+              { valor: "topping", nombre: "Topping" },
+              { valor: "salsa", nombre: "Salsa" },
+            ]}
+            onChange={(value) => manejarCambio({ target: { name: "tipo", value } })}
+            className="form-filter-select"
+            portalMenu
+          />
         </div>
 
 
@@ -429,35 +424,21 @@ function ProductosForm({
               required
             />
 
-            <select
-              name="unidad"
+            <FilterSelect
+              id="unidad"
               value={formulario.unidad}
-              onChange={manejarCambio}
-            >
-              <option value="g">
-                g
-              </option>
-
-              <option value="kg">
-                kg
-              </option>
-
-              <option value="ml">
-                ml
-              </option>
-
-              <option value="l">
-                L
-              </option>
-
-              <option value="unidad">
-                unidad
-              </option>
-
-              <option value="docena">
-                docena
-              </option>
-            </select>
+              options={[
+                { valor: "g", nombre: "g" },
+                { valor: "kg", nombre: "kg" },
+                { valor: "ml", nombre: "ml" },
+                { valor: "l", nombre: "L" },
+                { valor: "unidad", nombre: "unidad" },
+                { valor: "docena", nombre: "docena" },
+              ]}
+              onChange={(value) => manejarCambio({ target: { name: "unidad", value } })}
+              className="form-filter-select"
+              portalMenu
+            />
           </div>
 
           <small>
@@ -542,37 +523,21 @@ function ProductosForm({
                 required
               />
 
-              <select
-                name="unidadPorPorcion"
-                value={
-                  formulario.unidadPorPorcion
-                }
-                onChange={manejarCambio}
-              >
-                <option value="g">
-                  g
-                </option>
-
-                <option value="kg">
-                  kg
-                </option>
-
-                <option value="ml">
-                  ml
-                </option>
-
-                <option value="l">
-                  L
-                </option>
-
-                <option value="unidad">
-                  unidad
-                </option>
-
-                <option value="docena">
-                  docena
-                </option>
-              </select>
+              <FilterSelect
+                id="unidadPorPorcion"
+                value={formulario.unidadPorPorcion}
+                options={[
+                  { valor: "g", nombre: "g" },
+                  { valor: "kg", nombre: "kg" },
+                  { valor: "ml", nombre: "ml" },
+                  { valor: "l", nombre: "L" },
+                  { valor: "unidad", nombre: "unidad" },
+                  { valor: "docena", nombre: "docena" },
+                ]}
+                onChange={(value) => manejarCambio({ target: { name: "unidadPorPorcion", value } })}
+                className="form-filter-select"
+                portalMenu
+              />
             </div>
 
             <small>

@@ -7,6 +7,8 @@ function Confirmacion({
   onCancelar,
   textoConfirmar = "Eliminar",
   icono = "/illustrations/eliminar.png",
+  textoSecundario = "",
+  onSecundario,
 }) {
   return (
     <div
@@ -42,6 +44,16 @@ function Confirmacion({
           >
             Cancelar
           </button>
+
+          {textoSecundario && onSecundario && (
+            <button
+              type="button"
+              className="btn-confirmacion-secundario"
+              onClick={onSecundario}
+            >
+              {textoSecundario}
+            </button>
+          )}
 
           <button
             type="button"

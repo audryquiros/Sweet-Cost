@@ -1,26 +1,12 @@
+import { supabase } from "../lib/supabase";
+
 const NEGOCIO_KEY = "sweetcost-negocio-activo";
 const LEGACY_NEGOCIO_KEY = NEGOCIO_KEY;
+const NEGOCIOS_KEY = "sweetcost-negocios-autorizados";
 
 function getNegocioKey(usuarioId) {
   return usuarioId ? `${NEGOCIO_KEY}:${usuarioId}` : NEGOCIO_KEY;
 }
-const API_URL = "http://localhost:3001/negocios";
-
-async function hidratarImagenNegocio(negocio) {
-  if (!negocio?.id) return negocio;
-  try {
-    const modulo = await import("../utils/imagenStorage");
-    const url = await modulo.obtenerImagenNegocio(negocio.id);
-    return url ? { ...negocio, imagen: url } : { ...negocio, imagen: "" };
-  } catch {
-    return negocio;
-  }
-}
-
-// La lista se hidrata exclusivamente desde JSON Server.
-// No se mantienen negocios de demostración aquí para evitar que una cuenta
-// pueda ver por un instante información de otra cuenta mientras carga la sesión.
-export const NEGOCIOS = [];
 
 function getUsuarioSesion() {
   try {
@@ -31,33 +17,50 @@ function getUsuarioSesion() {
   }
 }
 
+function negocioFromDb(row) {
+  if (!row) return row;
+  return {
+    ...row,
+    margenGanancia: row.margen_ganancia,
+    administradorId: row.administrador_id,
+  };
+}
+
+function leerNegociosAutorizados() {
+  try {
+    const datos = JSON.parse(sessionStorage.getItem(NEGOCIOS_KEY) || "[]");
+    return Array.isArray(datos) ? datos : [];
+  } catch {
+    return [];
+  }
+}
+
+export const NEGOCIOS = [];
+
+export function hidratarNegocios(negocios = []) {
+  NEGOCIOS.splice(0, NEGOCIOS.length, ...negocios.map(negocioFromDb));
+  try {
+    sessionStorage.setItem(NEGOCIOS_KEY, JSON.stringify(NEGOCIOS));
+  } catch {}
+  return NEGOCIOS;
+}
+
+// Inicializa el cache en caso de que el módulo se cargue después del login.
+hidratarNegocios(leerNegociosAutorizados());
+
 function obtenerIdsAutorizados(usuario) {
   if (!usuario) return [];
-
-  const ids = new Set(
-    Array.isArray(usuario.negocioIds)
-      ? usuario.negocioIds.filter(Boolean)
-      : []
-  );
-
+  const ids = new Set(Array.isArray(usuario.negocioIds) ? usuario.negocioIds.filter(Boolean) : []);
   if (usuario.negocioId) ids.add(usuario.negocioId);
   return [...ids];
 }
 
-/**
- * Devuelve únicamente un negocio al que el usuario autenticado tiene acceso.
- * El localStorage nunca se considera una fuente de autorización: solo puede
- * reutilizarse si el ID pertenece al usuario actual.
- */
 export function getNegocioActivoId() {
   const usuario = getUsuarioSesion();
   if (!usuario) return null;
-
   const idsAutorizados = obtenerIdsAutorizados(usuario);
   if (!idsAutorizados.length) return null;
 
-  // Cada usuario tiene su propia clave. Esto evita que una cuenta herede
-  // el negocio activo de otra cuenta en el mismo navegador.
   const usuarioKey = getNegocioKey(usuario.id);
   const guardado = localStorage.getItem(usuarioKey);
   if (guardado && idsAutorizados.includes(guardado)) return guardado;
@@ -74,83 +77,52 @@ export function getNegocioActivoId() {
 
 export function setNegocioActivoId(id) {
   if (!id) return false;
-
   const usuario = getUsuarioSesion();
-  const autorizado = obtenerIdsAutorizados(usuario).includes(id);
-  const existe = NEGOCIOS.some((negocio) => negocio.id === id);
-
-  if (!autorizado || !existe) return false;
+  if (!usuario || !obtenerIdsAutorizados(usuario).includes(id)) return false;
 
   localStorage.setItem(getNegocioKey(usuario.id), id);
-  // Se elimina la clave global antigua para que nunca vuelva a contaminar
-  // una sesión posterior.
   localStorage.removeItem(LEGACY_NEGOCIO_KEY);
-  window.dispatchEvent(
-    new CustomEvent("sweetcost-negocio-cambio", { detail: getNegocioActivo() })
-  );
-  return true;
+  const negocio = NEGOCIOS.find((item) => item.id === id);
+  if (negocio) window.dispatchEvent(new CustomEvent("sweetcost-negocio-cambio", { detail: negocio }));
+  return Boolean(negocio);
 }
 
 export function getNegocioActivo() {
   const id = getNegocioActivoId();
   if (!id) return null;
-
-  return (
-    NEGOCIOS.find((negocio) => negocio.id === id) || {
-      id,
-      nombre: "Cargando negocio…",
-      tipo: "",
-      imagen: "",
-    }
-  );
+  return NEGOCIOS.find((negocio) => negocio.id === id) || {
+    id,
+    nombre: "Cargando negocio…",
+    tipo: "",
+    imagen: "",
+  };
 }
 
-/** Sincroniza un negocio que acaba de venir de JSON Server. */
 export function sincronizarNegocioActivo(datos) {
   if (!datos?.id) return;
-
   const indice = NEGOCIOS.findIndex((negocio) => negocio.id === datos.id);
-  if (indice >= 0) {
-    NEGOCIOS[indice] = { ...NEGOCIOS[indice], ...datos };
-  } else {
-    NEGOCIOS.push(datos);
-  }
-
-  // No asignamos automáticamente el primer negocio del servidor.
-  // El negocio activo siempre debe provenir de la sesión del usuario.
-  if (getNegocioActivoId() === datos.id) {
-    window.dispatchEvent(new CustomEvent("sweetcost-negocio-cambio", { detail: { ...getNegocioActivo() } }));
-  }
+  if (indice >= 0) NEGOCIOS[indice] = { ...NEGOCIOS[indice], ...negocioFromDb(datos) };
+  else NEGOCIOS.push(negocioFromDb(datos));
+  try { sessionStorage.setItem(NEGOCIOS_KEY, JSON.stringify(NEGOCIOS)); } catch {}
+  if (getNegocioActivoId() === datos.id) window.dispatchEvent(new CustomEvent("sweetcost-negocio-cambio", { detail: getNegocioActivo() }));
 }
 
-/** Carga todos los negocios desde db.json para que el contexto no dependa de datos hardcodeados. */
 export async function cargarNegociosDesdeServidor() {
-  const response = await fetch(API_URL);
-  if (!response.ok) throw new Error("No se pudieron cargar los negocios");
-
-  const datos = await response.json();
-  if (!Array.isArray(datos) || datos.length === 0) return [];
-
-  const datosHidratados = await Promise.all(datos.map(hidratarImagenNegocio));
-  NEGOCIOS.splice(0, NEGOCIOS.length, ...datosHidratados);
-
-  // El negocio activo se valida contra la sesión actual. Nunca elegimos
-  // NEGOCIOS[0] porque podría pertenecer a otro usuario.
-  const negocioActivoId = getNegocioActivoId();
-  const negocioActivo = negocioActivoId
-    ? NEGOCIOS.find((negocio) => negocio.id === negocioActivoId)
-    : null;
-
-  window.dispatchEvent(
-    new CustomEvent("sweetcost-negocios-cargados", { detail: [...NEGOCIOS] })
-  );
-
-  if (negocioActivo) {
-    window.dispatchEvent(
-      new CustomEvent("sweetcost-negocio-cambio", { detail: { ...negocioActivo } })
-    );
-  }
+  const usuario = getUsuarioSesion();
+  if (!usuario) return [];
+  const ids = obtenerIdsAutorizados(usuario);
+  if (!ids.length) return [];
+  const { data, error } = await supabase.from("negocios").select("*").in("id", ids).order("nombre");
+  if (error) throw new Error(error.message || "No se pudieron cargar los negocios");
+  hidratarNegocios(data || []);
+  window.dispatchEvent(new CustomEvent("sweetcost-negocios-cargados", { detail: [...NEGOCIOS] }));
+  const activo = getNegocioActivo();
+  if (activo) window.dispatchEvent(new CustomEvent("sweetcost-negocio-cambio", { detail: activo }));
   return NEGOCIOS;
+}
+
+export async function getNegociosAutorizados() {
+  return cargarNegociosDesdeServidor();
 }
 
 export function conNegocio(data) {
@@ -162,17 +134,7 @@ export function conNegocio(data) {
 export function filtrarPorNegocio(items) {
   const negocioId = getNegocioActivoId();
   if (!negocioId) return [];
-
-  return (Array.isArray(items) ? items : []).filter((item) => {
-    if (Array.isArray(item?.negocioIds) && item.negocioIds.length) {
-      return item.negocioIds.includes(negocioId);
-    }
-
-    // Los registros deben tener negocioId para pertenecer a un negocio.
-    // No mostramos registros sin asociación porque podrían provenir de otro
-    // negocio o de una versión anterior de los datos.
-    return item?.negocioId === negocioId;
-  });
+  return (Array.isArray(items) ? items : []).filter((item) => item?.negocioId === negocioId);
 }
 
-export { NEGOCIO_KEY };
+export { NEGOCIO_KEY, NEGOCIOS_KEY };

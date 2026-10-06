@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { getProductos } from "../../../services/productoServices";
+import FilterSelect from "../../common/FilterSelect";
 import "./PedidosForm.css";
 
 const ESTADOS = [
@@ -248,22 +249,18 @@ function PedidosForm({ pedidoEditar, onGuardar, onCancelar }) {
             <div className="pedido-form-grid pedido-form-grid--three">
               <label>
                 Producto *
-                <select
-                  name="productoId"
+                <FilterSelect
+                  id="pedido-producto"
                   value={formulario.productoId}
+                  options={[
+                    { valor: "", nombre: cargandoProductos ? "Cargando..." : "Selecciona un producto" },
+                    ...productos.map((producto) => ({ valor: producto.id, nombre: producto.nombre })),
+                  ]}
                   onChange={manejarProducto}
-                  required
                   disabled={cargandoProductos}
-                >
-                  <option value="">
-                    {cargandoProductos ? "Cargando..." : "Selecciona un producto"}
-                  </option>
-                  {productos.map((producto) => (
-                    <option key={producto.id} value={producto.id}>
-                      {producto.nombre}
-                    </option>
-                  ))}
-                </select>
+                  className="form-filter-select"
+                  portalMenu
+                />
                 {errorProductos && <small className="pedido-form-error">{errorProductos}</small>}
               </label>
 
@@ -309,32 +306,26 @@ function PedidosForm({ pedidoEditar, onGuardar, onCancelar }) {
             <div className="pedido-form-grid pedido-form-grid--three">
               <label>
                 Estado
-                <select
-                  name="estado"
+                <FilterSelect
+                  id="pedido-estado"
                   value={formulario.estado}
-                  onChange={manejarCambio}
-                >
-                  {ESTADOS.map((estado) => (
-                    <option key={estado} value={estado}>
-                      {estado}
-                    </option>
-                  ))}
-                </select>
+                  options={ESTADOS.map((estado) => ({ valor: estado, nombre: estado }))}
+                  onChange={(value) => manejarCambio({ target: { name: "estado", value } })}
+                  className="form-filter-select"
+                  portalMenu
+                />
               </label>
 
               <label>
                 Método de pago
-                <select
-                  name="metodoPago"
+                <FilterSelect
+                  id="pedido-metodo-pago"
                   value={formulario.metodoPago}
-                  onChange={manejarCambio}
-                >
-                  {METODOS_PAGO.map((metodo) => (
-                    <option key={metodo} value={metodo}>
-                      {metodo}
-                    </option>
-                  ))}
-                </select>
+                  options={METODOS_PAGO.map((metodo) => ({ valor: metodo, nombre: metodo }))}
+                  onChange={(value) => manejarCambio({ target: { name: "metodoPago", value } })}
+                  className="form-filter-select"
+                  portalMenu
+                />
               </label>
 
               <label>

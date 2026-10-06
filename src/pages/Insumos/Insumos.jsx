@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   getInsumos,
   deleteInsumo,
+  getRelacionesInsumo,
 } from "../../services/insumoServices";
 
 import InsumosForm from "../../components/Insumos/InsumosForm/InsumosForm";
@@ -27,6 +29,11 @@ function Insumos() {
 
   const [insumoAEliminar, setInsumoAEliminar] =
     useState(null);
+
+  const [relacionesInsumo, setRelacionesInsumo] =
+    useState({ cotizaciones: [], pedidos: [] });
+
+  const navigate = useNavigate();
 
   const [mensajeExito, setMensajeExito] =
     useState("");
@@ -109,8 +116,18 @@ function Insumos() {
     }, 3000);
   };
 
-  const handleEliminar = (insumo) => {
-    setInsumoAEliminar(insumo);
+  const handleEliminar = async (insumo) => {
+    try {
+      setError("");
+
+      const relaciones = await getRelacionesInsumo(insumo.id);
+
+      setRelacionesInsumo(relaciones);
+      setInsumoAEliminar(insumo);
+    } catch (error) {
+      console.error(error);
+      setError("No se pudo comprobar si el insumo está siendo utilizado.");
+    }
   };
 
   const confirmarEliminacion = async () => {
@@ -131,21 +148,40 @@ function Insumos() {
       );
 
       setInsumoAEliminar(null);
+      setRelacionesInsumo({ cotizaciones: [], pedidos: [] });
 
       setMensajeExito(
         "Insumo eliminado correctamente."
       );
+      window.scrollTo({ top: 0, behavior: "smooth" });
 
       setTimeout(() => {
         setMensajeExito("");
       }, 3000);
     } catch (error) {
-      setError(error.message);
+      console.error(error);
+      const mensaje = String(error?.message || "");
+      if (mensaje.includes("cotizacion_insumos_insumo_id_fkey") || mensaje.includes("pedido_insumos_insumo_id_fkey")) {
+        setError("No se puede eliminar el insumo porque todavía está siendo utilizado en una cotización o pedido.");
+      } else {
+        setError("No se pudo eliminar el insumo.");
+      }
     }
   };
 
   const cancelarEliminacion = () => {
     setInsumoAEliminar(null);
+    setRelacionesInsumo({ cotizaciones: [], pedidos: [] });
+  };
+
+  const irACotizaciones = () => {
+    cancelarEliminacion();
+    navigate("/cotizaciones");
+  };
+
+  const irAPedidos = () => {
+    cancelarEliminacion();
+    navigate("/pedidos");
   };
 
   return (
@@ -227,9 +263,53 @@ function Insumos() {
 
       {insumoAEliminar && (
         <Confirmacion
-          mensaje={`¿Estás seguro de que deseas eliminar el insumo "${insumoAEliminar.nombre}"? Esta acción no se puede deshacer.`}
-          onConfirmar={confirmarEliminacion}
+          titulo={
+            relacionesInsumo.cotizaciones.length || relacionesInsumo.pedidos.length
+              ? "No se puede eliminar este insumo"
+              : "¿Eliminar insumo?"
+          }
+          mensaje={
+            relacionesInsumo.cotizaciones.length || relacionesInsumo.pedidos.length
+              ? `"${insumoAEliminar.nombre}" está siendo utilizado en ${
+                  relacionesInsumo.cotizaciones.length && relacionesInsumo.pedidos.length
+                    ? "cotizaciones y pedidos"
+                    : relacionesInsumo.cotizaciones.length
+                      ? "una o más cotizaciones"
+                      : "uno o más pedidos"
+                }. ${
+                  relacionesInsumo.cotizaciones.length && relacionesInsumo.pedidos.length
+                    ? "Debes quitarlo de esos registros antes de eliminarlo."
+                    : relacionesInsumo.cotizaciones.length
+                      ? "Debes quitarlo de las cotizaciones donde se utiliza antes de eliminarlo."
+                      : "Debes quitarlo de los pedidos donde se utiliza antes de eliminarlo."
+                }`
+              : `¿Estás seguro de que deseas eliminar el insumo "${insumoAEliminar.nombre}"? Esta acción no se puede deshacer.`
+          }
+          onConfirmar={
+            relacionesInsumo.cotizaciones.length
+              ? irACotizaciones
+              : relacionesInsumo.pedidos.length
+                ? irAPedidos
+                : confirmarEliminacion
+          }
           onCancelar={cancelarEliminacion}
+          textoConfirmar={
+            relacionesInsumo.cotizaciones.length
+              ? "Ir a cotizaciones"
+              : relacionesInsumo.pedidos.length
+                ? "Ir a pedidos"
+                : "Eliminar"
+          }
+          textoSecundario={
+            relacionesInsumo.cotizaciones.length && relacionesInsumo.pedidos.length
+              ? "Ir a pedidos"
+              : ""
+          }
+          onSecundario={
+            relacionesInsumo.cotizaciones.length && relacionesInsumo.pedidos.length
+              ? irAPedidos
+              : undefined
+          }
         />
       )}
     </main>

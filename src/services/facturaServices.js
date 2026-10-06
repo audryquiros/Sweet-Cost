@@ -1,98 +1,35 @@
-import { getNegocioActivoId } from "../context/negocioContext";
-
-const API_URL = "http://localhost:3001/facturas";
+import { supabase, facturaFromDb, facturaToDb, requireNegocioId, throwSupabaseError, createId } from "../lib/supabaseData";
 
 export async function getFacturas() {
-  const response = await fetch(API_URL);
-
-  if (!response.ok) {
-    throw new Error("Error al obtener las facturas");
-  }
-
-  const facturas = await response.json();
-  const negocioId = getNegocioActivoId();
-
-  return (Array.isArray(facturas) ? facturas : []).filter(
-    (factura) => factura?.negocioId === negocioId
-  );
+  const negocioId = requireNegocioId();
+  const { data, error } = await supabase.from("facturas").select("*").eq("negocio_id", negocioId).order("fecha", { ascending: false });
+  throwSupabaseError(error, "Error al obtener las facturas");
+  return (data || []).map(facturaFromDb);
 }
 
-export async function buscarFacturaPorNumero(numeroFactura, negocioId = getNegocioActivoId()) {
+export async function buscarFacturaPorNumero(numeroFactura, negocioId = requireNegocioId()) {
   if (!numeroFactura) return null;
-
-  const response = await fetch(
-    `${API_URL}?negocioId=${encodeURIComponent(negocioId)}&numeroFactura=${encodeURIComponent(numeroFactura)}`
-  );
-
-  if (!response.ok) {
-    throw new Error("No se pudo comprobar si la factura ya existe");
-  }
-
-  const facturas = await response.json();
-  return Array.isArray(facturas) && facturas.length ? facturas[0] : null;
+  const { data, error } = await supabase.from("facturas").select("*").eq("negocio_id", negocioId).eq("numero_factura", numeroFactura).maybeSingle();
+  throwSupabaseError(error, "No se pudo comprobar si la factura ya existe");
+  return facturaFromDb(data);
 }
 
-export async function createFactura(factura, { negocioId = getNegocioActivoId(), usuario } = {}) {
-  if (!factura?.proveedor) {
-    throw new Error("La factura no tiene un proveedor identificado.");
-  }
+export async function createFactura(factura, { negocioId = requireNegocioId(), usuario } = {}) {
+  if (!factura?.proveedor) throw new Error("La factura no tiene un proveedor identificado.");
+  if (!factura?.numeroFactura) throw new Error("La factura no tiene un número identificado.");
+  if (factura?.total == null) throw new Error("La factura no tiene un total identificado.");
+  if (await buscarFacturaPorNumero(factura.numeroFactura, negocioId)) throw new Error("Esta factura ya fue registrada en el negocio activo.");
 
-  if (!factura?.numeroFactura) {
-    throw new Error("La factura no tiene un número identificado.");
-  }
-
-  if (factura?.total == null) {
-    throw new Error("La factura no tiene un total identificado.");
-  }
-
-  const existente = await buscarFacturaPorNumero(factura.numeroFactura, negocioId);
-  if (existente) {
-    throw new Error("Esta factura ya fue registrada en el negocio activo.");
-  }
-
-  const registro = {
-    negocioId,
-    proveedor: factura.proveedor ?? null,
-    numeroFactura: factura.numeroFactura ?? null,
-    fecha: factura.fecha ?? null,
-    moneda: factura.moneda ?? null,
-    subtotal: factura.subtotal ?? null,
-    descuento: factura.descuento ?? null,
-    impuesto: factura.impuesto ?? null,
-    total: factura.total ?? null,
-    productos: Array.isArray(factura.productos) ? factura.productos : [],
-    registradoPorId: usuario?.id ?? null,
-    registradoPorNombre: usuario?.nombre ?? null,
-    fechaRegistro: new Date().toISOString(),
-    origen: "facturas-ia",
-  };
-
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(registro),
-  });
-
-  if (!response.ok) {
-    throw new Error("No se pudo registrar la factura en Sweet Cost.");
-  }
-
-  return response.json();
+  const row = facturaToDb({ ...factura, id: createId(), registradoPorId: usuario?.id ?? null, registradoPorNombre: usuario?.nombre ?? null }, negocioId);
+  const { data, error } = await supabase.from("facturas").insert(row).select("*").single();
+  throwSupabaseError(error, "No se pudo registrar la factura en Sweet Cost.");
+  return facturaFromDb(data);
 }
-
 
 export async function deleteFactura(id) {
   if (!id) return false;
-
-  const response = await fetch(`${API_URL}/${id}`, {
-    method: "DELETE",
-  });
-
-  if (!response.ok) {
-    throw new Error("No se pudo revertir el registro de la factura.");
-  }
-
+  const negocioId = requireNegocioId();
+  const { error } = await supabase.from("facturas").delete().eq("id", id).eq("negocio_id", negocioId);
+  throwSupabaseError(error, "No se pudo revertir el registro de la factura.");
   return true;
 }

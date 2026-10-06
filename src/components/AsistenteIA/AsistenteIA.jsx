@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import FilterSelect from "../common/FilterSelect";
 import { useNavigate } from "react-router-dom";
 import { consultarFacturasIA } from "../../services/aiServices";
 import { createFactura, deleteFactura } from "../../services/facturaServices";
@@ -127,11 +128,18 @@ function FacturaRevision({ facturaInicial, onConfirm, confirmando }) {
 
         <label>
           Moneda
-          <select value={factura.moneda || "CRC"} onChange={(e) => cambiarFactura("moneda", e.target.value)}>
-            <option value="CRC">CRC</option>
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-          </select>
+          <FilterSelect
+            id="ai-moneda"
+            value={factura.moneda || "CRC"}
+            options={[
+              { valor: "CRC", nombre: "CRC" },
+              { valor: "USD", nombre: "USD" },
+              { valor: "EUR", nombre: "EUR" },
+            ]}
+            onChange={(value) => cambiarFactura("moneda", value)}
+            className="ai-form-filter-select"
+            portalMenu
+          />
         </label>
 
         <label>
@@ -192,10 +200,15 @@ function FacturaRevision({ facturaInicial, onConfirm, confirmando }) {
 
                 <label>
                   Tipo
-                  <select value={producto.tipoRegistro} onChange={(e) => cambiarProducto(index, "tipoRegistro", e.target.value)} disabled={confirmando}>
-                    <option value="insumo">Insumo</option>
-                    <option value="producto">Producto</option>
-                  </select>
+                  <FilterSelect
+                    id={`ai-tipo-registro-${index}`}
+                    value={producto.tipoRegistro}
+                    options={[{ valor: "insumo", nombre: "Insumo" }, { valor: "producto", nombre: "Producto" }]}
+                    onChange={(value) => cambiarProducto(index, "tipoRegistro", value)}
+                    disabled={confirmando}
+                    className="ai-form-filter-select"
+                    portalMenu
+                  />
                 </label>
 
                 <label>
@@ -205,9 +218,15 @@ function FacturaRevision({ facturaInicial, onConfirm, confirmando }) {
 
                 <label>
                   Unidad
-                  <select value={producto.unidad} onChange={(e) => cambiarProducto(index, "unidad", e.target.value)} disabled={confirmando}>
-                    {UNIDADES.map((unidad) => <option key={unidad} value={unidad}>{unidad}</option>)}
-                  </select>
+                  <FilterSelect
+                    id={`ai-unidad-${index}`}
+                    value={producto.unidad}
+                    options={UNIDADES.map((unidad) => ({ valor: unidad, nombre: unidad }))}
+                    onChange={(value) => cambiarProducto(index, "unidad", value)}
+                    disabled={confirmando}
+                    className="ai-form-filter-select"
+                    portalMenu
+                  />
                 </label>
 
                 <label>
@@ -229,9 +248,15 @@ function FacturaRevision({ facturaInicial, onConfirm, confirmando }) {
                   <>
                     <label>
                       Tipo de producto
-                      <select value={producto.tipoProducto} onChange={(e) => cambiarProducto(index, "tipoProducto", e.target.value)} disabled={confirmando}>
-                        {TIPOS_PRODUCTO.map((tipo) => <option key={tipo} value={tipo}>{tipo}</option>)}
-                      </select>
+                      <FilterSelect
+                        id={`ai-tipo-producto-${index}`}
+                        value={producto.tipoProducto}
+                        options={TIPOS_PRODUCTO.map((tipo) => ({ valor: tipo, nombre: tipo }))}
+                        onChange={(value) => cambiarProducto(index, "tipoProducto", value)}
+                        disabled={confirmando}
+                        className="ai-form-filter-select"
+                        portalMenu
+                      />
                     </label>
 
                     <label>

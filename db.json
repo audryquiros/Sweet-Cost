@@ -560,12 +560,44 @@
   ],
   "recuperaciones": [
     {
-      "empleadoId": "=s9Nv9exWYZ8",
-      "correo": "=audryquirosc@gmail.com",
-      "token": "=TwGCJchvl24pKBNhgsjiy9kr4JjL6e4B7AeOnXV8YM8zmLewCoes7dULOzLpucDx",
-      "expira": "=2026-10-05T21:31:09.723Z",
+      "empleadoId": "s9Nv9exWYZ8",
+      "correo": "audryquirosc@gmail.com",
+      "token": "ETKxS1Kk9TOc4OvlYnz9n5QMAuwxcULoWBULGP3zkKAxAeNPcEyIbllwTlcdB7cH",
+      "expira": "2026-10-06T05:25:12.576Z",
+      "usado": "false",
+      "id": "BstJpLXOs_Q"
+    },
+    {
+      "empleadoId": "s9Nv9exWYZ8",
+      "correo": "audryquirosc@gmail.com",
+      "token": "l7Do10KZVizgxj1mfg683YKN6io0nw9ga4fqz4WuDE8LRga1clnowJY2ApCEJc3Q",
+      "expira": "2026-10-06T05:29:40.213Z",
+      "usado": "{{ false }}",
+      "id": "iNIksmD1Y5c"
+    },
+    {
+      "empleadoId": "s9Nv9exWYZ8",
+      "correo": "audryquirosc@gmail.com",
+      "token": "tomtFq4vGYpBGQM6rtz13Hpp6lnsfRSouNmN4DwRpeAKrc0R90uQPpzIp5YPCSy2",
+      "expira": "2026-10-06T05:30:40.520Z",
       "usado": false,
-      "id": "EhojkqFIRIk"
+      "id": "tkxku92XLu8"
+    },
+    {
+      "empleadoId": "s9Nv9exWYZ8",
+      "correo": "audryquirosc@gmail.com",
+      "token": "VtZTx35q6dR1iPvclLPSzV5ChskYmnuHf1rXUgmExwtE6xGbXmugWM3rK1ylWIeM",
+      "expira": "2026-10-06T05:35:17.114Z",
+      "usado": false,
+      "id": "8ujpyape_Rw"
+    },
+    {
+      "empleadoId": "s9Nv9exWYZ8",
+      "correo": "audryquirosc@gmail.com",
+      "token": "5V4O4DAEsT3LCGKLy1EzSuMLFPZLScAB4VTVh6Qymkmd18CQiNP9Fv4AUzG6dK2r",
+      "expira": "2026-10-06T05:38:25.884Z",
+      "usado": false,
+      "id": "lfzFZEZsf7A"
     }
   ],
   "facturas": [],

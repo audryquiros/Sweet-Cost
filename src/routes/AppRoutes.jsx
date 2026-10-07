@@ -42,9 +42,32 @@ function AppContent() {
   const location = useLocation();
   const [negocioVersion, setNegocioVersion] = useState(0);
 
+  // Supabase puede devolver el enlace de recuperación con un `code`
+  // o con `type=recovery` en query/hash, dependiendo del flujo de Auth.
+  // Si por alguna razón el proveedor devuelve al sitio raíz, debemos
+  // llevar al usuario a la pantalla de nueva contraseña antes de que
+  // PrivateRoute pueda renderizar el Dashboard.
+  const esRecuperacion = (() => {
+    if (location.pathname === "/restablecer-contrasena") return true;
+
+    const searchParams = new URLSearchParams(location.search);
+    const hashParams = new URLSearchParams(location.hash.replace(/^#/, ""));
+
+    return (
+      searchParams.get("type") === "recovery" ||
+      searchParams.has("code") ||
+      hashParams.get("type") === "recovery"
+    );
+  })();
+
   const esAcceso =
     location.pathname === "/login" ||
-    location.pathname === "/seleccionar-negocio";
+    location.pathname === "/seleccionar-negocio" ||
+    location.pathname === "/restablecer-contrasena";
+
+  if (esRecuperacion && location.pathname !== "/restablecer-contrasena") {
+    return <Navigate to="/restablecer-contrasena" replace />;
+  }
 
   useEffect(() => {
     const handleNegocioCambio = () => {

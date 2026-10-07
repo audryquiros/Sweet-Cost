@@ -317,6 +317,17 @@ export function AuthProvider({ children }) {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        // El enlace de recuperación crea una sesión temporal de Supabase.
+        // No debemos tratarla como un login normal ni enviar al usuario al
+        // Dashboard. La pantalla RestablecerContrasena utilizará esta sesión
+        // para ejecutar updateUser({ password }).
+        if (event === "PASSWORD_RECOVERY") {
+          if (window.location.pathname !== "/restablecer-contrasena") {
+            window.location.replace("/restablecer-contrasena");
+          }
+          return;
+        }
+
         if (event === "SIGNED_OUT" || !session?.user) {
           setUsuario(null);
           limpiarSesion();

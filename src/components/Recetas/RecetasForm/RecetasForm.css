@@ -553,3 +553,199 @@
 .receta-form-group .tabla-label-mobile:nth-of-type(1)::before { background-image: url("/illustrations/productos-cupcake.png"); }
 .receta-form-group .tabla-label-mobile:nth-of-type(2)::before { background-image: url("/illustrations/bascula.png"); }
 .receta-form-group .tabla-label-mobile:nth-of-type(3)::before { background-image: url("/illustrations/unidad.png"); }
+
+/* =========================================================
+   Sweet Cost · formulario de recetas en móvil
+   La tabla se transforma en tarjetas para evitar overflow
+   horizontal y mantener todos los campos utilizables.
+   ========================================================= */
+@media (max-width: 777px) {
+  .recetas-form {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 18px 16px;
+    overflow: visible;
+  }
+
+  .recetas-form-header {
+    margin-bottom: 18px;
+  }
+
+  .recetas-form-header h2 {
+    font-size: calc(20px * var(--sc-font-scale, 1));
+    line-height: 1.2;
+  }
+
+  .recetas-form-header p {
+    font-size: calc(12px * var(--sc-font-scale, 1));
+    line-height: 1.45;
+  }
+
+  .recetas-form form {
+    width: 100%;
+    min-width: 0;
+    gap: 12px;
+  }
+
+  .receta-form-group {
+    min-width: 0;
+  }
+
+  .receta-form-group input,
+  .receta-form-group select,
+  .receta-form-filter-select {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .receta-ingredientes {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin-top: 8px;
+    padding-top: 16px;
+  }
+
+  .receta-ingredientes-header {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .receta-ingredientes-header h3 {
+    font-size: calc(16px * var(--sc-font-scale, 1));
+  }
+
+  .receta-ingredientes-header p {
+    line-height: 1.4;
+  }
+
+  .btn-agregar-ingrediente {
+    width: 100%;
+    min-height: 40px;
+  }
+
+  .ingredientes-tabla-contenedor {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+
+  .ingredientes-tabla {
+    width: 100%;
+    min-width: 0;
+    display: block;
+    table-layout: auto;
+  }
+
+  .ingredientes-tabla thead {
+    display: none;
+  }
+
+  .ingredientes-tabla tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ingredientes-tabla tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid var(--sc-border);
+    border-radius: 10px;
+    background: var(--sc-surface-soft);
+    box-shadow: none;
+  }
+
+  .ingredientes-tabla tbody tr.ingrediente-activo {
+    border-color: var(--sc-primary);
+    box-shadow: 0 0 0 2px rgba(155, 126, 222, .08);
+  }
+
+  .ingredientes-tabla td,
+  .ingredientes-tabla tbody tr:last-child td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .tabla-label-mobile {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--sc-text-soft);
+    font-size: calc(10px * var(--sc-font-scale, 1));
+    font-weight: 700;
+  }
+
+  .ingredientes-tabla .filter-select,
+  .ingredientes-tabla input,
+  .ingredientes-tabla select {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .ingredientes-tabla .filter-select-trigger,
+  .ingredientes-tabla input {
+    min-height: 40px;
+    height: 40px;
+  }
+
+  .ingredientes-tabla .tabla-accion {
+    text-align: left;
+  }
+
+  .ingredientes-tabla .btn-eliminar-ingrediente {
+    width: 100%;
+    min-height: 40px;
+    height: 40px;
+  }
+
+  .ingredientes-tabla-vacia {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+    height: auto;
+    padding: 18px !important;
+    text-align: center;
+    border: 1px dashed var(--sc-border-strong) !important;
+    border-radius: 10px;
+    background: var(--sc-surface-soft) !important;
+  }
+
+  .recetas-form-actions {
+    width: 100%;
+    margin-top: 6px;
+    gap: 8px;
+  }
+
+  .recetas-form-actions button {
+    min-height: 42px;
+  }
+}
+
+@media (max-width: 390px) {
+  .recetas-form {
+    padding: 16px 13px;
+  }
+
+  .recetas-form-header h2 {
+    font-size: calc(19px * var(--sc-font-scale, 1));
+  }
+
+  .receta-ingredientes-header h3 {
+    font-size: calc(15px * var(--sc-font-scale, 1));
+  }
+}

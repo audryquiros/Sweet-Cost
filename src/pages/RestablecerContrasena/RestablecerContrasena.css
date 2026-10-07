@@ -67,3 +67,25 @@ html[data-theme="oscuro"] .reset-card > a:last-child { color: #c8aaf0; }
   outline: 2px solid var(--sc-primary, #9b7ede);
   outline-offset: 1px;
 }
+
+.reset-msg--info {
+  background: #f1ebf7;
+  color: #6d4c8d;
+  border: 1px solid #e3d6ed;
+}
+
+.reset-invalid {
+  display: grid;
+  gap: 12px;
+}
+
+.reset-invalid button {
+  width: 100%;
+  cursor: pointer;
+}
+
+html[data-theme="oscuro"] .reset-msg--info {
+  background: #382b43;
+  color: #e5cdf5;
+  border-color: #594768;
+}

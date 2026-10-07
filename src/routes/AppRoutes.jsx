@@ -65,10 +65,6 @@ function AppContent() {
     location.pathname === "/seleccionar-negocio" ||
     location.pathname === "/restablecer-contrasena";
 
-  if (esRecuperacion && location.pathname !== "/restablecer-contrasena") {
-    return <Navigate to="/restablecer-contrasena" replace />;
-  }
-
   useEffect(() => {
     const handleNegocioCambio = () => {
       // Remonta la vista actual al cambiar de negocio para que cualquier
@@ -125,6 +121,13 @@ function AppContent() {
       stopSpeech();
     };
   }, []);
+
+  // IMPORTANTE: todos los Hooks deben ejecutarse antes de cualquier return
+  // condicional. Si el enlace de recuperación llega a la raíz, mostramos
+  // directamente la pantalla de restablecimiento sin pasar por el Dashboard.
+  if (esRecuperacion && location.pathname !== "/restablecer-contrasena") {
+    return <Navigate to="/restablecer-contrasena" replace />;
+  }
 
   return (
     <>

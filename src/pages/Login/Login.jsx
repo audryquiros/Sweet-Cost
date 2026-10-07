@@ -27,7 +27,10 @@ function Login() {
   const location = useLocation();
 
   const [correo, setCorreo] = useState(
-    () => localStorage.getItem("sweetcost-recordar-correo") || ""
+    () =>
+      location.state?.correoRestablecido ||
+      localStorage.getItem("sweetcost-recordar-correo") ||
+      ""
   );
   const [clave, setClave] = useState("");
   const [mostrarClave, setMostrarClave] = useState(false);

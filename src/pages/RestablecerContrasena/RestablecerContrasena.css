@@ -30,40 +30,50 @@ html[data-theme="oscuro"] .reset-card > a:last-child { color: #c8aaf0; }
 }
 
 
+
+/* El control de visibilidad usa el mismo icono y proporciones que Login. */
 .reset-password-field {
   position: relative;
-  display: flex;
-  align-items: center;
 }
 
 .reset-password-field input {
   width: 100%;
-  padding-right: 46px;
+  box-sizing: border-box;
+  padding-right: 48px;
 }
 
 .reset-password-toggle {
   position: absolute;
-  right: 8px;
   top: 50%;
+  right: 9px;
+  width: 32px;
+  height: 32px;
   transform: translateY(-50%);
-  width: 34px;
-  height: 34px;
   display: grid;
   place-items: center;
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: var(--sc-text-soft, #776d7d);
+  color: #8b778e;
   cursor: pointer;
   padding: 0;
 }
 
 .reset-password-toggle:hover {
-  background: var(--sc-lavender, #d8c8f2);
-  color: var(--sc-primary-dark, #6d4c8d);
+  background: #f3ebf8;
+  color: #6d4c8d;
 }
 
-.reset-password-toggle:focus-visible {
-  outline: 2px solid var(--sc-primary, #9b7ede);
-  outline-offset: 1px;
+.reset-eye-icon {
+  width: 18px;
+  height: 18px;
+}
+
+html[data-theme="oscuro"] .reset-password-toggle {
+  color: #c4afca;
+}
+
+html[data-theme="oscuro"] .reset-password-toggle:hover {
+  background: #44354d;
+  color: #f5c1d0;
 }

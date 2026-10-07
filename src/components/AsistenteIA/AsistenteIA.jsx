@@ -292,10 +292,25 @@ function FacturaRevision({ facturaInicial, onConfirm, confirmando }) {
   );
 }
 
-function Mensaje({ item }) {
+function Mensaje({ item, onSuggestion }) {
   return (
     <div className={`ai-chat-message ai-chat-message--${item.autor}`}>
       <div className="ai-chat-bubble">{item.texto}</div>
+
+      {item.sugerencias?.length > 0 && (
+        <div className="ai-chat-suggestions" aria-label="Ayudas rápidas">
+          {item.sugerencias.map((sugerencia) => (
+            <button
+              key={sugerencia}
+              type="button"
+              className="ai-chat-suggestion"
+              onClick={() => onSuggestion?.(sugerencia)}
+            >
+              {sugerencia}
+            </button>
+          ))}
+        </div>
+      )}
 
       {item.factura && !item.confirmado && (
         <div className="ai-invoice-preview">
@@ -332,12 +347,14 @@ export default function AsistenteIA() {
   const [mensaje, setMensaje] = useState("");
   const [archivo, setArchivo] = useState(null);
   const [enviando, setEnviando] = useState(false);
+  const [archivoActualEnviando, setArchivoActualEnviando] = useState(false);
   const [mensajes, setMensajes] = useState([
     {
       id: "inicio",
       autor: "ia",
       texto:
-        "Hola. Soy el asistente de Sweet Cost. Puedes subir una factura para extraer sus datos, revisarlos, editar qué se agregará al inventario y confirmar el registro.",
+        "Puedo ayudarte a revisar una factura antes de agregarla al inventario. Sube un PDF o una imagen y extraeré sus datos para que puedas comprobarlos, corregirlos y decidir qué líneas registrar.",
+      sugerencias: ["Extraer datos", "Revisar factura", "Detectar errores", "Clasificar líneas"],
     },
   ]);
   const fileRef = useRef(null);
@@ -376,6 +393,17 @@ export default function AsistenteIA() {
   const agregar = (item) =>
     setMensajes((actuales) => [...actuales, { id: `${Date.now()}-${Math.random()}`, ...item }]);
 
+  const usarSugerencia = (sugerencia) => {
+    const mensajesSugerencia = {
+      "Extraer datos": "Extrae los datos de la factura.",
+      "Revisar factura": "Revisa la factura y dime qué datos debería comprobar antes de registrarla.",
+      "Detectar errores": "Revisa la factura y dime si encuentras datos que parezcan inconsistentes o incompletos.",
+      "Clasificar líneas": "Ayúdame a clasificar las líneas de la factura como productos (ingredientes) o insumos (empaques/desechables).",
+    };
+
+    setMensaje(mensajesSugerencia[sugerencia] || sugerencia);
+  };
+
   const enviar = async () => {
     if ((!mensaje.trim() && !archivo) || enviando) return;
 
@@ -387,6 +415,7 @@ export default function AsistenteIA() {
     if (fileRef.current) fileRef.current.value = "";
 
     agregar({ autor: "usuario", texto: textoUsuario });
+    setArchivoActualEnviando(Boolean(archivoActual));
     setEnviando(true);
 
     try {
@@ -407,6 +436,7 @@ export default function AsistenteIA() {
       agregar({ autor: "ia", texto: error.message || "No pude procesar la solicitud.", error: true });
     } finally {
       setEnviando(false);
+      setArchivoActualEnviando(false);
     }
   };
 
@@ -545,15 +575,23 @@ export default function AsistenteIA() {
           </header>
 
           <div className="ai-chat-list" ref={listRef}>
-            {mensajes.map((item) => <Mensaje key={item.id} item={item} />)}
+            {mensajes.map((item) => <Mensaje key={item.id} item={item} onSuggestion={usarSugerencia} />)}
             {enviando && (
               <div className="ai-chat-message ai-chat-message--ia">
-                <div className="ai-chat-bubble ai-chat-loading">Procesando factura...</div>
+                <div className="ai-chat-bubble ai-chat-loading">
+                  {archivoActualEnviando ? "Analizando factura..." : "Pensando..."}
+                </div>
               </div>
             )}
           </div>
 
           <div className="ai-chat-file">
+            {!archivo && (
+              <div className="ai-chat-file-help">
+                <span>Comienza adjuntando una factura</span>
+                <small>PDF, PNG, JPG o WEBP</small>
+              </div>
+            )}
             {archivo ? (
               <div className="ai-file-chip">
                 <span>{archivo.name}</span>

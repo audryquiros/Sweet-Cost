@@ -673,6 +673,7 @@ function RecetasForm({
                             ]}
                             onChange={(value) => {
                               seleccionarProducto(indice, value);
+                              seleccionarIngrediente(indice);
                             }}
                             className="receta-form-filter-select"
                             portalMenu

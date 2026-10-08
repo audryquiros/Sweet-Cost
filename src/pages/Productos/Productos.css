@@ -415,3 +415,107 @@
     min-width: 980px !important;
   }
 }
+
+/* =========================================================
+   PRODUCTOS · LISTA ARMONIZADA CON INSUMOS
+   ========================================================= */
+
+.productos-lista-vista {
+  width: 100%;
+  overflow-x: auto;
+  background: var(--sc-surface);
+  border: 1px solid #e8e0ed;
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+.productos-lista-header,
+.producto-lista-item {
+  min-width: 930px !important;
+  grid-template-columns: 1.55fr .8fr 1fr .95fr 1.15fr .9fr 1.25fr !important;
+}
+
+.productos-lista-header {
+  min-height: 48px !important;
+  padding: 0 18px !important;
+  background: var(--sc-surface-soft);
+  border-bottom: 1px solid #e8e0ed;
+  color: #776d7d;
+  font-size: calc(11px * var(--sc-font-scale, 1));
+}
+
+.producto-lista-item {
+  min-height: 82px !important;
+  padding: 12px 18px !important;
+  background: var(--sc-surface);
+  border-bottom: 1px solid #eee8f2;
+  font-size: calc(12px * var(--sc-font-scale, 1));
+}
+
+.producto-lista-item:hover {
+  background: #fdfafd;
+}
+
+.producto-lista-nombre {
+  color: #352d3d;
+  font-size: calc(14px * var(--sc-font-scale, 1));
+  font-weight: 700;
+}
+
+.producto-lista-marca {
+  margin-top: 4px;
+  color: #8a8090;
+  font-size: calc(11px * var(--sc-font-scale, 1));
+}
+
+.producto-lista-dato,
+.producto-lista-costo {
+  padding: 0 !important;
+}
+
+.producto-lista-dato strong,
+.producto-lista-costo strong {
+  color: #413748;
+  font-size: calc(12px * var(--sc-font-scale, 1));
+}
+
+.producto-lista-costo {
+  margin-right: 10px;
+  padding: 9px 11px !important;
+  background: #f8f2fc;
+  border-radius: 8px;
+}
+
+.producto-lista-costo strong {
+  color: #6d4c8d;
+}
+
+.producto-lista-label {
+  display: none !important;
+}
+
+.producto-lista-acciones {
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  padding-left: 0 !important;
+}
+
+.producto-lista-acciones button {
+  width: 88px !important;
+  min-width: 88px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  padding: 0 9px !important;
+  gap: 6px !important;
+  border-radius: 8px !important;
+  font-size: calc(10px * var(--sc-font-scale, 1)) !important;
+}
+
+.producto-lista-acciones button::before {
+  content: none !important;
+}
+
+.producto-lista-acciones button .icon-illustration {
+  width: 19px !important;
+  height: 19px !important;
+}

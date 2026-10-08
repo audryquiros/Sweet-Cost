@@ -1,143 +1,97 @@
 /* =========================================================
-   VISTA DE TARJETAS
+   PRODUCTOS · VISTA DE TARJETAS
    ========================================================= */
 
 .productos-grid {
   width: 100%;
-  max-width: 1375px;
-  margin: 0 auto;
-
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(280px, 1fr)
-  );
-
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
 
 
 /* =========================================================
-   VISTA DE LISTA
+   PRODUCTOS · VISTA DE LISTA
+   Mantiene el mismo lenguaje visual de Insumos,
+   adaptado a los datos propios de un producto.
    ========================================================= */
 
 .productos-lista-vista {
   width: 100%;
-  max-width: 1375px;
-  margin: 0 auto;
-
-  display: flex;
-  flex-direction: column;
-
+  overflow-x: auto;
   background: var(--sc-surface);
-
-  border: 1px solid #e4dced;
+  border: 1px solid #e8e0ed;
   border-radius: 14px;
-
-  overflow: hidden;
+  box-sizing: border-box;
 }
 
-
-/* =========================================================
-   ENCABEZADO DE LA LISTA
-   ========================================================= */
+.productos-lista-header,
+.producto-lista-item {
+  min-width: 930px;
+  display: grid;
+  grid-template-columns: 1.55fr 0.8fr 1fr 0.95fr 1.15fr 0.9fr 1.25fr;
+  align-items: center;
+  box-sizing: border-box;
+}
 
 .productos-lista-header {
-  display: grid;
-
-  grid-template-columns:
-    minmax(210px, 1.7fr)
-    minmax(90px, 0.7fr)
-    minmax(120px, 1fr)
-    minmax(110px, 0.9fr)
-    minmax(120px, 1fr)
-    minmax(100px, 0.8fr)
-    184px;
-
-  align-items: center;
-
   min-height: 48px;
-
   padding: 0 18px;
-
   background: var(--sc-surface-soft);
-
-  border-bottom: 1px solid #e4dced;
-
-  color: #6d4c8d;
-
-  font-size: calc(12px * var(--sc-font-scale, 1));
+  border-bottom: 1px solid #e8e0ed;
+  color: #776d7d;
+  font-size: calc(11px * var(--sc-font-scale, 1));
   font-weight: 700;
 }
 
-
-/* =========================================================
-   FILA DE PRODUCTO
-   ========================================================= */
-
 .producto-lista-item {
-  display: grid;
-
-  grid-template-columns:
-    minmax(210px, 1.7fr)
-    minmax(90px, 0.7fr)
-    minmax(120px, 1fr)
-    minmax(110px, 0.9fr)
-    minmax(120px, 1fr)
-    minmax(100px, 0.8fr)
-    184px;
-
-  align-items: center;
-
   min-height: 82px;
-
   padding: 12px 18px;
-
   background: var(--sc-surface);
-
   border-bottom: 1px solid #eee8f2;
-
-  transition: background-color 0.2s ease;
+  color: #51485a;
+  font-size: calc(12px * var(--sc-font-scale, 1));
+  transition: background-color 0.16s ease;
 }
 
 .producto-lista-item:last-child {
-  border-bottom: none;
+  border-bottom: 0;
 }
 
 .producto-lista-item:hover {
-  background-color: #fcf9fe;
+  background: #fdfafd;
 }
 
+.producto-lista-item > div {
+  min-width: 0;
+  padding-right: 12px;
+}
 
 /* =========================================================
-   INFORMACIÓN PRINCIPAL
+   PRODUCTO
    ========================================================= */
 
 .producto-lista-producto {
   min-width: 0;
-  padding-right: 14px;
 }
 
 .producto-lista-nombre {
-  margin-bottom: 3px;
-
-  color: #25203a;
-
-  font-size: calc(15px * var(--sc-font-scale, 1));
+  display: block;
+  color: #352d3d;
+  font-size: calc(14px * var(--sc-font-scale, 1));
   font-weight: 700;
-
+  line-height: 1.25;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .producto-lista-marca {
-  margin-bottom: 7px;
-
-  color: #806f8d;
-
-  font-size: calc(12px * var(--sc-font-scale, 1));
-
+  display: block;
+  margin-top: 4px;
+  color: #8a8090;
+  font-size: calc(11px * var(--sc-font-scale, 1));
+  line-height: 1.25;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -145,41 +99,34 @@
 
 
 /* =========================================================
-   ETIQUETAS
+   TIPO · MISMAS ETIQUETAS DE LA VISTA DE TARJETAS
    ========================================================= */
 
-.producto-lista-etiquetas {
-  display: flex;
+.producto-lista-tipo-columna .producto-tipo {
+  display: inline-flex;
   align-items: center;
-  flex-wrap: wrap;
-
-  gap: 5px;
-}
-
-
-/* Topping */
-
-.producto-lista-tipo {
-  background-color: #f6dfe7;
-  color: #9a5366;
-}
-
-
-/* Salsa */
-
-.producto-lista-tipo.tipo-salsa {
-  background-color: #e7ddf5;
+  min-height: 23px;
+  padding: 0 9px;
+  border-radius: 20px;
+  background-color: #d8c8f2;
   color: #6d4c8d;
+  font-size: calc(11px * var(--sc-font-scale, 1));
+  font-weight: 600;
+  line-height: 1;
+  text-transform: capitalize;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
 
-
-/* Ingrediente */
-
-.producto-lista-tipo.tipo-ingrediente {
-  background-color: #eee9df;
-  color: #75654d;
+.producto-lista-tipo-columna .tipo-topping {
+  background-color: #f3dce1;
+  color: #8f5260;
 }
 
+.producto-lista-tipo-columna .tipo-salsa {
+  background-color: #eadfdc;
+  color: #594044;
+}
 
 /* =========================================================
    DATOS
@@ -188,110 +135,73 @@
 .producto-lista-dato,
 .producto-lista-costo {
   min-width: 0;
-
-  padding: 0 12px;
-
-  box-sizing: border-box;
-}
-
-.producto-lista-label {
-  display: block;
-
-  margin-bottom: 4px;
-
-  color: #8a7c91;
-
-  font-size: calc(10px * var(--sc-font-scale, 1));
 }
 
 .producto-lista-dato strong,
 .producto-lista-costo strong {
   display: block;
-
-  color: #2b243b;
-
-  font-size: calc(13px * var(--sc-font-scale, 1));
+  color: #413748;
+  font-size: calc(12px * var(--sc-font-scale, 1));
   font-weight: 700;
-
+  line-height: 1.35;
   white-space: nowrap;
-
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-
-/* =========================================================
-   COSTO UNITARIO
-   ========================================================= */
-
 .producto-lista-costo {
-  padding: 8px 12px;
-
-  background-color: #f7f0fb;
-
+  margin-right: 10px;
+  padding: 9px 11px;
+  background: #f8f2fc;
   border-radius: 8px;
-}
-
-.producto-lista-costo .producto-lista-label {
-  color: #806c91;
 }
 
 .producto-lista-costo strong {
   color: #6d4c8d;
 }
 
-
-/* =========================================================
-   SIN DATO
-   ========================================================= */
-
 .producto-lista-sin-dato {
   color: #aaa1ae;
-  font-size: calc(13px * var(--sc-font-scale, 1));
+  font-size: calc(12px * var(--sc-font-scale, 1));
 }
 
-
 /* =========================================================
-   ACCIONES
+   ACCIONES · MISMO ESTILO QUE INSUMOS
    ========================================================= */
 
 .producto-lista-acciones {
-  display: flex;
+  display: flex !important;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start !important;
   gap: 8px;
-  padding-left: 8px;
+  padding-left: 0;
+  white-space: nowrap;
 }
 
 .producto-lista-acciones button {
-  width: 82px;
-  min-width: 82px;
+  width: 88px;
+  min-width: 88px;
   height: 38px;
   min-height: 38px;
   padding: 0 9px;
-
-  display: inline-flex;
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
   gap: 6px;
-
   box-sizing: border-box;
   border-radius: 8px;
-  background: var(--sc-surface);
-  font-family: inherit;
-  font-size: calc(11px * var(--sc-font-scale, 1));
-  font-weight: 600;
   line-height: 1;
-  white-space: nowrap;
+  font-family: inherit;
+  font-size: calc(10px * var(--sc-font-scale, 1));
+  font-weight: 600;
   cursor: pointer;
 }
 
-.producto-lista-acciones button img {
+.producto-lista-acciones button .icon-illustration {
   width: 19px;
   height: 19px;
-  object-fit: contain;
-  display: block;
   flex: 0 0 19px;
+  display: block;
 }
 
 .producto-lista-acciones button span {
@@ -300,115 +210,25 @@
   line-height: 1;
 }
 
-
-/* Editar */
-
 .producto-lista-acciones .btn-editar {
-  border: 1px solid #9b7ede;
+  border: 1px solid #ded2e7;
+  background: var(--sc-surface);
   color: #6d4c8d;
 }
 
 .producto-lista-acciones .btn-editar:hover {
-  background-color: #f5effb;
+  background: #f5eff9;
 }
 
-
-/* Eliminar */
-
 .producto-lista-acciones .btn-eliminar {
-  border: 1px solid #e58c8c;
-  color: #d95353;
+  border: 1px solid #edd7dd;
+  background: var(--sc-surface);
+  color: #9b5968;
 }
 
 .producto-lista-acciones .btn-eliminar:hover {
-  background-color: #fff4f4;
+  background: #fdf0f2;
 }
-
-
-/* =========================================================
-   ESTADO VACÍO
-   ========================================================= */
-
-.productos-vacio {
-  width: 100%;
-  max-width: 1375px;
-
-  margin: 0 auto;
-
-  padding: 55px 20px;
-
-  text-align: center;
-
-  background-color: var(--sc-surface);
-
-  border: 1px dashed #d8c8f2;
-  border-radius: 14px;
-
-  box-sizing: border-box;
-}
-
-.productos-vacio h3 {
-  margin: 0 0 8px;
-
-  color: #6d4c8d;
-
-  font-size: calc(18px * var(--sc-font-scale, 1));
-}
-
-.productos-vacio p {
-  max-width: 400px;
-
-  margin: 0 auto;
-
-  color: #776d7d;
-
-  font-size: calc(14px * var(--sc-font-scale, 1));
-
-  line-height: 1.5;
-}
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 1250px) {
-  .productos-grid,
-  .productos-lista-vista,
-  .productos-vacio {
-    max-width: 100%;
-  }
-
-  .productos-lista-header,
-  .producto-lista-item {
-    grid-template-columns:
-      minmax(180px, 1.5fr)
-      minmax(80px, 0.7fr)
-      minmax(110px, 1fr)
-      minmax(100px, 0.9fr)
-      minmax(110px, 1fr)
-      minmax(90px, 0.8fr)
-      160px;
-  }
-
-  .producto-lista-acciones {
-    flex-direction: column;
-
-    align-items: stretch;
-
-    gap: 5px;
-  }
-
-  .producto-lista-acciones button {
-    width: 100%;
-    min-width: 0;
-  }
-}
-
-
-/* =========================================================
-   TABLET PEQUEÑA
-   ========================================================= */
 
 @media (max-width: 950px) {
   .productos-lista-vista {
@@ -417,30 +237,6 @@
 
   .productos-lista-header,
   .producto-lista-item {
-    min-width: 900px;
+    min-width: 930px;
   }
 }
-
-
-/* =========================================================
-   MÓVIL
-   ========================================================= */
-
-@media (max-width: 777px) {
-  .productos-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .productos-lista-vista {
-    border-radius: 12px;
-  }
-
-  .productos-lista-header,
-  .producto-lista-item {
-    min-width: 850px;
-  }
-}
-
-/* Iconos del sistema Sweet Cost */
-button svg { flex: 0 0 auto; }

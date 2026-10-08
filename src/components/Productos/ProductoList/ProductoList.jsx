@@ -1,4 +1,5 @@
 import ProductoCard from "../ProductoCard/ProductoCard";
+import Icon from "../../common/Icon/Icon";
 import EmptyState from "../../common/EmptyState/EmptyState";
 
 import {
@@ -130,16 +131,6 @@ function ProductoList({
                 </div>
               )}
 
-              <div className="producto-lista-etiquetas">
-                {producto.tipo && (
-                  <span
-                    className={`producto-lista-tipo tipo-${producto.tipo}`}
-                  >
-                    {producto.tipo}
-                  </span>
-                )}
-
-              </div>
             </div>
 
             {/* TIPO */}
@@ -149,9 +140,11 @@ function ProductoList({
                 Tipo
               </span>
 
-              <strong>
+              <span
+                className={`producto-tipo tipo-${producto.tipo}`}
+              >
                 {producto.tipo}
-              </strong>
+              </span>
             </div>
 
             {/* DISPONIBLE */}
@@ -225,7 +218,7 @@ function ProductoList({
                 className="btn-editar sc-action-edit"
                 onClick={() => onEditar(producto)}
               >
-                <img src="/illustrations/editar.png" alt="" aria-hidden="true" />
+                <Icon type="edit" size={21} />
                 <span>Editar</span>
               </button>
 
@@ -234,7 +227,7 @@ function ProductoList({
                 className="btn-eliminar sc-action-delete"
                 onClick={() => onEliminar(producto)}
               >
-                <img src="/illustrations/eliminar.png" alt="" aria-hidden="true" />
+                <Icon type="trash" size={21} />
                 <span>Eliminar</span>
               </button>
             </div>

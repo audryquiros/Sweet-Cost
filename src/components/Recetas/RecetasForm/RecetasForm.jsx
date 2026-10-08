@@ -666,10 +666,21 @@ function RecetasForm({
                             value={ingrediente.productoId}
                             options={[
                               { valor: "", nombre: "Seleccionar producto" },
-                              ...productos.map((producto) => ({
-                                valor: producto.id,
-                                nombre: `${producto.nombre}${producto.marca ? ` - ${producto.marca}` : ""}`,
-                              })),
+                              ...productos
+                                .filter((producto) => {
+                                  const productoYaSeleccionado = formulario.ingredientes.some(
+                                    (ingredienteExistente, indiceExistente) =>
+                                      indiceExistente !== indice &&
+                                      String(ingredienteExistente.productoId) ===
+                                        String(producto.id)
+                                  );
+
+                                  return !productoYaSeleccionado;
+                                })
+                                .map((producto) => ({
+                                  valor: producto.id,
+                                  nombre: `${producto.nombre}${producto.marca ? ` - ${producto.marca}` : ""}`,
+                                })),
                             ]}
                             onChange={(value) => {
                               seleccionarProducto(indice, value);

@@ -76,3 +76,32 @@ export async function consultarFacturasIA({ mensaje, archivo, negocio, usuario, 
 
   return parseResponse(response);
 }
+
+const DENSIDAD_IA_URL = import.meta.env.VITE_N8N_DENSIDAD_URL || "";
+
+export async function estimarDensidadIA({ producto }) {
+  if (!DENSIDAD_IA_URL) {
+    throw new Error(
+      "Configura VITE_N8N_DENSIDAD_URL para estimar densidades con IA."
+    );
+  }
+
+  let response;
+
+  try {
+    response = await fetch(DENSIDAD_IA_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        accion: "estimar_densidad",
+        producto,
+      }),
+    });
+  } catch {
+    throw new Error(
+      "No se pudo conectar con el servicio de densidad IA."
+    );
+  }
+
+  return parseResponse(response);
+}

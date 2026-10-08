@@ -4,7 +4,8 @@ import {
   useState,
 } from "react";
 
-import { getProductos } from "../../services/productoServices";
+import { getProductos, updateProducto } from "../../services/productoServices";
+import { estimarDensidadIA } from "../../services/aiServices";
 import FilterSelect from "../common/FilterSelect";
 
 import "./ConversorMedidas.css";
@@ -87,6 +88,44 @@ const masaEnGramos = {
   kg: 1000,
   oz: 28.3495,
   lb: 453.592,
+};
+
+// Valores aproximados para ingredientes comunes. Se usan solo cuando
+// el producto todavía no tiene una densidad guardada.
+const densidadesConocidas = {
+  harina: 0.53,
+  azucar: 0.85,
+  sal: 1.2,
+  leche: 1.03,
+  aceite: 0.92,
+  agua: 1,
+  miel: 1.42,
+  chocolate: 0.65,
+  cacao: 0.52,
+  arroz: 0.85,
+  avena: 0.41,
+  maicena: 0.59,
+  almidon: 0.59,
+  lechecondensada: 1.28,
+};
+
+const normalizarNombre = (valor = "") =>
+  String(valor)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "");
+
+const buscarDensidadConocida = (producto) => {
+  const nombre = normalizarNombre(producto?.nombre);
+  const marca = normalizarNombre(producto?.marca);
+
+  const coincidencia = Object.entries(densidadesConocidas).find(([clave]) =>
+    nombre.includes(normalizarNombre(clave)) ||
+    marca.includes(normalizarNombre(clave))
+  );
+
+  return coincidencia ? coincidencia[1] : null;
 };
 
 /*
@@ -232,6 +271,15 @@ function ConversorMedidas({
     setDensidadPersonalizada,
   ] = useState("");
 
+  const [densidadIA, setDensidadIA] =
+    useState(null);
+
+  const [estimandoDensidad, setEstimandoDensidad] =
+    useState(false);
+
+  const [guardandoDensidad, setGuardandoDensidad] =
+    useState(false);
+
   const [resultado, setResultado] =
     useState(null);
 
@@ -268,6 +316,7 @@ function ConversorMedidas({
     }
 
     setDensidadPersonalizada("");
+    setDensidadIA(null);
 
     setResultado(null);
 
@@ -302,32 +351,111 @@ function ConversorMedidas({
       productoId,
     ]);
 
-  const obtenerDensidad = () => {
-    if (
-      densidadPersonalizada !== ""
-    ) {
-      const densidad =
-        Number(
-          densidadPersonalizada
-        );
+  const densidadConocida = useMemo(() => {
+    if (!productoSeleccionado) return null;
+    if (Number(productoSeleccionado.densidad) > 0) return null;
+    return buscarDensidadConocida(productoSeleccionado);
+  }, [productoSeleccionado]);
 
-      if (densidad > 0) {
-        return densidad;
-      }
+  const cambiarProducto = (nuevoProductoId) => {
+    setProductoId(nuevoProductoId);
+    setDensidadIA(null);
+    setDensidadPersonalizada("");
+    setResultado(null);
+    setError("");
+    setMensaje("");
+  };
+
+  const obtenerDensidad = () => {
+    if (densidadPersonalizada !== "") {
+      const densidad = Number(densidadPersonalizada);
+      if (densidad > 0) return densidad;
     }
 
-    if (
-      productoSeleccionado &&
-      Number(
-        productoSeleccionado.densidad
-      ) > 0
-    ) {
-      return Number(
-        productoSeleccionado.densidad
-      );
+    if (productoSeleccionado && Number(productoSeleccionado.densidad) > 0) {
+      return Number(productoSeleccionado.densidad);
+    }
+
+    if (densidadIA?.densidad > 0) {
+      return Number(densidadIA.densidad);
+    }
+
+    if (densidadConocida > 0) {
+      return densidadConocida;
     }
 
     return null;
+  };
+
+  const estimarDensidad = async () => {
+    if (!productoSeleccionado) {
+      setError("Selecciona un producto para estimar su densidad.");
+      return null;
+    }
+
+    setEstimandoDensidad(true);
+    setError("");
+
+    try {
+      const data = await estimarDensidadIA({
+        producto: {
+          id: productoSeleccionado.id,
+          nombre: productoSeleccionado.nombre,
+          marca: productoSeleccionado.marca || "",
+          tipo: productoSeleccionado.tipo || "",
+          unidad: productoSeleccionado.unidad || "",
+        },
+      });
+
+      const densidad = Number(data.densidad);
+      if (!Number.isFinite(densidad) || densidad <= 0) {
+        throw new Error("La IA no devolvió una densidad válida.");
+      }
+
+      const estimacion = {
+        densidad,
+        confianza: data.confianza || "media",
+        fuente: data.fuente || "IA",
+        explicacion: data.explicacion || "Estimación aproximada según el producto.",
+      };
+
+      setDensidadIA(estimacion);
+      return estimacion;
+    } catch (error) {
+      setError(error.message || "No se pudo estimar la densidad automáticamente.");
+      return null;
+    } finally {
+      setEstimandoDensidad(false);
+    }
+  };
+
+  const guardarDensidadIA = async () => {
+    if (!productoSeleccionado || !densidadIA?.densidad) return;
+
+    setGuardandoDensidad(true);
+    setError("");
+
+    try {
+      const actualizado = await updateProducto(productoSeleccionado.id, {
+        ...productoSeleccionado,
+        densidad: densidadIA.densidad,
+      });
+
+      setProductos((actuales) =>
+        actuales.map((producto) =>
+          String(producto.id) === String(actualizado.id)
+            ? actualizado
+            : producto
+        )
+      );
+
+      setDensidadIA(null);
+      setMensaje("Densidad guardada en el producto.");
+    } catch (error) {
+      setError(error.message || "No se pudo guardar la densidad en el producto.");
+    } finally {
+      setGuardandoDensidad(false);
+    }
   };
 
   const obtenerTipoUnidad = (
@@ -357,7 +485,7 @@ function ConversorMedidas({
     return null;
   };
 
-  const convertir = () => {
+  const convertir = async () => {
     setError("");
 
     setMensaje("");
@@ -491,14 +619,17 @@ function ConversorMedidas({
         tipoDestino ===
           "masa")
     ) {
-      const densidad =
-        obtenerDensidad();
+      let densidad = obtenerDensidad();
+
+      if (!densidad && productoSeleccionado) {
+        const estimacion = await estimarDensidad();
+        densidad = estimacion?.densidad || null;
+      }
 
       if (!densidad) {
         setError(
-          "Este producto no tiene una densidad registrada. Puedes agregarla desde Productos o introducir una densidad personalizada."
+          "Este producto no tiene una densidad disponible. Puedes introducirla manualmente o configurarla con IA."
         );
-
         return;
       }
 
@@ -599,6 +730,7 @@ function ConversorMedidas({
     setCantidad("1");
 
     setResultado(null);
+    setDensidadIA(null);
 
     setError("");
 
@@ -701,7 +833,7 @@ function ConversorMedidas({
                 nombre: `${producto.nombre}${producto.marca ? ` - ${producto.marca}` : ""}`,
               })),
             ]}
-            onChange={setProductoId}
+            onChange={cambiarProducto}
             className="conversor-form-filter-select"
             portalMenu
           />
@@ -713,16 +845,52 @@ function ConversorMedidas({
         </div>
 
         {productoSeleccionado && (
-          <div className="conversor-densidad-actual">
-            <span>
-              Densidad registrada
-            </span>
+          <div className="conversor-densidad-panel">
+            <div className="conversor-densidad-actual">
+              <span>
+                {productoSeleccionado.densidad
+                  ? "Densidad registrada"
+                  : densidadIA
+                    ? "Densidad estimada por IA"
+                    : densidadConocida
+                      ? "Densidad automática"
+                      : "Densidad"}
+              </span>
 
-            <strong>
-              {densidadActual
-                ? `${densidadActual} g/ml`
-                : "Sin densidad registrada"}
-            </strong>
+              <strong>
+                {densidadActual
+                  ? `${densidadActual} g/ml`
+                  : "No disponible"}
+              </strong>
+            </div>
+
+            {!productoSeleccionado.densidad && densidadConocida && !densidadIA && (
+              <small className="conversor-densidad-origen">
+                Valor aproximado para un ingrediente común. Se usará automáticamente.
+              </small>
+            )}
+
+            {densidadIA && (
+              <div className="conversor-densidad-ia">
+                <div>
+                  <strong>Estimación IA</strong>
+                  <span>Confianza: {densidadIA.confianza}</span>
+                </div>
+
+                <p>{densidadIA.explicacion}</p>
+
+                <div className="conversor-densidad-ia-actions">
+                  <button
+                    type="button"
+                    className="conversor-btn-usar-densidad"
+                    onClick={guardarDensidadIA}
+                    disabled={guardandoDensidad}
+                  >
+                    {guardandoDensidad ? "Guardando..." : "Guardar en producto"}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -754,8 +922,7 @@ function ConversorMedidas({
           </div>
 
           <small>
-            Opcional. Si la introduces, tendrá
-            prioridad sobre la densidad registrada.
+            Opcional. Si la introduces, tendrá prioridad sobre cualquier densidad automática.
           </small>
         </div>
 
@@ -772,8 +939,9 @@ function ConversorMedidas({
             type="button"
             className="conversor-btn-convertir"
             onClick={convertir}
+            disabled={estimandoDensidad}
           >
-            Convertir
+            {estimandoDensidad ? "Estimando densidad..." : "Convertir"}
           </button>
         </div>
       </div>

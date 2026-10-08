@@ -189,11 +189,11 @@ function ProductosForm({
         !Number.isFinite(
           Number(formulario.densidad)
         ) ||
-        Number(formulario.densidad) <= 0
+        Number(formulario.densidad) < 0
       )
     ) {
       setError(
-        "La densidad debe ser un valor mayor que cero."
+        "La densidad debe ser un valor igual o mayor que cero."
       );
       return;
     }
@@ -249,8 +249,11 @@ function ProductosForm({
       precioPorPresentacion:
         precioPorPresentacionNumero,
 
+      // 0 significa "sin densidad" y se guarda como null para que
+      // el conversor vuelva a considerarla opcional/no registrada.
       densidad:
-        formulario.densidad === ""
+        formulario.densidad === "" ||
+        Number(formulario.densidad) === 0
           ? null
           : Number(formulario.densidad),
 
@@ -493,8 +496,8 @@ function ProductosForm({
           />
 
           <small>
-            Úsala si necesitas convertir entre
-            volumen y peso.
+            Úsala si necesitas convertir entre volumen y peso.
+            Puedes dejarla vacía o escribir 0 para quitar la densidad.
           </small>
         </div>
 

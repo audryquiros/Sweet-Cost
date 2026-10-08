@@ -135,3 +135,22 @@
   justify-content: center;
   gap: 7px;
 }
+
+
+/* ===== Recetas · guardas de ancho en móvil ===== */
+@media (max-width: 777px) {
+  .recetas-page,
+  .recetas-header,
+  .recetas-form-layout,
+  .recetas-form,
+  .recetas-lista {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .recetas-form-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
